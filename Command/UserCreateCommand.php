@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 /**
  * User create command
@@ -42,7 +43,13 @@ class UserCreateCommand extends ContainerAwareCommand
     {
         list(, $email, $plainPassword) = array_values($input->getArguments());
 
-        $user = $this->createUser($email, $plainPassword);
+        $roles = array();
+
+        if ($this->getQuestionHelper()->ask($input, $output, new ConfirmationQuestion('Create admin (y/n, default y)? '))) {
+            $roles[] = User::ROLE_ADMIN;
+        }
+
+        $user = $this->createUser($email, $plainPassword, $roles);
 
         $violations = $this->getValidator()->validate($user);
 
@@ -73,16 +80,18 @@ class UserCreateCommand extends ContainerAwareCommand
     /**
      * @param string $email         Email
      * @param string $plainPassword Plain password
+     * @param array  $roles         Roles
      *
      * @return \Darvin\UserBundle\Entity\User
      */
-    private function createUser($email, $plainPassword)
+    private function createUser($email, $plainPassword, array $roles)
     {
         $user = new User();
 
         return $user
             ->setEmail($email)
-            ->setPlainPassword($plainPassword);
+            ->setPlainPassword($plainPassword)
+            ->setRoles($roles);
     }
 
     /**
@@ -91,6 +100,14 @@ class UserCreateCommand extends ContainerAwareCommand
     private function getEntityManager()
     {
         return $this->getContainer()->get('doctrine.orm.entity_manager');
+    }
+
+    /**
+     * @return \Symfony\Component\Console\Helper\SymfonyQuestionHelper
+     */
+    private function getQuestionHelper()
+    {
+        return $this->getHelper('question');
     }
 
     /**
