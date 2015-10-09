@@ -1,0 +1,21 @@
+parameters:
+    darvin_user.user.event_subscriber.class: Darvin\UserBundle\EventListener\UserSubscriber
+
+    darvin_user.user.manager.generic.class: Darvin\UserBundle\User\GenericUserManager
+
+services:
+    darvin_user.user.event_subscriber:
+        class:  %darvin_user.user.event_subscriber.class%
+        public: false
+        arguments:
+            - "@darvin_user.user.manager"
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    darvin_user.user.manager:
+        alias: darvin_user.user.manager.generic
+
+    darvin_user.user.manager.generic:
+        class: %darvin_user.user.manager.generic.class%
+        arguments:
+            - "@security.password_encoder"

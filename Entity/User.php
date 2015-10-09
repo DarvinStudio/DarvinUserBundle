@@ -11,6 +11,7 @@
 namespace Darvin\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints as Doctrine;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -18,9 +19,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  * User
  *
  * @ORM\Entity
+ * @Doctrine\UniqueEntity(fields={"email"})
  */
 class User implements AdvancedUserInterface
 {
+    const USER_CLASS = __CLASS__;
+
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+    const ROLE_USER  = 'ROLE_USER';
+
     /**
      * @var int
      *
@@ -47,7 +54,7 @@ class User implements AdvancedUserInterface
     /**
      * @var array
      *
-     * @ORM\Column(type="simple_array")
+     * @ORM\Column(type="simple_array", nullable=true)
      */
     private $roles;
 
@@ -95,6 +102,13 @@ class User implements AdvancedUserInterface
     private $phone;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
+    /**
      * @var string
      *
      * @Assert\NotBlank
@@ -109,6 +123,7 @@ class User implements AdvancedUserInterface
     {
         $this->locked = $locked;
         $this->enabled = $enabled;
+        $this->updatedAt = new \DateTime();
     }
 
     /**
@@ -117,6 +132,16 @@ class User implements AdvancedUserInterface
     public function __toString()
     {
         return $this->email;
+    }
+
+    /**
+     * @return User
+     */
+    public function updateSalt()
+    {
+        $this->salt = hash('sha512', uniqid(mt_rand(), true));
+
+        return $this;
     }
 
     /**
@@ -180,7 +205,10 @@ class User implements AdvancedUserInterface
      */
     public function getRoles()
     {
-        return $this->roles;
+        $roles = $this->roles;
+        $roles[] = self::ROLE_USER;
+
+        return $roles;
     }
 
     /**
@@ -348,6 +376,26 @@ class User implements AdvancedUserInterface
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTime $updatedAt updatedAt
+     *
+     * @return User
+     */
+    public function setUpdatedAt(\DateTime $updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getPlainPassword()
@@ -362,7 +410,19 @@ class User implements AdvancedUserInterface
      */
     public function setPlainPassword($plainPassword)
     {
+        $this->refreshUpdatedAt();
+
         $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+    /**
+     * @return User
+     */
+    private function refreshUpdatedAt()
+    {
+        $this->updatedAt = new \DateTime();
 
         return $this;
     }
