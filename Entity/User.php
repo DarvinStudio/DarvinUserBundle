@@ -18,15 +18,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * User
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Darvin\UserBundle\Repository\UserRepository")
  * @Doctrine\UniqueEntity(fields={"email"})
  */
 class User implements \Serializable, AdvancedUserInterface
 {
     const USER_CLASS = __CLASS__;
 
-    const ROLE_ADMIN = 'ROLE_ADMIN';
-    const ROLE_USER  = 'ROLE_USER';
+    const ROLE_ADMIN      = 'ROLE_ADMIN';
+    const ROLE_SUPERADMIN = 'ROLE_SUPERADMIN';
+    const ROLE_USER       = 'ROLE_USER';
 
     /**
      * @var int
@@ -158,6 +159,16 @@ class User implements \Serializable, AdvancedUserInterface
             $this->password,
             $this->salt,
         ) = unserialize($serialized);
+    }
+
+    /**
+     * @return User
+     */
+    public function generateRandomPlainPassword()
+    {
+        $this->plainPassword = hash('sha512', uniqid(mt_rand(), true));
+
+        return $this;
     }
 
     /**
