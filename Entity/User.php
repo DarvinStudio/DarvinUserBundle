@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @Doctrine\UniqueEntity(fields={"email"})
  */
-class User implements AdvancedUserInterface
+class User implements \Serializable, AdvancedUserInterface
 {
     const USER_CLASS = __CLASS__;
 
@@ -132,6 +132,32 @@ class User implements AdvancedUserInterface
     public function __toString()
     {
         return $this->email;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->password,
+            $this->salt,
+        ));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->email,
+            $this->password,
+            $this->salt,
+        ) = unserialize($serialized);
     }
 
     /**
