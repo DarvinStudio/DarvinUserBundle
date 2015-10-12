@@ -1,0 +1,29 @@
+user:
+    action:
+        delete:
+            confirm: Подтвердите удаление пользователя
+            submit:  Удалить пользователя
+            success: Пользователь успешно удален
+        edit:
+            link:    Редактировать пользователя
+            success: Пользователь успешно изменен
+            title:   Изменить пользователя «%entity%»
+        index:
+            link:  Пользователи
+            title: Пользователи
+        new:
+            success: Пользователь успешно добавлен
+            title:   Новый пользователь
+        show:
+            link:  Просмотреть пользователя
+            title: Пользователь «%entity%»
+    entity:
+        email:          E-mail
+        enabled:        Активен
+        locked:         Заблокирован
+        plain_password: Пароль
+        role:
+            admin:       Администратор
+            guest_admin: Администратор-гость
+            superadmin:  Суперадминистратор
+        roles: Роли

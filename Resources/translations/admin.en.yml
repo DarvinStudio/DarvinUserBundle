@@ -1,0 +1,29 @@
+user:
+    action:
+        delete:
+            confirm: Confirm user removal
+            submit:  Remove user
+            success: User successfully removed
+        edit:
+            link:    Edit user
+            success: User successfully updated
+            title:   Edit user "%entity%"
+        index:
+            link:  Users
+            title: Users
+        new:
+            success: User successfully created
+            title:   New user
+        show:
+            link:  View user
+            title: User "%entity%"
+    entity:
+        email:          E-mail
+        enabled:        Enabled
+        locked:         Locked
+        plain_password: Password
+        role:
+            admin:       Administrator
+            guest_admin: Guest administrator
+            superadmin:  Superadministrator
+        roles: Roles

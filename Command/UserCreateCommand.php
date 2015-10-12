@@ -45,8 +45,8 @@ class UserCreateCommand extends ContainerAwareCommand
 
         $roles = array();
 
-        if ($this->getQuestionHelper()->ask($input, $output, new ConfirmationQuestion('Create admin (y/n, default y)? '))) {
-            $roles[] = User::ROLE_ADMIN;
+        if ($this->getQuestionHelper()->ask($input, $output, new ConfirmationQuestion('Create superadmin (y/n, default y)? '))) {
+            $roles[] = User::ROLE_SUPERADMIN;
         }
 
         $user = $this->createUser($email, $plainPassword, $roles);

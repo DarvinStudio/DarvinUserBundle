@@ -10,6 +10,7 @@
 
 namespace Darvin\UserBundle\Entity;
 
+use Darvin\AdminBundle\Security\Permissions\Permission;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints as Doctrine;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
@@ -26,8 +27,18 @@ class User implements \Serializable, AdvancedUserInterface
     const USER_CLASS = __CLASS__;
 
     const ROLE_ADMIN      = 'ROLE_ADMIN';
+    const ROLE_GUESTADMIN = 'ROLE_GUESTADMIN';
     const ROLE_SUPERADMIN = 'ROLE_SUPERADMIN';
     const ROLE_USER       = 'ROLE_USER';
+
+    /**
+     * @var array
+     */
+    private static $extraRoles = array(
+        self::ROLE_ADMIN      => 'user.entity.role.admin',
+        self::ROLE_GUESTADMIN => 'user.entity.role.guest_admin',
+        self::ROLE_SUPERADMIN => 'user.entity.role.superadmin',
+    );
 
     /**
      * @var int
@@ -162,6 +173,14 @@ class User implements \Serializable, AdvancedUserInterface
     }
 
     /**
+     * @return array
+     */
+    public static function getExtraRoles()
+    {
+        return self::$extraRoles;
+    }
+
+    /**
      * @return User
      */
     public function generateRandomPlainPassword()
@@ -169,6 +188,30 @@ class User implements \Serializable, AdvancedUserInterface
         $this->plainPassword = hash('sha512', uniqid(mt_rand(), true));
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getDefaultPermissions()
+    {
+        return array_fill_keys(Permission::getAllPermissions(), !$this->isGuestAdmin());
+    }
+
+    /**
+     * @return bool
+     */
+    public function isGuestAdmin()
+    {
+        return in_array(self::ROLE_GUESTADMIN, $this->roles);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSuperadmin()
+    {
+        return in_array(self::ROLE_SUPERADMIN, $this->roles);
     }
 
     /**

@@ -1,0 +1,16 @@
+parameters:
+    darvin_user.admin.metadata.class: Darvin\AdminBundle\Metadata\Metadata
+
+    darvin_user.admin.metadata.user.entity: Darvin\UserBundle\Entity\User
+    darvin_user.admin.metadata.user.config: @@DarvinUserBundle/Resources/config/admin/user.yml
+
+services:
+    darvin_user.admin.metadata.user:
+        class:   %darvin_user.admin.metadata.class%
+        factory: [ "@darvin_admin.metadata.factory", createMetadata ]
+        public:  false
+        arguments:
+            - %darvin_user.admin.metadata.user.entity%
+            - %darvin_user.admin.metadata.user.config%
+        tags:
+            - { name: darvin_admin.metadata }

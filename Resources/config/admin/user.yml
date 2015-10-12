@@ -1,0 +1,69 @@
+Darvin\UserBundle\Entity\User:
+    menu:
+        skip: true
+    form:
+        edit:
+            fields:
+                locked:
+                    options:
+                        required: false
+                enabled:
+                    options:
+                        required: false
+                email: ~
+                plainPassword:
+                    options:
+                        required: false
+                roles:
+                    type: choice
+                    options:
+                        choices:  [ Darvin\UserBundle\Entity\User, getExtraRoles ]
+                        multiple: true
+                        expanded: true
+        new:
+            fields:
+                locked:
+                    options:
+                        required: false
+                enabled:
+                    options:
+                        required: false
+                email:         ~
+                plainPassword: ~
+                roles:
+                    type: choice
+                    options:
+                        choices:  [ Darvin\UserBundle\Entity\User, getExtraRoles ]
+                        multiple: true
+                        expanded: true
+    view:
+        index:
+            fields:
+                email:
+                    widget_generator:
+                        alias: email_link
+                        options:
+                            email_property: email
+                locked:  ~
+                enabled: ~
+                roles:
+                    widget_generator:
+                        alias: list
+                        options:
+                            keys_property:   roles
+                            values_callback: [ Darvin\UserBundle\Entity\User, getExtraRoles ]
+        show:
+            fields:
+                email:
+                    widget_generator:
+                        alias: email_link
+                        options:
+                            email_property: email
+                locked:  ~
+                enabled: ~
+                roles:
+                    widget_generator:
+                        alias: list
+                        options:
+                            keys_property:   roles
+                            values_callback: [ Darvin\UserBundle\Entity\User, getExtraRoles ]
