@@ -18,4 +18,5 @@ services:
     darvin_user.user.manager.generic:
         class: %darvin_user.user.manager.generic.class%
         arguments:
+            - "@security.token_storage"
             - "@security.password_encoder"

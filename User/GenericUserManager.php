@@ -11,6 +11,7 @@
 namespace Darvin\UserBundle\User;
 
 use Darvin\UserBundle\Entity\User;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -19,16 +20,39 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class GenericUserManager implements UserManagerInterface
 {
     /**
+     * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
+     */
+    private $authTokenStorage;
+
+    /**
      * @var \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface
      */
     private $userPasswordEncoder;
 
     /**
-     * @param \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface $userPasswordEncoder User password encoder
+     * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $authTokenStorage    Authentication token storage
+     * @param \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface               $userPasswordEncoder User password encoder
      */
-    public function __construct(UserPasswordEncoderInterface $userPasswordEncoder)
+    public function __construct(TokenStorageInterface $authTokenStorage, UserPasswordEncoderInterface $userPasswordEncoder)
     {
+        $this->authTokenStorage = $authTokenStorage;
         $this->userPasswordEncoder = $userPasswordEncoder;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCurrentUser()
+    {
+        $token = $this->authTokenStorage->getToken();
+
+        if (empty($token)) {
+            throw new UserManagerException('Unable to get current user: authentication token is empty.');
+        }
+
+        $user = $token->getUser();
+
+        return $user instanceof User ? $user : null;
     }
 
     /**

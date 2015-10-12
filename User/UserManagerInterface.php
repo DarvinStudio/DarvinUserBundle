@@ -18,6 +18,11 @@ use Darvin\UserBundle\Entity\User;
 interface UserManagerInterface
 {
     /**
+     * @return \Darvin\UserBundle\Entity\User
+     */
+    public function getCurrentUser();
+
+    /**
      * @param \Darvin\UserBundle\Entity\User $user User
      *
      * @return bool Was password updated
