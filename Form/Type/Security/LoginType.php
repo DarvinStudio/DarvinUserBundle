@@ -26,13 +26,13 @@ class LoginType extends AbstractType
     {
         $builder
             ->add('_username', null, array(
-                'label' => 'security.model.username',
+                'label' => 'security.action.login.username',
             ))
             ->add('_password', 'password', array(
-                'label' => 'security.model.password',
+                'label' => 'security.action.login.password',
             ))
             ->add('_remember_me', 'checkbox', array(
-                'label'    => 'security.model.remember_me',
+                'label'    => 'security.action.login.remember_me',
                 'required' => false,
             ));
     }

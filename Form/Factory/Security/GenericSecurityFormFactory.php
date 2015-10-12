@@ -61,7 +61,7 @@ class GenericSecurityFormFactory implements SecurityFormFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function createLoginForm()
+    public function createLoginForm($actionRoute = 'darvin_user_security_login_check')
     {
         return $this->formFactory->create(
             new LoginType(),
@@ -70,7 +70,7 @@ class GenericSecurityFormFactory implements SecurityFormFactoryInterface
                 '_username'    => $this->authenticationUtils->getLastUsername(),
             ),
             array(
-                'action'    => $this->router->generate('darvin_user_security_login_check'),
+                'action'    => $this->router->generate($actionRoute),
                 'intention' => $this->intention,
             )
         );

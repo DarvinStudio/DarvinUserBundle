@@ -1,0 +1,6 @@
+security:
+    action:
+        login:
+            password:    Password
+            remember_me: Remember me
+            username:    Username or e-mail

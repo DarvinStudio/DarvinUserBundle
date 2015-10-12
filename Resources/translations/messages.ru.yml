@@ -1,0 +1,6 @@
+security:
+    action:
+        login:
+            password:    Пароль
+            remember_me: Запомнить браузер
+            username:    Логин или e-mail

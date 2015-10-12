@@ -16,7 +16,9 @@ namespace Darvin\UserBundle\Form\Factory\Security;
 interface SecurityFormFactoryInterface
 {
     /**
+     * @param string $actionRoute Action route
+     *
      * @return \Symfony\Component\Form\FormInterface
      */
-    public function createLoginForm();
+    public function createLoginForm($actionRoute = 'darvin_user_security_login_check');
 }
