@@ -11,6 +11,7 @@
 namespace Darvin\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 
 /**
  * Security controller
@@ -22,6 +23,10 @@ class SecurityController extends Controller
      */
     public function loginAction()
     {
+        if ($this->isGranted(AuthenticatedVoter::IS_AUTHENTICATED_REMEMBERED)) {
+            return $this->redirectToRoute($this->getParameter('darvin_user.already_logged_in_redirect_route'));
+        }
+
         $form = $this->getSecurityFormFactory()->createLoginForm();
 
         $error = $this->getAuthenticationUtils()->getLastAuthenticationError();

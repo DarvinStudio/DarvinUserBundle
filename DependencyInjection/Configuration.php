@@ -26,11 +26,15 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-//        $rootNode = $treeBuilder->root('darvin_user');
+        $rootNode = $treeBuilder->root('darvin_user');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
+        $rootNode
+            ->children()
+                ->scalarNode('already_logged_in_redirect_route')->defaultValue('darvin_page_homepage')->end()
+            ->end();
 
         return $treeBuilder;
     }
