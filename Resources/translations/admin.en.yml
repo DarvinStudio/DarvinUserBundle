@@ -1,3 +1,13 @@
+configuration:
+    darvin_user_security:
+        parameter:
+            permissions: Permissions
+        title: The "Users" module configuration
+
+security:
+    object:
+        user: User
+
 user:
     action:
         delete:

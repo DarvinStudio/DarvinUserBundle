@@ -1,3 +1,13 @@
+configuration:
+    darvin_user_security:
+        parameter:
+            permissions: Права
+        title: Настройки модуля «Пользователи»
+
+security:
+    object:
+        user: Пользователь
+
 user:
     action:
         delete:
