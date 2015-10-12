@@ -1,7 +1,7 @@
 security:
     action:
         login:
+            email:       E-mail
             password:    Пароль
             remember_me: Запомнить браузер
             submit:      Войти
-            username:    Логин или e-mail

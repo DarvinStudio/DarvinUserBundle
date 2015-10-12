@@ -1,7 +1,7 @@
 security:
     action:
         login:
+            email:       E-mail
             password:    Password
             remember_me: Remember me
             submit:      Sign in
-            username:    Username or e-mail
