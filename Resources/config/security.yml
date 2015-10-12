@@ -1,9 +1,22 @@
 parameters:
     darvin_user.security.configuration.class: Darvin\UserBundle\Security\SecurityConfiguration
 
+    darvin_user.security.form_factory.generic.class: Darvin\UserBundle\Form\Factory\Security\GenericSecurityFormFactory
+
 services:
     darvin_user.security.configuration:
         class: %darvin_user.security.configuration.class%
         tags:
             - { name: darvin_config.configuration }
             - { name: darvin_admin.security_configuration }
+
+    darvin_user.security.form_factory:
+        alias: darvin_user.security.form_factory.generic
+
+    darvin_user.security.form_factory.generic:
+        class: %darvin_user.security.form_factory.generic.class%
+        arguments:
+            - "@security.authentication_utils"
+            - "@form.factory"
+            - "@router"
+            - %secret%

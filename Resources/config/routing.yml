@@ -1,0 +1,3 @@
+darvin_user_import_security:
+    resource: "@DarvinUserBundle/Resources/config/routing/security.yml"
+    prefix:   /
