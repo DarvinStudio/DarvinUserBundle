@@ -3,4 +3,5 @@ security:
         login:
             password:    Password
             remember_me: Remember me
+            submit:      Sign in
             username:    Username or e-mail

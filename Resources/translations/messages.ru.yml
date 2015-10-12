@@ -3,4 +3,5 @@ security:
         login:
             password:    Пароль
             remember_me: Запомнить браузер
+            submit:      Войти
             username:    Логин или e-mail
