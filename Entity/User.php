@@ -88,6 +88,7 @@ class User implements \Serializable, AdvancedUserInterface
      * @var string
      *
      * @ORM\Column(type="string")
+     * @Assert\Email
      * @Assert\NotBlank
      */
     private $email;
