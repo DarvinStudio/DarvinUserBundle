@@ -5,3 +5,10 @@ security:
             password:    Пароль
             remember_me: Запомнить браузер
             submit:      Войти
+
+user:
+    entity:
+        address:   Адрес
+        email:     E-mail
+        full_name: ФИО
+        phone:     Номер телефона
