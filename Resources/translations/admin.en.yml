@@ -27,6 +27,8 @@ user:
         show:
             link:  View user
             title: User "%entity%"
+        update_property:
+            success: Value successfully updated
     entity:
         email:          E-mail
         enabled:        Enabled

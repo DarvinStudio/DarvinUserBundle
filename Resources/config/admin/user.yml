@@ -23,6 +23,10 @@ Darvin\UserBundle\Entity\User:
                         choices:  [ Darvin\UserBundle\Entity\User, getExtraRoles ]
                         multiple: true
                         expanded: true
+        index:
+            fields:
+                locked:  ~
+                enabled: ~
         new:
             fields:
                 locked:
