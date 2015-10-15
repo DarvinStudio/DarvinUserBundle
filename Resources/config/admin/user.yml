@@ -23,6 +23,17 @@ Darvin\UserBundle\Entity\User:
                         choices:  [ Darvin\UserBundle\Entity\User, getExtraRoles ]
                         multiple: true
                         expanded: true
+        filter:
+            fields:
+                email:
+                    strict_comparison: false
+                enabled: ~
+                locked:  ~
+                roles:
+                    type: choice
+                    options:
+                        choices: [ Darvin\UserBundle\Entity\User, getExtraRoles ]
+                    strict_comparison: false
         index:
             fields:
                 locked:  ~

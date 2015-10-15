@@ -18,6 +18,9 @@ user:
             link:    Edit user
             success: User successfully updated
             title:   Edit user "%entity%"
+        filter:
+            reset:  Reset filter
+            submit: Apply filter
         index:
             link:  Users
             title: Users
