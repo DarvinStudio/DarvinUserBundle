@@ -1,6 +1,9 @@
 Darvin\UserBundle\Entity\User:
+    images:
+        homepage_menu_icon: bundles/darvinuser/images/icons/homepage/user.png
     menu:
-        skip: true
+        color:    "#2171ac"
+        position: 0
     form:
         edit:
             fields:

@@ -37,3 +37,5 @@ user:
             guest_admin: Guest administrator
             superadmin:  Superadministrator
         roles: Roles
+    menu:
+        description: List of all website users with edit functionality.
