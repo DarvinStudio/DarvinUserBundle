@@ -11,8 +11,6 @@
 namespace Darvin\UserBundle\Security;
 
 use Darvin\AdminBundle\Security\Configuration\AbstractSecurityConfiguration;
-use Darvin\AdminBundle\Security\Permissions\ObjectPermissions;
-use Darvin\ConfigBundle\Parameter\ParameterModel;
 use Darvin\UserBundle\Entity\User;
 
 /**
@@ -23,31 +21,18 @@ class SecurityConfiguration extends AbstractSecurityConfiguration
     /**
      * {@inheritdoc}
      */
-    public function getModel()
+    public function getName()
     {
-        return array(
-            new ParameterModel(
-                'permissions',
-                ParameterModel::TYPE_ARRAY,
-                array(
-                    'user' => new ObjectPermissions(User::USER_CLASS),
-                ),
-                array(
-                    'form' => array(
-                        'options' => array(
-                            'type' => 'darvin_admin_security_object_permissions',
-                        ),
-                    ),
-                )
-            ),
-        );
+        return 'darvin_user_security';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    protected function getSecurableObjectClasses()
     {
-        return 'darvin_user_security';
+        return array(
+            'user' => User::USER_CLASS,
+        );
     }
 }
