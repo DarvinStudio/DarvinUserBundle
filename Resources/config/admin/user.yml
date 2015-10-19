@@ -4,6 +4,11 @@ Darvin\UserBundle\Entity\User:
     menu:
         color:    "#2171ac"
         position: 0
+    sortable_fields:
+        email:   ~
+        locked:  ~
+        enabled: ~
+        roles:   ~
     form:
         edit:
             fields:
