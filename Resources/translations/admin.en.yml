@@ -25,7 +25,7 @@ user:
             link:  Users
             title: Users
         new:
-            link:    New user
+            link:    Create user
             success: User successfully created
             title:   New user
         show:
