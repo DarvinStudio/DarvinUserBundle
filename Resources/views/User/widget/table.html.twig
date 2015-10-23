@@ -1,0 +1,24 @@
+<table>
+    <tbody>
+        <tr>
+            <th>{% trans %}user.entity.email{% endtrans %}</th>
+            <td>
+                {% if user.email %}
+                    <a href="mailto:{{ user.email }}">{{ user.email }}</a>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>{% trans %}user.entity.full_name{% endtrans %}</th>
+            <td>{{ user.fullName }}</td>
+        </tr>
+        <tr>
+            <th>{% trans %}user.entity.address{% endtrans %}</th>
+            <td>{{ user.address }}</td>
+        </tr>
+        <tr>
+            <th>{% trans %}user.entity.phone{% endtrans %}</th>
+            <td>{{ user.phone }}</td>
+        </tr>
+    </tbody>
+</table>
