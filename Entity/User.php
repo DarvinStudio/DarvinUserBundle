@@ -169,7 +169,7 @@ class User implements \Serializable, AdvancedUserInterface
             $this->id,
             $this->email,
             $this->password,
-            $this->salt,
+            $this->salt
         ) = unserialize($serialized);
     }
 
