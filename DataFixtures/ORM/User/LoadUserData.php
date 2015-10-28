@@ -36,7 +36,10 @@ class LoadUserData implements FixtureInterface
         $user = new User();
 
         return $user
+            ->setAddress('Мира, 1 - 1')
             ->setEmail('admin@example.com')
+            ->setFullName('Иванов Иван Иванович')
+            ->setPhone('+7 (901) 234-56-78')
             ->setPlainPassword('admin')
             ->setRoles(array(
                 User::ROLE_SUPERADMIN,
