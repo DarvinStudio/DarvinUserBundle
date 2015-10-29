@@ -87,7 +87,7 @@ class User implements \Serializable, AdvancedUserInterface
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", unique=true)
      * @Assert\Email
      * @Assert\NotBlank
      */
