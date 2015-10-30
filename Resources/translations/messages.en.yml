@@ -6,10 +6,10 @@ security:
             remember_me: Remember me
             submit:      Sign in
         register:
-            link:    Sign up
+            link:    Register
             submit:  Submit
             success: Account successfully created
-            title:   Sign up
+            title:   Register
 
 user:
     entity:
