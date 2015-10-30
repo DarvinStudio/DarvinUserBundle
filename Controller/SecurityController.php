@@ -11,6 +11,8 @@
 namespace Darvin\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 
 /**
@@ -38,6 +40,16 @@ class SecurityController extends Controller
     }
 
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request Request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function registerAction(Request $request)
+    {
+        return new Response($this->getSecurityFormRenderer()->renderRegistrationForm($request->isXmlHttpRequest()));
+    }
+
+    /**
      * @return \Symfony\Component\Security\Http\Authentication\AuthenticationUtils
      */
     private function getAuthenticationUtils()
@@ -50,6 +62,14 @@ class SecurityController extends Controller
      */
     private function getLoginFormFactory()
     {
-        return $this->get('darvin_user.security.form_factory.login');
+        return $this->get('darvin_user.security.form.factory.login');
+    }
+
+    /**
+     * @return \Darvin\UserBundle\Form\Renderer\SecurityFormRenderer
+     */
+    private function getSecurityFormRenderer()
+    {
+        return $this->get('darvin_user.security.form.renderer');
     }
 }

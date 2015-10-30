@@ -1,7 +1,11 @@
 parameters:
     darvin_user.security.configuration.class: Darvin\UserBundle\Security\SecurityConfiguration
 
-    darvin_user.security.form_factory.login.generic.class: Darvin\UserBundle\Form\Factory\Security\GenericLoginFormFactory
+    darvin_user.security.form.factory.common.class: Darvin\UserBundle\Form\Factory\Security\SecurityFormFactory
+
+    darvin_user.security.form.factory.login.generic.class: Darvin\UserBundle\Form\Factory\Security\GenericLoginFormFactory
+
+    darvin_user.security.form.renderer.class: Darvin\UserBundle\Form\Renderer\SecurityFormRenderer
 
 services:
     darvin_user.security.configuration:
@@ -10,13 +14,25 @@ services:
             - { name: darvin_config.configuration }
             - { name: darvin_admin.security_configuration }
 
-    darvin_user.security.form_factory.login:
-        alias: darvin_user.security.form_factory.login.generic
+    darvin_user.security.form.factory.common:
+        class: %darvin_user.security.form.factory.common.class%
+        arguments:
+            - "@form.factory"
+            - "@router"
 
-    darvin_user.security.form_factory.login.generic:
-        class: %darvin_user.security.form_factory.login.generic.class%
+    darvin_user.security.form.factory.login:
+        alias: darvin_user.security.form.factory.login.generic
+
+    darvin_user.security.form.factory.login.generic:
+        class: %darvin_user.security.form.factory.login.generic.class%
         arguments:
             - "@security.authentication_utils"
             - "@form.factory"
             - "@router"
             - %secret%
+
+    darvin_user.security.form.renderer:
+        class: %darvin_user.security.form.renderer.class%
+        arguments:
+            - "@darvin_user.security.form.factory.common"
+            - "@templating"
