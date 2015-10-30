@@ -124,7 +124,7 @@ class User implements \Serializable, AdvancedUserInterface
     /**
      * @var string
      *
-     * @Assert\NotBlank(groups={"New"})
+     * @Assert\NotBlank(groups={"AdminNew"})
      */
     private $plainPassword;
 
