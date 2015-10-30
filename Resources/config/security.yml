@@ -5,6 +5,8 @@ parameters:
 
     darvin_user.security.form.factory.login.generic.class: Darvin\UserBundle\Form\Factory\Security\GenericLoginFormFactory
 
+    darvin_user.security.form.handler.class: Darvin\UserBundle\Form\Handler\SecurityFormHandler
+
     darvin_user.security.form.renderer.class: Darvin\UserBundle\Form\Renderer\SecurityFormRenderer
 
 services:
@@ -30,6 +32,14 @@ services:
             - "@form.factory"
             - "@router"
             - %secret%
+
+    darvin_user.security.form.handler:
+        class: %darvin_user.security.form.handler.class%
+        arguments:
+            - "@security.token_storage"
+            - "@doctrine.orm.entity_manager"
+            - "@event_dispatcher"
+            - "@darvin_utils.flash.notifier"
 
     darvin_user.security.form.renderer:
         class: %darvin_user.security.form.renderer.class%
