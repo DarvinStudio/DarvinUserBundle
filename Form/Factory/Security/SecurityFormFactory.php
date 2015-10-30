@@ -14,12 +14,18 @@ use Darvin\UserBundle\Entity\User;
 use Darvin\UserBundle\Form\Type\Security\RegistrationType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
  * Security form factory
  */
 class SecurityFormFactory
 {
+    /**
+     * @var \Symfony\Component\Security\Http\Authentication\AuthenticationUtils
+     */
+    private $authenticationUtils;
+
     /**
      * @var \Symfony\Component\Form\FormFactoryInterface
      */
@@ -31,11 +37,16 @@ class SecurityFormFactory
     private $router;
 
     /**
-     * @param \Symfony\Component\Form\FormFactoryInterface $formFactory Form factory
-     * @param \Symfony\Component\Routing\RouterInterface   $router      Router
+     * @param \Symfony\Component\Security\Http\Authentication\AuthenticationUtils $authenticationUtils Authentication utils
+     * @param \Symfony\Component\Form\FormFactoryInterface                        $formFactory         Form factory
+     * @param \Symfony\Component\Routing\RouterInterface                          $router              Router
      */
-    public function __construct(FormFactoryInterface $formFactory, RouterInterface $router)
-    {
+    public function __construct(
+        AuthenticationUtils $authenticationUtils,
+        FormFactoryInterface $formFactory,
+        RouterInterface $router
+    ) {
+        $this->authenticationUtils = $authenticationUtils;
         $this->formFactory = $formFactory;
         $this->router = $router;
     }
@@ -49,6 +60,7 @@ class SecurityFormFactory
     {
         if (empty($user)) {
             $user = new User();
+            $user->setEmail($this->authenticationUtils->getLastUsername());
         }
 
         return $this->formFactory->create(new RegistrationType(), $user, array(
