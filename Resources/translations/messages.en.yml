@@ -7,9 +7,9 @@ security:
             submit:      Sign in
         register:
             link:    Register
-            submit:  Submit
+            submit:  Register
             success: Account successfully created
-            title:   Register
+            title:   Registration
 
 user:
     entity:
