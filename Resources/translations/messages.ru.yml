@@ -5,10 +5,16 @@ security:
             password:    Пароль
             remember_me: Запомнить браузер
             submit:      Войти
+        register:
+            link:    Регистрация
+            submit:  Зарегистрироваться
+            success: Вы были успешно зарегистрированы
+            title:   Регистрация
 
 user:
     entity:
-        address:   Адрес
-        email:     E-mail
-        full_name: ФИО
-        phone:     Номер телефона
+        address:        Адрес
+        email:          E-mail
+        full_name:      ФИО
+        phone:          Номер телефона
+        plain_password: Пароль

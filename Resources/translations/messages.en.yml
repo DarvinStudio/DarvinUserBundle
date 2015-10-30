@@ -5,10 +5,16 @@ security:
             password:    Password
             remember_me: Remember me
             submit:      Sign in
+        register:
+            link:    Sign up
+            submit:  Submit
+            success: Account successfully created
+            title:   Sign up
 
 user:
     entity:
-        address:   Address
-        email:     E-mail
-        full_name: Full name
-        phone:     Phone number
+        address:        Address
+        email:          E-mail
+        full_name:      Full name
+        phone:          Phone number
+        plain_password: Password

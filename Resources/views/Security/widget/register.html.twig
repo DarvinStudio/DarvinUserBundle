@@ -2,3 +2,4 @@
 {{ form_widget(form) }}
 <button type="submit">{% trans %}security.action.register.submit{% endtrans %}</button>
 {{ form_end(form) }}
+<a href="{{ path('darvin_user_security_login') }}">{% trans %}security.action.login.link{% endtrans %}</a>
