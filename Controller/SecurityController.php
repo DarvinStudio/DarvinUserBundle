@@ -33,22 +33,31 @@ class SecurityController extends Controller
             return $this->redirectToRoute($this->getParameter('darvin_user.already_logged_in_redirect_route'));
         }
 
-        $form = $this->getLoginFormFactory()->createLoginForm();
-
-        $error = $this->getAuthenticationUtils()->getLastAuthenticationError();
-
         $template = $request->isXmlHttpRequest()
             ? 'DarvinUserBundle:Security/widget:login.html.twig'
             : 'DarvinUserBundle:Security:login.html.twig';
+        $templateParams = array(
+            'error' => null,
+            'form'  => $this->getLoginFormFactory()->createLoginForm()->createView(),
+        );
 
-        $html = $this->renderView($template, array(
-            'error' => !empty($error) ? $error->getMessage() : null,
-            'form'  => $form->createView(),
-        ));
+        $error = $this->getAuthenticationUtils()->getLastAuthenticationError();
 
-        return !empty($error) && $request->isXmlHttpRequest()
-            ? new AjaxResponse($html, false, FlashNotifierInterface::MESSAGE_FORM_ERROR)
-            : new Response($html);
+        if (empty($error)) {
+            return $this->render($template, $templateParams);
+        }
+        if (!$request->isXmlHttpRequest()) {
+            $this->getFlashNotifier()->formError();
+        }
+
+        $templateParams['error'] = $error->getMessage();
+        $html = $this->renderView($template, $templateParams);
+
+        if ($request->isXmlHttpRequest()) {
+            return new AjaxResponse($html, false, FlashNotifierInterface::MESSAGE_FORM_ERROR);
+        }
+
+        return new Response($html);
     }
 
     /**
@@ -93,6 +102,14 @@ class SecurityController extends Controller
     private function getAuthenticationUtils()
     {
         return $this->get('security.authentication_utils');
+    }
+
+    /**
+     * @return \Darvin\Utils\Flash\FlashNotifier
+     */
+    private function getFlashNotifier()
+    {
+        return $this->get('darvin_utils.flash.notifier');
     }
 
     /**
