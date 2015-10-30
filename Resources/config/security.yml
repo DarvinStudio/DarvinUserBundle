@@ -1,6 +1,8 @@
 parameters:
     darvin_user.security.configuration.class: Darvin\UserBundle\Security\SecurityConfiguration
 
+    darvin_user.security.event_listener.post_register.class: Darvin\UserBundle\EventListener\Security\PostRegisterListener
+
     darvin_user.security.form.factory.common.class: Darvin\UserBundle\Form\Factory\Security\SecurityFormFactory
 
     darvin_user.security.form.factory.login.generic.class: Darvin\UserBundle\Form\Factory\Security\GenericLoginFormFactory
@@ -9,12 +11,22 @@ parameters:
 
     darvin_user.security.form.renderer.class: Darvin\UserBundle\Form\Renderer\SecurityFormRenderer
 
+    darvin_user.security.user_authenticator.class: Darvin\UserBundle\Security\UserAuthenticator
+
 services:
     darvin_user.security.configuration:
         class: %darvin_user.security.configuration.class%
         tags:
             - { name: darvin_config.configuration }
             - { name: darvin_admin.security_configuration }
+
+    darvin_user.security.event_listener.post_register:
+        class: %darvin_user.security.event_listener.post_register.class%
+        arguments:
+            - "@darvin_user.security.user_authenticator"
+            - %darvin_user.public_firewall_name%
+        tags:
+            - { name: kernel.event_listener, event: darvin_user.post_register, method: postRegister }
 
     darvin_user.security.form.factory.common:
         class: %darvin_user.security.form.factory.common.class%
@@ -36,7 +48,6 @@ services:
     darvin_user.security.form.handler:
         class: %darvin_user.security.form.handler.class%
         arguments:
-            - "@security.token_storage"
             - "@doctrine.orm.entity_manager"
             - "@event_dispatcher"
             - "@darvin_utils.flash.notifier"
@@ -46,3 +57,8 @@ services:
         arguments:
             - "@darvin_user.security.form.factory.common"
             - "@templating"
+
+    darvin_user.security.user_authenticator:
+        class: %darvin_user.security.user_authenticator.class%
+        arguments:
+            - "@security.token_storage"

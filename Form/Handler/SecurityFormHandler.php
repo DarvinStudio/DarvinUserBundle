@@ -10,24 +10,20 @@
 
 namespace Darvin\UserBundle\Form\Handler;
 
+use Darvin\UserBundle\Event\Events;
+use Darvin\UserBundle\Event\UserEvent;
 use Darvin\UserBundle\Form\FormException;
 use Darvin\UserBundle\Form\Type\Security\RegistrationType;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Security form handler
  */
 class SecurityFormHandler
 {
-    /**
-     * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
-     */
-    private $authTokenStorage;
-
     /**
      * @var \Doctrine\ORM\EntityManager
      */
@@ -44,18 +40,15 @@ class SecurityFormHandler
     private $flashNotifier;
 
     /**
-     * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $authTokenStorage Authentication token storage
-     * @param \Doctrine\ORM\EntityManager                                                         $em               Entity manager
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface                         $eventDispatcher  Event dispatcher
-     * @param \Darvin\Utils\Flash\FlashNotifierInterface                                          $flashNotifier    Flash notifier
+     * @param \Doctrine\ORM\EntityManager                                 $em              Entity manager
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher Event dispatcher
+     * @param \Darvin\Utils\Flash\FlashNotifierInterface                  $flashNotifier   Flash notifier
      */
     public function __construct(
-        TokenStorageInterface $authTokenStorage,
         EntityManager $em,
         EventDispatcherInterface $eventDispatcher,
         FlashNotifierInterface $flashNotifier
     ) {
-        $this->authTokenStorage = $authTokenStorage;
         $this->em = $em;
         $this->eventDispatcher = $eventDispatcher;
         $this->flashNotifier = $flashNotifier;
@@ -84,6 +77,15 @@ class SecurityFormHandler
 
             return false;
         }
+
+        /** @var \Darvin\UserBundle\Entity\User $user */
+        $user = $form->getData();
+
+        $this->em->persist($user);
+        $this->em->flush($user);
+
+        $this->eventDispatcher->dispatch(Events::POST_REGISTER, new UserEvent($user));
+
         if ($addFlashMessages && !empty($successMessage)) {
             $this->flashNotifier->success($successMessage);
         }

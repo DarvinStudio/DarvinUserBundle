@@ -34,6 +34,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('already_logged_in_redirect_route')->defaultValue('darvin_page_homepage')->end()
+                ->scalarNode('public_firewall_name')->defaultValue('public_area')->end()
             ->end();
 
         return $treeBuilder;
