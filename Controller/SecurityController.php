@@ -27,7 +27,7 @@ class SecurityController extends Controller
             return $this->redirectToRoute($this->getParameter('darvin_user.already_logged_in_redirect_route'));
         }
 
-        $form = $this->getSecurityFormFactory()->createLoginForm();
+        $form = $this->getLoginFormFactory()->createLoginForm();
 
         $error = $this->getAuthenticationUtils()->getLastAuthenticationError();
 
@@ -46,10 +46,10 @@ class SecurityController extends Controller
     }
 
     /**
-     * @return \Darvin\UserBundle\Form\Factory\Security\SecurityFormFactoryInterface
+     * @return \Darvin\UserBundle\Form\Factory\Security\LoginFormFactoryInterface
      */
-    private function getSecurityFormFactory()
+    private function getLoginFormFactory()
     {
-        return $this->get('darvin_user.security.form_factory');
+        return $this->get('darvin_user.security.form_factory.login');
     }
 }

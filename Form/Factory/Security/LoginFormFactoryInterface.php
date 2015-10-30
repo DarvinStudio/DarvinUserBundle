@@ -11,9 +11,9 @@
 namespace Darvin\UserBundle\Form\Factory\Security;
 
 /**
- * Security form factory
+ * Login form factory
  */
-interface SecurityFormFactoryInterface
+interface LoginFormFactoryInterface
 {
     /**
      * @param string $actionRoute Action route

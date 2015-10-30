@@ -16,9 +16,9 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
- * Generic security form factory
+ * Generic login form factory
  */
-class GenericSecurityFormFactory implements SecurityFormFactoryInterface
+class GenericLoginFormFactory implements LoginFormFactoryInterface
 {
     /**
      * @var \Symfony\Component\Security\Http\Authentication\AuthenticationUtils
