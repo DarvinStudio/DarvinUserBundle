@@ -23,9 +23,11 @@ use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 class SecurityController extends Controller
 {
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request Request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function loginAction()
+    public function loginAction(Request $request)
     {
         if ($this->isGranted(AuthenticatedVoter::IS_AUTHENTICATED_REMEMBERED)) {
             return $this->redirectToRoute($this->getParameter('darvin_user.already_logged_in_redirect_route'));
@@ -35,10 +37,18 @@ class SecurityController extends Controller
 
         $error = $this->getAuthenticationUtils()->getLastAuthenticationError();
 
-        return $this->render('DarvinUserBundle:Security:login.html.twig', array(
+        $template = $request->isXmlHttpRequest()
+            ? 'DarvinUserBundle:Security/widget:login.html.twig'
+            : 'DarvinUserBundle:Security:login.html.twig';
+
+        $html = $this->renderView($template, array(
             'error' => !empty($error) ? $error->getMessage() : null,
             'form'  => $form->createView(),
         ));
+
+        return !empty($error) && $request->isXmlHttpRequest()
+            ? new AjaxResponse($html, false, FlashNotifierInterface::MESSAGE_FORM_ERROR)
+            : new Response($html);
     }
 
     /**

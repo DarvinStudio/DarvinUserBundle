@@ -5,6 +5,7 @@ security:
             password:    Пароль
             remember_me: Запомнить браузер
             submit:      Войти
+            title:       Вход
         register:
             link:    Регистрация
             submit:  Зарегистрироваться

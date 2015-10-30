@@ -1,10 +1,11 @@
 {% extends '::layout.html.twig' %}
 
+{% block title %}{% trans %}security.action.login.title{% endtrans %}{% endblock %}
+
+{% block heading %}{% trans %}security.action.login.title{% endtrans %}{% endblock %}
+
 {% block content %}
-    {% if error %}<div>{{ error | trans }}</div>{% endif %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">{% trans %}security.action.login.submit{% endtrans %}</button>
-    {{ form_end(form) }}
-    <a href="{{ path('darvin_user_security_register') }}">{% trans %}security.action.register.link{% endtrans %}</a>
+
+    {% include 'DarvinUserBundle:Security/widget:login.html.twig' %}
+
 {% endblock %}
