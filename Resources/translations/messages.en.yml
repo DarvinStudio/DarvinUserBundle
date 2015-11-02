@@ -1,3 +1,12 @@
+password_reset_token:
+    action:
+        request:
+            submit:    Get link
+            submitted: Link was sent to e-mail %email%. Check mail:
+            title:     Get password reset link
+    request:
+        user_email: E-mail
+
 security:
     action:
         login:
