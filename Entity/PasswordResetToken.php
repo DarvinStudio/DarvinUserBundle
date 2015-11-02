@@ -44,6 +44,16 @@ class PasswordResetToken
     private $expireAt;
 
     /**
+     * @param \Darvin\UserBundle\Entity\User $user     User
+     * @param \DateTime                      $expireAt Expire at
+     */
+    public function __construct(User $user = null, \DateTime $expireAt = null)
+    {
+        $this->user = $user;
+        $this->expireAt = $expireAt;
+    }
+
+    /**
      * @return string
      */
     public function getId()
