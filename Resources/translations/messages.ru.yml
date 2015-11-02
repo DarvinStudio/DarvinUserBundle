@@ -3,7 +3,14 @@ password_reset_token:
         request:
             submit:    Получить ссылку
             submitted: Ссылка отправлена на e-mail %email%. Проверить почту:
+            success:   Ссылка успешно отправлена
             title:     Получить ссылку для сброса пароля
+    email:
+        new:
+            subject: Ссылка для сброса пароля
+            text: >
+                <p>Для сброса пароля перейдите по ссылке <a href="%url%">%url%</a>.</p>
+                <p>Время действия ссылки - до %expire_at%.</p>
     request:
         user_email: E-mail
 
