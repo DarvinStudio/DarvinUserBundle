@@ -36,6 +36,7 @@ class DarvinUserExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('admin.yml');
+        $loader->load('password_reset_token.yml');
         $loader->load('security.yml');
         $loader->load('user.yml');
     }
