@@ -15,10 +15,12 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Password reset token
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Darvin\UserBundle\Repository\PasswordResetTokenRepository")
  */
 class PasswordResetToken
 {
+    const PASSWORD_RESET_TOKEN_CLASS = __CLASS__;
+
     /**
      * @var string
      *

@@ -40,6 +40,23 @@ class SecurityFormRenderer
     }
 
     /**
+     * @param \Symfony\Component\Form\FormInterface $form   Form
+     * @param bool                                  $widget Whether to render widget
+     *
+     * @return string
+     */
+    public function renderPasswordResetForm(FormInterface $form, $widget = true)
+    {
+        $template = $widget
+            ? 'DarvinUserBundle:Security/widget:reset_password.html.twig'
+            : 'DarvinUserBundle:Security:reset_password.html.twig';
+
+        return $this->templating->render($template, array(
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
      * @param bool                                  $widget Whether to render widget
      * @param \Symfony\Component\Form\FormInterface $form   Form
      *

@@ -10,7 +10,9 @@
 
 namespace Darvin\UserBundle\Form\Factory\Security;
 
+use Darvin\UserBundle\Entity\PasswordResetToken;
 use Darvin\UserBundle\Entity\User;
+use Darvin\UserBundle\Form\Type\Security\PasswordResetType;
 use Darvin\UserBundle\Form\Type\Security\RegistrationType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -49,6 +51,20 @@ class SecurityFormFactory
         $this->authenticationUtils = $authenticationUtils;
         $this->formFactory = $formFactory;
         $this->router = $router;
+    }
+
+    /**
+     * @param \Darvin\UserBundle\Entity\PasswordResetToken $passwordResetToken Password reset token
+     *
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    public function createPasswordResetForm(PasswordResetToken $passwordResetToken)
+    {
+        return $this->formFactory->create(new PasswordResetType(), $passwordResetToken->getUser(), array(
+            'action' => $this->router->generate('darvin_user_security_reset_password', array(
+                'token' => $passwordResetToken->getBase64EncodedId(),
+            )),
+        ));
     }
 
     /**

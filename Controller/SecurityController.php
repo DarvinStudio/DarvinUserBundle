@@ -10,6 +10,7 @@
 
 namespace Darvin\UserBundle\Controller;
 
+use Darvin\UserBundle\Entity\PasswordResetToken;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Darvin\Utils\HttpFoundation\AjaxResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -85,7 +86,29 @@ class SecurityController extends Controller
      */
     public function resetPasswordAction(Request $request)
     {
-        return new Response();
+        $passwordResetToken = $this->getPasswordResetToken($request->query->get('token'));
+
+        $form = $this->getSecurityFormFactory()->createPasswordResetForm($passwordResetToken);
+
+        return new Response($this->getSecurityFormRenderer()->renderPasswordResetForm($form, $request->isXmlHttpRequest()));
+    }
+
+    /**
+     * @param string $base64EncodedId Base64-encoded password reset token ID
+     *
+     * @return \Darvin\UserBundle\Entity\PasswordResetToken
+     */
+    private function getPasswordResetToken($base64EncodedId)
+    {
+        $passwordResetToken = $this->getPasswordResetTokenRepository()->getOneNonExpiredByBase64EncodedId($base64EncodedId);
+
+        if (empty($passwordResetToken)) {
+            throw $this->createNotFoundException(
+                sprintf('Unable to find non-expired password reset token by ID "%s".', base64_decode($base64EncodedId))
+            );
+        }
+
+        return $passwordResetToken;
     }
 
     /**
@@ -110,6 +133,14 @@ class SecurityController extends Controller
     private function getLoginFormFactory()
     {
         return $this->get('darvin_user.security.form.factory.login');
+    }
+
+    /**
+     * @return \Darvin\UserBundle\Repository\PasswordResetTokenRepository
+     */
+    private function getPasswordResetTokenRepository()
+    {
+        return $this->getDoctrine()->getRepository(PasswordResetToken::PASSWORD_RESET_TOKEN_CLASS);
     }
 
     /**
