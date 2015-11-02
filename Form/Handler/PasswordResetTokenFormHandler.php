@@ -69,7 +69,7 @@ class PasswordResetTokenFormHandler
      * @param bool                                  $addFlashMessages Whether to add flash messages
      * @param string                                $successMessage   Success message
      *
-     * @return bool
+     * @return \Darvin\UserBundle\Entity\PasswordResetToken
      * @throws \Darvin\UserBundle\Form\FormException
      */
     public function handleRequestForm(FormInterface $form, $addFlashMessages = false, $successMessage = null)
@@ -85,7 +85,7 @@ class PasswordResetTokenFormHandler
                 $this->flashNotifier->formError();
             }
 
-            return false;
+            return null;
         }
         if ($addFlashMessages && !empty($successMessage)) {
             $this->flashNotifier->success($successMessage);
@@ -112,7 +112,7 @@ class PasswordResetTokenFormHandler
             new PasswordResetTokenEvent($passwordResetToken)
         );
 
-        return true;
+        return $passwordResetToken;
     }
 
     /**

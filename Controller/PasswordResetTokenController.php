@@ -43,7 +43,13 @@ class PasswordResetTokenController extends Controller
 
         $successMessage = 'password_reset_token.action.request.success';
 
-        if (!$this->getPasswordResetTokenFormHandler()->handleRequestForm($form, !$request->isXmlHttpRequest(), $successMessage)) {
+        $passwordResetToken = $this->getPasswordResetTokenFormHandler()->handleRequestForm(
+            $form,
+            !$request->isXmlHttpRequest(),
+            $successMessage
+        );
+
+        if (empty($passwordResetToken)) {
             $html = $this->getPasswordResetTokenFormRenderer()->renderRequestForm($request->isXmlHttpRequest(), $form);
 
             return $request->isXmlHttpRequest()
@@ -53,7 +59,9 @@ class PasswordResetTokenController extends Controller
 
         return $request->isXmlHttpRequest()
             ? new AjaxResponse(
-                $this->renderView('DarvinUserBundle:PasswordResetToken/widget/request:submitted.html.twig'),
+                $this->renderView('DarvinUserBundle:PasswordResetToken/widget/request:submitted.html.twig', array(
+                    'webmail_link' => $this->getWebmailLinker()->getProviderByEmailAddress($passwordResetToken->getUser()->getEmail()),
+                )),
                 true,
                 $successMessage
             )
@@ -82,5 +90,13 @@ class PasswordResetTokenController extends Controller
     private function getPasswordResetTokenFormRenderer()
     {
         return $this->get('darvin_user.password_reset_token.form.renderer');
+    }
+
+    /**
+     * @return \WebmailLinker
+     */
+    private function getWebmailLinker()
+    {
+        return $this->get('darvin_webmail_linker.linker');
     }
 }

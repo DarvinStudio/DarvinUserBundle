@@ -1,2 +1,11 @@
 <h2>{% trans %}password_reset_token.action.request.title{% endtrans %}</h2>
 <h3>{% trans %}password_reset_token.action.request.submitted{% endtrans %}</h3>
+{% if webmail_link %}
+    <a href="{{ webmail_link.url }}" target="_blank">
+        {% if webmail_link.icon %}
+            <img align="{{ webmail_link.name }}" src="{{ webmail_link.icon }}" title="{{ webmail_link.name }}">
+        {% else %}
+            {{ webmail_link.name }}
+        {% endif %}
+    </a>
+{% endif %}

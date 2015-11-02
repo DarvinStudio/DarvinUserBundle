@@ -12,7 +12,8 @@
         }
     ],
     "require": {
-        "darvinstudio/darvin-admin-bundle": "*"
+        "darvinstudio/darvin-admin-bundle":          "*",
+        "darvinstudio/darvin-webmail-linker-bundle": "*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "2.2.*"
