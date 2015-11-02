@@ -50,6 +50,13 @@ class User implements \Serializable, AdvancedUserInterface
     private $id;
 
     /**
+     * @var \Darvin\UserBundle\Entity\PasswordResetToken
+     *
+     * @ORM\OneToOne(targetEntity="Darvin\UserBundle\Entity\PasswordResetToken", mappedBy="user", cascade={"remove"})
+     */
+    private $passwordResetToken;
+
+    /**
      * @var bool
      *
      * @ORM\Column(type="boolean")
@@ -357,6 +364,26 @@ class User implements \Serializable, AdvancedUserInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return \Darvin\UserBundle\Entity\PasswordResetToken
+     */
+    public function getPasswordResetToken()
+    {
+        return $this->passwordResetToken;
+    }
+
+    /**
+     * @param \Darvin\UserBundle\Entity\PasswordResetToken $passwordResetToken passwordResetToken
+     *
+     * @return User
+     */
+    public function setPasswordResetToken(PasswordResetToken $passwordResetToken = null)
+    {
+        $this->passwordResetToken = $passwordResetToken;
+
+        return $this;
     }
 
     /**
