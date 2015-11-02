@@ -12,6 +12,8 @@ namespace Darvin\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -35,6 +37,16 @@ class PasswordResetTokenRequestType extends AbstractType
                 ),
             ))
             ->add('title', 'darvin_utils_anti_spam');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function finishView(FormView $view, FormInterface $form, array $options)
+    {
+        foreach ($view->children as $field) {
+            $field->vars['attr']['autocomplete'] = 'off';
+        }
     }
 
     /**

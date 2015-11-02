@@ -52,7 +52,7 @@ class PasswordResetTokenFormRenderer
         }
 
         $template = $widget
-            ? 'DarvinUserBundle:PasswordResetToken/widget:request_form.html.twig'
+            ? 'DarvinUserBundle:PasswordResetToken/widget/request:form.html.twig'
             : 'DarvinUserBundle:PasswordResetToken:request_form.html.twig';
 
         return $this->templating->render($template, array(

@@ -10,6 +10,8 @@
 
 namespace Darvin\UserBundle\Controller;
 
+use Darvin\Utils\Flash\FlashNotifierInterface;
+use Darvin\Utils\HttpFoundation\AjaxResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +28,47 @@ class PasswordResetTokenController extends Controller
      */
     public function requestAction(Request $request)
     {
-        return new Response($this->getPasswordResetTokenFormRenderer()->renderRequestForm($request->isXmlHttpRequest()));
+        $form = $this->getPasswordResetTokenFormFactory()->createRequestForm()->handleRequest($request);
+
+        if (!$form->isSubmitted()) {
+            return new Response(
+                $this->getPasswordResetTokenFormRenderer()->renderRequestForm($request->isXmlHttpRequest(), $form)
+            );
+        }
+
+        $successMessage = 'password_reset_token.action.request.success';
+
+        if (!$this->getPasswordResetTokenFormHandler()->handleRequestForm($form, !$request->isXmlHttpRequest(), $successMessage)) {
+            $html = $this->getPasswordResetTokenFormRenderer()->renderRequestForm($request->isXmlHttpRequest(), $form);
+
+            return $request->isXmlHttpRequest()
+                ? new AjaxResponse($html, false, FlashNotifierInterface::MESSAGE_FORM_ERROR)
+                : new Response($html);
+        }
+
+        return $request->isXmlHttpRequest()
+            ? new AjaxResponse(
+                $this->renderView('DarvinUserBundle:PasswordResetToken/widget/request:submitted.html.twig'),
+                true,
+                $successMessage
+            )
+            : $this->redirectToRoute('darvin_user_security_login');
+    }
+
+    /**
+     * @return \Darvin\UserBundle\Form\Factory\PasswordResetTokenFormFactory
+     */
+    private function getPasswordResetTokenFormFactory()
+    {
+        return $this->get('darvin_user.password_reset_token.form.factory');
+    }
+
+    /**
+     * @return \Darvin\UserBundle\Form\Handler\PasswordResetTokenFormHandler
+     */
+    private function getPasswordResetTokenFormHandler()
+    {
+        return $this->get('darvin_user.password_reset_token.form.handler');
     }
 
     /**
