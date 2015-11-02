@@ -15,5 +15,7 @@ namespace Darvin\UserBundle\Event;
  */
 final class Events
 {
+    const POST_PASSWORD_RESET_TOKEN_REQUEST = 'darvin_user.post_password_reset_token_request';
+
     const POST_REGISTER = 'darvin_user.post_register';
 }
