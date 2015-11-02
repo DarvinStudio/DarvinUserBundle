@@ -23,43 +23,23 @@ use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 class SecurityController extends Controller
 {
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request Request
-     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function loginAction(Request $request)
+    public function loginAction()
     {
         if ($this->isGranted(AuthenticatedVoter::IS_AUTHENTICATED_REMEMBERED)) {
             return $this->redirectToRoute($this->getParameter('darvin_user.already_logged_in_redirect_route'));
         }
 
-        $template = $request->isXmlHttpRequest()
-            ? 'DarvinUserBundle:Security/widget:login.html.twig'
-            : 'DarvinUserBundle:Security:login.html.twig';
-        $templateParams = array(
-            'error' => null,
-            'form'  => $this->getLoginFormFactory()->createLoginForm()->createView(),
-        );
-
         $error = $this->getAuthenticationUtils()->getLastAuthenticationError();
 
-        if (empty($error)) {
-            return $this->render($template, $templateParams);
+        if (!empty($error)) {
+            $this->getFlashNotifier()->error($error->getMessage());
         }
 
-        $templateParams['error'] = $error->getMessage();
-
-        if ($request->isXmlHttpRequest()) {
-            return new AjaxResponse(
-                $this->renderView($template, $templateParams),
-                false,
-                FlashNotifierInterface::MESSAGE_FORM_ERROR
-            );
-        }
-
-        $this->getFlashNotifier()->formError();
-
-        return $this->render($template, $templateParams);
+        return $this->render('DarvinUserBundle:Security:login.html.twig', array(
+            'form' => $this->getLoginFormFactory()->createLoginForm()->createView(),
+        ));
     }
 
     /**
