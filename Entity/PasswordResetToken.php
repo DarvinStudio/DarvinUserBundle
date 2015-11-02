@@ -56,6 +56,14 @@ class PasswordResetToken
     /**
      * @return string
      */
+    public function getBase64EncodedId()
+    {
+        return base64_encode($this->id);
+    }
+
+    /**
+     * @return string
+     */
     public function getId()
     {
         return $this->id;

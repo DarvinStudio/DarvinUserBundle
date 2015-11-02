@@ -79,6 +79,16 @@ class SecurityController extends Controller
     }
 
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request Request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function resetPasswordAction(Request $request)
+    {
+        return new Response();
+    }
+
+    /**
      * @return \Symfony\Component\Security\Http\Authentication\AuthenticationUtils
      */
     private function getAuthenticationUtils()

@@ -11,6 +11,7 @@
 namespace Darvin\UserBundle\EventListener;
 
 use Darvin\UserBundle\Event\PasswordResetTokenEvent;
+use Darvin\UserBundle\PasswordResetToken\PasswordResetTokenMailer;
 
 /**
  * Post password reset token request event listener
@@ -18,10 +19,23 @@ use Darvin\UserBundle\Event\PasswordResetTokenEvent;
 class PostPasswordResetTokenRequestListener
 {
     /**
+     * @var \Darvin\UserBundle\PasswordResetToken\PasswordResetTokenMailer
+     */
+    private $passwordResetTokenMailer;
+
+    /**
+     * @param \Darvin\UserBundle\PasswordResetToken\PasswordResetTokenMailer $passwordResetTokenMailer Password reset token mailer
+     */
+    public function __construct(PasswordResetTokenMailer $passwordResetTokenMailer)
+    {
+        $this->passwordResetTokenMailer = $passwordResetTokenMailer;
+    }
+
+    /**
      * @param \Darvin\UserBundle\Event\PasswordResetTokenEvent $event Event
      */
     public function postPasswordResetTokenRequest(PasswordResetTokenEvent $event)
     {
-
+        $this->passwordResetTokenMailer->sendPublicPostSubmitEmail($event->getPasswordResetToken());
     }
 }

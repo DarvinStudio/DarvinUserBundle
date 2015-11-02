@@ -1,0 +1,8 @@
+{% extends ':email:public.html.twig' %}
+
+{% block body %}
+
+    {% set url = url('darvin_user_security_reset_password', { 'token': password_reset_token.base64EncodedId }) %}
+
+    <a href="{{ url }}">{{ url }}</a>
+{% endblock %}
