@@ -10,8 +10,10 @@
 
 namespace Darvin\UserBundle\Form\Handler;
 
+use Darvin\UserBundle\Entity\User;
 use Darvin\UserBundle\Form\FormException;
 use Darvin\UserBundle\Form\Type\PasswordResetTokenRequestType;
+use Darvin\UserBundle\PasswordResetToken\PasswordResetTokenFactory;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -38,18 +40,26 @@ class PasswordResetTokenFormHandler
     private $flashNotifier;
 
     /**
-     * @param \Doctrine\ORM\EntityManager                                 $em              Entity manager
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher Event dispatcher
-     * @param \Darvin\Utils\Flash\FlashNotifierInterface                  $flashNotifier   Flash notifier
+     * @var \Darvin\UserBundle\PasswordResetToken\PasswordResetTokenFactory
+     */
+    private $passwordResetTokenFactory;
+
+    /**
+     * @param \Doctrine\ORM\EntityManager                                     $em                        Entity manager
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface     $eventDispatcher           Event dispatcher
+     * @param \Darvin\Utils\Flash\FlashNotifierInterface                      $flashNotifier             Flash notifier
+     * @param \Darvin\UserBundle\PasswordResetToken\PasswordResetTokenFactory $passwordResetTokenFactory Password reset token factory
      */
     public function __construct(
         EntityManager $em,
         EventDispatcherInterface $eventDispatcher,
-        FlashNotifierInterface $flashNotifier
+        FlashNotifierInterface $flashNotifier,
+        PasswordResetTokenFactory $passwordResetTokenFactory
     ) {
         $this->em = $em;
         $this->eventDispatcher = $eventDispatcher;
         $this->flashNotifier = $flashNotifier;
+        $this->passwordResetTokenFactory = $passwordResetTokenFactory;
     }
 
     /**
@@ -79,6 +89,49 @@ class PasswordResetTokenFormHandler
             $this->flashNotifier->success($successMessage);
         }
 
+        $data = $form->getData();
+
+        $user = $this->getUser($data['user_email']);
+
+        $existingPasswordResetToken = $user->getPasswordResetToken();
+
+        if (!empty($existingPasswordResetToken)) {
+            $user->setPasswordResetToken(null);
+            $this->em->remove($existingPasswordResetToken);
+            $this->em->flush();
+        }
+
+        $passwordResetToken = $this->passwordResetTokenFactory->createPasswordResetToken($user);
+        $this->em->persist($passwordResetToken);
+        $this->em->flush();
+
         return true;
+    }
+
+    /**
+     * @param string $email User email
+     *
+     * @return \Darvin\UserBundle\Entity\User
+     * @throws \Darvin\UserBundle\Form\FormException
+     */
+    private function getUser($email)
+    {
+        $user = $this->getUserRepository()->findOneBy(array(
+            'email' => $email,
+        ));
+
+        if (empty($user)) {
+            throw new FormException(sprintf('Unable to find user by email "%s".', $email));
+        }
+
+        return $user;
+    }
+
+    /**
+     * @return \Darvin\UserBundle\Repository\UserRepository
+     */
+    private function getUserRepository()
+    {
+        return $this->em->getRepository(User::USER_CLASS);
     }
 }
