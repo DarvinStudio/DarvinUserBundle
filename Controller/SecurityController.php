@@ -53,11 +53,9 @@ class SecurityController extends Controller
         $templateParams['error'] = $error->getMessage();
         $html = $this->renderView($template, $templateParams);
 
-        if ($request->isXmlHttpRequest()) {
-            return new AjaxResponse($html, false, FlashNotifierInterface::MESSAGE_FORM_ERROR);
-        }
-
-        return new Response($html);
+        return $request->isXmlHttpRequest()
+            ? new AjaxResponse($html, false, FlashNotifierInterface::MESSAGE_FORM_ERROR)
+            : new Response($html);
     }
 
     /**
