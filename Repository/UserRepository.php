@@ -12,6 +12,7 @@ namespace Darvin\UserBundle\Repository;
 
 use Darvin\UserBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * User repository
@@ -30,6 +31,34 @@ class UserRepository extends EntityRepository
             ->setParameter('role_admin', '%'.User::ROLE_ADMIN.'%')
             ->andWhere($qb->expr()->notLike('o.roles', ':role_superadmin'))
             ->setParameter('role_superadmin', '%'.User::ROLE_SUPERADMIN.'%');
+    }
+
+    /**
+     * @param string $email Email
+     *
+     * @return bool
+     */
+    public function userExists($email)
+    {
+        $qb = $this->createDefaultQueryBuilder()
+            ->select('o.id')
+            ->setMaxResults(1);
+        $this->addEmailFilter($qb, $email);
+
+        return null !== $qb->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * @param \Doctrine\ORM\QueryBuilder $qb    Query builder
+     * @param string                     $email Email
+     *
+     * @return UserRepository
+     */
+    private function addEmailFilter(QueryBuilder $qb, $email)
+    {
+        $qb->andWhere('o.email = :email')->setParameter('email', $email);
+
+        return $this;
     }
 
     /**

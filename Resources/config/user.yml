@@ -3,6 +3,8 @@ parameters:
 
     darvin_user.user.manager.generic.class: Darvin\UserBundle\User\GenericUserManager
 
+    darvin_user.user.validator.user_exists.class: Darvin\UserBundle\Validator\UserExistsValidator
+
 services:
     darvin_user.user.event_subscriber:
         class:  %darvin_user.user.event_subscriber.class%
@@ -20,3 +22,10 @@ services:
         arguments:
             - "@security.token_storage"
             - "@security.password_encoder"
+
+    darvin_user.user.validator.user_exists:
+        class: %darvin_user.user.validator.user_exists.class%
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: validator.constraint_validator, alias: darvin_user_user_exists }
