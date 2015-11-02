@@ -13,22 +13,22 @@ namespace Darvin\UserBundle\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 
 /**
- * User exists validation constraint
+ * User exists and active validation constraint
  *
  * @Annotation
  */
-class UserExists extends Constraint
+class UserExistsAndActive extends Constraint
 {
     /**
      * @var string
      */
-    public $message = 'user.does_not_exist';
+    public $message = 'user.does_not_exist_or_not_active';
 
     /**
      * {@inheritdoc}
      */
     public function validatedBy()
     {
-        return 'darvin_user_user_exists';
+        return 'darvin_user_user_exists_and_active';
     }
 }

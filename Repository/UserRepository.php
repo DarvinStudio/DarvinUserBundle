@@ -38,14 +38,52 @@ class UserRepository extends EntityRepository
      *
      * @return bool
      */
-    public function userExists($email)
+    public function userExistsAndActive($email)
     {
         $qb = $this->createDefaultQueryBuilder()
             ->select('o.id')
             ->setMaxResults(1);
-        $this->addEmailFilter($qb, $email);
+        $this
+            ->addActiveFilter($qb)
+            ->addEmailFilter($qb, $email);
 
         return null !== $qb->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * @param \Doctrine\ORM\QueryBuilder $qb Query builder
+     *
+     * @return UserRepository
+     */
+    private function addActiveFilter(QueryBuilder $qb)
+    {
+        return $this
+            ->addEnabledFilter($qb)
+            ->addNonLockedFilter($qb);
+    }
+
+    /**
+     * @param \Doctrine\ORM\QueryBuilder $qb Query builder
+     *
+     * @return UserRepository
+     */
+    private function addEnabledFilter(QueryBuilder $qb)
+    {
+        $qb->andWhere('o.enabled = :enabled')->setParameter('enabled', true);
+
+        return $this;
+    }
+
+    /**
+     * @param \Doctrine\ORM\QueryBuilder $qb Query builder
+     *
+     * @return UserRepository
+     */
+    private function addNonLockedFilter(QueryBuilder $qb)
+    {
+        $qb->andWhere('o.locked = :locked')->setParameter('locked', false);
+
+        return $this;
     }
 
     /**

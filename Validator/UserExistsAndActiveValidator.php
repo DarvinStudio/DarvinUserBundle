@@ -16,9 +16,9 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 /**
- * User exists constraint validator
+ * User exists and active constraint validator
  */
-class UserExistsValidator extends ConstraintValidator
+class UserExistsAndActiveValidator extends ConstraintValidator
 {
     /**
      * @var \Doctrine\ORM\EntityManager
@@ -34,12 +34,12 @@ class UserExistsValidator extends ConstraintValidator
     }
 
     /**
-     * @param string                                                                                      $email      Email
-     * @param \Darvin\UserBundle\Validator\Constraints\UserExists|\Symfony\Component\Validator\Constraint $constraint Constraint
+     * @param string                                                                                               $email      Email
+     * @param \Darvin\UserBundle\Validator\Constraints\UserExistsAndActive|\Symfony\Component\Validator\Constraint $constraint Constraint
      */
     public function validate($email, Constraint $constraint)
     {
-        if (!$this->getUserRepository()->userExists($email)) {
+        if (!$this->getUserRepository()->userExistsAndActive($email)) {
             $this->context->addViolation($constraint->message);
         }
     }
