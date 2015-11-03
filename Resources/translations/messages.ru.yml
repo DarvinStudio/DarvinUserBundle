@@ -36,8 +36,9 @@ security:
 user:
     action:
         profile:
-            submit: Сохранить профиль
-            title:  Изменить профиль
+            submit:  Сохранить профиль
+            success: Профиль успешно сохранен
+            title:   Изменить профиль
     entity:
         address:        Адрес
         email:          E-mail

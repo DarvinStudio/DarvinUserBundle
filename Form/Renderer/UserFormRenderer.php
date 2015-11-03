@@ -40,12 +40,12 @@ class UserFormRenderer
     }
 
     /**
-     * @param bool                                  $widget Whether to render widget
      * @param \Symfony\Component\Form\FormInterface $form   Form
+     * @param bool                                  $widget Whether to render widget
      *
      * @return string
      */
-    public function renderProfileForm($widget = true, FormInterface $form = null)
+    public function renderProfileForm(FormInterface $form = null, $widget = true)
     {
         if (empty($form)) {
             $form = $this->userFormFactory->createProfileForm();
