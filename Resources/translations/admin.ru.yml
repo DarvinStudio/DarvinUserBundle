@@ -1,8 +1,12 @@
 configuration:
+    darvin_user:
+        parameter:
+            notification_emails: E-mail для уведомлений
+        title: Настройки модуля «Пользователи»
     darvin_user_security:
         parameter:
             permissions: Права
-        title: Настройки модуля «Пользователи»
+        title: Настройки безопасности модуля «Пользователи»
 
 security:
     object:

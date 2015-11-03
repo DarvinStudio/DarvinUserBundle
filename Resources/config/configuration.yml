@@ -1,0 +1,8 @@
+parameters:
+    darvin_user.configuration.class: Darvin\UserBundle\Configuration\Configuration
+
+services:
+    darvin_user.configuration:
+        class: %darvin_user.configuration.class%
+        tags:
+            - { name: darvin_config.configuration }
