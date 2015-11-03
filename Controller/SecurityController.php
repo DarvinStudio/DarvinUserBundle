@@ -54,27 +54,29 @@ class SecurityController extends Controller
             return $this->redirectToRoute($this->getParameter('darvin_user.already_logged_in_redirect_route'));
         }
 
+        $widget = $request->isXmlHttpRequest();
+
         $form = $this->getSecurityFormFactory()->createRegistrationForm()->handleRequest($request);
 
         if (!$form->isSubmitted()) {
             return new Response(
-                $this->getSecurityFormRenderer()->renderRegistrationForm($request->isXmlHttpRequest(), $form)
+                $this->getSecurityFormRenderer()->renderRegistrationForm($widget, $form)
             );
         }
 
         $successMessage = 'security.action.register.success';
 
-        if (!$this->getSecurityFormHandler()->handleRegistrationForm($form, !$request->isXmlHttpRequest(), $successMessage)) {
-            $html = $this->getSecurityFormRenderer()->renderRegistrationForm($request->isXmlHttpRequest(), $form);
+        if (!$this->getSecurityFormHandler()->handleRegistrationForm($form, !$widget, $successMessage)) {
+            $html = $this->getSecurityFormRenderer()->renderRegistrationForm($widget, $form);
 
-            return $request->isXmlHttpRequest()
+            return $widget
                 ? new AjaxResponse($html, false, FlashNotifierInterface::MESSAGE_FORM_ERROR)
                 : new Response($html);
         }
 
         $url = $this->generateUrl($this->getParameter('darvin_user.already_logged_in_redirect_route'));
 
-        return $request->isXmlHttpRequest()
+        return $widget
             ? new AjaxResponse('', true, $successMessage, array(), $url)
             : $this->redirect($url);
     }
@@ -90,29 +92,29 @@ class SecurityController extends Controller
             return $this->redirectToRoute($this->getParameter('darvin_user.already_logged_in_redirect_route'));
         }
 
+        $widget = $request->isXmlHttpRequest();
+
         $passwordResetToken = $this->getPasswordResetToken($request->query->get('token'));
 
         $form = $this->getSecurityFormFactory()->createPasswordResetForm($passwordResetToken)->handleRequest($request);
 
         if (!$form->isSubmitted()) {
-            return new Response(
-                $this->getSecurityFormRenderer()->renderPasswordResetForm($form, $request->isXmlHttpRequest())
-            );
+            return new Response($this->getSecurityFormRenderer()->renderPasswordResetForm($form, $widget));
         }
 
         $successMessage = 'security.action.reset_password.success';
 
-        if (!$this->getSecurityFormHandler()->handlePasswordResetForm($form, !$request->isXmlHttpRequest(), $successMessage)) {
-            $html = $this->getSecurityFormRenderer()->renderPasswordResetForm($form, $request->isXmlHttpRequest());
+        if (!$this->getSecurityFormHandler()->handlePasswordResetForm($form, !$widget, $successMessage)) {
+            $html = $this->getSecurityFormRenderer()->renderPasswordResetForm($form, $widget);
 
-            return $request->isXmlHttpRequest()
+            return $widget
                 ? new AjaxResponse($html, false, FlashNotifierInterface::MESSAGE_FORM_ERROR)
                 : new Response($html);
         }
 
         $url = $this->generateUrl($this->getParameter('darvin_user.already_logged_in_redirect_route'));
 
-        return $request->isXmlHttpRequest()
+        return $widget
             ? new AjaxResponse('', true, $successMessage, array(), $url)
             : $this->redirect($url);
     }

@@ -33,31 +33,27 @@ class PasswordResetTokenController extends Controller
             return $this->redirectToRoute($this->getParameter('darvin_user.already_logged_in_redirect_route'));
         }
 
+        $widget = $request->isXmlHttpRequest();
+
         $form = $this->getPasswordResetTokenFormFactory()->createRequestForm()->handleRequest($request);
 
         if (!$form->isSubmitted()) {
-            return new Response(
-                $this->getPasswordResetTokenFormRenderer()->renderRequestForm($request->isXmlHttpRequest(), $form)
-            );
+            return new Response($this->getPasswordResetTokenFormRenderer()->renderRequestForm($widget, $form));
         }
 
         $successMessage = 'password_reset_token.action.request.success';
 
-        $passwordResetToken = $this->getPasswordResetTokenFormHandler()->handleRequestForm(
-            $form,
-            !$request->isXmlHttpRequest(),
-            $successMessage
-        );
+        $passwordResetToken = $this->getPasswordResetTokenFormHandler()->handleRequestForm($form, !$widget, $successMessage);
 
         if (empty($passwordResetToken)) {
-            $html = $this->getPasswordResetTokenFormRenderer()->renderRequestForm($request->isXmlHttpRequest(), $form);
+            $html = $this->getPasswordResetTokenFormRenderer()->renderRequestForm($widget, $form);
 
-            return $request->isXmlHttpRequest()
+            return $widget
                 ? new AjaxResponse($html, false, FlashNotifierInterface::MESSAGE_FORM_ERROR)
                 : new Response($html);
         }
 
-        return $request->isXmlHttpRequest()
+        return $widget
             ? new AjaxResponse(
                 $this->renderView('DarvinUserBundle:PasswordResetToken/widget/request:submitted.html.twig', array(
                     'password_reset_token' => $passwordResetToken,
