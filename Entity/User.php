@@ -104,7 +104,7 @@ class User implements \Serializable, AdvancedUserInterface
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
-     * @Assert\NotBlank(groups={"Register"})
+     * @Assert\NotBlank(groups={"Profile", "Register"})
      */
     private $fullName;
 
@@ -112,7 +112,7 @@ class User implements \Serializable, AdvancedUserInterface
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
-     * @Assert\NotBlank(groups={"Register"})
+     * @Assert\NotBlank(groups={"Profile", "Register"})
      */
     private $address;
 
@@ -120,7 +120,7 @@ class User implements \Serializable, AdvancedUserInterface
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
-     * @Assert\NotBlank(groups={"Register"})
+     * @Assert\NotBlank(groups={"Profile", "Register"})
      */
     private $phone;
 
