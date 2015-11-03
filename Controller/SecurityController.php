@@ -59,9 +59,7 @@ class SecurityController extends Controller
         $form = $this->getSecurityFormFactory()->createRegistrationForm()->handleRequest($request);
 
         if (!$form->isSubmitted()) {
-            return new Response(
-                $this->getSecurityFormRenderer()->renderRegistrationForm($widget, $form)
-            );
+            return new Response($this->getSecurityFormRenderer()->renderRegistrationForm($widget, $form));
         }
 
         $successMessage = 'security.action.register.success';
