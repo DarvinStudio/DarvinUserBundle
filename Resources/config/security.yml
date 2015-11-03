@@ -24,6 +24,7 @@ services:
         class: %darvin_user.security.event_listener.post_register.class%
         arguments:
             - "@darvin_user.security.user_authenticator"
+            - "@darvin_user.user.mailer"
             - %darvin_user.public_firewall_name%
         tags:
             - { name: kernel.event_listener, event: darvin_user.post_register, method: postRegister }

@@ -39,6 +39,10 @@ user:
             submit:  Сохранить профиль
             success: Профиль успешно сохранен
             title:   Изменить профиль
+    email:
+        new:
+            subject: Новый пользователь
+            user:    Пользователь
     entity:
         address:        Адрес
         email:          E-mail

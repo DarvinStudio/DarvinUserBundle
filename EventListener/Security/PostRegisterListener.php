@@ -12,6 +12,7 @@ namespace Darvin\UserBundle\EventListener\Security;
 
 use Darvin\UserBundle\Event\UserEvent;
 use Darvin\UserBundle\Security\UserAuthenticator;
+use Darvin\UserBundle\User\UserMailer;
 
 /**
  * Post register event listener
@@ -24,17 +25,24 @@ class PostRegisterListener
     private $userAuthenticator;
 
     /**
+     * @var \Darvin\UserBundle\User\UserMailer
+     */
+    private $userMailer;
+
+    /**
      * @var string
      */
     private $publicFirewallName;
 
     /**
      * @param \Darvin\UserBundle\Security\UserAuthenticator $userAuthenticator  User authenticator
+     * @param \Darvin\UserBundle\User\UserMailer            $userMailer         User mailer
      * @param string                                        $publicFirewallName Public firewall name
      */
-    public function __construct(UserAuthenticator $userAuthenticator, $publicFirewallName)
+    public function __construct(UserAuthenticator $userAuthenticator, UserMailer $userMailer, $publicFirewallName)
     {
         $this->userAuthenticator = $userAuthenticator;
+        $this->userMailer = $userMailer;
         $this->publicFirewallName = $publicFirewallName;
     }
 
@@ -43,6 +51,8 @@ class PostRegisterListener
      */
     public function postRegister(UserEvent $event)
     {
+        $this->userMailer->sendServicePostRegisterEmails($event->getUser());
+
         $this->userAuthenticator->authenticateUser($event->getUser(), $this->publicFirewallName);
     }
 }

@@ -7,6 +7,8 @@ parameters:
 
     darvin_user.user.form.renderer.class: Darvin\UserBundle\Form\Renderer\UserFormRenderer
 
+    darvin_user.user.mailer.class: Darvin\UserBundle\User\UserMailer
+
     darvin_user.user.manager.generic.class: Darvin\UserBundle\User\GenericUserManager
 
     darvin_user.user.validator.user_exists_and_active.class: Darvin\UserBundle\Validator\UserExistsAndActiveValidator
@@ -38,6 +40,13 @@ services:
         arguments:
             - "@templating"
             - "@darvin_user.user.form.factory"
+
+    darvin_user.user.mailer:
+        class: %darvin_user.user.mailer.class%
+        arguments:
+            - "@darvin_utils.mailer"
+            - "@templating"
+            - "@darvin_user.configuration"
 
     darvin_user.user.manager:
         alias: darvin_user.user.manager.generic

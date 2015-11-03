@@ -39,6 +39,10 @@ user:
             submit:  Save profile
             success: Profile successfully saved
             title:   Change profile
+    email:
+        new:
+            subject: New user
+            user:    User
     entity:
         address:        Address
         email:          E-mail
