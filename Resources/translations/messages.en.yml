@@ -1,18 +1,18 @@
 password_reset_token:
     action:
         request:
-            submit:    Get link
-            submitted: Link was sent to e-mail %email%. Check mail:
-            success:   Link successfully sent
-            title:     Get password reset link
+            link:       Forgot password?
+            submit:     Get link
+            submitted:  Link was sent to e-mail %email%. Check mail:
+            success:    Link successfully sent
+            title:      Get password reset link
+            user_email: E-mail
     email:
         new:
             subject: Password reset link
             text: >
                 <p>In order to reset password use link <a href="%url%">%url%</a>.</p>
                 <p>Link will be expired at %expire_at%.</p>
-    request:
-        user_email: E-mail
 
 security:
     action:
@@ -27,6 +27,11 @@ security:
             submit:  Register
             success: Account successfully created
             title:   Registration
+        reset_password:
+            plain_password: New password
+            submit:         Change password
+            success:        Password successfully changed
+            title:          Password reset
 
 user:
     entity:
