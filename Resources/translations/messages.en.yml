@@ -34,6 +34,11 @@ security:
             title:          Password reset
 
 user:
+    action:
+        profile:
+            submit:  Save profile
+            success: Profile successfully saved
+            title:   Change profile
     entity:
         address:        Address
         email:          E-mail
