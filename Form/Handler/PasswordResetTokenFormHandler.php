@@ -14,7 +14,7 @@ use Darvin\UserBundle\Entity\User;
 use Darvin\UserBundle\Event\Events;
 use Darvin\UserBundle\Event\PasswordResetTokenEvent;
 use Darvin\UserBundle\Form\FormException;
-use Darvin\UserBundle\Form\Type\PasswordResetTokenRequestType;
+use Darvin\UserBundle\Form\Type\PasswordResetToken\RequestType;
 use Darvin\UserBundle\PasswordResetToken\PasswordResetTokenFactory;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Doctrine\ORM\EntityManager;
@@ -74,7 +74,7 @@ class PasswordResetTokenFormHandler
      */
     public function handleRequestForm(FormInterface $form, $addFlashMessages = false, $successMessage = null)
     {
-        if (!$form->getConfig()->getType()->getInnerType() instanceof PasswordResetTokenRequestType) {
+        if (!$form->getConfig()->getType()->getInnerType() instanceof RequestType) {
             throw new FormException('Unable to handle form: provided form is not password reset token request form.');
         }
         if (!$form->isSubmitted()) {

@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Darvin\UserBundle\Form\Type;
+namespace Darvin\UserBundle\Form\Type\PasswordResetToken;
 
 use Darvin\UserBundle\Validator\Constraints\UserExistsAndActive;
 use Symfony\Component\Form\AbstractType;
@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 /**
  * Password reset token request form type
  */
-class PasswordResetTokenRequestType extends AbstractType
+class RequestType extends AbstractType
 {
     /**
      * {@inheritdoc}

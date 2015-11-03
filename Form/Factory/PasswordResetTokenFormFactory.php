@@ -10,7 +10,7 @@
 
 namespace Darvin\UserBundle\Form\Factory;
 
-use Darvin\UserBundle\Form\Type\PasswordResetTokenRequestType;
+use Darvin\UserBundle\Form\Type\PasswordResetToken\RequestType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -56,7 +56,7 @@ class PasswordResetTokenFormFactory
     public function createRequestForm()
     {
         return $this->formFactory->create(
-            new PasswordResetTokenRequestType(),
+            new RequestType(),
             array(
                 'user_email' => $this->authenticationUtils->getLastUsername(),
             ),
