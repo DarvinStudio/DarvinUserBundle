@@ -36,6 +36,7 @@ security:
 user:
     action:
         profile:
+            link:    Edit profile
             submit:  Save profile
             success: Profile successfully saved
             title:   Change profile

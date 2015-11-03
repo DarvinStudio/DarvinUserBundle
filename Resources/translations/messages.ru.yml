@@ -36,6 +36,7 @@ security:
 user:
     action:
         profile:
+            link:    Редактировать профиль
             submit:  Сохранить профиль
             success: Профиль успешно сохранен
             title:   Изменить профиль
