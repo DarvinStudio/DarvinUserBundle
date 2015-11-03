@@ -31,7 +31,7 @@ class PasswordResetTokenRequestType extends AbstractType
     {
         $builder
             ->add('user_email', 'email', array(
-                'label'       => 'password_reset_token.request.user_email',
+                'label'       => 'password_reset_token.action.request.user_email',
                 'constraints' => array(
                     new NotBlank(),
                     new Email(),

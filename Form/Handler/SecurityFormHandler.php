@@ -13,7 +13,9 @@ namespace Darvin\UserBundle\Form\Handler;
 use Darvin\UserBundle\Event\Events;
 use Darvin\UserBundle\Event\UserEvent;
 use Darvin\UserBundle\Form\FormException;
+use Darvin\UserBundle\Form\Type\Security\PasswordResetType;
 use Darvin\UserBundle\Form\Type\Security\RegistrationType;
+use Darvin\UserBundle\Security\UserAuthenticator;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -40,18 +42,74 @@ class SecurityFormHandler
     private $flashNotifier;
 
     /**
-     * @param \Doctrine\ORM\EntityManager                                 $em              Entity manager
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher Event dispatcher
-     * @param \Darvin\Utils\Flash\FlashNotifierInterface                  $flashNotifier   Flash notifier
+     * @var \Darvin\UserBundle\Security\UserAuthenticator
+     */
+    private $userAuthenticator;
+
+    /**
+     * @var string
+     */
+    private $publicFirewallName;
+
+    /**
+     * @param \Doctrine\ORM\EntityManager                                 $em                 Entity manager
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher    Event dispatcher
+     * @param \Darvin\Utils\Flash\FlashNotifierInterface                  $flashNotifier      Flash notifier
+     * @param \Darvin\UserBundle\Security\UserAuthenticator               $userAuthenticator  User authenticator
+     * @param string                                                      $publicFirewallName Public firewall name
      */
     public function __construct(
         EntityManager $em,
         EventDispatcherInterface $eventDispatcher,
-        FlashNotifierInterface $flashNotifier
+        FlashNotifierInterface $flashNotifier,
+        UserAuthenticator $userAuthenticator,
+        $publicFirewallName
     ) {
         $this->em = $em;
         $this->eventDispatcher = $eventDispatcher;
         $this->flashNotifier = $flashNotifier;
+        $this->userAuthenticator = $userAuthenticator;
+        $this->publicFirewallName = $publicFirewallName;
+    }
+
+    /**
+     * @param \Symfony\Component\Form\FormInterface $form             Form
+     * @param bool                                  $addFlashMessages Whether to add flash messages
+     * @param string                                $successMessage   Success message
+     *
+     * @return bool
+     * @throws \Darvin\UserBundle\Form\FormException
+     */
+    public function handlePasswordResetForm(FormInterface $form, $addFlashMessages = false, $successMessage = null)
+    {
+        if (!$form->getConfig()->getType()->getInnerType() instanceof PasswordResetType) {
+            throw new FormException('Unable to handle form: provided form is not password reset form.');
+        }
+        if (!$form->isSubmitted()) {
+            throw new FormException('Unable to handle password reset form: it is not submitted.');
+        }
+        if (!$form->isValid()) {
+            if ($addFlashMessages) {
+                $this->flashNotifier->formError();
+            }
+
+            return false;
+        }
+
+        /** @var \Darvin\UserBundle\Entity\User $user */
+        $user = $form->getData();
+
+        $this->em->remove($user->getPasswordResetToken());
+        $user->setPasswordResetToken(null);
+        $this->em->flush();
+
+        $this->userAuthenticator->authenticateUser($user, $this->publicFirewallName);
+
+        if ($addFlashMessages && !empty($successMessage)) {
+            $this->flashNotifier->success($successMessage);
+        }
+
+        return true;
     }
 
     /**

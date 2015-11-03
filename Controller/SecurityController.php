@@ -88,9 +88,29 @@ class SecurityController extends Controller
     {
         $passwordResetToken = $this->getPasswordResetToken($request->query->get('token'));
 
-        $form = $this->getSecurityFormFactory()->createPasswordResetForm($passwordResetToken);
+        $form = $this->getSecurityFormFactory()->createPasswordResetForm($passwordResetToken)->handleRequest($request);
 
-        return new Response($this->getSecurityFormRenderer()->renderPasswordResetForm($form, $request->isXmlHttpRequest()));
+        if (!$form->isSubmitted()) {
+            return new Response(
+                $this->getSecurityFormRenderer()->renderPasswordResetForm($form, $request->isXmlHttpRequest())
+            );
+        }
+
+        $successMessage = 'security.action.reset_password.success';
+
+        if (!$this->getSecurityFormHandler()->handlePasswordResetForm($form, !$request->isXmlHttpRequest(), $successMessage)) {
+            $html = $this->getSecurityFormRenderer()->renderPasswordResetForm($form, $request->isXmlHttpRequest());
+
+            return $request->isXmlHttpRequest()
+                ? new AjaxResponse($html, false, FlashNotifierInterface::MESSAGE_FORM_ERROR)
+                : new Response($html);
+        }
+
+        $url = $this->generateUrl($this->getParameter('darvin_user.already_logged_in_redirect_route'));
+
+        return $request->isXmlHttpRequest()
+            ? new AjaxResponse('', true, $successMessage, array(), $url)
+            : $this->redirect($url);
     }
 
     /**

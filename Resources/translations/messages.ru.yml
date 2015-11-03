@@ -1,18 +1,18 @@
 password_reset_token:
     action:
         request:
-            submit:    Получить ссылку
-            submitted: Ссылка отправлена на e-mail %email%. Проверить почту:
-            success:   Ссылка успешно отправлена
-            title:     Получить ссылку для сброса пароля
+            link:       Забыли пароль?
+            submit:     Получить ссылку
+            submitted:  Ссылка отправлена на e-mail %email%. Проверить почту:
+            success:    Ссылка успешно отправлена
+            title:      Получить ссылку для сброса пароля
+            user_email: E-mail
     email:
         new:
             subject: Ссылка для сброса пароля
             text: >
                 <p>Для сброса пароля перейдите по ссылке <a href="%url%">%url%</a>.</p>
                 <p>Время действия ссылки - до %expire_at%.</p>
-    request:
-        user_email: E-mail
 
 security:
     action:
@@ -27,6 +27,11 @@ security:
             submit:  Зарегистрироваться
             success: Вы были успешно зарегистрированы
             title:   Регистрация
+        reset_password:
+            plain_password: Новый пароль
+            submit:         Сменить пароль
+            success:        Пароль успешно изменен
+            title:          Сброс пароля
 
 user:
     entity:

@@ -27,7 +27,7 @@ class PasswordResetType extends AbstractType
     {
         $builder
             ->add('plainPassword', 'password', array(
-                'label' => 'user.entity.plain_password',
+                'label' => 'security.action.reset_password.plain_password',
             ))
             ->add('title', 'darvin_utils_anti_spam');
     }

@@ -87,9 +87,6 @@ class PasswordResetTokenFormHandler
 
             return null;
         }
-        if ($addFlashMessages && !empty($successMessage)) {
-            $this->flashNotifier->success($successMessage);
-        }
 
         $data = $form->getData();
 
@@ -98,8 +95,8 @@ class PasswordResetTokenFormHandler
         $existingPasswordResetToken = $user->getPasswordResetToken();
 
         if (!empty($existingPasswordResetToken)) {
-            $user->setPasswordResetToken(null);
             $this->em->remove($existingPasswordResetToken);
+            $user->setPasswordResetToken(null);
             $this->em->flush();
         }
 
@@ -111,6 +108,10 @@ class PasswordResetTokenFormHandler
             Events::POST_PASSWORD_RESET_TOKEN_REQUEST,
             new PasswordResetTokenEvent($passwordResetToken)
         );
+
+        if ($addFlashMessages && !empty($successMessage)) {
+            $this->flashNotifier->success($successMessage);
+        }
 
         return $passwordResetToken;
     }

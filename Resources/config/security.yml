@@ -52,6 +52,8 @@ services:
             - "@doctrine.orm.entity_manager"
             - "@event_dispatcher"
             - "@darvin_utils.flash.notifier"
+            - "@darvin_user.security.user_authenticator"
+            - %darvin_user.public_firewall_name%
 
     darvin_user.security.form.renderer:
         class: %darvin_user.security.form.renderer.class%
