@@ -34,6 +34,10 @@ security:
             title:          Сброс пароля
 
 user:
+    action:
+        profile:
+            submit: Сохранить профиль
+            title:  Изменить профиль
     entity:
         address:        Адрес
         email:          E-mail
