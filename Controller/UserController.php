@@ -10,6 +10,7 @@
 
 namespace Darvin\UserBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +24,8 @@ class UserController extends Controller
      * @param \Symfony\Component\HttpFoundation\Request $request Request
      *
      * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
      */
     public function profileAction(Request $request)
     {
