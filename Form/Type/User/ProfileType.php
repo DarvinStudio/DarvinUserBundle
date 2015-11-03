@@ -26,11 +26,22 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email')
-            ->add('fullName')
-            ->add('address')
-            ->add('phone')
-            ->add('plainPassword');
+            ->add('email', null, array(
+                'label' => 'user.entity.email',
+            ))
+            ->add('fullName', null, array(
+                'label' => 'user.entity.full_name',
+            ))
+            ->add('address', null, array(
+                'label' => 'user.entity.address',
+            ))
+            ->add('phone', null, array(
+                'label' => 'user.entity.phone',
+            ))
+            ->add('plainPassword', 'password', array(
+                'label'    => 'user.entity.plain_password',
+                'required' => false,
+            ));
     }
 
     /**
