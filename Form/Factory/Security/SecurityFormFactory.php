@@ -93,8 +93,8 @@ class SecurityFormFactory
     public function createRegistrationForm(BaseUser $user = null)
     {
         if (empty($user)) {
-            $user = $this->userFactory->createUser();
-            $user->setEmail($this->authenticationUtils->getLastUsername());
+            $user = $this->userFactory->createUser()
+                ->setEmail($this->authenticationUtils->getLastUsername());
         }
 
         return $this->formFactory->create(new RegistrationType(), $user, array(
