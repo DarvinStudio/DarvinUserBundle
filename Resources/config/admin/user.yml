@@ -1,93 +1,92 @@
-Darvin\UserBundle\Entity\BaseUser:
-    entity_name: user
-    images:
-        homepage_menu_icon: bundles/darvinuser/images/icons/homepage/user.png
-    menu:
-        color:    "#2171ac"
-        position: 0
-    sortable_fields:
-        email:   ~
-        locked:  ~
-        enabled: ~
-        roles:   ~
-    form:
-        edit:
-            fields:
-                locked:
+entity_name: user
+images:
+    homepage_menu_icon: bundles/darvinuser/images/icons/homepage/user.png
+menu:
+    color:    "#2171ac"
+    position: 0
+sortable_fields:
+    email:   ~
+    locked:  ~
+    enabled: ~
+    roles:   ~
+form:
+    edit:
+        fields:
+            locked:
+                options:
+                    required: false
+            enabled:
+                options:
+                    required: false
+            email: ~
+            plainPassword:
+                options:
+                    required: false
+            roles:
+                type: choice
+                options:
+                    choices:  [ Darvin\UserBundle\Entity\BaseUser, getExtraRoles ]
+                    multiple: true
+                    expanded: true
+    filter:
+        fields:
+            email:
+                strict_comparison: false
+            enabled: ~
+            locked:  ~
+            roles:
+                type: choice
+                options:
+                    choices: [ Darvin\UserBundle\Entity\BaseUser, getExtraRoles ]
+                strict_comparison: false
+    index:
+        fields:
+            locked:  ~
+            enabled: ~
+    new:
+        fields:
+            locked:
+                options:
+                    required: false
+            enabled:
+                options:
+                    required: false
+            email:         ~
+            plainPassword: ~
+            roles:
+                type: choice
+                options:
+                    choices:  [ Darvin\UserBundle\Entity\BaseUser, getExtraRoles ]
+                    multiple: true
+                    expanded: true
+view:
+    index:
+        fields:
+            email:
+                widget_generator:
+                    alias: email_link
                     options:
-                        required: false
-                enabled:
+                        email_property: email
+            locked:  ~
+            enabled: ~
+            roles:
+                widget_generator:
+                    alias: list
                     options:
-                        required: false
-                email: ~
-                plainPassword:
+                        keys_property:   roles
+                        values_callback: [ Darvin\UserBundle\Entity\BaseUser, getExtraRoles ]
+    show:
+        fields:
+            email:
+                widget_generator:
+                    alias: email_link
                     options:
-                        required: false
-                roles:
-                    type: choice
+                        email_property: email
+            locked:  ~
+            enabled: ~
+            roles:
+                widget_generator:
+                    alias: list
                     options:
-                        choices:  [ Darvin\UserBundle\Entity\BaseUser, getExtraRoles ]
-                        multiple: true
-                        expanded: true
-        filter:
-            fields:
-                email:
-                    strict_comparison: false
-                enabled: ~
-                locked:  ~
-                roles:
-                    type: choice
-                    options:
-                        choices: [ Darvin\UserBundle\Entity\BaseUser, getExtraRoles ]
-                    strict_comparison: false
-        index:
-            fields:
-                locked:  ~
-                enabled: ~
-        new:
-            fields:
-                locked:
-                    options:
-                        required: false
-                enabled:
-                    options:
-                        required: false
-                email:         ~
-                plainPassword: ~
-                roles:
-                    type: choice
-                    options:
-                        choices:  [ Darvin\UserBundle\Entity\BaseUser, getExtraRoles ]
-                        multiple: true
-                        expanded: true
-    view:
-        index:
-            fields:
-                email:
-                    widget_generator:
-                        alias: email_link
-                        options:
-                            email_property: email
-                locked:  ~
-                enabled: ~
-                roles:
-                    widget_generator:
-                        alias: list
-                        options:
-                            keys_property:   roles
-                            values_callback: [ Darvin\UserBundle\Entity\BaseUser, getExtraRoles ]
-        show:
-            fields:
-                email:
-                    widget_generator:
-                        alias: email_link
-                        options:
-                            email_property: email
-                locked:  ~
-                enabled: ~
-                roles:
-                    widget_generator:
-                        alias: list
-                        options:
-                            keys_property:   roles
-                            values_callback: [ Darvin\UserBundle\Entity\BaseUser, getExtraRoles ]
+                        keys_property:   roles
+                        values_callback: [ Darvin\UserBundle\Entity\BaseUser, getExtraRoles ]
