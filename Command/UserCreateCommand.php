@@ -86,7 +86,7 @@ class UserCreateCommand extends ContainerAwareCommand
      */
     private function createUser($email, $plainPassword, array $roles)
     {
-        $class = $this->getUserClass();
+        $class = $this->getContainer()->getParameter('darvin_user.user_class');
 
         /** @var \Darvin\UserBundle\Entity\BaseUser $user */
         $user = new $class();
@@ -111,14 +111,6 @@ class UserCreateCommand extends ContainerAwareCommand
     private function getQuestionHelper()
     {
         return $this->getHelper('question');
-    }
-
-    /**
-     * @return string
-     */
-    private function getUserClass()
-    {
-        return $this->getContainer()->getParameter('darvin_user.user_class');
     }
 
     /**

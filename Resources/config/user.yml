@@ -11,6 +11,8 @@ parameters:
 
     darvin_user.user.manager.generic.class: Darvin\UserBundle\User\GenericUserManager
 
+    darvin_user.user.repository.class: Darvin\UserBundle\Repository\UserRepository
+
     darvin_user.user.validator.user_exists_and_active.class: Darvin\UserBundle\Validator\UserExistsAndActiveValidator
 
 services:
@@ -58,10 +60,15 @@ services:
             - "@security.token_storage"
             - "@security.password_encoder"
 
+    darvin_user.user.repository:
+        class:   %darvin_user.user.repository.class%
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - %darvin_user.user_class%
+
     darvin_user.user.validator.user_exists_and_active:
         class: %darvin_user.user.validator.user_exists_and_active.class%
         arguments:
-            - "@doctrine.orm.entity_manager"
-            - %darvin_user.user_class%
+            - "@darvin_user.user.repository"
         tags:
             - { name: validator.constraint_validator, alias: darvin_user_user_exists_and_active }

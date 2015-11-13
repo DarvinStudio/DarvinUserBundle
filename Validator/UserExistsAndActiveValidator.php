@@ -10,7 +10,7 @@
 
 namespace Darvin\UserBundle\Validator;
 
-use Doctrine\ORM\EntityManager;
+use Darvin\UserBundle\Repository\UserRepository;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -20,23 +20,16 @@ use Symfony\Component\Validator\ConstraintValidator;
 class UserExistsAndActiveValidator extends ConstraintValidator
 {
     /**
-     * @var \Doctrine\ORM\EntityManager
+     * @var \Darvin\UserBundle\Repository\UserRepository
      */
-    private $em;
+    private $userRepository;
 
     /**
-     * @var string
+     * @param \Darvin\UserBundle\Repository\UserRepository $userRepository User entity repository
      */
-    private $userClass;
-
-    /**
-     * @param \Doctrine\ORM\EntityManager $em        Entity manager
-     * @param string                      $userClass User entity class
-     */
-    public function __construct(EntityManager $em, $userClass)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->em = $em;
-        $this->userClass = $userClass;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -45,16 +38,8 @@ class UserExistsAndActiveValidator extends ConstraintValidator
      */
     public function validate($email, Constraint $constraint)
     {
-        if (!$this->getUserRepository()->userExistsAndActive($email)) {
+        if (!$this->userRepository->userExistsAndActive($email)) {
             $this->context->addViolation($constraint->message);
         }
-    }
-
-    /**
-     * @return \Darvin\UserBundle\Repository\UserRepository
-     */
-    private function getUserRepository()
-    {
-        return $this->em->getRepository($this->userClass);
     }
 }
