@@ -1,4 +1,5 @@
 Darvin\UserBundle\Entity\BaseUser:
+    entity_name: user
     images:
         homepage_menu_icon: bundles/darvinuser/images/icons/homepage/user.png
     menu:
