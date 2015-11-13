@@ -31,9 +31,9 @@ class PasswordResetToken
     private $id;
 
     /**
-     * @var \Darvin\UserBundle\Entity\User
+     * @var \Darvin\UserBundle\Entity\BaseUser
      *
-     * @ORM\OneToOne(targetEntity="Darvin\UserBundle\Entity\User", inversedBy="passwordResetToken")
+     * @ORM\OneToOne(targetEntity="Darvin\UserBundle\Entity\BaseUser", inversedBy="passwordResetToken")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
@@ -46,10 +46,10 @@ class PasswordResetToken
     private $expireAt;
 
     /**
-     * @param \Darvin\UserBundle\Entity\User $user     User
-     * @param \DateTime                      $expireAt Expire at
+     * @param \Darvin\UserBundle\Entity\BaseUser $user     User
+     * @param \DateTime                          $expireAt Expire at
      */
-    public function __construct(User $user = null, \DateTime $expireAt = null)
+    public function __construct(BaseUser $user = null, \DateTime $expireAt = null)
     {
         $this->user = $user;
         $this->expireAt = $expireAt;
@@ -72,7 +72,7 @@ class PasswordResetToken
     }
 
     /**
-     * @return \Darvin\UserBundle\Entity\User
+     * @return \Darvin\UserBundle\Entity\BaseUser
      */
     public function getUser()
     {
@@ -80,11 +80,11 @@ class PasswordResetToken
     }
 
     /**
-     * @param \Darvin\UserBundle\Entity\User $user user
+     * @param \Darvin\UserBundle\Entity\BaseUser $user user
      *
      * @return PasswordResetToken
      */
-    public function setUser(User $user = null)
+    public function setUser(BaseUser $user = null)
     {
         $this->user = $user;
 

@@ -17,12 +17,14 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * User
+ * Base user
  *
  * @ORM\Entity(repositoryClass="Darvin\UserBundle\Repository\UserRepository")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\Table(name="user")
  * @Doctrine\UniqueEntity(fields={"email"})
  */
-class User implements \Serializable, AdvancedUserInterface
+class BaseUser implements \Serializable, AdvancedUserInterface
 {
     const USER_CLASS = __CLASS__;
 
@@ -192,7 +194,7 @@ class User implements \Serializable, AdvancedUserInterface
     }
 
     /**
-     * @return User
+     * @return BaseUser
      */
     public function generateRandomPlainPassword()
     {
@@ -226,7 +228,7 @@ class User implements \Serializable, AdvancedUserInterface
     }
 
     /**
-     * @return User
+     * @return BaseUser
      */
     public function updateSalt()
     {
@@ -262,7 +264,7 @@ class User implements \Serializable, AdvancedUserInterface
     /**
      * @param boolean $enabled enabled
      *
-     * @return User
+     * @return BaseUser
      */
     public function setEnabled($enabled)
     {
@@ -282,7 +284,7 @@ class User implements \Serializable, AdvancedUserInterface
     /**
      * @param array $roles roles
      *
-     * @return User
+     * @return BaseUser
      */
     public function setRoles(array $roles)
     {
@@ -305,7 +307,7 @@ class User implements \Serializable, AdvancedUserInterface
     /**
      * @param string $password password
      *
-     * @return User
+     * @return BaseUser
      */
     public function setPassword($password)
     {
@@ -325,7 +327,7 @@ class User implements \Serializable, AdvancedUserInterface
     /**
      * @param string $salt salt
      *
-     * @return User
+     * @return BaseUser
      */
     public function setSalt($salt)
     {
@@ -377,7 +379,7 @@ class User implements \Serializable, AdvancedUserInterface
     /**
      * @param \Darvin\UserBundle\Entity\PasswordResetToken $passwordResetToken passwordResetToken
      *
-     * @return User
+     * @return BaseUser
      */
     public function setPasswordResetToken(PasswordResetToken $passwordResetToken = null)
     {
@@ -397,7 +399,7 @@ class User implements \Serializable, AdvancedUserInterface
     /**
      * @param boolean $locked locked
      *
-     * @return User
+     * @return BaseUser
      */
     public function setLocked($locked)
     {
@@ -417,7 +419,7 @@ class User implements \Serializable, AdvancedUserInterface
     /**
      * @param string $email email
      *
-     * @return User
+     * @return BaseUser
      */
     public function setEmail($email)
     {
@@ -437,7 +439,7 @@ class User implements \Serializable, AdvancedUserInterface
     /**
      * @param string $fullName fullName
      *
-     * @return User
+     * @return BaseUser
      */
     public function setFullName($fullName)
     {
@@ -457,7 +459,7 @@ class User implements \Serializable, AdvancedUserInterface
     /**
      * @param string $address address
      *
-     * @return User
+     * @return BaseUser
      */
     public function setAddress($address)
     {
@@ -477,7 +479,7 @@ class User implements \Serializable, AdvancedUserInterface
     /**
      * @param string $phone phone
      *
-     * @return User
+     * @return BaseUser
      */
     public function setPhone($phone)
     {
@@ -497,7 +499,7 @@ class User implements \Serializable, AdvancedUserInterface
     /**
      * @param \DateTime $updatedAt updatedAt
      *
-     * @return User
+     * @return BaseUser
      */
     public function setUpdatedAt(\DateTime $updatedAt)
     {
@@ -517,7 +519,7 @@ class User implements \Serializable, AdvancedUserInterface
     /**
      * @param string $plainPassword plainPassword
      *
-     * @return User
+     * @return BaseUser
      */
     public function setPlainPassword($plainPassword)
     {
@@ -529,7 +531,7 @@ class User implements \Serializable, AdvancedUserInterface
     }
 
     /**
-     * @return User
+     * @return BaseUser
      */
     private function refreshUpdatedAt()
     {

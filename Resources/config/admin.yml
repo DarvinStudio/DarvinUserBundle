@@ -1,7 +1,7 @@
 parameters:
     darvin_user.admin.metadata.class: Darvin\AdminBundle\Metadata\Metadata
 
-    darvin_user.admin.metadata.user.entity: Darvin\UserBundle\Entity\User
+    darvin_user.admin.metadata.user.entity: Darvin\UserBundle\Entity\BaseUser
     darvin_user.admin.metadata.user.config: @@DarvinUserBundle/Resources/config/admin/user.yml
 
 services:
