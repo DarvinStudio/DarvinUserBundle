@@ -10,8 +10,8 @@
 
 namespace Darvin\UserBundle\Form\Factory\Security;
 
+use Darvin\UserBundle\Entity\BaseUser;
 use Darvin\UserBundle\Entity\PasswordResetToken;
-use Darvin\UserBundle\Entity\User;
 use Darvin\UserBundle\Form\Type\Security\PasswordResetType;
 use Darvin\UserBundle\Form\Type\Security\RegistrationType;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -39,18 +39,26 @@ class SecurityFormFactory
     private $router;
 
     /**
+     * @var string
+     */
+    private $userClass;
+
+    /**
      * @param \Symfony\Component\Security\Http\Authentication\AuthenticationUtils $authenticationUtils Authentication utils
      * @param \Symfony\Component\Form\FormFactoryInterface                        $formFactory         Form factory
      * @param \Symfony\Component\Routing\RouterInterface                          $router              Router
+     * @param string                                                              $userClass           User entity class
      */
     public function __construct(
         AuthenticationUtils $authenticationUtils,
         FormFactoryInterface $formFactory,
-        RouterInterface $router
+        RouterInterface $router,
+        $userClass
     ) {
         $this->authenticationUtils = $authenticationUtils;
         $this->formFactory = $formFactory;
         $this->router = $router;
+        $this->userClass = $userClass;
     }
 
     /**
@@ -64,23 +72,27 @@ class SecurityFormFactory
             'action' => $this->router->generate('darvin_user_security_reset_password', array(
                 'token' => $passwordResetToken->getBase64EncodedId(),
             )),
+            'data_class' => $this->userClass,
         ));
     }
 
     /**
-     * @param \Darvin\UserBundle\Entity\User $user User
+     * @param \Darvin\UserBundle\Entity\BaseUser $user User
      *
      * @return \Symfony\Component\Form\FormInterface
      */
-    public function createRegistrationForm(User $user = null)
+    public function createRegistrationForm(BaseUser $user = null)
     {
         if (empty($user)) {
-            $user = new User();
+            $class = $this->userClass;
+            /** @var \Darvin\UserBundle\Entity\BaseUser $user */
+            $user = new $class();
             $user->setEmail($this->authenticationUtils->getLastUsername());
         }
 
         return $this->formFactory->create(new RegistrationType(), $user, array(
-            'action' => $this->router->generate('darvin_user_security_register'),
+            'action'     => $this->router->generate('darvin_user_security_register'),
+            'data_class' => $this->userClass,
         ));
     }
 }

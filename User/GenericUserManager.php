@@ -10,7 +10,7 @@
 
 namespace Darvin\UserBundle\User;
 
-use Darvin\UserBundle\Entity\User;
+use Darvin\UserBundle\Entity\BaseUser;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -52,13 +52,13 @@ class GenericUserManager implements UserManagerInterface
 
         $user = $token->getUser();
 
-        return $user instanceof User ? $user : null;
+        return $user instanceof BaseUser ? $user : null;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function updatePassword(User $user)
+    public function updatePassword(BaseUser $user)
     {
         $plainPassword = $user->getPlainPassword();
 

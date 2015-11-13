@@ -10,7 +10,6 @@
 
 namespace Darvin\UserBundle\Form\Handler;
 
-use Darvin\UserBundle\Entity\User;
 use Darvin\UserBundle\Event\Events;
 use Darvin\UserBundle\Event\PasswordResetTokenEvent;
 use Darvin\UserBundle\Form\FormException;
@@ -47,21 +46,29 @@ class PasswordResetTokenFormHandler
     private $passwordResetTokenFactory;
 
     /**
+     * @var string
+     */
+    private $userClass;
+
+    /**
      * @param \Doctrine\ORM\EntityManager                                     $em                        Entity manager
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface     $eventDispatcher           Event dispatcher
      * @param \Darvin\Utils\Flash\FlashNotifierInterface                      $flashNotifier             Flash notifier
      * @param \Darvin\UserBundle\PasswordResetToken\PasswordResetTokenFactory $passwordResetTokenFactory Password reset token factory
+     * @param string                                                          $userClass                 User entity class
      */
     public function __construct(
         EntityManager $em,
         EventDispatcherInterface $eventDispatcher,
         FlashNotifierInterface $flashNotifier,
-        PasswordResetTokenFactory $passwordResetTokenFactory
+        PasswordResetTokenFactory $passwordResetTokenFactory,
+        $userClass
     ) {
         $this->em = $em;
         $this->eventDispatcher = $eventDispatcher;
         $this->flashNotifier = $flashNotifier;
         $this->passwordResetTokenFactory = $passwordResetTokenFactory;
+        $this->userClass = $userClass;
     }
 
     /**
@@ -119,7 +126,7 @@ class PasswordResetTokenFormHandler
     /**
      * @param string $email User email
      *
-     * @return \Darvin\UserBundle\Entity\User
+     * @return \Darvin\UserBundle\Entity\BaseUser
      * @throws \Darvin\UserBundle\Form\FormException
      */
     private function getUser($email)
@@ -140,6 +147,6 @@ class PasswordResetTokenFormHandler
      */
     private function getUserRepository()
     {
-        return $this->em->getRepository(User::USER_CLASS);
+        return $this->em->getRepository($this->userClass);
     }
 }

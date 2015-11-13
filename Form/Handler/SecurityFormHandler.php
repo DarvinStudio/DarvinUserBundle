@@ -96,7 +96,7 @@ class SecurityFormHandler
             return false;
         }
 
-        /** @var \Darvin\UserBundle\Entity\User $user */
+        /** @var \Darvin\UserBundle\Entity\BaseUser $user */
         $user = $form->getData();
 
         $this->em->remove($user->getPasswordResetToken());
@@ -136,7 +136,7 @@ class SecurityFormHandler
             return false;
         }
 
-        /** @var \Darvin\UserBundle\Entity\User $user */
+        /** @var \Darvin\UserBundle\Entity\BaseUser $user */
         $user = $form->getData();
 
         $this->em->persist($user);

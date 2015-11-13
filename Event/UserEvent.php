@@ -10,7 +10,7 @@
 
 namespace Darvin\UserBundle\Event;
 
-use Darvin\UserBundle\Entity\User;
+use Darvin\UserBundle\Entity\BaseUser;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
@@ -19,20 +19,20 @@ use Symfony\Component\EventDispatcher\Event;
 class UserEvent extends Event
 {
     /**
-     * @var \Darvin\UserBundle\Entity\User
+     * @var \Darvin\UserBundle\Entity\BaseUser
      */
     private $user;
 
     /**
-     * @param \Darvin\UserBundle\Entity\User $user User
+     * @param \Darvin\UserBundle\Entity\BaseUser $user User
      */
-    public function __construct(User $user)
+    public function __construct(BaseUser $user)
     {
         $this->user = $user;
     }
 
     /**
-     * @return \Darvin\UserBundle\Entity\User
+     * @return \Darvin\UserBundle\Entity\BaseUser
      */
     public function getUser()
     {

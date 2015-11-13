@@ -10,7 +10,7 @@
 
 namespace Darvin\UserBundle\Command;
 
-use Darvin\UserBundle\Entity\User;
+use Darvin\UserBundle\Entity\BaseUser;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -46,7 +46,7 @@ class UserCreateCommand extends ContainerAwareCommand
         $roles = array();
 
         if ($this->getQuestionHelper()->ask($input, $output, new ConfirmationQuestion('Create superadmin (y/n, default y)? '))) {
-            $roles[] = User::ROLE_SUPERADMIN;
+            $roles[] = BaseUser::ROLE_SUPERADMIN;
         }
 
         $user = $this->createUser($email, $plainPassword, $roles);
@@ -82,11 +82,14 @@ class UserCreateCommand extends ContainerAwareCommand
      * @param string $plainPassword Plain password
      * @param array  $roles         Roles
      *
-     * @return \Darvin\UserBundle\Entity\User
+     * @return \Darvin\UserBundle\Entity\BaseUser
      */
     private function createUser($email, $plainPassword, array $roles)
     {
-        $user = new User();
+        $class = $this->getUserClass();
+
+        /** @var \Darvin\UserBundle\Entity\BaseUser $user */
+        $user = new $class();
 
         return $user
             ->setEmail($email)
@@ -108,6 +111,14 @@ class UserCreateCommand extends ContainerAwareCommand
     private function getQuestionHelper()
     {
         return $this->getHelper('question');
+    }
+
+    /**
+     * @return string
+     */
+    private function getUserClass()
+    {
+        return $this->getContainer()->getParameter('darvin_user.user_class');
     }
 
     /**

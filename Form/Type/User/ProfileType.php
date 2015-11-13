@@ -10,7 +10,6 @@
 
 namespace Darvin\UserBundle\Form\Type\User;
 
-use Darvin\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -49,14 +48,17 @@ class ProfileType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class'        => User::USER_CLASS,
-            'intention'         => md5(__FILE__.$this->getName()),
-            'validation_groups' => array(
-                'Default',
-                'Profile',
-            ),
-        ));
+        $resolver
+            ->setDefaults(array(
+                'intention'         => md5(__FILE__.$this->getName()),
+                'validation_groups' => array(
+                    'Default',
+                    'Profile',
+                ),
+            ))
+            ->remove('data_class')
+            ->setRequired('data_class')
+            ->setAllowedTypes('data_class', 'string');
     }
 
     /**

@@ -28,6 +28,7 @@ services:
             - "@form.factory"
             - "@router"
             - "@darvin_user.user.manager"
+            - %darvin_user.user_class%
 
     darvin_user.user.form.handler:
         class: %darvin_user.user.form.handler.class%
@@ -61,5 +62,6 @@ services:
         class: %darvin_user.user.validator.user_exists_and_active.class%
         arguments:
             - "@doctrine.orm.entity_manager"
+            - %darvin_user.user_class%
         tags:
             - { name: validator.constraint_validator, alias: darvin_user_user_exists_and_active }

@@ -11,7 +11,7 @@
 namespace Darvin\UserBundle\User;
 
 use Darvin\UserBundle\Configuration\Configuration;
-use Darvin\UserBundle\Entity\User;
+use Darvin\UserBundle\Entity\BaseUser;
 use Darvin\Utils\Mailer\MailerInterface;
 use Symfony\Component\Templating\EngineInterface;
 
@@ -48,12 +48,12 @@ class UserMailer
     }
 
     /**
-     * @param \Darvin\UserBundle\Entity\User $user     User
-     * @param string                         $subject  Subject
-     * @param string                         $template Template
+     * @param \Darvin\UserBundle\Entity\BaseUser $user     User
+     * @param string                             $subject  Subject
+     * @param string                             $template Template
      */
     public function sendServicePostRegisterEmails(
-        User $user,
+        BaseUser $user,
         $subject = 'user.email.new.subject',
         $template = 'DarvinUserBundle:User/email/new:service.html.twig'
     ) {

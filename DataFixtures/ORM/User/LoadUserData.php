@@ -10,15 +10,30 @@
 
 namespace Darvin\UserBundle\DataFixtures\ORM\User;
 
-use Darvin\UserBundle\Entity\User;
+use Darvin\UserBundle\Entity\BaseUser;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * User data fixture
  */
-class LoadUserData implements FixtureInterface
+class LoadUserData implements ContainerAwareInterface, FixtureInterface
 {
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    private $container;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -29,11 +44,14 @@ class LoadUserData implements FixtureInterface
     }
 
     /**
-     * @return \Darvin\UserBundle\Entity\User
+     * @return \Darvin\UserBundle\Entity\BaseUser
      */
     private function createUser()
     {
-        $user = new User();
+        $class = $this->container->getParameter('darvin_user.user_class');
+
+        /** @var \Darvin\UserBundle\Entity\BaseUser $user */
+        $user = new $class();
 
         return $user
             ->setAddress('Мира, 1 - 1')
@@ -42,7 +60,7 @@ class LoadUserData implements FixtureInterface
             ->setPhone('+7 (901) 234-56-78')
             ->setPlainPassword('admin')
             ->setRoles(array(
-                User::ROLE_SUPERADMIN,
+                BaseUser::ROLE_SUPERADMIN,
             ));
     }
 }

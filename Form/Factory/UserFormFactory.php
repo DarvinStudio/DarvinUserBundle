@@ -10,7 +10,7 @@
 
 namespace Darvin\UserBundle\Form\Factory;
 
-use Darvin\UserBundle\Entity\User;
+use Darvin\UserBundle\Entity\BaseUser;
 use Darvin\UserBundle\Form\Type\User\ProfileType;
 use Darvin\UserBundle\User\UserManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -37,30 +37,42 @@ class UserFormFactory
     private $userManager;
 
     /**
+     * @var string
+     */
+    private $userClass;
+
+    /**
      * @param \Symfony\Component\Form\FormFactoryInterface $formFactory Form factory
      * @param \Symfony\Component\Routing\RouterInterface   $router      Router
      * @param \Darvin\UserBundle\User\UserManagerInterface $userManager User manager
+     * @param string                                       $userClass   User entity class
      */
-    public function __construct(FormFactoryInterface $formFactory, RouterInterface $router, UserManagerInterface $userManager)
-    {
+    public function __construct(
+        FormFactoryInterface $formFactory,
+        RouterInterface $router,
+        UserManagerInterface $userManager,
+        $userClass
+    ) {
         $this->formFactory = $formFactory;
         $this->router = $router;
         $this->userManager = $userManager;
+        $this->userClass = $userClass;
     }
 
     /**
-     * @param \Darvin\UserBundle\Entity\User $user User
+     * @param \Darvin\UserBundle\Entity\BaseUser $user User
      *
      * @return \Symfony\Component\Form\FormInterface
      */
-    public function createProfileForm(User $user = null)
+    public function createProfileForm(BaseUser $user = null)
     {
         if (empty($user)) {
             $user = $this->userManager->getCurrentUser();
         }
 
         return $this->formFactory->create(new ProfileType(), $user, array(
-            'action' => $this->router->generate('darvin_user_user_profile'),
+            'action'     => $this->router->generate('darvin_user_user_profile'),
+            'data_class' => $this->userClass,
         ));
     }
 }

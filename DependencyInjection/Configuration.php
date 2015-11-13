@@ -10,6 +10,7 @@
 
 namespace Darvin\UserBundle\DependencyInjection;
 
+use Darvin\UserBundle\Entity\BaseUser;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -36,6 +37,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('already_logged_in_redirect_route')->defaultValue('darvin_page_homepage')->end()
                 ->integerNode('password_reset_token_lifetime')->defaultValue(3 * 60 * 60)->end()
                 ->scalarNode('public_firewall_name')->defaultValue('public_area')->end()
+                ->scalarNode('user_class')->defaultValue(BaseUser::BASE_USER_CLASS)->end()
             ->end();
 
         return $treeBuilder;

@@ -10,8 +10,8 @@
 
 namespace Darvin\UserBundle\PasswordResetToken;
 
+use Darvin\UserBundle\Entity\BaseUser;
 use Darvin\UserBundle\Entity\PasswordResetToken;
-use Darvin\UserBundle\Entity\User;
 
 /**
  * Password reset token factory
@@ -32,12 +32,12 @@ class PasswordResetTokenFactory
     }
 
     /**
-     * @param \Darvin\UserBundle\Entity\User $user User
+     * @param \Darvin\UserBundle\Entity\BaseUser $user User
      *
      * @return \Darvin\UserBundle\Entity\PasswordResetToken
      * @throws \Darvin\UserBundle\PasswordResetToken\PasswordResetTokenException
      */
-    public function createPasswordResetToken(User $user)
+    public function createPasswordResetToken(BaseUser $user)
     {
         if (!$user->isEnabled()) {
             throw new PasswordResetTokenException(sprintf('User with email "%s" is not enabled.', $user->getEmail()));

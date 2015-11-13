@@ -10,7 +10,7 @@
 
 namespace Darvin\UserBundle\User;
 
-use Darvin\UserBundle\Entity\User;
+use Darvin\UserBundle\Entity\BaseUser;
 
 /**
  * User manager
@@ -18,14 +18,14 @@ use Darvin\UserBundle\Entity\User;
 interface UserManagerInterface
 {
     /**
-     * @return \Darvin\UserBundle\Entity\User
+     * @return \Darvin\UserBundle\Entity\BaseUser
      */
     public function getCurrentUser();
 
     /**
-     * @param \Darvin\UserBundle\Entity\User $user User
+     * @param \Darvin\UserBundle\Entity\BaseUser $user User
      *
      * @return bool Was password updated
      */
-    public function updatePassword(User $user);
+    public function updatePassword(BaseUser $user);
 }

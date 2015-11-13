@@ -10,7 +10,7 @@
 
 namespace Darvin\UserBundle\Security;
 
-use Darvin\UserBundle\Entity\User;
+use Darvin\UserBundle\Entity\BaseUser;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
@@ -33,10 +33,10 @@ class UserAuthenticator
     }
 
     /**
-     * @param \Darvin\UserBundle\Entity\User $user         User
-     * @param string                         $firewallName Firewall name
+     * @param \Darvin\UserBundle\Entity\BaseUser $user         User
+     * @param string                             $firewallName Firewall name
      */
-    public function authenticateUser(User $user, $firewallName)
+    public function authenticateUser(BaseUser $user, $firewallName)
     {
         $token = new UsernamePasswordToken($user, $user->getPassword(), $firewallName, $user->getRoles());
         $this->authTokenStorage->setToken($token);

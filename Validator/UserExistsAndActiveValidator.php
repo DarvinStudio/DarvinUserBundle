@@ -10,7 +10,6 @@
 
 namespace Darvin\UserBundle\Validator;
 
-use Darvin\UserBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -26,11 +25,18 @@ class UserExistsAndActiveValidator extends ConstraintValidator
     private $em;
 
     /**
-     * @param \Doctrine\ORM\EntityManager $em Entity manager
+     * @var string
      */
-    public function __construct(EntityManager $em)
+    private $userClass;
+
+    /**
+     * @param \Doctrine\ORM\EntityManager $em        Entity manager
+     * @param string                      $userClass User entity class
+     */
+    public function __construct(EntityManager $em, $userClass)
     {
         $this->em = $em;
+        $this->userClass = $userClass;
     }
 
     /**
@@ -49,6 +55,6 @@ class UserExistsAndActiveValidator extends ConstraintValidator
      */
     private function getUserRepository()
     {
-        return $this->em->getRepository(User::USER_CLASS);
+        return $this->em->getRepository($this->userClass);
     }
 }

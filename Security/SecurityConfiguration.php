@@ -11,7 +11,7 @@
 namespace Darvin\UserBundle\Security;
 
 use Darvin\AdminBundle\Security\Configuration\AbstractSecurityConfiguration;
-use Darvin\UserBundle\Entity\User;
+use Darvin\UserBundle\Entity\BaseUser;
 
 /**
  * Security configuration
@@ -32,7 +32,7 @@ class SecurityConfiguration extends AbstractSecurityConfiguration
     protected function getSecurableObjectClasses()
     {
         return array(
-            'user' => User::USER_CLASS,
+            'user' => BaseUser::BASE_USER_CLASS,
         );
     }
 }

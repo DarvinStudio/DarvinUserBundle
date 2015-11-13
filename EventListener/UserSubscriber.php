@@ -10,7 +10,7 @@
 
 namespace Darvin\UserBundle\EventListener;
 
-use Darvin\UserBundle\Entity\User;
+use Darvin\UserBundle\Entity\BaseUser;
 use Darvin\UserBundle\User\UserManagerInterface;
 use Darvin\Utils\EventListener\AbstractOnFlushListener;
 use Doctrine\Common\EventSubscriber;
@@ -55,14 +55,14 @@ class UserSubscriber extends AbstractOnFlushListener implements EventSubscriber
         $updatePasswordCallback = array($this, 'updatePassword');
 
         $this
-            ->onInsert($updatePasswordCallback, User::USER_CLASS)
-            ->onUpdate($updatePasswordCallback, User::USER_CLASS);
+            ->onInsert($updatePasswordCallback, BaseUser::BASE_USER_CLASS)
+            ->onUpdate($updatePasswordCallback, BaseUser::BASE_USER_CLASS);
     }
 
     /**
-     * @param \Darvin\UserBundle\Entity\User $user User
+     * @param \Darvin\UserBundle\Entity\BaseUser $user User
      */
-    protected function updatePassword(User $user)
+    protected function updatePassword(BaseUser $user)
     {
         if ($this->userManager->updatePassword($user)) {
             $this->recomputeChangeSet($user);
