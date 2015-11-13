@@ -41,6 +41,12 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue(BaseUser::BASE_USER_CLASS)
                     ->validate()
                         ->ifTrue(function ($v) {
+                            return !class_exists($v);
+                        })
+                        ->thenInvalid('Class does not exist.')
+                    ->end()
+                    ->validate()
+                        ->ifTrue(function ($v) {
                             return $v !== BaseUser::BASE_USER_CLASS && !is_subclass_of($v, BaseUser::BASE_USER_CLASS);
                         })
                         ->thenInvalid(sprintf('Class must be "%s" or subclass of it.', BaseUser::BASE_USER_CLASS))
