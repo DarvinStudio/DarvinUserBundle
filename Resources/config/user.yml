@@ -1,6 +1,8 @@
 parameters:
     darvin_user.user.event_subscriber.class: Darvin\UserBundle\EventListener\UserSubscriber
 
+    darvin_user.user.factory.class: Darvin\UserBundle\User\UserFactory
+
     darvin_user.user.form.factory.class: Darvin\UserBundle\Form\Factory\UserFormFactory
 
     darvin_user.user.form.handler.class: Darvin\UserBundle\Form\Handler\UserFormHandler
@@ -23,6 +25,11 @@ services:
             - "@darvin_user.user.manager"
         tags:
             - { name: doctrine.event_subscriber }
+
+    darvin_user.user.factory:
+        class: %darvin_user.user.factory.class%
+        arguments:
+            - %darvin_user.user_class%
 
     darvin_user.user.form.factory:
         class: %darvin_user.user.form.factory.class%

@@ -14,6 +14,7 @@ use Darvin\UserBundle\Entity\BaseUser;
 use Darvin\UserBundle\Entity\PasswordResetToken;
 use Darvin\UserBundle\Form\Type\Security\PasswordResetType;
 use Darvin\UserBundle\Form\Type\Security\RegistrationType;
+use Darvin\UserBundle\User\UserFactory;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -39,6 +40,11 @@ class SecurityFormFactory
     private $router;
 
     /**
+     * @var \Darvin\UserBundle\User\UserFactory
+     */
+    private $userFactory;
+
+    /**
      * @var string
      */
     private $userClass;
@@ -47,17 +53,20 @@ class SecurityFormFactory
      * @param \Symfony\Component\Security\Http\Authentication\AuthenticationUtils $authenticationUtils Authentication utils
      * @param \Symfony\Component\Form\FormFactoryInterface                        $formFactory         Form factory
      * @param \Symfony\Component\Routing\RouterInterface                          $router              Router
+     * @param \Darvin\UserBundle\User\UserFactory                                 $userFactory         User factory
      * @param string                                                              $userClass           User entity class
      */
     public function __construct(
         AuthenticationUtils $authenticationUtils,
         FormFactoryInterface $formFactory,
         RouterInterface $router,
+        UserFactory $userFactory,
         $userClass
     ) {
         $this->authenticationUtils = $authenticationUtils;
         $this->formFactory = $formFactory;
         $this->router = $router;
+        $this->userFactory = $userFactory;
         $this->userClass = $userClass;
     }
 
@@ -84,9 +93,7 @@ class SecurityFormFactory
     public function createRegistrationForm(BaseUser $user = null)
     {
         if (empty($user)) {
-            $class = $this->userClass;
-            /** @var \Darvin\UserBundle\Entity\BaseUser $user */
-            $user = new $class();
+            $user = $this->userFactory->createUser();
             $user->setEmail($this->authenticationUtils->getLastUsername());
         }
 

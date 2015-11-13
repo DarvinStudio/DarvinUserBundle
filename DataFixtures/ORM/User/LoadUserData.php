@@ -48,12 +48,7 @@ class LoadUserData implements ContainerAwareInterface, FixtureInterface
      */
     private function createUser()
     {
-        $class = $this->container->getParameter('darvin_user.user_class');
-
-        /** @var \Darvin\UserBundle\Entity\BaseUser $user */
-        $user = new $class();
-
-        return $user
+        return $this->getUserFactory()->createUser()
             ->setAddress('Мира, 1 - 1')
             ->setEmail('admin@example.com')
             ->setFullName('Иванов Иван Иванович')
@@ -62,5 +57,13 @@ class LoadUserData implements ContainerAwareInterface, FixtureInterface
             ->setRoles(array(
                 BaseUser::ROLE_SUPERADMIN,
             ));
+    }
+
+    /**
+     * @return \Darvin\UserBundle\User\UserFactory
+     */
+    private function getUserFactory()
+    {
+        return $this->container->get('darvin_user.user.factory');
     }
 }
