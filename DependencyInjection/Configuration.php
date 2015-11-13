@@ -37,7 +37,15 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('already_logged_in_redirect_route')->defaultValue('darvin_page_homepage')->end()
                 ->integerNode('password_reset_token_lifetime')->defaultValue(3 * 60 * 60)->end()
                 ->scalarNode('public_firewall_name')->defaultValue('public_area')->end()
-                ->scalarNode('user_class')->defaultValue(BaseUser::BASE_USER_CLASS)->end()
+                ->scalarNode('user_class')
+                    ->defaultValue(BaseUser::BASE_USER_CLASS)
+                    ->validate()
+                        ->ifTrue(function ($v) {
+                            return $v !== BaseUser::BASE_USER_CLASS && !is_subclass_of($v, BaseUser::BASE_USER_CLASS);
+                        })
+                        ->thenInvalid(sprintf('Class must be "%s" or subclass of it.', BaseUser::BASE_USER_CLASS))
+                    ->end()
+                ->end()
             ->end();
 
         return $treeBuilder;
