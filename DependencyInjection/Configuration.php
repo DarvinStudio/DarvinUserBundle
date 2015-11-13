@@ -34,6 +34,7 @@ class Configuration implements ConfigurationInterface
         // more information on that topic.
         $rootNode
             ->children()
+                ->scalarNode('admin_config')->defaultValue('@DarvinUserBundle/Resources/config/admin/user.yml')->end()
                 ->scalarNode('already_logged_in_redirect_route')->defaultValue('darvin_page_homepage')->end()
                 ->integerNode('password_reset_token_lifetime')->defaultValue(3 * 60 * 60)->end()
                 ->scalarNode('public_firewall_name')->defaultValue('public_area')->end()
