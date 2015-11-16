@@ -18,10 +18,13 @@ security:
     action:
         login:
             email:       E-mail
+            link:        Войти
             password:    Пароль
             remember_me: Запомнить браузер
             submit:      Войти
             title:       Вход
+        logout:
+            link: Выйти
         register:
             link:    Регистрация
             submit:  Зарегистрироваться
