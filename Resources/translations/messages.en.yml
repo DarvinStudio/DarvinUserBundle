@@ -18,10 +18,13 @@ security:
     action:
         login:
             email:       E-mail
+            link:        Sign in
             password:    Password
             remember_me: Remember me
             submit:      Sign in
             title:       Sign in
+        logout:
+            link: Log out
         register:
             link:    Register
             submit:  Register
