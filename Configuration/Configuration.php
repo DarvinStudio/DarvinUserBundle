@@ -29,7 +29,7 @@ class Configuration extends AbstractConfiguration
             new ParameterModel('notification_emails', ParameterModel::TYPE_ARRAY, array(), array(
                 'form' => array(
                     'options' => array(
-                        'type'         => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\EmailType',
+                        'type'         => 'Symfony\Component\Form\Extension\Core\Type\EmailType',
                         'allow_add'    => true,
                         'allow_delete' => true,
                     ),

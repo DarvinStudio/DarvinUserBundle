@@ -37,7 +37,7 @@ class ProfileType extends AbstractType
             ->add('phone', null, array(
                 'label' => 'user.entity.phone',
             ))
-            ->add('plainPassword', 'Symfony\\Component\\Form\\Extension\\Core\\Type\\PasswordType', array(
+            ->add('plainPassword', 'Symfony\Component\Form\Extension\Core\Type\PasswordType', array(
                 'label'    => 'user.entity.plain_password',
                 'required' => false,
             ));
