@@ -10,6 +10,7 @@
 
 namespace Darvin\UserBundle\Form\Type\Security;
 
+use Darvin\Utils\Form\Type\AntiSpamType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -40,7 +41,7 @@ class RegistrationType extends AbstractType
             ->add('plainPassword', 'Symfony\\Component\\Form\\Extension\\Core\\Type\\PasswordType', array(
                 'label' => 'user.entity.plain_password',
             ))
-            ->add('title', 'darvin_utils_anti_spam');
+            ->add('title', AntiSpamType::ANTI_SPAM_TYPE_CLASS);
     }
 
     /**

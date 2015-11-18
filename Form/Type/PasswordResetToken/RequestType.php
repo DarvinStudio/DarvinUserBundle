@@ -11,6 +11,7 @@
 namespace Darvin\UserBundle\Form\Type\PasswordResetToken;
 
 use Darvin\UserBundle\Validator\Constraints\UserExistsAndActive;
+use Darvin\Utils\Form\Type\AntiSpamType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -38,7 +39,7 @@ class RequestType extends AbstractType
                     new UserExistsAndActive(),
                 ),
             ))
-            ->add('title', 'darvin_utils_anti_spam');
+            ->add('title', AntiSpamType::ANTI_SPAM_TYPE_CLASS);
     }
 
     /**
