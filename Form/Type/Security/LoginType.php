@@ -25,13 +25,13 @@ class LoginType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('_username', 'email', array(
+            ->add('_username', 'Symfony\\Component\\Form\\Extension\\Core\\Type\\EmailType', array(
                 'label' => 'security.action.login.email',
             ))
-            ->add('_password', 'password', array(
+            ->add('_password', 'Symfony\\Component\\Form\\Extension\\Core\\Type\\PasswordType', array(
                 'label' => 'security.action.login.password',
             ))
-            ->add('_remember_me', 'checkbox', array(
+            ->add('_remember_me', 'Symfony\\Component\\Form\\Extension\\Core\\Type\\CheckboxType', array(
                 'label'    => 'security.action.login.remember_me',
                 'required' => false,
             ));

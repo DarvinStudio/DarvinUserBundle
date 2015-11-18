@@ -30,7 +30,7 @@ class RequestType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('user_email', 'email', array(
+            ->add('user_email', 'Symfony\\Component\\Form\\Extension\\Core\\Type\\EmailType', array(
                 'label'       => 'password_reset_token.action.request.user_email',
                 'constraints' => array(
                     new NotBlank(),

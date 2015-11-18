@@ -25,7 +25,7 @@ class PasswordResetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('plainPassword', 'password', array(
+            ->add('plainPassword', 'Symfony\\Component\\Form\\Extension\\Core\\Type\\PasswordType', array(
                 'label' => 'security.action.reset_password.plain_password',
             ))
             ->add('title', 'darvin_utils_anti_spam');
