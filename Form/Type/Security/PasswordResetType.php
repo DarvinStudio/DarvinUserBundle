@@ -39,7 +39,7 @@ class PasswordResetType extends AbstractType
     {
         $resolver
             ->setDefaults(array(
-                'intention'         => md5(__FILE__.$this->getName()),
+                'intention'         => md5(__FILE__.$this->getBlockPrefix()),
                 'validation_groups' => array(
                     'PasswordReset',
                 ),
@@ -52,7 +52,7 @@ class PasswordResetType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'darvin_user_security_password_reset';
     }
