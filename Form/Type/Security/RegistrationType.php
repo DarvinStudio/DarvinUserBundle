@@ -20,6 +20,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class RegistrationType extends AbstractType
 {
+    const NAME = 'darvin_user_security_registration';
+
     const REGISTRATION_TYPE_CLASS = __CLASS__;
 
     /**
@@ -69,6 +71,6 @@ class RegistrationType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'darvin_user_security_registration';
+        return self::NAME;
     }
 }

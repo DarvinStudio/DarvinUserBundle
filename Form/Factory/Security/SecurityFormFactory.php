@@ -77,12 +77,17 @@ class SecurityFormFactory
      */
     public function createPasswordResetForm(PasswordResetToken $passwordResetToken)
     {
-        return $this->formFactory->create(PasswordResetType::PASSWORD_RESET_TYPE_CLASS, $passwordResetToken->getUser(), array(
-            'action' => $this->router->generate('darvin_user_security_reset_password', array(
-                'token' => $passwordResetToken->getBase64EncodedId(),
-            )),
-            'data_class' => $this->userClass,
-        ));
+        return $this->formFactory->createNamed(
+            PasswordResetType::NAME,
+            PasswordResetType::PASSWORD_RESET_TYPE_CLASS,
+            $passwordResetToken->getUser(),
+            array(
+                'action' => $this->router->generate('darvin_user_security_reset_password', array(
+                    'token' => $passwordResetToken->getBase64EncodedId(),
+                )),
+                'data_class' => $this->userClass,
+            )
+        );
     }
 
     /**
@@ -97,7 +102,7 @@ class SecurityFormFactory
                 ->setEmail($this->authenticationUtils->getLastUsername());
         }
 
-        return $this->formFactory->create(RegistrationType::REGISTRATION_TYPE_CLASS, $user, array(
+        return $this->formFactory->createNamed(RegistrationType::NAME, RegistrationType::REGISTRATION_TYPE_CLASS, $user, array(
             'action'     => $this->router->generate('darvin_user_security_register'),
             'data_class' => $this->userClass,
         ));

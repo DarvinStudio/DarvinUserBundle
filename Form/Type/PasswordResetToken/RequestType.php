@@ -25,6 +25,8 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  */
 class RequestType extends AbstractType
 {
+    const NAME = 'darvin_user_password_reset_token_request';
+
     const REQUEST_TYPE_CLASS = __CLASS__;
 
     /**
@@ -69,6 +71,6 @@ class RequestType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'darvin_user_password_reset_token_request';
+        return self::NAME;
     }
 }

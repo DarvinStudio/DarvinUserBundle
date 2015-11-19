@@ -20,6 +20,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class PasswordResetType extends AbstractType
 {
+    const NAME = 'darvin_user_security_password_reset';
+
     const PASSWORD_RESET_TYPE_CLASS = __CLASS__;
 
     /**
@@ -56,6 +58,6 @@ class PasswordResetType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'darvin_user_security_password_reset';
+        return self::NAME;
     }
 }
