@@ -20,6 +20,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class RegistrationType extends AbstractType
 {
+    const REGISTRATION_TYPE_CLASS = __CLASS__;
+
     /**
      * {@inheritdoc}
      */

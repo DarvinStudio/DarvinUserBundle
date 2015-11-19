@@ -19,6 +19,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ProfileType extends AbstractType
 {
+    const PROFILE_TYPE_CLASS = __CLASS__;
+
     /**
      * {@inheritdoc}
      */

@@ -20,6 +20,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class PasswordResetType extends AbstractType
 {
+    const PASSWORD_RESET_TYPE_CLASS = __CLASS__;
+
     /**
      * {@inheritdoc}
      */

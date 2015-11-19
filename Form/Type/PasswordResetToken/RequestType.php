@@ -25,6 +25,8 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  */
 class RequestType extends AbstractType
 {
+    const REQUEST_TYPE_CLASS = __CLASS__;
+
     /**
      * {@inheritdoc}
      */

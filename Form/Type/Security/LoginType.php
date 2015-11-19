@@ -19,6 +19,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class LoginType extends AbstractType
 {
+    const LOGIN_TYPE_CLASS = __CLASS__;
+
     /**
      * {@inheritdoc}
      */
