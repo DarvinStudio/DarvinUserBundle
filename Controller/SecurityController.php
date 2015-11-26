@@ -121,6 +121,7 @@ class SecurityController extends Controller
      * @param string $base64EncodedId Base64-encoded password reset token ID
      *
      * @return \Darvin\UserBundle\Entity\PasswordResetToken
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     private function getPasswordResetToken($base64EncodedId)
     {
