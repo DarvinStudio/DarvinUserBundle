@@ -62,7 +62,7 @@ class RequestType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'intention' => md5(__FILE__.$this->getBlockPrefix()),
+            'csrf_token_id' => md5(__FILE__.$this->getBlockPrefix()),
         ));
     }
 

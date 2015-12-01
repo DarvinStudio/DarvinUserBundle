@@ -38,24 +38,24 @@ class GenericLoginFormFactory implements LoginFormFactoryInterface
     /**
      * @var string
      */
-    private $intention;
+    private $csrfTokenId;
 
     /**
      * @param \Symfony\Component\Security\Http\Authentication\AuthenticationUtils $authenticationUtils Authentication utils
      * @param \Symfony\Component\Form\FormFactoryInterface                        $formFactory         Form factory
      * @param \Symfony\Component\Routing\RouterInterface                          $router              Router
-     * @param string                                                              $intention           Form intention
+     * @param string                                                              $csrfTokenId         CSRF token ID
      */
     public function __construct(
         AuthenticationUtils $authenticationUtils,
         FormFactoryInterface $formFactory,
         RouterInterface $router,
-        $intention
+        $csrfTokenId
     ) {
         $this->authenticationUtils = $authenticationUtils;
         $this->formFactory = $formFactory;
         $this->router = $router;
-        $this->intention = $intention;
+        $this->csrfTokenId = $csrfTokenId;
     }
 
     /**
@@ -71,8 +71,8 @@ class GenericLoginFormFactory implements LoginFormFactoryInterface
                 '_username'    => $this->authenticationUtils->getLastUsername(),
             ),
             array(
-                'action'    => $this->router->generate($actionRoute),
-                'intention' => $this->intention,
+                'action'        => $this->router->generate($actionRoute),
+                'csrf_token_id' => $this->csrfTokenId,
             )
         );
     }

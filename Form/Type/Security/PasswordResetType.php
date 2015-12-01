@@ -43,7 +43,7 @@ class PasswordResetType extends AbstractType
     {
         $resolver
             ->setDefaults(array(
-                'intention'         => md5(__FILE__.$this->getBlockPrefix()),
+                'csrf_token_id'     => md5(__FILE__.$this->getBlockPrefix()),
                 'validation_groups' => array(
                     'PasswordReset',
                 ),
