@@ -55,8 +55,7 @@ class PasswordResetTokenFormFactory
      */
     public function createRequestForm()
     {
-        return $this->formFactory->createNamed(
-            RequestType::NAME,
+        return $this->formFactory->create(
             RequestType::REQUEST_TYPE_CLASS,
             array(
                 'user_email' => $this->authenticationUtils->getLastUsername(),

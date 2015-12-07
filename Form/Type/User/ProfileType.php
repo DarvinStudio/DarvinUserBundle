@@ -19,8 +19,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ProfileType extends AbstractType
 {
-    const NAME = 'darvin_user_user_profile';
-
     const PROFILE_TYPE_CLASS = __CLASS__;
 
     /**
@@ -70,6 +68,6 @@ class ProfileType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return self::NAME;
+        return 'darvin_user_user_profile';
     }
 }
