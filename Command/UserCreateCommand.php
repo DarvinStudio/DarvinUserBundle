@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\ConfirmationQuestion;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * User create command
@@ -41,11 +41,13 @@ class UserCreateCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $io = new SymfonyStyle($input, $output);
+
         list(, $email, $plainPassword) = array_values($input->getArguments());
 
         $roles = array();
 
-        if ($this->getQuestionHelper()->ask($input, $output, new ConfirmationQuestion('Create superadmin (y/n, default y)? '))) {
+        if ($io->confirm('Create superadmin?')) {
             $roles[] = BaseUser::ROLE_SUPERADMIN;
         }
 
@@ -56,13 +58,9 @@ class UserCreateCommand extends ContainerAwareCommand
         if ($violations->count() > 0) {
             /** @var \Symfony\Component\Validator\ConstraintViolation $violation */
             foreach ($violations as $violation) {
-                $message = sprintf(
-                    '<error>%s "%s": %s</error>',
-                    $violation->getPropertyPath(),
-                    $violation->getInvalidValue(),
-                    $violation->getMessage()
+                $io->error(
+                    sprintf('%s "%s": %s', $violation->getPropertyPath(), $violation->getInvalidValue(), $violation->getMessage())
                 );
-                $output->writeln($message);
             }
 
             return;
@@ -72,9 +70,7 @@ class UserCreateCommand extends ContainerAwareCommand
         $em->persist($user);
         $em->flush();
 
-        $output->writeln(
-            sprintf('<info>User with e-mail "%s" and password "%s" successfully created.</info>', $email, $plainPassword)
-        );
+        $io->success(sprintf('User with e-mail "%s" and password "%s" successfully created.', $email, $plainPassword));
     }
 
     /**
@@ -98,14 +94,6 @@ class UserCreateCommand extends ContainerAwareCommand
     private function getEntityManager()
     {
         return $this->getContainer()->get('doctrine.orm.entity_manager');
-    }
-
-    /**
-     * @return \Symfony\Component\Console\Helper\SymfonyQuestionHelper
-     */
-    private function getQuestionHelper()
-    {
-        return $this->getHelper('question');
     }
 
     /**
