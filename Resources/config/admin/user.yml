@@ -33,14 +33,14 @@ form:
     filter:
         fields:
             email:
-                strict_comparison: false
+                compare_strict: false
             enabled: ~
             locked:  ~
             roles:
                 type: Symfony\Component\Form\Extension\Core\Type\ChoiceType
                 options:
                     choices: [ Darvin\UserBundle\Entity\BaseUser, getExtraRoles ]
-                strict_comparison: false
+                compare_strict: false
     index:
         fields:
             locked:  ~
