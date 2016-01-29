@@ -67,8 +67,6 @@ view:
             email:
                 widget:
                     alias: email_link
-                    options:
-                        email_property: email
             locked:  ~
             enabled: ~
             roles:
@@ -82,8 +80,6 @@ view:
             email:
                 widget:
                     alias: email_link
-                    options:
-                        email_property: email
             locked:  ~
             enabled: ~
             roles:
