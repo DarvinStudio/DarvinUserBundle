@@ -71,9 +71,8 @@ view:
             enabled: ~
             roles:
                 widget:
-                    alias: list
+                    alias: compound_list
                     options:
-                        keys_property:   roles
                         values_callback: [ Darvin\UserBundle\Entity\BaseUser, getExtraRoles ]
     show:
         fields:
@@ -84,7 +83,6 @@ view:
             enabled: ~
             roles:
                 widget:
-                    alias: list
+                    alias: compound_list
                     options:
-                        keys_property:   roles
                         values_callback: [ Darvin\UserBundle\Entity\BaseUser, getExtraRoles ]
