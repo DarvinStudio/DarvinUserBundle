@@ -16,6 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Password reset token
  *
  * @ORM\Entity(repositoryClass="Darvin\UserBundle\Repository\PasswordResetTokenRepository")
+ * @ORM\Table(name="user_password_reset_token")
  */
 class PasswordResetToken
 {
