@@ -22,6 +22,7 @@ form:
                     required: false
             email: ~
             plainPassword:
+                type: Symfony\Component\Form\Extension\Core\Type\PasswordType
                 options:
                     required: false
             roles:
@@ -53,8 +54,9 @@ form:
             enabled:
                 options:
                     required: false
-            email:         ~
-            plainPassword: ~
+            email: ~
+            plainPassword:
+                type: Symfony\Component\Form\Extension\Core\Type\PasswordType
             roles:
                 type: Symfony\Component\Form\Extension\Core\Type\ChoiceType
                 options:
