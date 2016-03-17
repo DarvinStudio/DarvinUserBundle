@@ -3,7 +3,7 @@
     {% if webmail_link %}
         <a href="{{ webmail_link.url }}" target="_blank">
             {% if webmail_link.icon %}
-                <img align="{{ webmail_link.name }}" src="{{ webmail_link.icon }}" title="{{ webmail_link.name }}">
+                <img alt="{{ webmail_link.name }}" src="{{ webmail_link.icon }}" title="{{ webmail_link.name }}">
             {% else %}
                 {{ webmail_link.name }}
             {% endif %}
