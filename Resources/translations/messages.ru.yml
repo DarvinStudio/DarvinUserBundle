@@ -1,3 +1,5 @@
+User account is disabled.: Учетная запись не активна
+
 password_reset_token:
     action:
         request:
