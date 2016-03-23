@@ -13,6 +13,8 @@ parameters:
 
     darvin_user.security.user_authenticator.class: Darvin\UserBundle\Security\UserAuthenticator
 
+    darvin_user.security.user_provider.oauth.class: Darvin\UserBundle\Security\User\OAuthUserProvider
+
 services:
     darvin_user.security.configuration:
         class: %darvin_user.security.configuration.class%
@@ -68,3 +70,12 @@ services:
         class: %darvin_user.security.user_authenticator.class%
         arguments:
             - "@security.token_storage"
+
+    darvin_user.security.user_provider.oauth:
+        class: %darvin_user.security.user_provider.oauth.class%
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@session"
+            - "@security.token_storage"
+            - "@darvin_user.user.factory"
+            - "@darvin_user.user.repository"
