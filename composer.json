@@ -12,6 +12,8 @@
         }
     ],
     "require": {
+        "hwi/oauth-bundle":                          "dev-master@dev",
+
         "darvinstudio/darvin-admin-bundle":          "*@dev",
         "darvinstudio/darvin-webmail-linker-bundle": "*@dev"
     },
