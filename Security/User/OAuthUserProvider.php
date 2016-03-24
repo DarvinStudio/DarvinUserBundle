@@ -145,6 +145,8 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface, UserProvider
     {
         return $this->userFactory->createUser()
             ->setEmail($email)
+            ->setEnabled(true)
+            ->setLocked(false)
             ->generateRandomPlainPassword();
     }
 }
