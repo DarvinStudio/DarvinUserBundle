@@ -17,6 +17,7 @@ password_reset_token:
 security:
     action:
         login:
+            darvin_auth: Sign in using Darvin Auth
             email:       E-mail
             link:        Sign in
             password:    Password

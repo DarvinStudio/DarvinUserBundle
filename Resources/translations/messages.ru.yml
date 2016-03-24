@@ -19,6 +19,7 @@ password_reset_token:
 security:
     action:
         login:
+            darvin_auth: Войти с помощью Darvin Auth
             email:       E-mail
             link:        Войти
             password:    Пароль
