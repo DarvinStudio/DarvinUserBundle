@@ -33,14 +33,15 @@ class RequestType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('user_email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
+            ->add('user_email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', [
                 'label'       => 'password_reset_token.action.request.user_email',
-                'constraints' => array(
+                'constraints' => [
                     new NotBlank(),
                     new Email(),
                     new UserExistsAndActive(),
-                ),
-            ))
+                ],
+            ]
+            )
             ->add('title', AntiSpamType::ANTI_SPAM_TYPE_CLASS);
     }
 
@@ -59,9 +60,11 @@ class RequestType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            [
             'csrf_token_id' => md5(__FILE__.$this->getBlockPrefix()),
-        ));
+            ]
+        );
     }
 
     /**

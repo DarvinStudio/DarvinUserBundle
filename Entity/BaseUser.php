@@ -36,11 +36,11 @@ class BaseUser implements \Serializable, AdvancedUserInterface
     /**
      * @var array
      */
-    private static $extraRoles = array(
+    private static $extraRoles = [
         self::ROLE_ADMIN      => 'user.entity.role.admin',
         self::ROLE_GUESTADMIN => 'user.entity.role.guest_admin',
         self::ROLE_SUPERADMIN => 'user.entity.role.superadmin',
-    );
+    ];
 
     /**
      * @var int
@@ -164,12 +164,14 @@ class BaseUser implements \Serializable, AdvancedUserInterface
      */
     public function serialize()
     {
-        return serialize(array(
+        return serialize(
+            [
             $this->id,
             $this->email,
             $this->password,
             $this->salt,
-        ));
+            ]
+        );
     }
 
     /**

@@ -38,9 +38,10 @@ class SecurityController extends Controller
             $this->getFlashNotifier()->error($error->getMessage());
         }
 
-        return $this->render('DarvinUserBundle:Security:login.html.twig', array(
+        return $this->render('DarvinUserBundle:Security:login.html.twig', [
             'form' => $this->getLoginFormFactory()->createLoginForm()->createView(),
-        ));
+        ]
+        );
     }
 
     /**
@@ -75,7 +76,7 @@ class SecurityController extends Controller
         $url = $this->generateUrl($this->getParameter('darvin_user.already_logged_in_redirect_route'));
 
         return $widget
-            ? new AjaxResponse('', true, $successMessage, array(), $url)
+            ? new AjaxResponse('', true, $successMessage, [], $url)
             : $this->redirect($url);
     }
 
@@ -113,7 +114,7 @@ class SecurityController extends Controller
         $url = $this->generateUrl($this->getParameter('darvin_user.already_logged_in_redirect_route'));
 
         return $widget
-            ? new AjaxResponse('', true, $successMessage, array(), $url)
+            ? new AjaxResponse('', true, $successMessage, [], $url)
             : $this->redirect($url);
     }
 

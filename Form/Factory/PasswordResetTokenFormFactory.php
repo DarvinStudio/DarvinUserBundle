@@ -57,12 +57,12 @@ class PasswordResetTokenFormFactory
     {
         return $this->formFactory->create(
             RequestType::REQUEST_TYPE_CLASS,
-            array(
+            [
                 'user_email' => $this->authenticationUtils->getLastUsername(),
-            ),
-            array(
+            ],
+            [
                 'action' => $this->router->generate('darvin_user_password_reset_token_request'),
-            )
+            ]
         );
     }
 }

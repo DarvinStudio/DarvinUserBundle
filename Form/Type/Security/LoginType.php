@@ -27,16 +27,19 @@ class LoginType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('_username', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
+            ->add('_username', 'Symfony\Component\Form\Extension\Core\Type\EmailType', [
                 'label' => 'security.action.login.email',
-            ))
-            ->add('_password', 'Symfony\Component\Form\Extension\Core\Type\PasswordType', array(
+            ]
+            )
+            ->add('_password', 'Symfony\Component\Form\Extension\Core\Type\PasswordType', [
                 'label' => 'security.action.login.password',
-            ))
-            ->add('_remember_me', 'Symfony\Component\Form\Extension\Core\Type\CheckboxType', array(
+            ]
+            )
+            ->add('_remember_me', 'Symfony\Component\Form\Extension\Core\Type\CheckboxType', [
                 'label'    => 'security.action.login.remember_me',
                 'required' => false,
-            ));
+            ]
+            );
     }
 
     /**
@@ -44,9 +47,11 @@ class LoginType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            [
             'csrf_field_name' => '_csrf_token',
-        ));
+            ]
+        );
     }
 
     /**

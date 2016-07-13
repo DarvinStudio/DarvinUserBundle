@@ -25,17 +25,18 @@ class Configuration extends AbstractConfiguration
      */
     public function getModel()
     {
-        return array(
-            new ParameterModel('notification_emails', ParameterModel::TYPE_ARRAY, array(), array(
-                'form' => array(
-                    'options' => array(
+        return [
+            new ParameterModel('notification_emails', ParameterModel::TYPE_ARRAY, [], [
+                'form' => [
+                    'options' => [
                         'entry_type'   => 'Symfony\Component\Form\Extension\Core\Type\EmailType',
                         'allow_add'    => true,
                         'allow_delete' => true,
-                    ),
-                ),
-            )),
-        );
+                    ],
+                ],
+            ]
+            ),
+        ];
     }
 
     /**

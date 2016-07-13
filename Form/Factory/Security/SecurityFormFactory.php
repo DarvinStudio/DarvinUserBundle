@@ -80,12 +80,13 @@ class SecurityFormFactory
         return $this->formFactory->create(
             PasswordResetType::PASSWORD_RESET_TYPE_CLASS,
             $passwordResetToken->getUser(),
-            array(
-                'action' => $this->router->generate('darvin_user_security_reset_password', array(
+            [
+                'action' => $this->router->generate('darvin_user_security_reset_password', [
                     'token' => $passwordResetToken->getBase64EncodedId(),
-                )),
+                ]
+                ),
                 'data_class' => $this->userClass,
-            )
+            ]
         );
     }
 
@@ -101,9 +102,10 @@ class SecurityFormFactory
                 ->setEmail($this->authenticationUtils->getLastUsername());
         }
 
-        return $this->formFactory->create(RegistrationType::REGISTRATION_TYPE_CLASS, $user, array(
+        return $this->formFactory->create(RegistrationType::REGISTRATION_TYPE_CLASS, $user, [
             'action'     => $this->router->generate('darvin_user_security_register'),
             'data_class' => $this->userClass,
-        ));
+        ]
+        );
     }
 }

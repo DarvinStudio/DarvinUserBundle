@@ -49,9 +49,10 @@ class PasswordResetTokenMailer
         $subject = 'password_reset_token.email.new.subject',
         $template = 'DarvinUserBundle:PasswordResetToken/email/new:public.html.twig'
     ) {
-        $body = $this->templating->render($template, array(
+        $body = $this->templating->render($template, [
             'password_reset_token' => $passwordResetToken,
-        ));
+        ]
+        );
 
         $this->mailer->send($subject, $body, $passwordResetToken->getUser()->getEmail());
     }

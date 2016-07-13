@@ -51,9 +51,10 @@ class SecurityFormRenderer
             ? 'DarvinUserBundle:Security/widget:reset_password.html.twig'
             : 'DarvinUserBundle:Security:reset_password.html.twig';
 
-        return $this->templating->render($template, array(
+        return $this->templating->render($template, [
             'form' => $form->createView(),
-        ));
+        ]
+        );
     }
 
     /**
@@ -72,8 +73,9 @@ class SecurityFormRenderer
             ? 'DarvinUserBundle:Security/widget:register.html.twig'
             : 'DarvinUserBundle:Security:register.html.twig';
 
-        return $this->templating->render($template, array(
+        return $this->templating->render($template, [
             'form' => $form->createView(),
-        ));
+        ]
+        );
     }
 }

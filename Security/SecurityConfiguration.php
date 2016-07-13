@@ -31,8 +31,8 @@ class SecurityConfiguration extends AbstractSecurityConfiguration
      */
     protected function getSecurableObjectClasses()
     {
-        return array(
+        return [
             'user' => BaseUser::BASE_USER_CLASS,
-        );
+        ];
     }
 }

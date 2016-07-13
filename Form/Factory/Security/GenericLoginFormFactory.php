@@ -65,14 +65,14 @@ class GenericLoginFormFactory implements LoginFormFactoryInterface
     {
         return $this->formFactory->create(
             LoginType::LOGIN_TYPE_CLASS,
-            array(
+            [
                 '_remember_me' => true,
                 '_username'    => $this->authenticationUtils->getLastUsername(),
-            ),
-            array(
+            ],
+            [
                 'action'        => $this->router->generate($actionRoute),
                 'csrf_token_id' => $this->csrfTokenId,
-            )
+            ]
         );
     }
 }

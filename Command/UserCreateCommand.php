@@ -30,10 +30,12 @@ class UserCreateCommand extends ContainerAwareCommand
         $this
             ->setName('darvin:user:create')
             ->setDescription('Creates user.')
-            ->setDefinition(array(
+            ->setDefinition(
+                [
                 new InputArgument('email', InputArgument::REQUIRED, 'User email'),
                 new InputArgument('password', InputArgument::REQUIRED, 'User plain password'),
-            ));
+                ]
+            );
     }
 
     /**
@@ -45,7 +47,7 @@ class UserCreateCommand extends ContainerAwareCommand
 
         list(, $email, $plainPassword) = array_values($input->getArguments());
 
-        $roles = array();
+        $roles = [];
 
         if ($io->confirm('Create superadmin?')) {
             $roles[] = BaseUser::ROLE_SUPERADMIN;

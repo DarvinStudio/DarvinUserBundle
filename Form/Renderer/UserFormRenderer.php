@@ -55,8 +55,9 @@ class UserFormRenderer
             ? 'DarvinUserBundle:User/widget:profile.html.twig'
             : 'DarvinUserBundle:User:profile.html.twig';
 
-        return $this->templating->render($template, array(
+        return $this->templating->render($template, [
             'form' => $form->createView(),
-        ));
+        ]
+        );
     }
 }

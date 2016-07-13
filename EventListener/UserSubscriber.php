@@ -40,9 +40,9 @@ class UserSubscriber extends AbstractOnFlushListener implements EventSubscriber
      */
     public function getSubscribedEvents()
     {
-        return array(
+        return [
             Events::onFlush,
-        );
+        ];
     }
 
     /**
@@ -52,7 +52,7 @@ class UserSubscriber extends AbstractOnFlushListener implements EventSubscriber
     {
         parent::onFlush($args);
 
-        $updatePasswordCallback = array($this, 'updatePassword');
+        $updatePasswordCallback = [$this, 'updatePassword'];
 
         $this
             ->onInsert($updatePasswordCallback, BaseUser::BASE_USER_CLASS)

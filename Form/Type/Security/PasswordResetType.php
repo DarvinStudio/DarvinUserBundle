@@ -28,9 +28,10 @@ class PasswordResetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('plainPassword', 'Symfony\Component\Form\Extension\Core\Type\PasswordType', array(
+            ->add('plainPassword', 'Symfony\Component\Form\Extension\Core\Type\PasswordType', [
                 'label' => 'security.action.reset_password.plain_password',
-            ))
+            ]
+            )
             ->add('title', AntiSpamType::ANTI_SPAM_TYPE_CLASS);
     }
 
@@ -40,12 +41,14 @@ class PasswordResetType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
-            ->setDefaults(array(
+            ->setDefaults(
+                [
                 'csrf_token_id'     => md5(__FILE__.$this->getBlockPrefix()),
-                'validation_groups' => array(
+                'validation_groups' => [
                     'PasswordReset',
-                ),
-            ))
+                ],
+                ]
+            )
             ->remove('data_class')
             ->setRequired('data_class')
             ->setAllowedTypes('data_class', 'string');
