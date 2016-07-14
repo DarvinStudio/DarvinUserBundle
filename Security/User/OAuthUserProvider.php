@@ -100,9 +100,9 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface, UserProvider
      */
     public function loadUserByUsername($email)
     {
-        $user = $this->userRepository->findOneBy(array(
+        $user = $this->userRepository->findOneBy([
             'email' => $email,
-        ));
+        ]);
 
         if (!empty($user)) {
             return $user;

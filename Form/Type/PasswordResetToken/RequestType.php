@@ -40,8 +40,7 @@ class RequestType extends AbstractType
                     new Email(),
                     new UserExistsAndActive(),
                 ],
-            ]
-            )
+            ])
             ->add('title', AntiSpamType::ANTI_SPAM_TYPE_CLASS);
     }
 
@@ -60,11 +59,9 @@ class RequestType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            [
+        $resolver->setDefaults([
             'csrf_token_id' => md5(__FILE__.$this->getBlockPrefix()),
-            ]
-        );
+        ]);
     }
 
     /**

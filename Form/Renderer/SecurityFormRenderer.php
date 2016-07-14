@@ -53,8 +53,7 @@ class SecurityFormRenderer
 
         return $this->templating->render($template, [
             'form' => $form->createView(),
-        ]
-        );
+        ]);
     }
 
     /**
@@ -75,7 +74,6 @@ class SecurityFormRenderer
 
         return $this->templating->render($template, [
             'form' => $form->createView(),
-        ]
-        );
+        ]);
     }
 }

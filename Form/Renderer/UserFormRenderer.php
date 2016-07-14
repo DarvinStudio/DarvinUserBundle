@@ -57,7 +57,6 @@ class UserFormRenderer
 
         return $this->templating->render($template, [
             'form' => $form->createView(),
-        ]
-        );
+        ]);
     }
 }

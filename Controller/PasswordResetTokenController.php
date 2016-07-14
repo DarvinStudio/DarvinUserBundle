@@ -60,8 +60,7 @@ class PasswordResetTokenController extends Controller
                     'webmail_link'         => $this->getWebmailLinker()->getProviderByEmailAddress(
                         $passwordResetToken->getUser()->getEmail()
                     ),
-                ]
-                ),
+                ]),
                 true,
                 $successMessage
             )

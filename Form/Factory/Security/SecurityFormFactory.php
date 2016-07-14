@@ -83,8 +83,7 @@ class SecurityFormFactory
             [
                 'action' => $this->router->generate('darvin_user_security_reset_password', [
                     'token' => $passwordResetToken->getBase64EncodedId(),
-                ]
-                ),
+                ]),
                 'data_class' => $this->userClass,
             ]
         );
@@ -105,7 +104,6 @@ class SecurityFormFactory
         return $this->formFactory->create(RegistrationType::REGISTRATION_TYPE_CLASS, $user, [
             'action'     => $this->router->generate('darvin_user_security_register'),
             'data_class' => $this->userClass,
-        ]
-        );
+        ]);
     }
 }

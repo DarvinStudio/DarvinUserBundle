@@ -57,7 +57,6 @@ class PasswordResetTokenFormRenderer
 
         return $this->templating->render($template, [
             'form' => $form->createView(),
-        ]
-        );
+        ]);
     }
 }

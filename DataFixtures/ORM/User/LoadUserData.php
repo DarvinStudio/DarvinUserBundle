@@ -54,11 +54,9 @@ class LoadUserData implements ContainerAwareInterface, FixtureInterface
             ->setFullName('Иванов Иван Иванович')
             ->setPhone('+7 (901) 234-56-78')
             ->setPlainPassword('admin')
-            ->setRoles(
-                [
+            ->setRoles([
                 BaseUser::ROLE_SUPERADMIN,
-                ]
-            );
+            ]);
     }
 
     /**

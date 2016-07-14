@@ -164,14 +164,12 @@ class BaseUser implements \Serializable, AdvancedUserInterface
      */
     public function serialize()
     {
-        return serialize(
-            [
+        return serialize([
             $this->id,
             $this->email,
             $this->password,
             $this->salt,
-            ]
-        );
+        ]);
     }
 
     /**

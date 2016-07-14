@@ -132,9 +132,9 @@ class PasswordResetTokenFormHandler
      */
     private function getUser($email)
     {
-        $user = $this->userRepository->findOneBy(array(
+        $user = $this->userRepository->findOneBy([
             'email' => $email,
-        ));
+        ]);
 
         if (empty($user)) {
             throw new FormException(sprintf('Unable to find user by email "%s".', $email));

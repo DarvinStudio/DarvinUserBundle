@@ -30,12 +30,10 @@ class UserCreateCommand extends ContainerAwareCommand
         $this
             ->setName('darvin:user:create')
             ->setDescription('Creates user.')
-            ->setDefinition(
-                [
+            ->setDefinition([
                 new InputArgument('email', InputArgument::REQUIRED, 'User email'),
                 new InputArgument('password', InputArgument::REQUIRED, 'User plain password'),
-                ]
-            );
+            ]);
     }
 
     /**

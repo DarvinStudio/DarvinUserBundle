@@ -34,8 +34,7 @@ class Configuration extends AbstractConfiguration
                         'allow_delete' => true,
                     ],
                 ],
-            ]
-            ),
+            ]),
         ];
     }
 

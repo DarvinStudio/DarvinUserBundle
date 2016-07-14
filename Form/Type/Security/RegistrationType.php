@@ -30,24 +30,19 @@ class RegistrationType extends AbstractType
         $builder
             ->add('email', null, [
                 'label' => 'user.entity.email',
-            ]
-            )
+            ])
             ->add('fullName', null, [
                 'label' => 'user.entity.full_name',
-            ]
-            )
+            ])
             ->add('address', null, [
                 'label' => 'user.entity.address',
-            ]
-            )
+            ])
             ->add('phone', null, [
                 'label' => 'user.entity.phone',
-            ]
-            )
+            ])
             ->add('plainPassword', 'Symfony\Component\Form\Extension\Core\Type\PasswordType', [
                 'label' => 'user.entity.plain_password',
-            ]
-            )
+            ])
             ->add('title', AntiSpamType::ANTI_SPAM_TYPE_CLASS);
     }
 
@@ -57,15 +52,13 @@ class RegistrationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
-            ->setDefaults(
-                [
+            ->setDefaults([
                 'csrf_token_id'     => md5(__FILE__.$this->getBlockPrefix()),
                 'validation_groups' => [
                     'Default',
                     'Register',
                 ],
-                ]
-            )
+            ])
             ->remove('data_class')
             ->setRequired('data_class')
             ->setAllowedTypes('data_class', 'string');

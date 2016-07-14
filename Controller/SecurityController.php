@@ -40,8 +40,7 @@ class SecurityController extends Controller
 
         return $this->render('DarvinUserBundle:Security:login.html.twig', [
             'form' => $this->getLoginFormFactory()->createLoginForm()->createView(),
-        ]
-        );
+        ]);
     }
 
     /**

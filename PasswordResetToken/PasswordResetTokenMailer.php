@@ -51,8 +51,7 @@ class PasswordResetTokenMailer
     ) {
         $body = $this->templating->render($template, [
             'password_reset_token' => $passwordResetToken,
-        ]
-        );
+        ]);
 
         $this->mailer->send($subject, $body, $passwordResetToken->getUser()->getEmail());
     }
