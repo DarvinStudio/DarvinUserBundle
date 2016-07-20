@@ -4,9 +4,11 @@ disabled_routes:
 menu:
     position: 0
     colors:
-        main: "#2171ac"
+        main:    "#2171ac"
+        sidebar: "#48aef9"
     icons:
-        main: bundles/darvinuser/images/admin/user_main.png
+        main:    bundles/darvinuser/images/admin/user_main.png
+        sidebar: bundles/darvinuser/images/admin/user_sidebar.png
 sortable_fields:
     email:   ~
     locked:  ~
