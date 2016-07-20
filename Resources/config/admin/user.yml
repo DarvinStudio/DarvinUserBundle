@@ -1,11 +1,11 @@
 entity_name: user
 disabled_routes:
     - copy
-images:
-    homepage_menu_icon: bundles/darvinuser/images/icons/homepage/user.png
 menu:
     color:    "#2171ac"
     position: 0
+    icons:
+        big: bundles/darvinuser/images/admin/user_big.png
 sortable_fields:
     email:   ~
     locked:  ~
