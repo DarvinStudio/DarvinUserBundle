@@ -1,5 +1,5 @@
 <h3>
-    {% trans with { '%email%': password_reset_token.user.email } %}password_reset_token.action.request.submitted{% endtrans %}
+    {% trans with {'%email%': password_reset_token.user.email} %}password_reset_token.action.request.submitted{% endtrans %}
     {% if webmail_link %}
         <a href="{{ webmail_link.url }}" target="_blank">
             {% if webmail_link.icon %}
