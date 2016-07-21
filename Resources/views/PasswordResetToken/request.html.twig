@@ -4,8 +4,4 @@
 
 {% block heading %}{% trans %}password_reset_token.action.request.title{% endtrans %}{% endblock %}
 
-{% block content %}
-
-    {% include 'DarvinUserBundle:PasswordResetToken/widget/request:form.html.twig' %}
-
-{% endblock %}
+{% block content %}{% include 'DarvinUserBundle:PasswordResetToken/widget/request:form.html.twig' %}{% endblock %}
