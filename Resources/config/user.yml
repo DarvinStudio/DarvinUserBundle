@@ -19,7 +19,7 @@ parameters:
 
 services:
     darvin_user.user.event_subscriber:
-        class:  %darvin_user.user.event_subscriber.class%
+        class:  "%darvin_user.user.event_subscriber.class%"
         public: false
         arguments:
             - "@darvin_user.user.manager"
@@ -27,32 +27,32 @@ services:
             - { name: doctrine.event_subscriber }
 
     darvin_user.user.factory:
-        class: %darvin_user.user.factory.class%
+        class: "%darvin_user.user.factory.class%"
         arguments:
-            - %darvin_user.user_class%
+            - "%darvin_user.user_class%"
 
     darvin_user.user.form.factory:
-        class: %darvin_user.user.form.factory.class%
+        class: "%darvin_user.user.form.factory.class%"
         arguments:
             - "@form.factory"
             - "@router"
             - "@darvin_user.user.manager"
-            - %darvin_user.user_class%
+            - "%darvin_user.user_class%"
 
     darvin_user.user.form.handler:
-        class: %darvin_user.user.form.handler.class%
+        class: "%darvin_user.user.form.handler.class%"
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@darvin_utils.flash.notifier"
 
     darvin_user.user.form.renderer:
-        class: %darvin_user.user.form.renderer.class%
+        class: "%darvin_user.user.form.renderer.class%"
         arguments:
             - "@templating"
             - "@darvin_user.user.form.factory"
 
     darvin_user.user.mailer:
-        class: %darvin_user.user.mailer.class%
+        class: "%darvin_user.user.mailer.class%"
         arguments:
             - "@darvin_utils.mailer"
             - "@templating"
@@ -62,19 +62,19 @@ services:
         alias: darvin_user.user.manager.generic
 
     darvin_user.user.manager.generic:
-        class: %darvin_user.user.manager.generic.class%
+        class: "%darvin_user.user.manager.generic.class%"
         arguments:
             - "@security.token_storage"
             - "@security.password_encoder"
 
     darvin_user.user.repository:
-        class:   %darvin_user.user.repository.class%
+        class:   "%darvin_user.user.repository.class%"
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - %darvin_user.user_class%
+            - "%darvin_user.user_class%"
 
     darvin_user.user.validator.user_exists_and_active:
-        class: %darvin_user.user.validator.user_exists_and_active.class%
+        class: "%darvin_user.user.validator.user_exists_and_active.class%"
         arguments:
             - "@darvin_user.user.repository"
         tags:

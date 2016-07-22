@@ -5,7 +5,7 @@ services:
     darvin_user.admin.metadata.user:
         parent: darvin_admin.metadata.abstract
         arguments:
-            - %darvin_user.user_class%
-            - %darvin_user.admin_config%
+            - "%darvin_user.user_class%"
+            - "%darvin_user.admin_config%"
         tags:
             - { name: darvin_admin.metadata }

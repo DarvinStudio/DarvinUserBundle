@@ -17,62 +17,62 @@ parameters:
 
 services:
     darvin_user.security.configuration:
-        class: %darvin_user.security.configuration.class%
+        class: "%darvin_user.security.configuration.class%"
         tags:
             - { name: darvin_config.configuration }
             - { name: darvin_admin.security_configuration }
 
     darvin_user.security.event_listener.post_register:
-        class: %darvin_user.security.event_listener.post_register.class%
+        class: "%darvin_user.security.event_listener.post_register.class%"
         arguments:
             - "@darvin_user.security.user_authenticator"
             - "@darvin_user.user.mailer"
-            - %darvin_user.public_firewall_name%
+            - "%darvin_user.public_firewall_name%"
         tags:
             - { name: kernel.event_listener, event: darvin_user.post_register, method: postRegister }
 
     darvin_user.security.form.factory.common:
-        class: %darvin_user.security.form.factory.common.class%
+        class: "%darvin_user.security.form.factory.common.class%"
         arguments:
             - "@security.authentication_utils"
             - "@form.factory"
             - "@router"
             - "@darvin_user.user.factory"
-            - %darvin_user.user_class%
+            - "%darvin_user.user_class%"
 
     darvin_user.security.form.factory.login:
         alias: darvin_user.security.form.factory.login.generic
 
     darvin_user.security.form.factory.login.generic:
-        class: %darvin_user.security.form.factory.login.generic.class%
+        class: "%darvin_user.security.form.factory.login.generic.class%"
         arguments:
             - "@security.authentication_utils"
             - "@form.factory"
             - "@router"
-            - %secret%
+            - "%secret%"
 
     darvin_user.security.form.handler:
-        class: %darvin_user.security.form.handler.class%
+        class: "%darvin_user.security.form.handler.class%"
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@event_dispatcher"
             - "@darvin_utils.flash.notifier"
             - "@darvin_user.security.user_authenticator"
-            - %darvin_user.public_firewall_name%
+            - "%darvin_user.public_firewall_name%"
 
     darvin_user.security.form.renderer:
-        class: %darvin_user.security.form.renderer.class%
+        class: "%darvin_user.security.form.renderer.class%"
         arguments:
             - "@darvin_user.security.form.factory.common"
             - "@templating"
 
     darvin_user.security.user_authenticator:
-        class: %darvin_user.security.user_authenticator.class%
+        class: "%darvin_user.security.user_authenticator.class%"
         arguments:
             - "@security.token_storage"
 
     darvin_user.security.user_provider.oauth:
-        class: %darvin_user.security.user_provider.oauth.class%
+        class: "%darvin_user.security.user_provider.oauth.class%"
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@session"

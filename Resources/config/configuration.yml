@@ -3,6 +3,6 @@ parameters:
 
 services:
     darvin_user.configuration:
-        class: %darvin_user.configuration.class%
+        class: "%darvin_user.configuration.class%"
         tags:
             - { name: darvin_config.configuration }
