@@ -8,6 +8,9 @@ configuration:
             permissions: Permissions
         title: The "Users" module security configuration
 
+searchable:
+    user: Users
+
 security:
     object:
         user: User

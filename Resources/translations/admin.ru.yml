@@ -8,6 +8,9 @@ configuration:
             permissions: Права
         title: Настройки безопасности модуля «Пользователи»
 
+searchable:
+    user: Пользователи
+
 security:
     object:
         user: Пользователь

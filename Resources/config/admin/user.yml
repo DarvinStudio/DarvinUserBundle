@@ -1,6 +1,13 @@
 entity_name: user
 disabled_routes:
     - copy
+searchable_fields:
+    - email
+sortable_fields:
+    email:   ~
+    locked:  ~
+    enabled: ~
+    roles:   ~
 menu:
     position: 0
     colors:
@@ -9,11 +16,6 @@ menu:
     icons:
         main:    bundles/darvinuser/images/admin/user_main.png
         sidebar: bundles/darvinuser/images/admin/user_sidebar.png
-sortable_fields:
-    email:   ~
-    locked:  ~
-    enabled: ~
-    roles:   ~
 form:
     edit:
         fields:
