@@ -11,9 +11,8 @@ configuration:
 searchable:
     user: Пользователи
 
-security:
-    object:
-        user: Пользователь
+securable:
+    user: Пользователь
 
 user:
     action:
