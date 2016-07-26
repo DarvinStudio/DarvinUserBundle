@@ -1,6 +1,6 @@
 {
     "name":        "darvinstudio/darvin-user-bundle",
-    "description": "This bundle provides user management functionality for Symfony2-based applications.",
+    "description": "This bundle provides user management functionality for Symfony-based applications.",
     "keywords":    ["user"],
     "type":        "symfony-bundle",
     "license":     "MIT",
