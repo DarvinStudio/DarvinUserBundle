@@ -15,5 +15,4 @@ services:
     darvin_user.admin.security_configuration:
         class: "%darvin_user.admin.security_configuration.class%"
         tags:
-            - { name: darvin_config.configuration }
             - { name: darvin_admin.security_configuration }
