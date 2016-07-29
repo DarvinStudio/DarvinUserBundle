@@ -8,15 +8,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Darvin\UserBundle\Security;
+namespace Darvin\UserBundle\Admin\Security;
 
 use Darvin\AdminBundle\Security\Configuration\AbstractSecurityConfiguration;
 use Darvin\UserBundle\Entity\BaseUser;
 
 /**
- * Security configuration
+ * Admin security configuration
  */
-class SecurityConfiguration extends AbstractSecurityConfiguration
+class Configuration extends AbstractSecurityConfiguration
 {
     /**
      * {@inheritdoc}

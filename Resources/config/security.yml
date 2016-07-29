@@ -1,6 +1,4 @@
 parameters:
-    darvin_user.security.configuration.class: Darvin\UserBundle\Security\SecurityConfiguration
-
     darvin_user.security.event_listener.post_register.class: Darvin\UserBundle\EventListener\Security\PostRegisterListener
 
     darvin_user.security.form.factory.common.class: Darvin\UserBundle\Form\Factory\Security\SecurityFormFactory
@@ -16,12 +14,6 @@ parameters:
     darvin_user.security.user_provider.oauth.class: Darvin\UserBundle\Security\User\OAuthUserProvider
 
 services:
-    darvin_user.security.configuration:
-        class: "%darvin_user.security.configuration.class%"
-        tags:
-            - { name: darvin_config.configuration }
-            - { name: darvin_admin.security_configuration }
-
     darvin_user.security.event_listener.post_register:
         class: "%darvin_user.security.event_listener.post_register.class%"
         arguments:
