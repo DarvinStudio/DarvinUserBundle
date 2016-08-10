@@ -1,4 +1,3 @@
-entity_name: user
 disabled_routes:
     - copy
 searchable_fields:
