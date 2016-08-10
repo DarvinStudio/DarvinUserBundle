@@ -3,8 +3,6 @@ configuration:
         parameter:
             notification_emails: E-mail для уведомлений
         title: Настройки модуля «Пользователи»
-    darvin_user_security:
-        title: Настройки безопасности модуля «Пользователи»
 
 searchable:
     user: Пользователи
