@@ -1,8 +1,15 @@
 parameters:
     darvin_user.configuration.class: Darvin\UserBundle\Configuration\Configuration
 
+    darvin_user.configuration.roles.class: Darvin\UserBundle\Configuration\RoleConfiguration
+
 services:
     darvin_user.configuration:
         class: "%darvin_user.configuration.class%"
         tags:
             - { name: darvin_config.configuration }
+
+    darvin_user.configuration.roles:
+        class: "%darvin_user.configuration.roles.class%"
+        arguments:
+            - "%darvin_user.roles%"

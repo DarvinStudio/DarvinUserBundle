@@ -10,7 +10,6 @@
 
 namespace Darvin\UserBundle\Repository;
 
-use Darvin\UserBundle\Entity\BaseUser;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
@@ -28,9 +27,9 @@ class UserRepository extends EntityRepository
 
         return $qb
             ->andWhere($qb->expr()->like('o.roles', ':role_admin'))
-            ->setParameter('role_admin', '%'.BaseUser::ROLE_ADMIN.'%')
+            ->setParameter('role_admin', '%ROLE_ADMIN%')
             ->andWhere($qb->expr()->notLike('o.roles', ':role_superadmin'))
-            ->setParameter('role_superadmin', '%'.BaseUser::ROLE_SUPERADMIN.'%');
+            ->setParameter('role_superadmin', '%ROLE_SUPERADMIN%');
     }
 
     /**

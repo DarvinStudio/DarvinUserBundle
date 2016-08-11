@@ -10,7 +10,6 @@
 
 namespace Darvin\UserBundle\DataFixtures\ORM\User;
 
-use Darvin\UserBundle\Entity\BaseUser;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -55,7 +54,7 @@ class LoadUserData implements ContainerAwareInterface, FixtureInterface
             ->setPhone('+7 (901) 234-56-78')
             ->setPlainPassword('admin')
             ->setRoles([
-                BaseUser::ROLE_SUPERADMIN,
+                'ROLE_SUPERADMIN',
             ]);
     }
 

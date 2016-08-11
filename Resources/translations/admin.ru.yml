@@ -40,10 +40,6 @@ user:
         enabled:        Активен
         locked:         Заблокирован
         plain_password: Пароль
-        role:
-            admin:       Администратор
-            guest_admin: Администратор-гость
-            superadmin:  Суперадминистратор
-        roles: Роли
+        roles:          Роли
     menu:
         description: Список всех пользователей сайта с возможностью редактировать их.

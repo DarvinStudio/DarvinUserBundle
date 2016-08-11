@@ -30,9 +30,8 @@ form:
                 options:
                     required: false
             roles:
-                type: Symfony\Component\Form\Extension\Core\Type\ChoiceType
+                type: Darvin\UserBundle\Form\Type\Admin\User\RoleType
                 options:
-                    choices:  [ Darvin\UserBundle\Entity\BaseUser, getExtraRoles ]
                     multiple: true
                     expanded: true
     filter:
@@ -42,9 +41,7 @@ form:
             enabled: ~
             locked:  ~
             roles:
-                type: Symfony\Component\Form\Extension\Core\Type\ChoiceType
-                options:
-                    choices: [ Darvin\UserBundle\Entity\BaseUser, getExtraRoles ]
+                type: Darvin\UserBundle\Form\Type\Admin\User\RoleType
                 compare_strict: false
     index:
         fields:
@@ -62,9 +59,8 @@ form:
             plainPassword:
                 type: Symfony\Component\Form\Extension\Core\Type\PasswordType
             roles:
-                type: Symfony\Component\Form\Extension\Core\Type\ChoiceType
+                type: Darvin\UserBundle\Form\Type\Admin\User\RoleType
                 options:
-                    choices:  [ Darvin\UserBundle\Entity\BaseUser, getExtraRoles ]
                     multiple: true
                     expanded: true
 view:

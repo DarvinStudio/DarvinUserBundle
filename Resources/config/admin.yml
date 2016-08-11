@@ -1,0 +1,10 @@
+parameters:
+    darvin_user.admin.form_type.user_role.class: Darvin\UserBundle\Form\Type\Admin\User\RoleType
+
+services:
+    darvin_user.admin.form_type.user_role:
+        class: "%darvin_user.admin.form_type.user_role.class%"
+        arguments:
+            - "@darvin_user.configuration.roles"
+        tags:
+            - { name: form.type }

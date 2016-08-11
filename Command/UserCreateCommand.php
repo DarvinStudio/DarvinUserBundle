@@ -10,7 +10,6 @@
 
 namespace Darvin\UserBundle\Command;
 
-use Darvin\UserBundle\Entity\BaseUser;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -22,6 +21,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class UserCreateCommand extends ContainerAwareCommand
 {
+    const NO_ROLE = '-';
+
     /**
      * {@inheritdoc}
      */
@@ -45,13 +46,9 @@ class UserCreateCommand extends ContainerAwareCommand
 
         list(, $email, $plainPassword) = array_values($input->getArguments());
 
-        $roles = [];
+        $role = $io->choice('Please select role', $this->buildRoleChoices(), self::NO_ROLE);
 
-        if ($io->confirm('Create superadmin?')) {
-            $roles[] = BaseUser::ROLE_SUPERADMIN;
-        }
-
-        $user = $this->createUser($email, $plainPassword, $roles);
+        $user = $this->createUser($email, $plainPassword, self::NO_ROLE !== $role ? [$role] : []);
 
         $violations = $this->getValidator()->validate($user);
 
@@ -70,7 +67,30 @@ class UserCreateCommand extends ContainerAwareCommand
         $em->persist($user);
         $em->flush();
 
-        $io->success(sprintf('User with e-mail "%s" and password "%s" successfully created.', $email, $plainPassword));
+        $io->success(
+            sprintf(
+                'User with e-mail "%s", password "%s", and %s successfully created.',
+                $email,
+                $plainPassword,
+                self::NO_ROLE !== $role ? sprintf('role "%s"', $role) : 'without any role'
+            )
+        );
+    }
+
+    /**
+     * @return array
+     */
+    private function buildRoleChoices()
+    {
+        $choices = [
+            self::NO_ROLE,
+        ];
+
+        foreach ($this->getRoleConfiguration()->getRoles() as $role) {
+            $choices[] = $role->getRole();
+        }
+
+        return $choices;
     }
 
     /**
@@ -94,6 +114,14 @@ class UserCreateCommand extends ContainerAwareCommand
     private function getEntityManager()
     {
         return $this->getContainer()->get('doctrine.orm.entity_manager');
+    }
+
+    /**
+     * @return \Darvin\UserBundle\Configuration\RoleConfiguration
+     */
+    private function getRoleConfiguration()
+    {
+        return $this->getContainer()->get('darvin_user.configuration.roles');
     }
 
     /**

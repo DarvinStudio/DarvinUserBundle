@@ -40,10 +40,6 @@ user:
         enabled:        Enabled
         locked:         Locked
         plain_password: Password
-        role:
-            admin:       Administrator
-            guest_admin: Guest administrator
-            superadmin:  Superadministrator
-        roles: Roles
+        roles:          Roles
     menu:
         description: List of all website users with edit functionality.
