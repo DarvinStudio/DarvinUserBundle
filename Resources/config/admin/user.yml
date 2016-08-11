@@ -73,9 +73,7 @@ view:
             enabled: ~
             roles:
                 widget:
-                    alias: compound_list
-                    options:
-                        values_callback: [ Darvin\UserBundle\Entity\BaseUser, getExtraRoles ]
+                    alias: user_roles
     show:
         fields:
             email:
@@ -85,6 +83,4 @@ view:
             enabled: ~
             roles:
                 widget:
-                    alias: compound_list
-                    options:
-                        values_callback: [ Darvin\UserBundle\Entity\BaseUser, getExtraRoles ]
+                    alias: user_roles

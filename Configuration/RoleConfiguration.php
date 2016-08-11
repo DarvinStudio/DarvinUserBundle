@@ -33,6 +33,31 @@ class RoleConfiguration
     }
 
     /**
+     * @param string $role Role
+     *
+     * @return \Darvin\UserBundle\Configuration\Role
+     * @throws \Darvin\UserBundle\Configuration\ConfigurationException
+     */
+    public function getRole($role)
+    {
+        if (!$this->hasRole($role)) {
+            throw new ConfigurationException(sprintf('Role "%s" does not exist.', $role));
+        }
+
+        return $this->roles[$role];
+    }
+
+    /**
+     * @param string $role Role
+     *
+     * @return bool
+     */
+    public function hasRole($role)
+    {
+        return isset($this->roles[$role]);
+    }
+
+    /**
      * @return \Darvin\UserBundle\Configuration\Role[]
      */
     public function getRoles()
