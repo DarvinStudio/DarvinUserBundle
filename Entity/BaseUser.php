@@ -36,7 +36,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface
     /**
      * @var array
      */
-    private static $extraRoles = [
+    protected static $extraRoles = [
         self::ROLE_ADMIN      => 'user.entity.role.admin',
         self::ROLE_GUESTADMIN => 'user.entity.role.guest_admin',
         self::ROLE_SUPERADMIN => 'user.entity.role.superadmin',
@@ -49,49 +49,49 @@ class BaseUser implements \Serializable, AdvancedUserInterface
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Id
      */
-    private $id;
+    protected $id;
 
     /**
      * @var \Darvin\UserBundle\Entity\PasswordResetToken
      *
      * @ORM\OneToOne(targetEntity="Darvin\UserBundle\Entity\PasswordResetToken", mappedBy="user", cascade={"remove"})
      */
-    private $passwordResetToken;
+    protected $passwordResetToken;
 
     /**
      * @var bool
      *
      * @ORM\Column(type="boolean")
      */
-    private $locked;
+    protected $locked;
 
     /**
      * @var bool
      *
      * @ORM\Column(type="boolean")
      */
-    private $enabled;
+    protected $enabled;
 
     /**
      * @var array
      *
      * @ORM\Column(type="simple_array", nullable=true)
      */
-    private $roles;
+    protected $roles;
 
     /**
      * @var string
      *
      * @ORM\Column(type="string")
      */
-    private $password;
+    protected $password;
 
     /**
      * @var string
      *
      * @ORM\Column(type="string")
      */
-    private $salt;
+    protected $salt;
 
     /**
      * @var string
@@ -100,7 +100,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface
      * @Assert\Email
      * @Assert\NotBlank
      */
-    private $email;
+    protected $email;
 
     /**
      * @var string
@@ -108,7 +108,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface
      * @ORM\Column(type="string", nullable=true)
      * @Assert\NotBlank(groups={"Profile", "Register"})
      */
-    private $fullName;
+    protected $fullName;
 
     /**
      * @var string
@@ -116,7 +116,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface
      * @ORM\Column(type="string", nullable=true)
      * @Assert\NotBlank(groups={"Profile", "Register"})
      */
-    private $address;
+    protected $address;
 
     /**
      * @var string
@@ -124,21 +124,21 @@ class BaseUser implements \Serializable, AdvancedUserInterface
      * @ORM\Column(type="string", nullable=true)
      * @Assert\NotBlank(groups={"Profile", "Register"})
      */
-    private $phone;
+    protected $phone;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
      */
-    private $updatedAt;
+    protected $updatedAt;
 
     /**
      * @var string
      *
      * @Assert\NotBlank(groups={"AdminNew", "PasswordReset", "Register"})
      */
-    private $plainPassword;
+    protected $plainPassword;
 
     /**
      * @param bool $locked  Is locked
@@ -533,7 +533,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface
     /**
      * @return BaseUser
      */
-    private function refreshUpdatedAt()
+    protected function refreshUpdatedAt()
     {
         $this->updatedAt = new \DateTime();
 
