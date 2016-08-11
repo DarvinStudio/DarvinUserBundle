@@ -19,17 +19,33 @@ use Doctrine\ORM\QueryBuilder;
 class UserRepository extends EntityRepository
 {
     /**
+     * @param string[] $roles      Roles
+     * @param string   $exceptRole Except role
+     *
      * @return \Doctrine\ORM\QueryBuilder
+     * @throws \Darvin\UserBundle\Repository\RepositoryException
      */
-    public function getNotSuperadminsBuilder()
+    public function getByRolesBuilder(array $roles, $exceptRole = null)
     {
+        if (empty($roles)) {
+            throw new RepositoryException('Roles array must not be empty.');
+        }
+
         $qb = $this->createDefaultQueryBuilder();
 
-        return $qb
-            ->andWhere($qb->expr()->like('o.roles', ':role_admin'))
-            ->setParameter('role_admin', '%ROLE_ADMIN%')
-            ->andWhere($qb->expr()->notLike('o.roles', ':role_superadmin'))
-            ->setParameter('role_superadmin', '%ROLE_SUPERADMIN%');
+        $rolesExpr = implode(' OR ', array_map(function ($role) {
+            return 'o.roles LIKE :role_'.$role;
+        }, $roles));
+        $qb->andWhere($rolesExpr);
+
+        foreach ($roles as $role) {
+            $qb->setParameter('role_'.$role, '%'.$role.'%');
+        }
+        if (!empty($exceptRole)) {
+            $qb->andWhere($qb->expr()->notLike('o.roles', ':except_role'))->setParameter('except_role', '%'.$exceptRole.'%');
+        }
+
+        return $qb;
     }
 
     /**
