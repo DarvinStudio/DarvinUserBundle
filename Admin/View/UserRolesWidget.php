@@ -48,14 +48,6 @@ class UserRolesWidget extends AbstractWidget
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function getAlias()
-    {
-        return 'user_roles';
-    }
-
-    /**
      * @param \Darvin\UserBundle\Entity\BaseUser $user     User
      * @param array                              $options  Options
      * @param string                             $property Property name
