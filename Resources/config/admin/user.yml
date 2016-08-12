@@ -41,7 +41,7 @@ form:
             enabled: ~
             locked:  ~
             roles:
-                type: Darvin\UserBundle\Form\Type\Admin\User\RoleType
+                type:           Darvin\UserBundle\Form\Type\Admin\User\RoleType
                 compare_strict: false
     index:
         fields:
