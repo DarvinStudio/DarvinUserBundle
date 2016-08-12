@@ -30,8 +30,6 @@ user:
         show:
             link:  Просмотреть пользователя
             title: Пользователь «%entity%»
-        update_property:
-            success: Значение успешно изменено
     entity:
         email:          E-mail
         enabled:        Активен
