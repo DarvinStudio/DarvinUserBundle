@@ -65,6 +65,11 @@ form:
                     expanded: true
 view:
     index:
+        action_widgets:
+            show_link:   ~
+            edit_link:   ~
+            delete_form: ~
+            switch_user: ~
         fields:
             email:
                 widget:
@@ -75,6 +80,10 @@ view:
                 widget:
                     alias: user_roles
     show:
+        action_widgets:
+            edit_link:   ~
+            delete_form: ~
+            switch_user: ~
         fields:
             email:
                 widget:
