@@ -47,7 +47,7 @@ class GenericUserManager implements UserManagerInterface
         $token = $this->authTokenStorage->getToken();
 
         if (empty($token)) {
-            throw new UserManagerException('Unable to get current user: authentication token is empty.');
+            return null;
         }
 
         $user = $token->getUser();
