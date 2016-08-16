@@ -10,18 +10,59 @@
 
 namespace Darvin\UserBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Darvin\UserBundle\Configuration\RoleConfiguration;
+use Darvin\UserBundle\User\UserFactory;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * User create command
  */
-class UserCreateCommand extends ContainerAwareCommand
+class UserCreateCommand extends Command
 {
     const NO_ROLE = '-';
+
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $em;
+
+    /**
+     * @var \Darvin\UserBundle\Configuration\RoleConfiguration
+     */
+    private $roleConfig;
+
+    /**
+     * @var \Darvin\UserBundle\User\UserFactory
+     */
+    private $userFactory;
+
+    /**
+     * @var \Symfony\Component\Validator\Validator\ValidatorInterface
+     */
+    private $validator;
+
+    /**
+     * @param string                                                    $name        Command name
+     * @param \Doctrine\ORM\EntityManager                               $em          Entity manager
+     * @param \Darvin\UserBundle\Configuration\RoleConfiguration        $roleConfig  Role configuration
+     * @param \Darvin\UserBundle\User\UserFactory                       $userFactory User factory
+     * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator   Validator
+     */
+    public function __construct($name, EntityManager $em, RoleConfiguration $roleConfig, UserFactory $userFactory, ValidatorInterface $validator)
+    {
+        parent::__construct($name);
+
+        $this->em = $em;
+        $this->roleConfig = $roleConfig;
+        $this->userFactory = $userFactory;
+        $this->validator = $validator;
+    }
 
     /**
      * {@inheritdoc}
@@ -29,7 +70,6 @@ class UserCreateCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('darvin:user:create')
             ->setDescription('Creates user.')
             ->setDefinition([
                 new InputArgument('email', InputArgument::REQUIRED, 'User email'),
@@ -46,11 +86,9 @@ class UserCreateCommand extends ContainerAwareCommand
 
         list(, $email, $plainPassword) = array_values($input->getArguments());
 
-        $role = $io->choice('Please select role', $this->buildRoleChoices(), self::NO_ROLE);
+        $user = $this->createUser($email, $plainPassword);
 
-        $user = $this->createUser($email, $plainPassword, self::NO_ROLE !== $role ? [$role] : []);
-
-        $violations = $this->getValidator()->validate($user);
+        $violations = $this->validator->validate($user);
 
         if ($violations->count() > 0) {
             /** @var \Symfony\Component\Validator\ConstraintViolation $violation */
@@ -63,9 +101,12 @@ class UserCreateCommand extends ContainerAwareCommand
             return;
         }
 
-        $em = $this->getEntityManager();
-        $em->persist($user);
-        $em->flush();
+        $role = $io->choice('Please select role', $this->buildRoleChoices(), self::NO_ROLE);
+
+        $user->setRoles(self::NO_ROLE !== $role ? [$role] : []);
+
+        $this->em->persist($user);
+        $this->em->flush();
 
         $io->success(
             sprintf(
@@ -86,7 +127,7 @@ class UserCreateCommand extends ContainerAwareCommand
             self::NO_ROLE,
         ];
 
-        foreach ($this->getRoleConfiguration()->getRoles() as $role) {
+        foreach ($this->roleConfig->getRoles() as $role) {
             $choices[] = $role->getRole();
         }
 
@@ -100,43 +141,11 @@ class UserCreateCommand extends ContainerAwareCommand
      *
      * @return \Darvin\UserBundle\Entity\BaseUser
      */
-    private function createUser($email, $plainPassword, array $roles)
+    private function createUser($email, $plainPassword, array $roles = [])
     {
-        return $this->getUserFactory()->createUser()
+        return $this->userFactory->createUser()
             ->setEmail($email)
             ->setPlainPassword($plainPassword)
             ->setRoles($roles);
-    }
-
-    /**
-     * @return \Doctrine\ORM\EntityManager
-     */
-    private function getEntityManager()
-    {
-        return $this->getContainer()->get('doctrine.orm.entity_manager');
-    }
-
-    /**
-     * @return \Darvin\UserBundle\Configuration\RoleConfiguration
-     */
-    private function getRoleConfiguration()
-    {
-        return $this->getContainer()->get('darvin_user.configuration.roles');
-    }
-
-    /**
-     * @return \Darvin\UserBundle\User\UserFactory
-     */
-    private function getUserFactory()
-    {
-        return $this->getContainer()->get('darvin_user.user.factory');
-    }
-
-    /**
-     * @return \Symfony\Component\Validator\Validator\ValidatorInterface
-     */
-    private function getValidator()
-    {
-        return $this->getContainer()->get('validator');
     }
 }
