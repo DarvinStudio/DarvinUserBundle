@@ -1,6 +1,6 @@
 {% extends ':email:public_layout.html.twig' %}
 
-{% block body %}
+{% block content %}
     {% trans with {
         '%expire_at%': password_reset_token.expireAt|localizeddate('medium', 'short'),
         '%url%':       url('darvin_user_security_reset_password', {'token': password_reset_token.base64EncodedId}),
