@@ -19,9 +19,8 @@ use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManager;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
@@ -36,16 +35,6 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface, UserProvider
     protected $em;
 
     /**
-     * @var \Symfony\Component\HttpFoundation\Session\SessionInterface
-     */
-    protected $session;
-
-    /**
-     * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
-     */
-    protected $tokenStorage;
-
-    /**
      * @var \Darvin\UserBundle\User\UserFactory
      */
     protected $userFactory;
@@ -56,22 +45,13 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface, UserProvider
     protected $userRepository;
 
     /**
-     * @param \Doctrine\ORM\EntityManager                                                         $em             Entity manager
-     * @param \Symfony\Component\HttpFoundation\Session\SessionInterface                          $session        Session
-     * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage   Authentication token storage
-     * @param \Darvin\UserBundle\User\UserFactory                                                 $userFactory    User factory
-     * @param \Darvin\UserBundle\Repository\UserRepository                                        $userRepository User entity repository
+     * @param \Doctrine\ORM\EntityManager                  $em             Entity manager
+     * @param \Darvin\UserBundle\User\UserFactory          $userFactory    User factory
+     * @param \Darvin\UserBundle\Repository\UserRepository $userRepository User entity repository
      */
-    public function __construct(
-        EntityManager $em,
-        SessionInterface $session,
-        TokenStorageInterface $tokenStorage,
-        UserFactory $userFactory,
-        UserRepository $userRepository
-    ) {
+    public function __construct(EntityManager $em, UserFactory $userFactory, UserRepository $userRepository)
+    {
         $this->em = $em;
-        $this->session = $session;
-        $this->tokenStorage = $tokenStorage;
         $this->userFactory = $userFactory;
         $this->userRepository = $userRepository;
     }
@@ -81,37 +61,35 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface, UserProvider
      */
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
-        // hack to error invalid_grant
         if (!$response instanceof DarvinAuthResponse) {
             throw new BadResponseException($response);
         }
         if ($response->getError()) {
-            $this->session->invalidate();
-            $this->tokenStorage->setToken(null);
-
-            return null;
+            throw new UsernameNotFoundException($response->getError());
         }
 
-        return $this->loadUserByUsername($response->getNickname());
+        $user = $this->getUser($response->getNickname());
+
+        if (empty($user)) {
+            $user = $this->createUser($response->getNickname());
+
+            $this->em->persist($user);
+            $this->em->flush();
+        }
+
+        return $user;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function loadUserByUsername($email)
+    public function loadUserByUsername($username)
     {
-        $user = $this->userRepository->findOneBy([
-            'email' => $email,
-        ]);
+        $user = $this->getUser($username);
 
-        if (!empty($user)) {
-            return $user;
+        if (empty($user)) {
+            throw new UsernameNotFoundException(sprintf('Unable to find user by username "%s".', $username));
         }
-
-        $user = $this->createUser($email);
-
-        $this->em->persist($user);
-        $this->em->flush();
 
         return $user;
     }
@@ -137,16 +115,28 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface, UserProvider
     }
 
     /**
-     * @param string $email User e-mail
+     * @param string $username Username
      *
      * @return \Darvin\UserBundle\Entity\BaseUser
      */
-    protected function createUser($email)
+    protected function createUser($username)
     {
         return $this->userFactory->createUser()
-            ->setEmail($email)
+            ->setEmail($username)
             ->setEnabled(true)
             ->setLocked(false)
             ->generateRandomPlainPassword();
+    }
+
+    /**
+     * @param string $username Username
+     *
+     * @return \Darvin\UserBundle\Entity\BaseUser
+     */
+    protected function getUser($username)
+    {
+        return $this->userRepository->findOneBy([
+            'email' => $username,
+        ]);
     }
 }
