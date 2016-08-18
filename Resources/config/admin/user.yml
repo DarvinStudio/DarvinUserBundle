@@ -26,7 +26,7 @@ form:
                     required: false
             email: ~
             plainPassword:
-                type: Symfony\Component\Form\Extension\Core\Type\PasswordType
+                type: password
                 options:
                     required: false
             roles:
@@ -57,7 +57,7 @@ form:
                     required: false
             email: ~
             plainPassword:
-                type: Symfony\Component\Form\Extension\Core\Type\PasswordType
+                type: password
             roles:
                 type: Darvin\UserBundle\Form\Type\Admin\User\RoleType
                 options:
