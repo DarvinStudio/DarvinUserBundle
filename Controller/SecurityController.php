@@ -24,9 +24,11 @@ use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 class SecurityController extends Controller
 {
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request Request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function loginAction()
+    public function loginAction(Request $request)
     {
         if ($this->isGranted(AuthenticatedVoter::IS_AUTHENTICATED_REMEMBERED)) {
             return $this->redirectToRoute($this->getParameter('darvin_user.already_logged_in_redirect_route'));
@@ -34,13 +36,13 @@ class SecurityController extends Controller
 
         $error = $this->getAuthenticationUtils()->getLastAuthenticationError();
 
-        if (!empty($error)) {
-            $this->getFlashNotifier()->error($error->getMessage());
-        }
-
-        return $this->render('DarvinUserBundle:Security:login.html.twig', [
-            'form' => $this->getLoginFormFactory()->createLoginForm()->createView(),
-        ]);
+        return $this->render(
+            $request->isXmlHttpRequest() ? 'DarvinUserBundle:Security/widget:login.html.twig' : 'DarvinUserBundle:Security:login.html.twig',
+            [
+                'error' => !empty($error) ? $error->getMessage() : null,
+                'form'  => $this->getLoginFormFactory()->createLoginForm()->createView(),
+            ]
+        );
     }
 
     /**
@@ -142,14 +144,6 @@ class SecurityController extends Controller
     private function getAuthenticationUtils()
     {
         return $this->get('security.authentication_utils');
-    }
-
-    /**
-     * @return \Darvin\Utils\Flash\FlashNotifier
-     */
-    private function getFlashNotifier()
-    {
-        return $this->get('darvin_utils.flash.notifier');
     }
 
     /**

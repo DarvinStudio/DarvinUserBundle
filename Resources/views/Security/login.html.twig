@@ -4,13 +4,4 @@
 
 {% block heading %}{% trans %}security.action.login.title{% endtrans %}{% endblock %}
 
-{% block content %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">{% trans %}security.action.login.submit{% endtrans %}</button>
-    <a href="{{ path('darvin_user_security_register') }}">{% trans %}security.action.register.link{% endtrans %}</a>
-    <a href="{{ path('darvin_user_password_reset_token_request') }}">
-        {% trans %}password_reset_token.action.request.link{% endtrans %}
-    </a>
-    {{ form_end(form) }}
-{% endblock %}
+{% block content %}{% include 'DarvinUserBundle:Security/widget:login.html.twig' %}{% endblock %}
