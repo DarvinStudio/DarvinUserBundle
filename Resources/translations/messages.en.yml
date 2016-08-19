@@ -49,8 +49,5 @@ user:
             subject: New user
             user:    User
     entity:
-        address:        Address
         email:          E-mail
-        full_name:      Full name
-        phone:          Phone number
         plain_password: Password

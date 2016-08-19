@@ -30,15 +30,6 @@ class ProfileType extends AbstractType
             ->add('email', null, [
                 'label' => 'user.entity.email',
             ])
-            ->add('fullName', null, [
-                'label' => 'user.entity.full_name',
-            ])
-            ->add('address', null, [
-                'label' => 'user.entity.address',
-            ])
-            ->add('phone', null, [
-                'label' => 'user.entity.phone',
-            ])
             ->add('plainPassword', 'Symfony\Component\Form\Extension\Core\Type\PasswordType', [
                 'label'    => 'user.entity.plain_password',
                 'required' => false,

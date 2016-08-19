@@ -15,9 +15,12 @@ hwi_oauth:
             paths:
                 identifier:     username
                 nickname:       username
-                realname:       fullname
-
-                error:          error
-                phone:          phone
                 profilepicture: picture
+                realname:       fullname
+                # Additional
+                error:          error
+                gender:         gender
+                phone:          phone
+                position:       position
                 roles:          roles
+                skype:          skype

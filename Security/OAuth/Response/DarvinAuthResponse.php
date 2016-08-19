@@ -20,15 +20,23 @@ class DarvinAuthResponse extends PathUserResponse
     const DARVIN_AUTH_RESPONSE_CLASS = __CLASS__;
 
     /**
-     * @return null|array
+     * @return string
      */
-    public function getRoles()
+    public function getError()
     {
-        return $this->getValueForPath('roles');
+        return $this->getValueForPath('error');
     }
 
     /**
-     * @return null|string
+     * @return string
+     */
+    public function getGender()
+    {
+        return $this->getValueForPath('gender');
+    }
+
+    /**
+     * @return string
      */
     public function getPhone()
     {
@@ -36,10 +44,26 @@ class DarvinAuthResponse extends PathUserResponse
     }
 
     /**
-     * @return null|string
+     * @return string
      */
-    public function getError()
+    public function getPosition()
     {
-        return $this->getValueForPath('error');
+        return $this->getValueForPath('position');
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getRoles()
+    {
+        return $this->getValueForPath('roles');
+    }
+
+    /**
+     * @return string
+     */
+    public function getSkype()
+    {
+        return $this->getValueForPath('skype');
     }
 }

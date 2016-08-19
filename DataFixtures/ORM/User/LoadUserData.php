@@ -48,10 +48,7 @@ class LoadUserData implements ContainerAwareInterface, FixtureInterface
     private function createUser()
     {
         return $this->getUserFactory()->createUser()
-            ->setAddress('Мира, 1 - 1')
             ->setEmail('admin@example.com')
-            ->setFullName('Иванов Иван Иванович')
-            ->setPhone('+7 (901) 234-56-78')
             ->setPlainPassword('admin')
             ->setRoles([
                 'ROLE_SUPERADMIN',

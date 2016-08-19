@@ -84,34 +84,11 @@ class BaseUser implements \Serializable, AdvancedUserInterface
      * @var string
      *
      * @ORM\Column(type="string", unique=true)
+     *
      * @Assert\Email
      * @Assert\NotBlank
      */
     protected $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=true)
-     * @Assert\NotBlank(groups={"Profile", "Register"})
-     */
-    protected $fullName;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=true)
-     * @Assert\NotBlank(groups={"Profile", "Register"})
-     */
-    protected $address;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=true)
-     * @Assert\NotBlank(groups={"Profile", "Register"})
-     */
-    protected $phone;
 
     /**
      * @var \DateTime
@@ -379,66 +356,6 @@ class BaseUser implements \Serializable, AdvancedUserInterface
     public function setEmail($email)
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFullName()
-    {
-        return $this->fullName;
-    }
-
-    /**
-     * @param string $fullName fullName
-     *
-     * @return BaseUser
-     */
-    public function setFullName($fullName)
-    {
-        $this->fullName = $fullName;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * @param string $address address
-     *
-     * @return BaseUser
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
-    /**
-     * @param string $phone phone
-     *
-     * @return BaseUser
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
 
         return $this;
     }

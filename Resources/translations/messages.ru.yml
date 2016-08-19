@@ -51,8 +51,5 @@ user:
             subject: Новый пользователь
             user:    Пользователь
     entity:
-        address:        Адрес
         email:          E-mail
-        full_name:      ФИО
-        phone:          Номер телефона
         plain_password: Пароль
