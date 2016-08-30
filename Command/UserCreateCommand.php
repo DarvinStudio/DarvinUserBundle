@@ -30,22 +30,22 @@ class UserCreateCommand extends Command
     /**
      * @var \Doctrine\ORM\EntityManager
      */
-    private $em;
+    protected $em;
 
     /**
      * @var \Darvin\UserBundle\Configuration\RoleConfiguration
      */
-    private $roleConfig;
+    protected $roleConfig;
 
     /**
      * @var \Darvin\UserBundle\User\UserFactory
      */
-    private $userFactory;
+    protected $userFactory;
 
     /**
      * @var \Symfony\Component\Validator\Validator\ValidatorInterface
      */
-    private $validator;
+    protected $validator;
 
     /**
      * @param string                                                    $name        Command name
@@ -121,7 +121,7 @@ class UserCreateCommand extends Command
     /**
      * @return array
      */
-    private function buildRoleChoices()
+    protected function buildRoleChoices()
     {
         $choices = [
             self::NO_ROLE,
@@ -141,7 +141,7 @@ class UserCreateCommand extends Command
      *
      * @return \Darvin\UserBundle\Entity\BaseUser
      */
-    private function createUser($email, $plainPassword, array $roles = [])
+    protected function createUser($email, $plainPassword, array $roles = [])
     {
         return $this->userFactory->createUser()
             ->setEmail($email)
