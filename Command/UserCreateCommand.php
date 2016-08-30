@@ -86,7 +86,7 @@ class UserCreateCommand extends Command
 
         list(, $email, $plainPassword) = array_values($input->getArguments());
 
-        $user = $this->createUser($email, $plainPassword);
+        $user = $this->createUser($input);
 
         $violations = $this->validator->validate($user);
 
@@ -135,17 +135,14 @@ class UserCreateCommand extends Command
     }
 
     /**
-     * @param string $email         Email
-     * @param string $plainPassword Plain password
-     * @param array  $roles         Roles
+     * @param \Symfony\Component\Console\Input\InputInterface $input Input
      *
      * @return \Darvin\UserBundle\Entity\BaseUser
      */
-    protected function createUser($email, $plainPassword, array $roles = [])
+    protected function createUser(InputInterface $input)
     {
         return $this->userFactory->createUser()
-            ->setEmail($email)
-            ->setPlainPassword($plainPassword)
-            ->setRoles($roles);
+            ->setEmail($input->getArgument('email'))
+            ->setPlainPassword($input->getArgument('password'));
     }
 }
