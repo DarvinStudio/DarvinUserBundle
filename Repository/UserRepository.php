@@ -70,7 +70,7 @@ class UserRepository extends EntityRepository
      *
      * @return UserRepository
      */
-    private function addActiveFilter(QueryBuilder $qb)
+    protected function addActiveFilter(QueryBuilder $qb)
     {
         return $this
             ->addEnabledFilter($qb)
@@ -82,7 +82,7 @@ class UserRepository extends EntityRepository
      *
      * @return UserRepository
      */
-    private function addEnabledFilter(QueryBuilder $qb)
+    protected function addEnabledFilter(QueryBuilder $qb)
     {
         $qb->andWhere('o.enabled = :enabled')->setParameter('enabled', true);
 
@@ -94,7 +94,7 @@ class UserRepository extends EntityRepository
      *
      * @return UserRepository
      */
-    private function addNonLockedFilter(QueryBuilder $qb)
+    protected function addNonLockedFilter(QueryBuilder $qb)
     {
         $qb->andWhere('o.locked = :locked')->setParameter('locked', false);
 
@@ -107,7 +107,7 @@ class UserRepository extends EntityRepository
      *
      * @return UserRepository
      */
-    private function addEmailFilter(QueryBuilder $qb, $email)
+    protected function addEmailFilter(QueryBuilder $qb, $email)
     {
         $qb->andWhere('o.email = :email')->setParameter('email', $email);
 
@@ -117,7 +117,7 @@ class UserRepository extends EntityRepository
     /**
      * @return \Doctrine\ORM\QueryBuilder
      */
-    private function createDefaultQueryBuilder()
+    protected function createDefaultQueryBuilder()
     {
         return $this->createQueryBuilder('o');
     }
