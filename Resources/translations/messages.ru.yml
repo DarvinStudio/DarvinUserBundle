@@ -3,9 +3,10 @@ User account is disabled.: Учетная запись не активна
 password_reset_token:
     action:
         request:
+            check_mail: Проверить почту:
             link:       Забыли пароль?
             submit:     Получить ссылку
-            submitted:  Ссылка отправлена на e-mail %email%. Проверить почту:
+            submitted:  Ссылка отправлена на e-mail %email%.
             success:    Ссылка успешно отправлена
             title:      Получить ссылку для сброса пароля
             user_email: E-mail
