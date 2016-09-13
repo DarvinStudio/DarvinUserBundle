@@ -19,6 +19,14 @@ use Doctrine\ORM\QueryBuilder;
 class UserRepository extends EntityRepository
 {
     /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getAllBuilder()
+    {
+        return $this->createDefaultQueryBuilder();
+    }
+
+    /**
      * @param string[] $roles      Roles
      * @param string   $exceptRole Except role
      *
