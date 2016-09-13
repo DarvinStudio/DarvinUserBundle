@@ -1,16 +1,7 @@
 parameters:
-    darvin_user.admin.form_type.user_role.class: Darvin\UserBundle\Form\Type\Admin\User\RoleType
-
     darvin_user.admin.view_widget.user_roles.class: Darvin\UserBundle\Admin\View\UserRolesWidget
 
 services:
-    darvin_user.admin.form_type.user_role:
-        class: "%darvin_user.admin.form_type.user_role.class%"
-        arguments:
-            - "@darvin_user.configuration.roles"
-        tags:
-            - { name: form.type }
-
     darvin_user.admin.view_widget.user_roles:
         class:  "%darvin_user.admin.view_widget.user_roles.class%"
         parent: darvin_admin.view.widget.abstract

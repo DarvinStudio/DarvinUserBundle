@@ -8,16 +8,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Darvin\UserBundle\Form\Type\Admin\User;
+namespace Darvin\UserBundle\Form\Type\User;
 
 use Darvin\UserBundle\Configuration\RoleConfiguration;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * User role admin form type
+ * User role choice form type
  */
-class RoleType extends AbstractType
+class RoleChoiceType extends AbstractType
 {
     /**
      * @var \Darvin\UserBundle\Configuration\RoleConfiguration
@@ -49,14 +49,6 @@ class RoleType extends AbstractType
     public function getParent()
     {
         return 'Symfony\Component\Form\Extension\Core\Type\ChoiceType';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
-    {
-        return 'darvin_user_admin_user_role';
     }
 
     /**

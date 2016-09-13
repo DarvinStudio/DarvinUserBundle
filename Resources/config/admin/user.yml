@@ -30,7 +30,7 @@ form:
                 options:
                     required: false
             roles:
-                type: Darvin\UserBundle\Form\Type\Admin\User\RoleType
+                type: Darvin\UserBundle\Form\Type\User\RoleChoiceType
                 options:
                     multiple: true
                     expanded: true
@@ -41,7 +41,7 @@ form:
             enabled: ~
             locked:  ~
             roles:
-                type:           Darvin\UserBundle\Form\Type\Admin\User\RoleType
+                type:           Darvin\UserBundle\Form\Type\User\RoleChoiceType
                 compare_strict: false
     index:
         fields:
@@ -59,7 +59,7 @@ form:
             plainPassword:
                 type: password
             roles:
-                type: Darvin\UserBundle\Form\Type\Admin\User\RoleType
+                type: Darvin\UserBundle\Form\Type\User\RoleChoiceType
                 options:
                     multiple: true
                     expanded: true
