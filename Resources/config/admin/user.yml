@@ -1,5 +1,3 @@
-disabled_routes:
-    - copy
 searchable_fields:
     - email
 sortable_fields:
