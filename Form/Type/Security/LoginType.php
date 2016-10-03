@@ -27,7 +27,7 @@ class LoginType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('_username', 'Symfony\Component\Form\Extension\Core\Type\EmailType', [
+            ->add('_username', null, [
                 'label' => 'security.action.login.email',
             ])
             ->add('_password', 'Symfony\Component\Form\Extension\Core\Type\PasswordType', [
