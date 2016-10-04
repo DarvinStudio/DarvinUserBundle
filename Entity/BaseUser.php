@@ -150,6 +150,20 @@ class BaseUser implements \Serializable, AdvancedUserInterface
     }
 
     /**
+     * @param string $role Role
+     *
+     * @return BaseUser
+     */
+    public function addRole($role)
+    {
+        if (!in_array($role, $this->roles)) {
+            $this->roles[] = $role;
+        }
+
+        return $this;
+    }
+
+    /**
      * @return BaseUser
      */
     public function generateRandomPlainPassword()
