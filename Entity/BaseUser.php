@@ -112,6 +112,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface
     {
         $this->locked = $locked;
         $this->enabled = $enabled;
+        $this->roles = [];
         $this->updatedAt = new \DateTime();
     }
 
@@ -156,9 +157,21 @@ class BaseUser implements \Serializable, AdvancedUserInterface
      */
     public function addRole($role)
     {
-        if (!in_array($role, $this->roles)) {
+        if (!empty($role) && !in_array($role, $this->roles)) {
             $this->roles[] = $role;
         }
+
+        return $this;
+    }
+
+    /**
+     * @param string $role Role
+     *
+     * @return BaseUser
+     */
+    public function removeRole($role)
+    {
+        unset($this->roles[array_search($role, $this->roles)]);
 
         return $this;
     }
