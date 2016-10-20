@@ -134,6 +134,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface
             $this->email,
             $this->password,
             $this->salt,
+            $this->roles,
         ]);
     }
 
@@ -146,7 +147,8 @@ class BaseUser implements \Serializable, AdvancedUserInterface
             $this->id,
             $this->email,
             $this->password,
-            $this->salt
+            $this->salt,
+            $this->roles
         ) = unserialize($serialized);
     }
 
