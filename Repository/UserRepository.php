@@ -127,6 +127,6 @@ class UserRepository extends EntityRepository
      */
     protected function createDefaultQueryBuilder()
     {
-        return $this->createQueryBuilder('o');
+        return $this->createQueryBuilder('o')->addOrderBy('o.email');
     }
 }
