@@ -16,6 +16,19 @@ menu:
         main:    bundles/darvinuser/images/admin/user_main.png
         sidebar: bundles/darvinuser/images/admin/user_sidebar.png
 form:
+    index:
+        fields:
+            enabled: ~
+            locked:  ~
+    filter:
+        fields:
+            email:
+                compare_strict: false
+            enabled: ~
+            locked:  ~
+            roles:
+                type:           Darvin\UserBundle\Form\Type\User\RoleChoiceType
+                compare_strict: false
     edit:
         fields:
             enabled:
@@ -33,20 +46,6 @@ form:
                 type: Darvin\UserBundle\Form\Type\User\RoleChoiceType
                 options:
                     multiple: true
-                    expanded: true
-    filter:
-        fields:
-            email:
-                compare_strict: false
-            enabled: ~
-            locked:  ~
-            roles:
-                type:           Darvin\UserBundle\Form\Type\User\RoleChoiceType
-                compare_strict: false
-    index:
-        fields:
-            enabled: ~
-            locked:  ~
     new:
         fields:
             enabled:
@@ -62,7 +61,6 @@ form:
                 type: Darvin\UserBundle\Form\Type\User\RoleChoiceType
                 options:
                     multiple: true
-                    expanded: true
 view:
     index:
         action_widgets:
