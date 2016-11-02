@@ -1,9 +1,11 @@
+joins:
+    password_reset_token: passwordResetToken
 searchable_fields:
     - email
 sortable_fields:
     email:   ~
-    locked:  ~
     enabled: ~
+    locked:  ~
     roles:   ~
 menu:
     position: 0
@@ -16,10 +18,10 @@ menu:
 form:
     edit:
         fields:
-            locked:
+            enabled:
                 options:
                     required: false
-            enabled:
+            locked:
                 options:
                     required: false
             email: ~
@@ -43,14 +45,14 @@ form:
                 compare_strict: false
     index:
         fields:
-            locked:  ~
             enabled: ~
+            locked:  ~
     new:
         fields:
-            locked:
+            enabled:
                 options:
                     required: false
-            enabled:
+            locked:
                 options:
                     required: false
             email: ~
@@ -72,8 +74,8 @@ view:
             email:
                 widget:
                     alias: email_link
-            locked:  ~
             enabled: ~
+            locked:  ~
             roles:
                 widget:
                     alias: user_roles
@@ -86,8 +88,8 @@ view:
             email:
                 widget:
                     alias: email_link
-            locked:  ~
             enabled: ~
+            locked:  ~
             roles:
                 widget:
                     alias: user_roles
