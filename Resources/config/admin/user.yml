@@ -1,3 +1,5 @@
+joins:
+    password_reset_token: passwordResetToken
 searchable_fields:
     - email
 sortable_fields:
