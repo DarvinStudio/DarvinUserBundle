@@ -14,8 +14,8 @@
     "require": {
         "hwi/oauth-bundle":                          "^0.5",
 
-        "darvinstudio/darvin-admin-bundle":          "@dev",
-        "darvinstudio/darvin-webmail-linker-bundle": "@dev"
+        "darvinstudio/darvin-admin-bundle":          "*",
+        "darvinstudio/darvin-webmail-linker-bundle": "*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^2.3"
