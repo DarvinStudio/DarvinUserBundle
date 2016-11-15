@@ -38,7 +38,7 @@ class UserExistsAndActiveValidator extends ConstraintValidator
      */
     public function validate($email, Constraint $constraint)
     {
-        if (!$this->userRepository->userExistsAndActive($email)) {
+        if (!empty($email) && !$this->userRepository->userExistsAndActive($email)) {
             $this->context->addViolation($constraint->message);
         }
     }
