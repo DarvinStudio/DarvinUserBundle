@@ -20,8 +20,13 @@ interface LoginFormFactoryInterface
     /**
      * @param string $actionRoute Action route
      * @param string $type        Form type
+     * @param string $name        Form name
      *
      * @return \Symfony\Component\Form\FormInterface
      */
-    public function createLoginForm($actionRoute = 'darvin_user_security_login_check', $type = LoginType::LOGIN_TYPE_CLASS);
+    public function createLoginForm(
+        $actionRoute = 'darvin_user_security_login_check',
+        $type = LoginType::LOGIN_TYPE_CLASS,
+        $name = null
+    );
 }
