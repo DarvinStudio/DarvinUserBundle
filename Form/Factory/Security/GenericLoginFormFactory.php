@@ -61,10 +61,10 @@ class GenericLoginFormFactory implements LoginFormFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function createLoginForm($actionRoute = 'darvin_user_security_login_check')
+    public function createLoginForm($actionRoute = 'darvin_user_security_login_check', $type = LoginType::LOGIN_TYPE_CLASS)
     {
         return $this->formFactory->create(
-            LoginType::LOGIN_TYPE_CLASS,
+            $type,
             [
                 '_remember_me' => true,
                 '_username'    => $this->authenticationUtils->getLastUsername(),
