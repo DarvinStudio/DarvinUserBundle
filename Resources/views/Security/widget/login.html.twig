@@ -1,6 +1,6 @@
 {{ form_start(form, {'attr': {'class': 'ajax'}}) }}
 {% if error %}
-    <span>{{ error }}</span>
+    <span>{{ error|trans({}, 'security') }}</span>
 {% endif %}
 {{ form_widget(form) }}
 <button type="submit">{% trans %}security.action.login.submit{% endtrans %}</button>
