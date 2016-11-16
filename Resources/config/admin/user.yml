@@ -46,6 +46,7 @@ form:
                 type: Darvin\UserBundle\Form\Type\User\RoleChoiceType
                 options:
                     multiple: true
+                    required: false
     new:
         fields:
             enabled:
@@ -61,6 +62,7 @@ form:
                 type: Darvin\UserBundle\Form\Type\User\RoleChoiceType
                 options:
                     multiple: true
+                    required: false
 view:
     index:
         action_widgets:
