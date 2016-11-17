@@ -10,6 +10,7 @@
 
 namespace Darvin\UserBundle\Form\Handler;
 
+use Darvin\UserBundle\Entity\PasswordResetToken;
 use Darvin\UserBundle\Event\Events;
 use Darvin\UserBundle\Event\PasswordResetTokenEvent;
 use Darvin\UserBundle\Form\FormException;
@@ -100,11 +101,12 @@ class PasswordResetTokenFormHandler
 
         $user = $this->getUser($data['user_email']);
 
-        $existingPasswordResetToken = $user->getPasswordResetToken();
+        $existingPasswordResetToken = $this->getPasswordResetTokenRepository()->findOneBy([
+            'user' => $user->getId(),
+        ]);
 
         if (!empty($existingPasswordResetToken)) {
             $this->em->remove($existingPasswordResetToken);
-            $user->setPasswordResetToken(null);
             $this->em->flush();
         }
 
@@ -141,5 +143,13 @@ class PasswordResetTokenFormHandler
         }
 
         return $user;
+    }
+
+    /**
+     * @return \Darvin\UserBundle\Repository\PasswordResetTokenRepository
+     */
+    private function getPasswordResetTokenRepository()
+    {
+        return $this->em->getRepository(PasswordResetToken::PASSWORD_RESET_TOKEN_CLASS);
     }
 }

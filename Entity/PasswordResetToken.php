@@ -34,8 +34,8 @@ class PasswordResetToken
     /**
      * @var \Darvin\UserBundle\Entity\BaseUser
      *
-     * @ORM\OneToOne(targetEntity="Darvin\UserBundle\Entity\BaseUser", inversedBy="passwordResetToken")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity="Darvin\UserBundle\Entity\BaseUser")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $user;
 

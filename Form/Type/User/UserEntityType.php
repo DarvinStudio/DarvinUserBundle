@@ -38,12 +38,7 @@ class UserEntityType extends AbstractType
                 $repository = $em->getRepository($options['class']);
                 $roles = $options['roles'];
 
-                $qb = !empty($roles) ? $repository->getByRolesBuilder($roles) : $repository->getAllBuilder();
-                $qb
-                    ->addSelect('password_reset_token')
-                    ->leftJoin('o.passwordResetToken', 'password_reset_token');
-
-                return $qb;
+                return !empty($roles) ? $repository->getByRolesBuilder($roles) : $repository->getAllBuilder();
             });
     }
 
