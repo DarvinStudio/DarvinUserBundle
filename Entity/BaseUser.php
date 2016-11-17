@@ -105,13 +105,12 @@ class BaseUser implements \Serializable, AdvancedUserInterface
     protected $plainPassword;
 
     /**
-     * @param bool $locked  Is locked
-     * @param bool $enabled Is enabled
+     * Constructor
      */
-    public function __construct($locked = false, $enabled = true)
+    public function __construct()
     {
-        $this->locked = $locked;
-        $this->enabled = $enabled;
+        $this->locked = false;
+        $this->enabled = true;
         $this->roles = [];
         $this->updatedAt = new \DateTime();
     }
