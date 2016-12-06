@@ -1,7 +1,7 @@
 {% extends ':email:service_layout.html.twig' %}
 
 {% block content %}
-    <a href="{{ admin_url(user) }}"><h3>{% trans %}user.email.new.user{% endtrans %}</h3></a>
+    <a href="{{ admin_url(user) }}"><h3>{% trans %}user.email.created.user{% endtrans %}</h3></a>
 
     {% include 'DarvinUserBundle:User/widget:table.html.twig' %}
 

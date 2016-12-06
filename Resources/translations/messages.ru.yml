@@ -11,7 +11,7 @@ password_reset_token:
             title:      Получить ссылку для сброса пароля
             user_email: E-mail
     email:
-        new:
+        requested:
             subject: Ссылка для сброса пароля
             text: >
                 <p>Для сброса пароля перейдите по ссылке <a href="%url%">%url%</a>.</p>
@@ -48,7 +48,7 @@ user:
             success: Профиль успешно сохранен
             title:   Изменить профиль
     email:
-        new:
+        created:
             subject: Новый пользователь
             user:    Пользователь
     entity:

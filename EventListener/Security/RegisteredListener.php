@@ -15,9 +15,9 @@ use Darvin\UserBundle\Security\UserAuthenticator;
 use Darvin\UserBundle\User\UserMailer;
 
 /**
- * Post register event listener
+ * Registered security event listener
  */
-class PostRegisterListener
+class RegisteredListener
 {
     /**
      * @var \Darvin\UserBundle\Security\UserAuthenticator
@@ -49,9 +49,9 @@ class PostRegisterListener
     /**
      * @param \Darvin\UserBundle\Event\UserEvent $event Event
      */
-    public function postRegister(UserEvent $event)
+    public function onRegistered(UserEvent $event)
     {
-        $this->userMailer->sendServicePostRegisterEmails($event->getUser());
+        $this->userMailer->sendCreatedServiceEmails($event->getUser());
 
         $this->userAuthenticator->authenticateUser($event->getUser(), $this->publicFirewallName);
     }

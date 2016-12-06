@@ -11,8 +11,8 @@
 namespace Darvin\UserBundle\Form\Handler;
 
 use Darvin\UserBundle\Entity\PasswordResetToken;
-use Darvin\UserBundle\Event\Events;
 use Darvin\UserBundle\Event\PasswordResetTokenEvent;
+use Darvin\UserBundle\Event\PasswordResetTokenEvents;
 use Darvin\UserBundle\Form\FormException;
 use Darvin\UserBundle\Form\Type\PasswordResetToken\RequestType;
 use Darvin\UserBundle\PasswordResetToken\PasswordResetTokenFactory;
@@ -114,10 +114,7 @@ class PasswordResetTokenFormHandler
         $this->em->persist($passwordResetToken);
         $this->em->flush();
 
-        $this->eventDispatcher->dispatch(
-            Events::POST_PASSWORD_RESET_TOKEN_REQUEST,
-            new PasswordResetTokenEvent($passwordResetToken)
-        );
+        $this->eventDispatcher->dispatch(PasswordResetTokenEvents::REQUESTED, new PasswordResetTokenEvent($passwordResetToken));
 
         if ($addFlashMessages && !empty($successMessage)) {
             $this->flashNotifier->success($successMessage);

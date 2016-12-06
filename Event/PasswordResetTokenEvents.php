@@ -1,7 +1,7 @@
 <?php
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
- * @copyright Copyright (c) 2015, Darvin Studio
+ * @copyright Copyright (c) 2016, Darvin Studio
  * @link      https://www.darvin-studio.ru
  *
  * For the full copyright and license information, please view the LICENSE
@@ -11,11 +11,9 @@
 namespace Darvin\UserBundle\Event;
 
 /**
- * Events
+ * Password reset token events
  */
-final class Events
+final class PasswordResetTokenEvents
 {
-    const POST_PASSWORD_RESET_TOKEN_REQUEST = 'darvin_user.post_password_reset_token_request';
-
-    const POST_REGISTER = 'darvin_user.post_register';
+    const REQUESTED = 'darvin_user.password_reset_token.requested';
 }

@@ -9,7 +9,7 @@ password_reset_token:
             title:      Get password reset link
             user_email: E-mail
     email:
-        new:
+        requested:
             subject: Password reset link
             text: >
                 <p>In order to reset password use link <a href="%url%">%url%</a>.</p>
@@ -46,7 +46,7 @@ user:
             success: Profile successfully saved
             title:   Change profile
     email:
-        new:
+        created:
             subject: New user
             user:    User
     entity:

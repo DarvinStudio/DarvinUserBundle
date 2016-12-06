@@ -1,5 +1,5 @@
 parameters:
-    darvin_user.security.event_listener.post_register.class: Darvin\UserBundle\EventListener\Security\PostRegisterListener
+    darvin_user.security.event_listener.registered.class: Darvin\UserBundle\EventListener\Security\RegisteredListener
 
     darvin_user.security.form.factory.common.class: Darvin\UserBundle\Form\Factory\Security\SecurityFormFactory
 
@@ -14,14 +14,14 @@ parameters:
     darvin_user.security.user_provider.oauth.class: Darvin\UserBundle\Security\User\OAuthUserProvider
 
 services:
-    darvin_user.security.event_listener.post_register:
-        class: "%darvin_user.security.event_listener.post_register.class%"
+    darvin_user.security.event_listener.registered:
+        class: "%darvin_user.security.event_listener.registered.class%"
         arguments:
             - "@darvin_user.security.user_authenticator"
             - "@darvin_user.user.mailer"
             - "%darvin_user.public_firewall_name%"
         tags:
-            - { name: kernel.event_listener, event: darvin_user.post_register, method: postRegister }
+            - { name: kernel.event_listener, event: darvin_user.security.registered, method: onRegistered }
 
     darvin_user.security.form.factory.common:
         class: "%darvin_user.security.form.factory.common.class%"

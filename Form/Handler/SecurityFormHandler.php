@@ -11,7 +11,7 @@
 namespace Darvin\UserBundle\Form\Handler;
 
 use Darvin\UserBundle\Entity\PasswordResetToken;
-use Darvin\UserBundle\Event\Events;
+use Darvin\UserBundle\Event\SecurityEvents;
 use Darvin\UserBundle\Event\UserEvent;
 use Darvin\UserBundle\Form\FormException;
 use Darvin\UserBundle\Form\Type\Security\PasswordResetType;
@@ -148,7 +148,7 @@ class SecurityFormHandler
         $this->em->persist($user);
         $this->em->flush($user);
 
-        $this->eventDispatcher->dispatch(Events::POST_REGISTER, new UserEvent($user));
+        $this->eventDispatcher->dispatch(SecurityEvents::REGISTERED, new UserEvent($user));
 
         if ($addFlashMessages && !empty($successMessage)) {
             $this->flashNotifier->success($successMessage);

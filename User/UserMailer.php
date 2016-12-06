@@ -52,10 +52,10 @@ class UserMailer
      * @param string                             $subject  Subject
      * @param string                             $template Template
      */
-    public function sendServicePostRegisterEmails(
+    public function sendCreatedServiceEmails(
         BaseUser $user,
-        $subject = 'user.email.new.subject',
-        $template = 'DarvinUserBundle:User/email/new:service.html.twig'
+        $subject = 'user.email.created.subject',
+        $template = 'DarvinUserBundle:User/email/created:service.html.twig'
     ) {
         $to = $this->userConfiguration->getNotificationEmails();
 

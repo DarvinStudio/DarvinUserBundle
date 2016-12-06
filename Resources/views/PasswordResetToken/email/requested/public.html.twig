@@ -5,6 +5,6 @@
         '%expire_at%': password_reset_token.expireAt|localizeddate('medium', 'short'),
         '%url%':       url('darvin_user_security_reset_password', {'token': password_reset_token.base64EncodedId}),
     } %}
-        password_reset_token.email.new.text
+        password_reset_token.email.requested.text
     {% endtrans %}
 {% endblock %}
