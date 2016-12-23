@@ -1,0 +1,50 @@
+password_reset_token:
+    action:
+        request:
+            check_mail: '检查邮件:'
+            link: '忘了密码?'
+            submit: 获得的链接
+            submitted: '链接发送以电子邮件 %email%中。'
+            success: 链接发送成功
+            title: 获得密码重置链接
+            user_email: 电子邮件
+    email:
+        requested:
+            subject: 密码重置链接
+            text: "<p>为了重置密码使用的链接 %url%\"&gt;%url%</a>中。</p> <p>链接将到期， %expire_at%中。</p>\n"
+security:
+    action:
+        login:
+            darvin_auth: 标志在使用达文Auth
+            email: 电子邮件
+            link: 登录在
+            password: 密码
+            remember_me: 还记得我
+            submit: 登录在
+            title: 登录在
+        logout:
+            link: 登出
+        register:
+            link: 注册
+            submit: 注册
+            success: 成功创建的帐户
+            title: 注册
+        reset_password:
+            plain_password: 新密码
+            submit: 改变密码
+            success: 成功地改变了密码
+            title: 密码重置
+user:
+    action:
+        profile:
+            link: 编辑档案
+            submit: 保存档案
+            success: 档案保存成功
+            title: 更改个人资料
+    email:
+        created:
+            subject: 新的用户
+            user: 用户
+    entity:
+        email: 电子邮件
+        plain_password: 密码
