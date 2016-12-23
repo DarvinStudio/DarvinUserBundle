@@ -1,0 +1,50 @@
+password_reset_token:
+    action:
+        request:
+            check_mail: 'Vérifier le courrier:'
+            link: 'Mot de passe oublié?'
+            submit: 'Obtenir le lien'
+            submitted: 'Le lien a été envoyé à l''e-mail %email%.'
+            success: 'Lien envoyé avec succès'
+            title: 'Obtenir lien de réinitialisation de mot de passe'
+            user_email: E-mail
+    email:
+        requested:
+            subject: 'Lien de réinitialisation de mot de passe'
+            text: "<p>Afin de réinitialiser le mot de passe lien %url%\"&gt;%url%</a>.</p> <p>Lien sera expiré à %expire_at%.</p>\n"
+security:
+    action:
+        login:
+            darvin_auth: 'Connectez-vous en utilisant Darvin Auth'
+            email: E-mail
+            link: 'Signe dans'
+            password: 'Mot de passe'
+            remember_me: 'Se souvenir de moi'
+            submit: 'Signe dans'
+            title: 'Signe dans'
+        logout:
+            link: Déconnecter
+        register:
+            link: Registre
+            submit: Registre
+            success: 'Compte créé avec succès'
+            title: Inscription
+        reset_password:
+            plain_password: 'Nouveau mot de passe'
+            submit: 'Changer de mot de passe'
+            success: 'Mot de passe changé avec succès'
+            title: 'Réinitialisation de mot de passe'
+user:
+    action:
+        profile:
+            link: 'Modifier le profil'
+            submit: 'Enregistrer le profil'
+            success: 'Profil enregistré avec succès'
+            title: 'Modifier le profil'
+    email:
+        created:
+            subject: 'Nouvel utilisateur'
+            user: 'L''utilisateur'
+    entity:
+        email: E-mail
+        plain_password: 'Mot de passe'

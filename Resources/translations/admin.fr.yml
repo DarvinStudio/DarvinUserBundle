@@ -1,0 +1,37 @@
+configuration:
+    darvin_user:
+        parameter:
+            notification_emails: 'E-mail pour les notifications'
+        title: 'Les "Usagers" de la configuration du module'
+searchable:
+    user: 'Les utilisateurs'
+securable:
+    user: 'L''utilisateur'
+user:
+    action:
+        delete:
+            confirm: 'Confirmer l''utilisateur suppression'
+            submit: 'Supprimer un utilisateur'
+            success: 'Utilisateur supprimé avec succès'
+        edit:
+            link: 'Modifier l''utilisateur'
+            success: 'L''utilisateur mis à jour avec succès'
+            title: 'Modifier l''utilisateur "%entity%"'
+        index:
+            link: 'Les utilisateurs'
+            title: 'Les utilisateurs'
+        new:
+            link: 'Créer un utilisateur'
+            success: 'L''utilisateur créé avec succès'
+            title: 'Nouvel utilisateur'
+        show:
+            link: 'Vue de l''utilisateur'
+            title: 'Utilisateur "%entity%"'
+    entity:
+        email: E-mail
+        enabled: Activé
+        locked: Verrouillé
+        plain_password: 'Mot de passe'
+        roles: 'Les rôles'
+    menu:
+        description: 'Liste de tous les utilisateurs du site web avec les fonctionnalités d''édition.'
