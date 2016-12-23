@@ -11,7 +11,7 @@ password_reset_token:
     email:
         requested:
             subject: 'رابط إعادة تعيين كلمة المرور'
-            text: "<p>من أجل إعادة تعيين كلمة المرور استخدام الرابط <a href=\"%url%\">%url%</a>.</p> <p>الرابط سوف تكون منتهية الصلاحية في المائة expire_at%.</p>\n"
+            text: "<p>من أجل إعادة تعيين كلمة المرور استخدام الرابط %url%\"&gt;%url%</a>.</p> <p>الرابط سوف تكون منتهية الصلاحية في %expire_at%.</p>\n"
 security:
     action:
         login:

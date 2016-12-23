@@ -16,7 +16,7 @@ user:
         edit:
             link: 'تحرير المستخدم'
             success: 'المستخدم بنجاح تحديث'
-            title: 'تعديل المستخدم "%الكيان%"'
+            title: 'تعديل المستخدم "%entity%"'
         index:
             link: المستخدمين
             title: المستخدمين
@@ -26,7 +26,7 @@ user:
             title: 'مستخدم جديد'
         show:
             link: 'عرض المستخدم'
-            title: 'المستخدم "%الكيان%"'
+            title: 'المستخدم "%entity%"'
     entity:
         email: 'البريد الإلكتروني'
         enabled: تمكين
