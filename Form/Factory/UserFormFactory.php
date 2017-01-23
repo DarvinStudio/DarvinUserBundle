@@ -70,7 +70,7 @@ class UserFormFactory
             $user = $this->userManager->getCurrentUser();
         }
 
-        return $this->formFactory->create(ProfileType::PROFILE_TYPE_CLASS, $user, [
+        return $this->formFactory->create(ProfileType::class, $user, [
             'action'     => $this->router->generate('darvin_user_user_profile'),
             'data_class' => $this->userClass,
         ]);

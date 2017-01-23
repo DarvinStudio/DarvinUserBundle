@@ -32,7 +32,7 @@ class BadResponseException extends \LogicException
         $this->getClass = is_object($object) ? get_class($object) : 'not object';
 
         if (empty($needClass)) {
-            $this->needClass = DarvinAuthResponse::DARVIN_AUTH_RESPONSE_CLASS;
+            $this->needClass = DarvinAuthResponse::class;
         }
 
         parent::__construct(sprintf(

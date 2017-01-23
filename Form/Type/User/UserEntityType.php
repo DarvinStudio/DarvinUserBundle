@@ -27,7 +27,7 @@ class UserEntityType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'class' => BaseUser::BASE_USER_CLASS,
+                'class' => BaseUser::class,
                 'roles' => [],
             ])
             ->setAllowedTypes('roles', 'array')

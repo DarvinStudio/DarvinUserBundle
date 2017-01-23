@@ -25,8 +25,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class BaseUser implements \Serializable, AdvancedUserInterface
 {
-    const BASE_USER_CLASS = __CLASS__;
-
     const ROLE_USER = 'ROLE_USER';
 
     /**

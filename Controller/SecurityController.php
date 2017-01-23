@@ -159,7 +159,7 @@ class SecurityController extends Controller
      */
     private function getPasswordResetTokenRepository()
     {
-        return $this->getDoctrine()->getRepository(PasswordResetToken::PASSWORD_RESET_TOKEN_CLASS);
+        return $this->getDoctrine()->getRepository(PasswordResetToken::class);
     }
 
     /**

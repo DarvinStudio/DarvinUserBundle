@@ -55,8 +55,8 @@ class UserSubscriber extends AbstractOnFlushListener implements EventSubscriber
         $updatePasswordCallback = [$this, 'updatePassword'];
 
         $this
-            ->onInsert($updatePasswordCallback, BaseUser::BASE_USER_CLASS)
-            ->onUpdate($updatePasswordCallback, BaseUser::BASE_USER_CLASS);
+            ->onInsert($updatePasswordCallback, BaseUser::class)
+            ->onUpdate($updatePasswordCallback, BaseUser::class);
     }
 
     /**

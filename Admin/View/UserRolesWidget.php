@@ -75,7 +75,7 @@ class UserRolesWidget extends AbstractWidget
     protected function getAllowedEntityClasses()
     {
         return [
-            BaseUser::BASE_USER_CLASS,
+            BaseUser::class,
         ];
     }
 

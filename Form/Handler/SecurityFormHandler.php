@@ -162,6 +162,6 @@ class SecurityFormHandler
      */
     private function getPasswordResetTokenRepository()
     {
-        return $this->em->getRepository(PasswordResetToken::PASSWORD_RESET_TOKEN_CLASS);
+        return $this->em->getRepository(PasswordResetToken::class);
     }
 }

@@ -20,8 +20,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class RegistrationType extends AbstractType
 {
-    const REGISTRATION_TYPE_CLASS = __CLASS__;
-
     /**
      * {@inheritdoc}
      */
@@ -34,7 +32,7 @@ class RegistrationType extends AbstractType
             ->add('plainPassword', 'Symfony\Component\Form\Extension\Core\Type\PasswordType', [
                 'label' => 'user.entity.plain_password',
             ])
-            ->add('title', AntiSpamType::ANTI_SPAM_TYPE_CLASS);
+            ->add('title', AntiSpamType::class);
     }
 
     /**

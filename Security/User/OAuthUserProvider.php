@@ -111,7 +111,7 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface, UserProvider
      */
     public function supportsClass($class)
     {
-        return BaseUser::BASE_USER_CLASS === $class || is_subclass_of($class, BaseUser::BASE_USER_CLASS);
+        return BaseUser::class === $class || is_subclass_of($class, BaseUser::class);
     }
 
     /**

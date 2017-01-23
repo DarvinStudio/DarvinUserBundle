@@ -25,8 +25,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  */
 class RequestType extends AbstractType
 {
-    const REQUEST_TYPE_CLASS = __CLASS__;
-
     /**
      * {@inheritdoc}
      */
@@ -41,7 +39,7 @@ class RequestType extends AbstractType
                     new UserExistsAndActive(),
                 ],
             ])
-            ->add('title', AntiSpamType::ANTI_SPAM_TYPE_CLASS);
+            ->add('title', AntiSpamType::class);
     }
 
     /**

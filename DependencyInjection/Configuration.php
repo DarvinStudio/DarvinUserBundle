@@ -39,7 +39,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('public_firewall_name')->defaultValue('public_area')->end()
                 ->arrayNode('roles')->prototype('scalar')->end()->end()
                 ->scalarNode('user_class')
-                    ->defaultValue(BaseUser::BASE_USER_CLASS)
+                    ->defaultValue(BaseUser::class)
                     ->validate()
                         ->ifTrue(function ($v) {
                             return !class_exists($v);
@@ -48,9 +48,9 @@ class Configuration implements ConfigurationInterface
                     ->end()
                     ->validate()
                         ->ifTrue(function ($v) {
-                            return $v !== BaseUser::BASE_USER_CLASS && !is_subclass_of($v, BaseUser::BASE_USER_CLASS);
+                            return $v !== BaseUser::class && !is_subclass_of($v, BaseUser::class);
                         })
-                        ->thenInvalid(sprintf('Class must be "%s" or subclass of it.', BaseUser::BASE_USER_CLASS))
+                        ->thenInvalid(sprintf('Class must be "%s" or subclass of it.', BaseUser::class))
                     ->end()
                 ->end()
             ->end();

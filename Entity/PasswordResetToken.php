@@ -20,8 +20,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PasswordResetToken
 {
-    const PASSWORD_RESET_TOKEN_CLASS = __CLASS__;
-
     /**
      * @var string
      *

@@ -20,8 +20,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class PasswordResetType extends AbstractType
 {
-    const PASSWORD_RESET_TYPE_CLASS = __CLASS__;
-
     /**
      * {@inheritdoc}
      */
@@ -31,7 +29,7 @@ class PasswordResetType extends AbstractType
             ->add('plainPassword', 'Symfony\Component\Form\Extension\Core\Type\PasswordType', [
                 'label' => 'security.action.reset_password.plain_password',
             ])
-            ->add('title', AntiSpamType::ANTI_SPAM_TYPE_CLASS);
+            ->add('title', AntiSpamType::class);
     }
 
     /**
