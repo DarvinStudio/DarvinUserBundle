@@ -11,6 +11,8 @@
 namespace Darvin\UserBundle\Form\Type\Security;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -28,10 +30,10 @@ class LoginType extends AbstractType
             ->add('_username', null, [
                 'label' => 'security.action.login.email',
             ])
-            ->add('_password', 'Symfony\Component\Form\Extension\Core\Type\PasswordType', [
+            ->add('_password', PasswordType::class, [
                 'label' => 'security.action.login.password',
             ])
-            ->add('_remember_me', 'Symfony\Component\Form\Extension\Core\Type\CheckboxType', [
+            ->add('_remember_me', CheckboxType::class, [
                 'label'    => 'security.action.login.remember_me',
                 'required' => false,
             ]);

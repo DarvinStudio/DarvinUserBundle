@@ -11,6 +11,7 @@
 namespace Darvin\UserBundle\Form\Type\User;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -28,7 +29,7 @@ class ProfileType extends AbstractType
             ->add('email', null, [
                 'label' => 'user.entity.email',
             ])
-            ->add('plainPassword', 'Symfony\Component\Form\Extension\Core\Type\PasswordType', [
+            ->add('plainPassword', PasswordType::class, [
                 'label'    => 'user.entity.plain_password',
                 'required' => false,
             ]);

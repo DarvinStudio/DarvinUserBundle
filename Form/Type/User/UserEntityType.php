@@ -11,6 +11,7 @@
 namespace Darvin\UserBundle\Form\Type\User;
 
 use Darvin\UserBundle\Entity\BaseUser;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -47,6 +48,6 @@ class UserEntityType extends AbstractType
      */
     public function getParent()
     {
-        return 'Symfony\Bridge\Doctrine\Form\Type\EntityType';
+        return EntityType::class;
     }
 }

@@ -12,6 +12,7 @@ namespace Darvin\UserBundle\Configuration;
 
 use Darvin\ConfigBundle\Configuration\AbstractConfiguration;
 use Darvin\ConfigBundle\Parameter\ParameterModel;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 /**
  * Configuration
@@ -29,7 +30,7 @@ class Configuration extends AbstractConfiguration
             new ParameterModel('notification_emails', ParameterModel::TYPE_ARRAY, [], [
                 'form' => [
                     'options' => [
-                        'entry_type'   => 'Symfony\Component\Form\Extension\Core\Type\EmailType',
+                        'entry_type'   => EmailType::class,
                         'allow_add'    => true,
                         'allow_delete' => true,
                     ],

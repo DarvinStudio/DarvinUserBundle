@@ -13,6 +13,7 @@ namespace Darvin\UserBundle\Form\Type\PasswordResetToken;
 use Darvin\UserBundle\Validator\Constraints\UserExistsAndActive;
 use Darvin\Utils\Form\Type\AntiSpamType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -31,7 +32,7 @@ class RequestType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('user_email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', [
+            ->add('user_email', EmailType::class, [
                 'label'       => 'password_reset_token.action.request.user_email',
                 'constraints' => [
                     new NotBlank(),
