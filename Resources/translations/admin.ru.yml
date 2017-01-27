@@ -4,11 +4,11 @@ configuration:
             notification_emails: E-mail для уведомлений
         title: Настройки модуля «Пользователи»
 
-searchable:
-    user: Пользователи
-
-securable:
-    user: Пользователь
+entity_name:
+    multiple:
+        user: Пользователи
+    single:
+        user: Пользователь
 
 user:
     action:
