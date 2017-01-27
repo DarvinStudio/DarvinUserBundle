@@ -4,11 +4,11 @@ configuration:
             notification_emails: E-mail for notifications
         title: The "Users" module configuration
 
-searchable:
-    user: Users
-
-securable:
-    user: User
+entity_name:
+    multiple:
+        user: Users
+    single:
+        user: User
 
 user:
     action:

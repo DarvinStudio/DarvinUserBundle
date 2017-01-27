@@ -3,10 +3,11 @@ configuration:
         parameter:
             notification_emails: 'E-mail pour les notifications'
         title: 'Les "Usagers" de la configuration du module'
-searchable:
-    user: 'Les utilisateurs'
-securable:
-    user: 'L''utilisateur'
+entity_name:
+    multiple:
+        user: 'Les utilisateurs'
+    single:
+        user: 'L''utilisateur'
 user:
     action:
         delete:

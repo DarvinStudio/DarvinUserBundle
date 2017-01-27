@@ -3,10 +3,11 @@ configuration:
         parameter:
             notification_emails: 'البريد الإلكتروني الإخطارات'
         title: '"المستخدمين" وحدة التكوين'
-searchable:
-    user: المستخدمين
-securable:
-    user: المستخدم
+entity_name:
+    multiple:
+        user: المستخدمين
+    single:
+        user: المستخدم
 user:
     action:
         delete:

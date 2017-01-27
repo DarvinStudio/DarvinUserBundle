@@ -3,10 +3,11 @@ configuration:
         parameter:
             notification_emails: 电子邮件通知
         title: '"用户"模块结构'
-searchable:
-    user: 用户
-securable:
-    user: 用户
+entity_name:
+    multiple:
+        user: 用户
+    single:
+        user: 用户
 user:
     action:
         delete:
