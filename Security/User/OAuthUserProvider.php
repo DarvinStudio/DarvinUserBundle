@@ -19,6 +19,7 @@ use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManager;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -35,6 +36,11 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface, UserProvider
     protected $em;
 
     /**
+     * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
+     */
+    protected $tokenStorage;
+
+    /**
      * @var \Darvin\UserBundle\User\UserFactory
      */
     protected $userFactory;
@@ -45,13 +51,19 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface, UserProvider
     protected $userRepository;
 
     /**
-     * @param \Doctrine\ORM\EntityManager                  $em             Entity manager
-     * @param \Darvin\UserBundle\User\UserFactory          $userFactory    User factory
-     * @param \Darvin\UserBundle\Repository\UserRepository $userRepository User entity repository
+     * @param \Doctrine\ORM\EntityManager                                                         $em             Entity manager
+     * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage   Authentication token storage
+     * @param \Darvin\UserBundle\User\UserFactory                                                 $userFactory    User factory
+     * @param \Darvin\UserBundle\Repository\UserRepository                                        $userRepository User entity repository
      */
-    public function __construct(EntityManager $em, UserFactory $userFactory, UserRepository $userRepository)
-    {
+    public function __construct(
+        EntityManager $em,
+        TokenStorageInterface $tokenStorage,
+        UserFactory $userFactory,
+        UserRepository $userRepository
+    ) {
         $this->em = $em;
+        $this->tokenStorage = $tokenStorage;
         $this->userFactory = $userFactory;
         $this->userRepository = $userRepository;
     }
@@ -65,6 +77,8 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface, UserProvider
             throw new BadResponseException($response);
         }
         if ($response->getError()) {
+            $this->tokenStorage->setToken(null);
+
             throw new UsernameNotFoundException($response->getError());
         }
 

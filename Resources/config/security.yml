@@ -67,5 +67,6 @@ services:
         class: "%darvin_user.security.user_provider.oauth.class%"
         arguments:
             - "@doctrine.orm.entity_manager"
+            - "@security.token_storage"
             - "@darvin_user.user.factory"
             - "@darvin_user.user.repository"
