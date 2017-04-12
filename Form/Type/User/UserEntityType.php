@@ -28,19 +28,19 @@ class UserEntityType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'class' => BaseUser::class,
-                'roles' => [],
-            ])
-            ->setAllowedTypes('roles', 'array')
-            ->setNormalizer('query_builder', function (Options $options) {
-                /** @var \Doctrine\ORM\EntityManager $em */
-                $em = $options['em'];
-                /** @var \Darvin\UserBundle\Repository\UserRepository $repository */
-                $repository = $em->getRepository($options['class']);
-                $roles = $options['roles'];
+                'class'         => BaseUser::class,
+                'roles'         => [],
+                'query_builder' => function (Options $options) {
+                    /** @var \Doctrine\ORM\EntityManager $em */
+                    $em = $options['em'];
+                    /** @var \Darvin\UserBundle\Repository\UserRepository $repository */
+                    $repository = $em->getRepository($options['class']);
+                    $roles = $options['roles'];
 
-                return !empty($roles) ? $repository->getByRolesBuilder($roles) : $repository->getAllBuilder();
-            });
+                    return !empty($roles) ? $repository->getByRolesBuilder($roles) : $repository->getAllBuilder();
+                },
+            ])
+            ->setAllowedTypes('roles', 'array');
     }
 
     /**
