@@ -6,7 +6,6 @@ sortable_fields:
     locked:  ~
     roles:   ~
 menu:
-    position: 0
     colors:
         main:    "#2171ac"
         sidebar: "#48aef9"
