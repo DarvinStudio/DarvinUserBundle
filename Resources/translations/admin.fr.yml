@@ -34,5 +34,3 @@ user:
         locked: Verrouillé
         plain_password: 'Mot de passe'
         roles: 'Les rôles'
-    menu:
-        description: 'Liste de tous les utilisateurs du site web avec les fonctionnalités d''édition.'

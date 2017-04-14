@@ -34,5 +34,3 @@ user:
         locked: مؤمن
         plain_password: 'كلمة المرور'
         roles: أدوار
-    menu:
-        description: 'قائمة جميع مستخدمي الموقع مع تعديل وظائف.'

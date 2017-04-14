@@ -34,5 +34,3 @@ user:
         locked: 锁定
         plain_password: 密码
         roles: 角色
-    menu:
-        description: 列表中的所有网站的用户与编辑功能。

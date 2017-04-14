@@ -36,5 +36,3 @@ user:
         locked:         Locked
         plain_password: Password
         roles:          Roles
-    menu:
-        description: List of all website users with edit functionality.
