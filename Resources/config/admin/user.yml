@@ -13,6 +13,27 @@ menu:
     icons:
         main:    bundles/darvinuser/images/admin/user_main.png
         sidebar: bundles/darvinuser/images/admin/user_sidebar.png
+view:
+    index:
+        action_widgets:
+            show_link:   ~
+            switch_user: ~
+            edit_link:   ~
+            delete_form: ~
+        fields:
+            email:
+                widget:
+                    alias: email_link
+            enabled: ~
+            locked:  ~
+            roles:
+                widget:
+                    alias: user_roles
+    extend~index~show:
+        override~action_widgets:
+            switch_user: ~
+            edit_link:   ~
+            delete_form: ~
 form:
     index:
         fields:
@@ -27,24 +48,6 @@ form:
             roles:
                 type:           Darvin\UserBundle\Form\Type\User\RoleChoiceType
                 compare_strict: false
-    edit:
-        fields:
-            enabled:
-                options:
-                    required: false
-            locked:
-                options:
-                    required: false
-            email: ~
-            plainPassword:
-                type: password
-                options:
-                    required: false
-            roles:
-                type: Darvin\UserBundle\Form\Type\User\RoleChoiceType
-                options:
-                    multiple: true
-                    required: false
     new:
         fields:
             enabled:
@@ -61,33 +64,8 @@ form:
                 options:
                     multiple: true
                     required: false
-view:
-    index:
-        action_widgets:
-            show_link:   ~
-            edit_link:   ~
-            delete_form: ~
-            switch_user: ~
+    extend~new~edit:
         fields:
-            email:
-                widget:
-                    alias: email_link
-            enabled: ~
-            locked:  ~
-            roles:
-                widget:
-                    alias: user_roles
-    show:
-        action_widgets:
-            edit_link:   ~
-            delete_form: ~
-            switch_user: ~
-        fields:
-            email:
-                widget:
-                    alias: email_link
-            enabled: ~
-            locked:  ~
-            roles:
-                widget:
-                    alias: user_roles
+            plainPassword:
+                options:
+                    required: false
