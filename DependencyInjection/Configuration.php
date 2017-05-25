@@ -44,7 +44,7 @@ class Configuration implements ConfigurationInterface
                         ->ifTrue(function ($v) {
                             return !class_exists($v);
                         })
-                        ->thenInvalid('Class does not exist.')
+                        ->thenInvalid('Class %s does not exist.')
                     ->end()
                     ->validate()
                         ->ifTrue(function ($v) {

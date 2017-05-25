@@ -52,7 +52,10 @@ class DarvinUserExtension extends Extension implements PrependExtensionInterface
         $bundles = $container->getParameter('kernel.bundles');
 
         if (isset($bundles['DarvinAdminBundle'])) {
-            $config = $this->processConfiguration(new Configuration(), $container->getExtensionConfig($this->getAlias()));
+            $config = $this->processConfiguration(
+                new Configuration(),
+                $container->getParameterBag()->resolveValue($container->getExtensionConfig($this->getAlias()))
+            );
 
             $container->prependExtensionConfig('darvin_admin', [
                 'sections' => [
