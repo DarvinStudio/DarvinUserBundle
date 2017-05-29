@@ -9,6 +9,8 @@ parameters:
 
     darvin_user.security.form.renderer.class: Darvin\UserBundle\Form\Renderer\SecurityFormRenderer
 
+    darvin_user.security.twig_extension.class: Darvin\UserBundle\Twig\Extension\SecurityExtension
+
     darvin_user.security.user_authenticator.class: Darvin\UserBundle\Security\UserAuthenticator
 
     darvin_user.security.user_provider.oauth.class: Darvin\UserBundle\Security\User\OAuthUserProvider
@@ -55,8 +57,18 @@ services:
     darvin_user.security.form.renderer:
         class: "%darvin_user.security.form.renderer.class%"
         arguments:
+            - "@security.authentication_utils"
+            - "@darvin_user.security.form.factory.login"
             - "@darvin_user.security.form.factory.common"
-            - "@templating"
+            - "@darvin_utils.templating.provider"
+
+    darvin_user.security.twig_extension:
+        class:  "%darvin_user.security.twig_extension.class%"
+        public: false
+        arguments:
+            - "@darvin_user.security.form.renderer"
+        tags:
+            - { name: twig.extension }
 
     darvin_user.security.user_authenticator:
         class: "%darvin_user.security.user_authenticator.class%"
