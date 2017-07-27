@@ -1,8 +1,19 @@
 {% extends ':email:service_layout.html.twig' %}
 
+{% block heading %}{{ subject|trans }}{% endblock %}
+
 {% block content %}
-    <a href="{{ admin_url(user) }}"><h3>{% trans %}user.email.created.user{% endtrans %}</h3></a>
+    <div class="details-list" style="margin: 15px 0;">
+        <div class="details-list__section" style="padding: 12px 0; border-bottom: none;">
+            <div class="details-list__title" style="font-family: Arial, sans-serif; font-size: 15px; line-height: 23px; font-weight: bold; color: #333333;">
+                <a href="{{ admin_url(user) }}"
+                   style="font-family: Arial, sans-serif; font-size: 15px; line-height: 23px; font-weight: bold; color: #333333;">
+                    {% trans %}user.email.created.user{% endtrans %}
+                </a>
+            </div>
 
-    {% include 'DarvinUserBundle:User/widget:table.html.twig' %}
+            {% include 'DarvinUserBundle:User/widget:table.html.twig' %}
 
+        </div>
+    </div>
 {% endblock %}

@@ -64,7 +64,8 @@ class UserMailer
         }
 
         $body = $this->templating->render($template, [
-            'user' => $user,
+            'subject' => $subject,
+            'user'    => $user,
         ]);
 
         $this->mailer->send($subject, $body, $to);
