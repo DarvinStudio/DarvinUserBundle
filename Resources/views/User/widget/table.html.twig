@@ -1,10 +1,12 @@
 <div class="details-list__property">
-    <span class="details-list__property-name" style="font-family: Arial, sans-serif; font-size: 15px; line-height: 23px; color: #7e7e7e;">
+    <span class="details-list__property-name"
+          style="font-family: Arial, sans-serif; font-size: 15px; line-height: 23px; color: #7e7e7e;">
         {% trans %}user.entity.email{% endtrans %}:
     </span>
     <span class="details-list__property-value">
         {% if user.email %}
-            <a href="mailto:{{ user.email }}" style="font-family: Arial, sans-serif; font-size: 15px; line-height: 23px; color: #333333;">
+            <a href="mailto:{{ user.email }}"
+               style="font-family: Arial, sans-serif; font-size: 15px; line-height: 23px; color: #333333;">
                 {{ user.email }}
             </a>
         {% endif %}
