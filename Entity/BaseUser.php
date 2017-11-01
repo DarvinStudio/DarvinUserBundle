@@ -96,6 +96,13 @@ class BaseUser implements \Serializable, AdvancedUserInterface
     protected $plainPassword;
 
     /**
+     * @var RegistrationConfirmToken
+     *
+     * @ORM\Embedded(class="Darvin\UserBundle\Entity\RegistrationConfirmToken")
+     */
+    protected $registrationConfirmToken;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -104,6 +111,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface
         $this->enabled = true;
         $this->roles = [];
         $this->updatedAt = new \DateTime();
+        $this->registrationConfirmToken = new RegistrationConfirmToken();
     }
 
     /**
