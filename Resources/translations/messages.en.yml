@@ -37,6 +37,18 @@ security:
             submit:         Change password
             success:        Password successfully changed
             title:          Password reset
+        confirm_registration:
+            invalid_code_error: Invalid confirmation code
+            code_sent:
+                title: End of registration
+                text: The message has been sent to your email. Please follow instruction to complete registration.
+            success:
+                title: Registration is ended
+                text: You account has been confirmed. Thank you for registration.
+    email:
+        confirmation:
+            subject: Registration confirmation
+            text: To complete registration just click <a href="%url%">here</a> or copy this %url% to the browser.
 
 user:
     action:

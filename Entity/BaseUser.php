@@ -392,4 +392,12 @@ class BaseUser implements \Serializable, AdvancedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return RegistrationConfirmToken
+     */
+    public function getRegistrationConfirmToken()
+    {
+        return $this->registrationConfirmToken;
+    }
 }

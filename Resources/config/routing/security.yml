@@ -22,3 +22,7 @@ darvin_user_security_register:
 darvin_user_security_reset_password:
     path:     /reset-password
     defaults: { _controller: DarvinUserBundle:Security:resetPassword }
+
+darvin_user_security_confirm_registration:
+    path:     /register/confirm/{code}
+    defaults: { code: null, _controller: DarvinUserBundle:Security:confirmRegistration }

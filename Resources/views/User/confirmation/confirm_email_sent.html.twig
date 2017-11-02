@@ -1,0 +1,7 @@
+{% extends '::layout.html.twig' %}
+
+{% block title %}{% trans %}security.action.confirm_registration.code_sent.title{% endtrans %}{% endblock %}
+
+{% block heading %}{% trans %}security.action.confirm_registration.code_sent.title{% endtrans %}{% endblock %}
+
+{% block content %}{% include '@DarvinUser/User/confirmation/widget/confirm_email_sent.html.twig' %}{% endblock %}

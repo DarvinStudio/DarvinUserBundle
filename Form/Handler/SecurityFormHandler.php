@@ -119,15 +119,20 @@ class SecurityFormHandler
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface $form             Form
-     * @param bool                                  $addFlashMessages Whether to add flash messages
-     * @param string                                $successMessage   Success message
+     * @param \Symfony\Component\Form\FormInterface $form Form
+     * @param bool $addFlashMessages Whether to add flash messages
+     * @param string $successMessage Success message
+     * @param bool $registrationConfirmation Is reg confirm needed or not
      *
      * @return bool
-     * @throws \Darvin\UserBundle\Form\FormException
+     * @throws FormException
      */
-    public function handleRegistrationForm(FormInterface $form, $addFlashMessages = false, $successMessage = null)
-    {
+    public function handleRegistrationForm(
+        FormInterface $form,
+        $addFlashMessages = false,
+        $successMessage = null,
+        $registrationConfirmation = false
+    ) {
         if (!$form->getConfig()->getType()->getInnerType() instanceof RegistrationType) {
             throw new FormException('Unable to handle form: provided form is not registration form.');
         }
@@ -144,6 +149,11 @@ class SecurityFormHandler
 
         /** @var \Darvin\UserBundle\Entity\BaseUser $user */
         $user = $form->getData();
+
+        if ($registrationConfirmation) {
+            $user->setEnabled(false);
+            $user->getRegistrationConfirmToken()->setId(md5(uniqid()));
+        }
 
         $this->em->persist($user);
         $this->em->flush($user);

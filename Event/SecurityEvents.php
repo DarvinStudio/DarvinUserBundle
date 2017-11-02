@@ -16,4 +16,5 @@ namespace Darvin\UserBundle\Event;
 final class SecurityEvents
 {
     const REGISTERED = 'darvin_user.security.registered';
+    const REGISTRATION_CONFIRMED = 'darvin_user.security.registration_confirmed';
 }

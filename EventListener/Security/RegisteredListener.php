@@ -51,8 +51,13 @@ class RegisteredListener
      */
     public function onRegistered(UserEvent $event)
     {
-        $this->userMailer->sendCreatedServiceEmails($event->getUser());
+        $user = $event->getUser();
+        $this->userMailer->sendCreatedServiceEmails($user);
 
-        $this->userAuthenticator->authenticateUser($event->getUser(), $this->publicFirewallName);
+        if ($user->isEnabled()) {
+            $this->userAuthenticator->authenticateUser($user, $this->publicFirewallName);
+        } elseif ($user->getRegistrationConfirmToken()->getId()) {
+            $this->userMailer->sendConfirmationCodeEmails($user);
+        }
     }
 }
