@@ -38,6 +38,7 @@ class Configuration implements ConfigurationInterface
                 ->integerNode('password_reset_token_lifetime')->defaultValue(3 * 60 * 60)->end()
                 ->scalarNode('public_firewall_name')->defaultValue('public_area')->end()
                 ->arrayNode('roles')->prototype('scalar')->end()->end()
+                ->booleanNode('confirm_registration')->defaultFalse()->end()
                 ->scalarNode('user_class')
                     ->defaultValue(BaseUser::class)
                     ->validate()

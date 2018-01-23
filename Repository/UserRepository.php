@@ -10,6 +10,7 @@
 
 namespace Darvin\UserBundle\Repository;
 
+use Darvin\UserBundle\Entity\BaseUser;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
@@ -24,6 +25,26 @@ class UserRepository extends EntityRepository
     public function getAllBuilder()
     {
         return $this->createDefaultQueryBuilder();
+    }
+
+    /**
+     * Find user by registration confirmation code
+     *
+     * @param $code
+     * @return BaseUser|null
+     */
+    public function getByRegistrationToken($code)
+    {
+        $builder = $this->createQueryBuilder('u');
+
+        return $builder
+            ->where('u.registrationConfirmToken.id=:code')
+            ->andWhere($builder->expr()->isNotNull('u.registrationConfirmToken.id'))
+            ->setParameter('code', $code)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
     }
 
     /**

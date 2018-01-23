@@ -34,6 +34,18 @@ security:
             submit: 改变密码
             success: 成功地改变了密码
             title: 密码重置
+        confirm_registration:
+            invalid_code_error: 验证码无效
+            code_sent:
+                title: 注册完成
+                text: 该消息已发送到您的电子邮件。 请按照说明完成注册。
+            success:
+                title: 注册结束
+                text: 您的帐户已被确认。 感谢您的注册。
+    email:
+        confirmation:
+            subject: 注册确认
+            text: 要完成注册，只需点击 <a href="%url%">此处</a> 或将此 ％url％ 复制到浏览器。
 user:
     action:
         profile:

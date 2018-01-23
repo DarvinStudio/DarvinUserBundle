@@ -1,0 +1,2 @@
+{% set url = url('darvin_user_security_confirm_registration', {'code': user.registrationConfirmToken.id}) %}
+{% trans with {'%url%': url} %}security.email.confirmation.text{% endtrans %}

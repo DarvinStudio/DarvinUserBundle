@@ -63,10 +63,33 @@ class UserMailer
             return;
         }
 
-        $body = $this->templating->render($template, [
-            'subject' => $subject,
-            'user'    => $user,
-        ]);
+        $body = $this->templating->render($template,
+            [
+                'subject' => $subject,
+                'user'    => $user,
+            ]
+        );
+
+        $this->mailer->send($subject, $body, $to);
+    }
+
+    /**
+     * @param BaseUser $user
+     * @param string   $subject
+     * @param string   $template
+     */
+    public function sendConfirmationCodeEmails(
+        BaseUser $user,
+        $subject = 'security.email.confirmation.subject',
+        $template = 'DarvinUserBundle:User/email/confirmation:code.html.twig'
+    ) {
+        $to = $user->getEmail();
+
+        if (!$to) {
+            return;
+        }
+
+        $body = $this->templating->render($template, ['user' => $user]);
 
         $this->mailer->send($subject, $body, $to);
     }

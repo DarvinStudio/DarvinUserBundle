@@ -34,6 +34,18 @@ security:
             submit: 'Changer de mot de passe'
             success: 'Mot de passe changé avec succès'
             title: 'Réinitialisation de mot de passe'
+        confirm_registration:
+            invalid_code_error: Code de confirmation invalide
+            code_sent:
+                title: Fin de l'inscription
+                text: Le message a été envoyé à votre adresse email. Veuillez suivre les instructions pour compléter l'inscription.
+            success:
+                title: L'inscription est terminée
+                text: Votre compte a été confirmé. Merci pour votre inscription.
+    email:
+        confirmation:
+            subject: Confirmation d'enregistrement
+            text: Pour terminer l'inscription, cliquez simplement sur <a href="%url%">ici</a> ou copiez ce %url% dans le navigateur.
 user:
     action:
         profile:

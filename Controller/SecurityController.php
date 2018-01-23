@@ -10,7 +10,10 @@
 
 namespace Darvin\UserBundle\Controller;
 
+use Darvin\UserBundle\Entity\BaseUser;
 use Darvin\UserBundle\Entity\PasswordResetToken;
+use Darvin\UserBundle\Event\SecurityEvents;
+use Darvin\UserBundle\Event\UserEvent;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Darvin\Utils\HttpFoundation\AjaxResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -58,7 +61,8 @@ class SecurityController extends Controller
 
         $successMessage = 'security.action.register.success';
 
-        if (!$this->getSecurityFormHandler()->handleRegistrationForm($form, !$widget, $successMessage)) {
+        $needConfirm = $this->getParameter('darvin_user.confirm_registration');
+        if (!$this->getSecurityFormHandler()->handleRegistrationForm($form, !$widget, $successMessage, $needConfirm)) {
             $html = $this->getSecurityFormRenderer()->renderRegistrationForm($widget, $form);
 
             return $widget
@@ -66,7 +70,10 @@ class SecurityController extends Controller
                 : new Response($html);
         }
 
-        $url = $this->generateUrl($this->getParameter('darvin_user.already_logged_in_redirect_route'));
+        $url = $needConfirm ?
+            $this->generateUrl('darvin_user_security_confirm_registration') :
+            $this->generateUrl($this->getParameter('darvin_user.already_logged_in_redirect_route'))
+        ;
 
         return $widget
             ? new AjaxResponse('', true, $successMessage, [], $url)
@@ -109,6 +116,26 @@ class SecurityController extends Controller
         return $widget
             ? new AjaxResponse('', true, $successMessage, [], $url)
             : $this->redirect($url);
+    }
+
+    public function confirmRegistrationAction(Request $request, $code = null)
+    {
+        if ($code == null) {
+            return $this->render('@DarvinUser/User/confirmation/confirm_email_sent.html.twig');
+        }
+
+        $user = $this->get('darvin_user.user.repository')->getByRegistrationToken($code);
+        if (!$user) {
+            throw $this->createNotFoundException('security.action.confirm_registration.invalid_code_error');
+        }
+
+        $user->getRegistrationConfirmToken()->setId(null);
+        $user->setEnabled(true);
+        $this->getDoctrine()->getManager()->flush();
+
+        $this->get('event_dispatcher')->dispatch(SecurityEvents::REGISTRATION_CONFIRMED, new UserEvent($user));
+
+        return $this->render('@DarvinUser/User/confirmation/confirmation_success.html.twig');
     }
 
     /**
