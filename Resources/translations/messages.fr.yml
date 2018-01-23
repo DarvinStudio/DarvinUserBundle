@@ -4,10 +4,10 @@ password_reset_token:
             check_mail: 'Vérifier le courrier:'
             link: 'Mot de passe oublié?'
             submit: 'Obtenir le lien'
-            submitted: 'Le lien a été envoyé à l''e-mail %email%.'
+            submitted: 'Le lien a été envoyé à l''email %email%.'
             success: 'Lien envoyé avec succès'
             title: 'Obtenir lien de réinitialisation de mot de passe'
-            user_email: E-mail
+            user_email: Email
     email:
         requested:
             subject: 'Lien de réinitialisation de mot de passe'
@@ -16,7 +16,7 @@ security:
     action:
         login:
             darvin_auth: 'Connectez-vous en utilisant Darvin Auth'
-            email: E-mail
+            email: Email
             link: 'Signe dans'
             password: 'Mot de passe'
             remember_me: 'Se souvenir de moi'
@@ -46,5 +46,5 @@ user:
             subject: 'Nouvel utilisateur'
             user: 'L''utilisateur'
     entity:
-        email: E-mail
+        email: Email
         plain_password: 'Mot de passe'

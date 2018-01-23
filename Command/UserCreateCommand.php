@@ -110,7 +110,7 @@ class UserCreateCommand extends Command
 
         $io->success(
             sprintf(
-                'User with e-mail "%s", password "%s", and %s successfully created.',
+                'User with email "%s", password "%s", and %s successfully created.',
                 $email,
                 $plainPassword,
                 self::NO_ROLE !== $role ? sprintf('role "%s"', $role) : 'without any role'

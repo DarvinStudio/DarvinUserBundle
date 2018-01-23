@@ -6,10 +6,10 @@ password_reset_token:
             check_mail: Проверить почту:
             link:       Забыли пароль?
             submit:     Получить ссылку
-            submitted:  Ссылка отправлена на e-mail %email%.
+            submitted:  Ссылка отправлена на email %email%.
             success:    Ссылка успешно отправлена
             title:      Получить ссылку для сброса пароля
-            user_email: E-mail
+            user_email: Email
     email:
         requested:
             subject: Ссылка для сброса пароля
@@ -21,7 +21,7 @@ security:
     action:
         login:
             darvin_auth: Войти с помощью Darvin Auth
-            email:       E-mail
+            email:       Email
             link:        Войти
             password:    Пароль
             remember_me: Запомнить браузер
@@ -52,5 +52,5 @@ user:
             subject: Новый пользователь
             user:    Пользователь
     entity:
-        email:          E-mail
+        email:          Email
         plain_password: Пароль

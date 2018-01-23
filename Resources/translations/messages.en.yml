@@ -4,10 +4,10 @@ password_reset_token:
             check_mail: Check mail:
             link:       Forgot password?
             submit:     Get link
-            submitted:  Link was sent to e-mail %email%.
+            submitted:  Link was sent to email %email%.
             success:    Link successfully sent
             title:      Get password reset link
-            user_email: E-mail
+            user_email: Email
     email:
         requested:
             subject: Password reset link
@@ -19,7 +19,7 @@ security:
     action:
         login:
             darvin_auth: Sign in using Darvin Auth
-            email:       E-mail
+            email:       Email
             link:        Sign in
             password:    Password
             remember_me: Remember me
@@ -50,5 +50,5 @@ user:
             subject: New user
             user:    User
     entity:
-        email:          E-mail
+        email:          Email
         plain_password: Password

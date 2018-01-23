@@ -1,7 +1,7 @@
 configuration:
     darvin_user:
         parameter:
-            notification_emails: E-mail for notifications
+            notification_emails: Email for notifications
         title: The "Users" module configuration
 
 entity_name:
@@ -31,7 +31,7 @@ user:
             link:  View user
             title: User "%entity%"
     entity:
-        email:          E-mail
+        email:          Email
         enabled:        Enabled
         locked:         Locked
         plain_password: Password
