@@ -61,6 +61,7 @@ services:
             - "@darvin_user.security.form.factory.login"
             - "@darvin_user.security.form.factory.common"
             - "@darvin_utils.templating.provider"
+            - "@translator"
 
     darvin_user.security.twig_extension:
         class:  "%darvin_user.security.twig_extension.class%"

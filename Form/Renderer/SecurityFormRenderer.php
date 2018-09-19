@@ -14,8 +14,10 @@ use Darvin\UserBundle\Form\Factory\Security\LoginFormFactoryInterface;
 use Darvin\UserBundle\Form\Factory\Security\SecurityFormFactory;
 use Darvin\UserBundle\Form\Type\Security\LoginType;
 use Darvin\Utils\Service\ServiceProviderInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Security form renderer
@@ -43,21 +45,29 @@ class SecurityFormRenderer
     private $templatingProvider;
 
     /**
+     * @var \Symfony\Component\Translation\TranslatorInterface
+     */
+    private $translator;
+
+    /**
      * @param \Symfony\Component\Security\Http\Authentication\AuthenticationUtils $authenticationUtils Authentication utilities
      * @param \Darvin\UserBundle\Form\Factory\Security\LoginFormFactoryInterface  $loginFormFactory    Login form factory
      * @param \Darvin\UserBundle\Form\Factory\Security\SecurityFormFactory        $securityFormFactory Security form factory
      * @param \Darvin\Utils\Service\ServiceProviderInterface                      $templatingProvider  Templating service provider
+     * @param \Symfony\Component\Translation\TranslatorInterface                  $translator          Translator
      */
     public function __construct(
         AuthenticationUtils $authenticationUtils,
         LoginFormFactoryInterface $loginFormFactory,
         SecurityFormFactory $securityFormFactory,
-        ServiceProviderInterface $templatingProvider
+        ServiceProviderInterface $templatingProvider,
+        TranslatorInterface $translator
     ) {
         $this->authenticationUtils = $authenticationUtils;
         $this->loginFormFactory = $loginFormFactory;
         $this->securityFormFactory = $securityFormFactory;
         $this->templatingProvider = $templatingProvider;
+        $this->translator = $translator;
     }
 
     /**
@@ -80,11 +90,17 @@ class SecurityFormRenderer
             $template = $widget ? 'DarvinUserBundle:Security/widget:login.html.twig' : 'DarvinUserBundle:Security:login.html.twig';
         }
 
+        $form = $this->loginFormFactory->createLoginForm($actionRoute, $type, $name);
+
         $exception = $this->authenticationUtils->getLastAuthenticationError();
+
+        if (!empty($exception)) {
+            $form->addError(new FormError($this->translator->trans($exception->getMessage(), [], 'security')));
+        }
 
         return $this->getTemplating()->render($template, [
             'error' => !empty($exception) ? $exception->getMessage() : null,
-            'form'  => $this->loginFormFactory->createLoginForm($actionRoute, $type, $name)->createView(),
+            'form'  => $form->createView(),
         ]);
     }
 

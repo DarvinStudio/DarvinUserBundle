@@ -1,7 +1,4 @@
 {{ form_start(form, {'attr': {'class': 'ajax'}}) }}
-{% if error %}
-    <span>{{ error|trans({}, 'security') }}</span>
-{% endif %}
 {{ form_widget(form) }}
 <button type="submit">{% trans %}security.action.login.submit{% endtrans %}</button>
 <a href="{{ path('darvin_user_security_register') }}">{% trans %}security.action.register.link{% endtrans %}</a>
