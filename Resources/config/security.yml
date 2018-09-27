@@ -16,6 +16,9 @@ parameters:
     darvin_user.security.user_provider.oauth.class: Darvin\UserBundle\Security\User\OAuthUserProvider
 
 services:
+    _defaults:
+        public: true
+
     darvin_user.security.event_listener.registered:
         class: "%darvin_user.security.event_listener.registered.class%"
         arguments:
@@ -43,7 +46,7 @@ services:
             - "@security.authentication_utils"
             - "@form.factory"
             - "@router"
-            - "%secret%"
+            - "%kernel.secret%"
 
     darvin_user.security.form.handler:
         class: "%darvin_user.security.form.handler.class%"

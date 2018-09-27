@@ -23,6 +23,9 @@ parameters:
     darvin_user.user.validator.user_exists_and_active.class: Darvin\UserBundle\Validator\UserExistsAndActiveValidator
 
 services:
+    _defaults:
+        public: true
+
     darvin_user.user.create_command:
         class: "%darvin_user.user.create_command.class%"
         arguments:

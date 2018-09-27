@@ -10,7 +10,6 @@
 
 namespace Darvin\UserBundle\Controller;
 
-use Darvin\UserBundle\Entity\BaseUser;
 use Darvin\UserBundle\Entity\PasswordResetToken;
 use Darvin\UserBundle\Event\SecurityEvents;
 use Darvin\UserBundle\Event\UserEvent;
