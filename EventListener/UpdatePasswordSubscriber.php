@@ -12,15 +12,15 @@ namespace Darvin\UserBundle\EventListener;
 
 use Darvin\UserBundle\Entity\BaseUser;
 use Darvin\UserBundle\User\UserManagerInterface;
-use Darvin\Utils\EventListener\AbstractOnFlushListener;
 use Doctrine\Common\EventSubscriber;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
 
 /**
- * User event subscriber
+ * Update password event subscriber
  */
-class UserSubscriber extends AbstractOnFlushListener implements EventSubscriber
+class UpdatePasswordSubscriber implements EventSubscriber
 {
     /**
      * @var \Darvin\UserBundle\User\UserManagerInterface
@@ -50,22 +50,24 @@ class UserSubscriber extends AbstractOnFlushListener implements EventSubscriber
      */
     public function onFlush(OnFlushEventArgs $args)
     {
-        parent::onFlush($args);
+        $em = $args->getEntityManager();
+        $uow = $em->getUnitOfWork();
 
-        $updatePasswordCallback = [$this, 'updatePassword'];
-
-        $this
-            ->onInsert($updatePasswordCallback, BaseUser::class)
-            ->onUpdate($updatePasswordCallback, BaseUser::class);
+        foreach (array_merge($uow->getScheduledEntityInsertions(), $uow->getScheduledEntityUpdates()) as $entity) {
+            if ($entity instanceof BaseUser) {
+                $this->updatePassword($em, $entity);
+            }
+        }
     }
 
     /**
+     * @param \Doctrine\ORM\EntityManager        $em   Entity manager
      * @param \Darvin\UserBundle\Entity\BaseUser $user User
      */
-    protected function updatePassword(BaseUser $user)
+    private function updatePassword(EntityManager $em, BaseUser $user)
     {
         if ($this->userManager->updatePassword($user)) {
-            $this->recomputeChangeSet($user);
+            $em->getUnitOfWork()->recomputeSingleEntityChangeSet($em->getClassMetadata(get_class($user)), $user);
         }
     }
 }
