@@ -21,16 +21,23 @@ class Role
     private $role;
 
     /**
+     * @var bool
+     */
+    private $moderated;
+
+    /**
      * @var string
      */
     private $title;
 
     /**
-     * @param string $role Role
+     * @param string $role      Role
+     * @param bool   $moderated Is moderated
      */
-    public function __construct($role)
+    public function __construct($role, $moderated)
     {
         $this->role = $role;
+        $this->moderated = $moderated;
 
         $this->title = 'role.'.preg_replace('/^role_/', '', strtolower($role));
     }
@@ -49,6 +56,14 @@ class Role
     public function getRole()
     {
         return $this->role;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isModerated()
+    {
+        return $this->moderated;
     }
 
     /**

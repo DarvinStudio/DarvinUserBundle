@@ -10,6 +10,7 @@
 
 namespace Darvin\UserBundle\Form\Handler;
 
+use Darvin\UserBundle\Configuration\RoleConfiguration;
 use Darvin\UserBundle\Entity\PasswordResetToken;
 use Darvin\UserBundle\Event\SecurityEvents;
 use Darvin\UserBundle\Event\UserEvent;
@@ -43,6 +44,11 @@ class SecurityFormHandler
     private $flashNotifier;
 
     /**
+     * @var \Darvin\UserBundle\Configuration\RoleConfiguration
+     */
+    private $roleConfig;
+
+    /**
      * @var \Darvin\UserBundle\Security\UserAuthenticator
      */
     private $userAuthenticator;
@@ -56,6 +62,7 @@ class SecurityFormHandler
      * @param \Doctrine\ORM\EntityManager                                 $em                 Entity manager
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher    Event dispatcher
      * @param \Darvin\Utils\Flash\FlashNotifierInterface                  $flashNotifier      Flash notifier
+     * @param \Darvin\UserBundle\Configuration\RoleConfiguration          $roleConfig         Role configuration
      * @param \Darvin\UserBundle\Security\UserAuthenticator               $userAuthenticator  User authenticator
      * @param string                                                      $publicFirewallName Public firewall name
      */
@@ -63,12 +70,14 @@ class SecurityFormHandler
         EntityManager $em,
         EventDispatcherInterface $eventDispatcher,
         FlashNotifierInterface $flashNotifier,
+        RoleConfiguration $roleConfig,
         UserAuthenticator $userAuthenticator,
         $publicFirewallName
     ) {
         $this->em = $em;
         $this->eventDispatcher = $eventDispatcher;
         $this->flashNotifier = $flashNotifier;
+        $this->roleConfig = $roleConfig;
         $this->userAuthenticator = $userAuthenticator;
         $this->publicFirewallName = $publicFirewallName;
     }
@@ -150,6 +159,13 @@ class SecurityFormHandler
         /** @var \Darvin\UserBundle\Entity\BaseUser $user */
         $user = $form->getData();
 
+        foreach ($user->getRoles() as $role) {
+            if ($this->roleConfig->hasRole($role) && $this->roleConfig->getRole($role)->isModerated()) {
+                $user->setEnabled(false);
+
+                break;
+            }
+        }
         if ($registrationConfirmation) {
             $user->setEnabled(false);
             $user->getRegistrationConfirmToken()->setId(md5(uniqid()));

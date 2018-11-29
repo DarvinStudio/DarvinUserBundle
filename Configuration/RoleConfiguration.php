@@ -21,14 +21,14 @@ class RoleConfiguration
     private $roles;
 
     /**
-     * @param string[] $roles Roles
+     * @param array $roles Roles
      */
     public function __construct(array $roles)
     {
         $this->roles = [];
 
-        foreach ($roles as $role) {
-            $this->roles[$role] = new Role($role);
+        foreach ($roles as $role => $attr) {
+            $this->roles[$role] = new Role($role, $attr['moderated']);
         }
     }
 
