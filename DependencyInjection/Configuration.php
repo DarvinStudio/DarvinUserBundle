@@ -35,10 +35,28 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('already_logged_in_redirect_route')->defaultValue('darvin_page_homepage')->end()
+                ->booleanNode('confirm_registration')->defaultFalse()->end()
                 ->integerNode('password_reset_token_lifetime')->defaultValue(3 * 60 * 60)->end()
                 ->scalarNode('public_firewall_name')->defaultValue('public_area')->end()
-                ->arrayNode('roles')->prototype('scalar')->end()->end()
-                ->booleanNode('confirm_registration')->defaultFalse()->end()
+                ->arrayNode('roles')->useAttributeAsKey('role')
+                    ->prototype('array')
+                        ->children()
+                            ->booleanNode('moderated')->defaultFalse()->end()
+                        ->end()
+                    ->end()
+                    ->beforeNormalization()->ifArray()->then(function (array $roles) {
+                        foreach ($roles as $role => $attr) {
+                            if (null !== $attr && !is_array($attr)) {
+                                unset($roles[$role]);
+
+                                $roles[$attr] = [];
+                            }
+                        }
+
+                        return $roles;
+                    })
+                    ->end()
+                ->end()
                 ->scalarNode('user_class')
                     ->defaultValue(BaseUser::class)
                     ->validate()
