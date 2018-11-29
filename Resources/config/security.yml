@@ -11,11 +11,16 @@ parameters:
 
     darvin_user.security.twig_extension.class: Darvin\UserBundle\Twig\Extension\SecurityExtension
 
+    darvin_user.security.update_password_event_subscriber.class: Darvin\UserBundle\EventListener\UpdatePasswordSubscriber
+
     darvin_user.security.user_authenticator.class: Darvin\UserBundle\Security\UserAuthenticator
 
     darvin_user.security.user_provider.oauth.class: Darvin\UserBundle\Security\User\OAuthUserProvider
 
 services:
+    _defaults:
+        public: true
+
     darvin_user.security.event_listener.registered:
         class: "%darvin_user.security.event_listener.registered.class%"
         arguments:
@@ -43,7 +48,7 @@ services:
             - "@security.authentication_utils"
             - "@form.factory"
             - "@router"
-            - "%secret%"
+            - "%kernel.secret%"
 
     darvin_user.security.form.handler:
         class: "%darvin_user.security.form.handler.class%"
@@ -71,6 +76,14 @@ services:
             - "@darvin_user.security.form.renderer"
         tags:
             - { name: twig.extension }
+
+    darvin_user.security.update_password_event_subscriber:
+        class:  "%darvin_user.security.update_password_event_subscriber.class%"
+        public: false
+        arguments:
+            - "@darvin_user.user.manager"
+        tags:
+            - { name: doctrine.event_subscriber }
 
     darvin_user.security.user_authenticator:
         class: "%darvin_user.security.user_authenticator.class%"

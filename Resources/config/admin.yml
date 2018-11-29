@@ -2,9 +2,13 @@ parameters:
     darvin_user.admin.view_widget.user_roles.class: Darvin\UserBundle\Admin\View\UserRolesWidget
 
 services:
+    _defaults:
+        public: true
+
     darvin_user.admin.view_widget.user_roles:
         class:  "%darvin_user.admin.view_widget.user_roles.class%"
         parent: darvin_admin.view.widget.abstract
+        public: false
         calls:
             - [ setRoleConfig, [ "@darvin_user.configuration.roles" ] ]
             - [ setTranslator, [ "@translator" ] ]
