@@ -14,3 +14,5 @@ darvin_user:
         ROLE_BUYER:
             moderated: true
 ```
+
+5.4.1: Make "user_roles" admin view widget more generic.
