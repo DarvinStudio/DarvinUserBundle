@@ -11,7 +11,9 @@ password_reset_token:
     email:
         requested:
             subject: 密码重置链接
-            text: "<p>为了重置密码使用的链接 %url%\"&gt;%url%</a>中。</p> <p>链接将到期， %expire_at%中。</p>\n"
+            text: >
+                <p>为了重置密码使用的链接 <a href="%url%">%url%</a>中。</p>
+                  <p>链接将到期， %expire_at%中。</p>
 security:
     action:
         login:

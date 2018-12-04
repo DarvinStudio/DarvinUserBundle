@@ -11,7 +11,9 @@ password_reset_token:
     email:
         requested:
             subject: 'Lien de réinitialisation de mot de passe'
-            text: "<p>Afin de réinitialiser le mot de passe lien %url%\"&gt;%url%</a>.</p> <p>Lien sera expiré à %expire_at%.</p>\n"
+            text: >
+                <p>Afin de réinitialiser le mot de passe lien <a href="%url%">%url%</a>.</p>
+                <p>Lien sera expiré à %expire_at%.</p>'
 security:
     action:
         login:

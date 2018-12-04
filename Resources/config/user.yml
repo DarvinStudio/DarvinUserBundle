@@ -25,73 +25,73 @@ services:
         public: true
 
     darvin_user.user.create_command:
-        class: "%darvin_user.user.create_command.class%"
+        class: '%darvin_user.user.create_command.class%'
         arguments:
-            - "%darvin_user.user.create_command.name%"
-            - "@doctrine.orm.entity_manager"
-            - "@darvin_user.configuration.roles"
-            - "@darvin_user.user.factory"
-            - "@validator"
+            - '%darvin_user.user.create_command.name%'
+            - '@doctrine.orm.entity_manager'
+            - '@darvin_user.configuration.roles'
+            - '@darvin_user.user.factory'
+            - '@validator'
         tags:
             - { name: console.command }
 
     darvin_user.user.factory:
-        class: "%darvin_user.user.factory.class%"
+        class: '%darvin_user.user.factory.class%'
         arguments:
-            - "%darvin_user.user_class%"
+            - '%darvin_user.user_class%'
 
     darvin_user.user.form.factory:
-        class: "%darvin_user.user.form.factory.class%"
+        class: '%darvin_user.user.form.factory.class%'
         arguments:
-            - "@form.factory"
-            - "@router"
-            - "@darvin_user.user.manager"
-            - "%darvin_user.user_class%"
+            - '@form.factory'
+            - '@router'
+            - '@darvin_user.user.manager'
+            - '%darvin_user.user_class%'
 
     darvin_user.user.form.handler:
-        class: "%darvin_user.user.form.handler.class%"
+        class: '%darvin_user.user.form.handler.class%'
         arguments:
-            - "@doctrine.orm.entity_manager"
-            - "@darvin_utils.flash.notifier"
+            - '@doctrine.orm.entity_manager'
+            - '@darvin_utils.flash.notifier'
 
     darvin_user.user.form.renderer:
-        class: "%darvin_user.user.form.renderer.class%"
+        class: '%darvin_user.user.form.renderer.class%'
         arguments:
-            - "@templating"
-            - "@darvin_user.user.form.factory"
+            - '@templating'
+            - '@darvin_user.user.form.factory'
 
     darvin_user.user.form.type.role:
-        class: "%darvin_user.user.form.type.role.class%"
+        class: '%darvin_user.user.form.type.role.class%'
         arguments:
-            - "@darvin_user.configuration.roles"
+            - '@darvin_user.configuration.roles'
         tags:
             - { name: form.type }
 
     darvin_user.user.mailer:
-        class: "%darvin_user.user.mailer.class%"
+        class: '%darvin_user.user.mailer.class%'
         arguments:
-            - "@darvin_utils.mailer"
-            - "@templating"
-            - "@darvin_user.configuration"
+            - '@darvin_utils.mailer'
+            - '@templating'
+            - '@darvin_user.configuration'
 
     darvin_user.user.manager:
         alias: darvin_user.user.manager.generic
 
     darvin_user.user.manager.generic:
-        class: "%darvin_user.user.manager.generic.class%"
+        class: '%darvin_user.user.manager.generic.class%'
         arguments:
-            - "@security.token_storage"
-            - "@security.password_encoder"
+            - '@security.token_storage'
+            - '@security.password_encoder'
 
     darvin_user.user.repository:
-        class:   "%darvin_user.user.repository.class%"
-        factory: [ "@doctrine", getRepository ]
+        class:   '%darvin_user.user.repository.class%'
+        factory: [ '@doctrine', getRepository ]
         arguments:
-            - "%darvin_user.user_class%"
+            - '%darvin_user.user_class%'
 
     darvin_user.user.validator.user_exists_and_active:
-        class: "%darvin_user.user.validator.user_exists_and_active.class%"
+        class: '%darvin_user.user.validator.user_exists_and_active.class%'
         arguments:
-            - "@darvin_user.user.repository"
+            - '@darvin_user.user.repository'
         tags:
             - { name: validator.constraint_validator, alias: darvin_user_user_exists_and_active }

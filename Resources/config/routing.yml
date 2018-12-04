@@ -1,11 +1,11 @@
 darvin_user_import_password_reset_token:
-    resource: "@DarvinUserBundle/Resources/config/routing/password_reset_token.yml"
+    resource: '@DarvinUserBundle/Resources/config/routing/password_reset_token.yml'
     prefix:   /password-reset
 
 darvin_user_import_user:
-    resource: "@DarvinUserBundle/Resources/config/routing/user.yml"
+    resource: '@DarvinUserBundle/Resources/config/routing/user.yml'
     prefix:   /my
 
 darvin_user_import_security:
-    resource: "@DarvinUserBundle/Resources/config/routing/security.yml"
+    resource: '@DarvinUserBundle/Resources/config/routing/security.yml'
     prefix:   /

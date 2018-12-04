@@ -22,78 +22,78 @@ services:
         public: true
 
     darvin_user.security.event_listener.registered:
-        class: "%darvin_user.security.event_listener.registered.class%"
+        class: '%darvin_user.security.event_listener.registered.class%'
         arguments:
-            - "@darvin_user.security.user_authenticator"
-            - "@darvin_user.user.mailer"
-            - "%darvin_user.public_firewall_name%"
+            - '@darvin_user.security.user_authenticator'
+            - '@darvin_user.user.mailer'
+            - '%darvin_user.public_firewall_name%'
         tags:
             - { name: kernel.event_listener, event: darvin_user.security.registered, method: onRegistered }
 
     darvin_user.security.form.factory.common:
-        class: "%darvin_user.security.form.factory.common.class%"
+        class: '%darvin_user.security.form.factory.common.class%'
         arguments:
-            - "@security.authentication_utils"
-            - "@form.factory"
-            - "@router"
-            - "@darvin_user.user.factory"
-            - "%darvin_user.user_class%"
+            - '@security.authentication_utils'
+            - '@form.factory'
+            - '@router'
+            - '@darvin_user.user.factory'
+            - '%darvin_user.user_class%'
 
     darvin_user.security.form.factory.login:
         alias: darvin_user.security.form.factory.login.generic
 
     darvin_user.security.form.factory.login.generic:
-        class: "%darvin_user.security.form.factory.login.generic.class%"
+        class: '%darvin_user.security.form.factory.login.generic.class%'
         arguments:
-            - "@security.authentication_utils"
-            - "@form.factory"
-            - "@router"
-            - "%kernel.secret%"
+            - '@security.authentication_utils'
+            - '@form.factory'
+            - '@router'
+            - '%kernel.secret%'
 
     darvin_user.security.form.handler:
-        class: "%darvin_user.security.form.handler.class%"
+        class: '%darvin_user.security.form.handler.class%'
         arguments:
-            - "@doctrine.orm.entity_manager"
-            - "@event_dispatcher"
-            - "@darvin_utils.flash.notifier"
-            - "@darvin_user.configuration.roles"
-            - "@darvin_user.security.user_authenticator"
-            - "%darvin_user.public_firewall_name%"
+            - '@doctrine.orm.entity_manager'
+            - '@event_dispatcher'
+            - '@darvin_utils.flash.notifier'
+            - '@darvin_user.configuration.roles'
+            - '@darvin_user.security.user_authenticator'
+            - '%darvin_user.public_firewall_name%'
 
     darvin_user.security.form.renderer:
-        class: "%darvin_user.security.form.renderer.class%"
+        class: '%darvin_user.security.form.renderer.class%'
         arguments:
-            - "@security.authentication_utils"
-            - "@darvin_user.security.form.factory.login"
-            - "@darvin_user.security.form.factory.common"
-            - "@darvin_utils.templating.provider"
-            - "@translator"
+            - '@security.authentication_utils'
+            - '@darvin_user.security.form.factory.login'
+            - '@darvin_user.security.form.factory.common'
+            - '@darvin_utils.templating.provider'
+            - '@translator'
 
     darvin_user.security.twig_extension:
-        class:  "%darvin_user.security.twig_extension.class%"
+        class:  '%darvin_user.security.twig_extension.class%'
         public: false
         arguments:
-            - "@darvin_user.security.form.renderer"
+            - '@darvin_user.security.form.renderer'
         tags:
             - { name: twig.extension }
 
     darvin_user.security.update_password_event_subscriber:
-        class:  "%darvin_user.security.update_password_event_subscriber.class%"
+        class:  '%darvin_user.security.update_password_event_subscriber.class%'
         public: false
         arguments:
-            - "@darvin_user.user.manager"
+            - '@darvin_user.user.manager'
         tags:
             - { name: doctrine.event_subscriber }
 
     darvin_user.security.user_authenticator:
-        class: "%darvin_user.security.user_authenticator.class%"
+        class: '%darvin_user.security.user_authenticator.class%'
         arguments:
-            - "@security.token_storage"
+            - '@security.token_storage'
 
     darvin_user.security.user_provider.oauth:
-        class: "%darvin_user.security.user_provider.oauth.class%"
+        class: '%darvin_user.security.user_provider.oauth.class%'
         arguments:
-            - "@doctrine.orm.entity_manager"
-            - "@security.token_storage"
-            - "@darvin_user.user.factory"
-            - "@darvin_user.user.repository"
+            - '@doctrine.orm.entity_manager'
+            - '@security.token_storage'
+            - '@darvin_user.user.factory'
+            - '@darvin_user.user.repository'

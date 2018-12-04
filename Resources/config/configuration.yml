@@ -8,11 +8,11 @@ services:
         public: true
 
     darvin_user.configuration:
-        class: "%darvin_user.configuration.class%"
+        class: '%darvin_user.configuration.class%'
         tags:
             - { name: darvin_config.configuration }
 
     darvin_user.configuration.roles:
-        class: "%darvin_user.configuration.roles.class%"
+        class: '%darvin_user.configuration.roles.class%'
         arguments:
-            - "%darvin_user.roles%"
+            - '%darvin_user.roles%'
