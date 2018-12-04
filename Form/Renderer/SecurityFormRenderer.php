@@ -87,7 +87,7 @@ class SecurityFormRenderer
         $template = null
     ) {
         if (null === $template) {
-            $template = $widget ? 'DarvinUserBundle:Security/widget:login.html.twig' : 'DarvinUserBundle:Security:login.html.twig';
+            $template = $widget ? '@DarvinUser/security/widget/login.html.twig' : '@DarvinUser/security/login.html.twig';
         }
 
         $form = $this->loginFormFactory->createLoginForm($actionRoute, $type, $name);
@@ -113,8 +113,8 @@ class SecurityFormRenderer
     public function renderPasswordResetForm(FormInterface $form, $widget = true)
     {
         $template = $widget
-            ? 'DarvinUserBundle:Security/widget:reset_password.html.twig'
-            : 'DarvinUserBundle:Security:reset_password.html.twig';
+            ? '@DarvinUser/security/widget/reset_password.html.twig'
+            : '@DarvinUser/security/reset_password.html.twig';
 
         return $this->getTemplating()->render($template, [
             'form' => $form->createView(),
@@ -135,8 +135,8 @@ class SecurityFormRenderer
         }
         if (null === $template) {
             $template = $widget
-                ? 'DarvinUserBundle:Security/widget:register.html.twig'
-                : 'DarvinUserBundle:Security:register.html.twig';
+                ? '@DarvinUser/security/widget/register.html.twig'
+                : '@DarvinUser/security/register.html.twig';
         }
 
         return $this->getTemplating()->render($template, [

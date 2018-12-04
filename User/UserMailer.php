@@ -55,7 +55,7 @@ class UserMailer
     public function sendCreatedServiceEmails(
         BaseUser $user,
         $subject = 'user.email.created.subject',
-        $template = 'DarvinUserBundle:User/email/created:service.html.twig'
+        $template = '@DarvinUser/user/email/created/service.html.twig'
     ) {
         $to = $this->userConfiguration->getNotificationEmails();
 
@@ -81,7 +81,7 @@ class UserMailer
     public function sendConfirmationCodeEmails(
         BaseUser $user,
         $subject = 'security.email.confirmation.subject',
-        $template = 'DarvinUserBundle:User/email/confirmation:code.html.twig'
+        $template = '@DarvinUser/user/email/confirmation/code.html.twig'
     ) {
         $to = $user->getEmail();
 

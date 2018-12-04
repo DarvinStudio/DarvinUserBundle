@@ -52,8 +52,8 @@ class UserFormRenderer
         }
 
         $template = $widget
-            ? 'DarvinUserBundle:User/widget:profile.html.twig'
-            : 'DarvinUserBundle:User:profile.html.twig';
+            ? '@DarvinUser/user/widget/profile.html.twig'
+            : '@DarvinUser/user/profile.html.twig';
 
         return $this->templating->render($template, [
             'form' => $form->createView(),

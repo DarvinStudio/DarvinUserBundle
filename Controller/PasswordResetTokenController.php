@@ -55,7 +55,7 @@ class PasswordResetTokenController extends Controller
 
         return $widget
             ? new AjaxResponse(
-                $this->renderView('DarvinUserBundle:PasswordResetToken/widget/request:submitted.html.twig', [
+                $this->renderView('@DarvinUser/password_reset_token/widget/request/submitted.html.twig', [
                     'password_reset_token' => $passwordResetToken,
                     'webmail_link'         => $this->getWebmailLinker()->getProviderByEmailAddress(
                         $passwordResetToken->getUser()->getEmail()

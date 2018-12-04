@@ -55,7 +55,7 @@ class SecurityExtension extends \Twig_Extension
      * @return string
      */
     public function renderLoginForm(
-        $template = 'DarvinUserBundle:Security/widget:login.html.twig',
+        $template = '@DarvinUser/security/widget/login.html.twig',
         $actionRoute = 'darvin_user_security_login_check',
         $type = LoginType::class,
         $name = null
@@ -68,7 +68,7 @@ class SecurityExtension extends \Twig_Extension
      *
      * @return string
      */
-    public function renderRegistrationForm($template = 'DarvinUserBundle:Security/widget:register.html.twig')
+    public function renderRegistrationForm($template = '@DarvinUser/security/widget/register.html.twig')
     {
         return $this->securityFormRenderer->renderRegistrationForm(true, null, $template);
     }
