@@ -52,7 +52,7 @@ class UserFormRenderer
         }
 
         $template = $widget
-            ? '@DarvinUser/user/widget/profile.html.twig'
+            ? '@DarvinUser/user/_profile.html.twig'
             : '@DarvinUser/user/profile.html.twig';
 
         return $this->templating->render($template, [

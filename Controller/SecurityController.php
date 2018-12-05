@@ -120,7 +120,7 @@ class SecurityController extends Controller
     public function confirmRegistrationAction(Request $request, $code = null)
     {
         if ($code == null) {
-            return $this->render('@DarvinUser/User/confirmation/confirm_email_sent.html.twig');
+            return $this->render('@DarvinUser/user/confirmation/confirm_email_sent.html.twig');
         }
 
         $user = $this->get('darvin_user.user.repository')->getByRegistrationToken($code);
