@@ -14,3 +14,11 @@ darvin_user:
         ROLE_BUYER:
             moderated: true
 ```
+
+6.0.0:
+
+- use single quotes in yaml;
+
+- update templates path;
+
+- reorganize templates.
