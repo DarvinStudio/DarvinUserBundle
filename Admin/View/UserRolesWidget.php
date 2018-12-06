@@ -48,35 +48,29 @@ class UserRolesWidget extends AbstractWidget
     }
 
     /**
-     * @param \Darvin\UserBundle\Entity\BaseUser $user     User
-     * @param array                              $options  Options
-     * @param string                             $property Property name
-     *
-     * @return string
-     */
-    protected function createContent($user, array $options, $property)
-    {
-        $roles = [];
-
-        foreach ($user->getRoles() as $role) {
-            if (BaseUser::ROLE_USER !== $role) {
-                $roles[] = $this->roleConfig->hasRole($role)
-                    ? $this->translator->trans($this->roleConfig->getRole($role)->getTitle(), [], 'admin')
-                    : $role;
-            }
-        }
-
-        return implode(', ', $roles);
-    }
-
-    /**
      * {@inheritdoc}
      */
-    protected function getAllowedEntityClasses()
+    protected function createContent($entity, array $options, $property)
     {
-        return [
-            BaseUser::class,
-        ];
+        $parts = [];
+        $roles = $this->getPropertyValue($entity, $property);
+
+        if (!is_array($roles) && !$roles instanceof \Traversable) {
+            $roles = [$roles];
+        }
+        foreach ($roles as $role) {
+            $role = (string)$role;
+
+            if ($entity instanceof BaseUser && BaseUser::ROLE_USER === $role) {
+                continue;
+            }
+
+            $parts[] = $this->roleConfig->hasRole($role)
+                ? $this->translator->trans($this->roleConfig->getRole($role)->getTitle(), [], 'admin')
+                : $role;
+        }
+
+        return implode(', ', $parts);
     }
 
     /**
