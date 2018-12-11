@@ -12,7 +12,7 @@
         }
     ],
     "require": {
-        "hwi/oauth-bundle":                          "^0.6",
+        "hwi/oauth-bundle":                          "^0.5",
 
         "darvinstudio/darvin-admin-bundle":          "*",
         "darvinstudio/darvin-webmail-linker-bundle": "*"
