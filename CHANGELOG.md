@@ -18,3 +18,5 @@ darvin_user:
 5.4.1: Make "user_roles" admin view widget more generic.
 
 5.4.2: Downgrade dependencies.
+
+5.5.0: Make admin and webmail linker bundles optional.
