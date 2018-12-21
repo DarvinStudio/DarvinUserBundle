@@ -31,16 +31,16 @@ class UserMailer
     private $templating;
 
     /**
-     * @var \Darvin\UserBundle\Configuration\Configuration
+     * @var \Darvin\UserBundle\Configuration\Configuration|null
      */
     private $userConfiguration;
 
     /**
-     * @param \Darvin\Utils\Mailer\MailerInterface|null      $mailer            Mailer
-     * @param \Symfony\Component\Templating\EngineInterface  $templating        Templating
-     * @param \Darvin\UserBundle\Configuration\Configuration $userConfiguration User configuration
+     * @param \Darvin\Utils\Mailer\MailerInterface|null           $mailer            Mailer
+     * @param \Symfony\Component\Templating\EngineInterface       $templating        Templating
+     * @param \Darvin\UserBundle\Configuration\Configuration|null $userConfiguration User configuration
      */
-    public function __construct(MailerInterface $mailer = null, EngineInterface $templating, Configuration $userConfiguration)
+    public function __construct(MailerInterface $mailer = null, EngineInterface $templating, Configuration $userConfiguration = null)
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
@@ -57,7 +57,7 @@ class UserMailer
         $subject = 'user.email.created.subject',
         $template = 'DarvinUserBundle:User/email/created:service.html.twig'
     ) {
-        if (empty($this->mailer)) {
+        if (empty($this->mailer) || empty($this->userConfiguration)) {
             return;
         }
 

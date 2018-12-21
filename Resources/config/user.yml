@@ -79,7 +79,7 @@ services:
         arguments:
             - "@?darvin_utils.mailer"
             - "@templating"
-            - "@darvin_user.configuration"
+            - "@?darvin_user.configuration"
 
     darvin_user.user.manager:
         alias: darvin_user.user.manager.generic

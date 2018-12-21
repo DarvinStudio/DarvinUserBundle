@@ -20,6 +20,7 @@
     },
     "suggest": {
         "darvinstudio/darvin-admin-bundle":          "Allows to manage users in admin panel",
+        "darvinstudio/darvin-config-bundle":         "Allows to manage some parameters",
         "darvinstudio/darvin-webmail-linker-bundle": "Allows to show webmail link after password reset token requested"
     },
     "autoload": {

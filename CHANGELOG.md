@@ -20,3 +20,5 @@ darvin_user:
 5.4.2: Downgrade dependencies.
 
 5.5.0: Make admin and webmail linker bundles optional.
+
+5.5.1: Make config bundle optional.
