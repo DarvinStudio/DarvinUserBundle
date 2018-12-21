@@ -21,7 +21,7 @@ use Symfony\Component\Templating\EngineInterface;
 class UserMailer
 {
     /**
-     * @var \Darvin\Utils\Mailer\MailerInterface
+     * @var \Darvin\Utils\Mailer\MailerInterface|null
      */
     private $mailer;
 
@@ -31,16 +31,16 @@ class UserMailer
     private $templating;
 
     /**
-     * @var \Darvin\UserBundle\Configuration\Configuration
+     * @var \Darvin\UserBundle\Configuration\Configuration|null
      */
     private $userConfiguration;
 
     /**
-     * @param \Darvin\Utils\Mailer\MailerInterface           $mailer            Mailer
-     * @param \Symfony\Component\Templating\EngineInterface  $templating        Templating
-     * @param \Darvin\UserBundle\Configuration\Configuration $userConfiguration User configuration
+     * @param \Darvin\Utils\Mailer\MailerInterface|null           $mailer            Mailer
+     * @param \Symfony\Component\Templating\EngineInterface       $templating        Templating
+     * @param \Darvin\UserBundle\Configuration\Configuration|null $userConfiguration User configuration
      */
-    public function __construct(MailerInterface $mailer, EngineInterface $templating, Configuration $userConfiguration)
+    public function __construct(MailerInterface $mailer = null, EngineInterface $templating, Configuration $userConfiguration = null)
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
@@ -57,6 +57,10 @@ class UserMailer
         $subject = 'user.email.created.subject',
         $template = '@DarvinUser/email/service/user_created.html.twig'
     ) {
+        if (empty($this->mailer) || empty($this->userConfiguration)) {
+            return;
+        }
+
         $to = $this->userConfiguration->getNotificationEmails();
 
         if (empty($to)) {
@@ -83,6 +87,10 @@ class UserMailer
         $subject = 'security.email.confirmation.subject',
         $template = '@DarvinUser/email/user/confirmation_code.html.twig'
     ) {
+        if (empty($this->mailer)) {
+            return;
+        }
+
         $to = $user->getEmail();
 
         if (!$to) {

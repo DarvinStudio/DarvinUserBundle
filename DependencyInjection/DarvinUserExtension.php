@@ -34,7 +34,7 @@ class DarvinUserExtension extends Extension implements PrependExtensionInterface
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
         foreach ([
-            'configuration',
+            'configuration/roles',
             'password_reset_token',
             'security',
             'user',
@@ -46,6 +46,9 @@ class DarvinUserExtension extends Extension implements PrependExtensionInterface
 
         if (isset($bundles['DarvinAdminBundle'])) {
             $loader->load('admin.yml');
+        }
+        if (isset($bundles['DarvinConfigBundle'])) {
+            $loader->load('configuration/configuration.yml');
         }
     }
 

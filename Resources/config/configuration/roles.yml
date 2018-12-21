@@ -1,16 +1,9 @@
 parameters:
-    darvin_user.configuration.class: Darvin\UserBundle\Configuration\Configuration
-
     darvin_user.configuration.roles.class: Darvin\UserBundle\Configuration\RoleConfiguration
 
 services:
     _defaults:
         public: true
-
-    darvin_user.configuration:
-        class: '%darvin_user.configuration.class%'
-        tags:
-            - { name: darvin_config.configuration }
 
     darvin_user.configuration.roles:
         class: '%darvin_user.configuration.roles.class%'

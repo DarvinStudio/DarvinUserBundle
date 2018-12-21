@@ -20,7 +20,7 @@ use Symfony\Component\Templating\EngineInterface;
 class PasswordResetTokenMailer
 {
     /**
-     * @var \Darvin\Utils\Mailer\MailerInterface
+     * @var \Darvin\Utils\Mailer\MailerInterface|null
      */
     private $mailer;
 
@@ -30,10 +30,10 @@ class PasswordResetTokenMailer
     private $templating;
 
     /**
-     * @param \Darvin\Utils\Mailer\MailerInterface          $mailer     Mailer
+     * @param \Darvin\Utils\Mailer\MailerInterface|null     $mailer     Mailer
      * @param \Symfony\Component\Templating\EngineInterface $templating Templating
      */
-    public function __construct(MailerInterface $mailer, EngineInterface $templating)
+    public function __construct(MailerInterface $mailer = null, EngineInterface $templating)
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
@@ -49,6 +49,10 @@ class PasswordResetTokenMailer
         $subject = 'password_reset_token.email.requested.subject',
         $template = '@DarvinUser/email/password_reset_token/requested.html.twig'
     ) {
+        if (empty($this->mailer)) {
+            return;
+        }
+
         $body = $this->templating->render($template, [
             'password_reset_token' => $passwordResetToken,
         ]);

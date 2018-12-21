@@ -70,9 +70,9 @@ services:
     darvin_user.user.mailer:
         class: '%darvin_user.user.mailer.class%'
         arguments:
-            - '@darvin_utils.mailer'
+            - '@?darvin_utils.mailer'
             - '@templating'
-            - '@darvin_user.configuration'
+            - '@?darvin_user.configuration'
 
     darvin_user.user.manager:
         alias: darvin_user.user.manager.generic
