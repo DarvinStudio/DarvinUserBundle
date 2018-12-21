@@ -7,10 +7,7 @@
         <div class="details-list__section" style="padding: 12px 0; border-bottom: none;">
             <div class="details-list__title"
                  style="font-family: Arial, sans-serif; font-size: 15px; line-height: 23px; font-weight: bold; color: #333333;">
-                <a href="{{ admin_url(user) }}"
-                   style="font-family: Arial, sans-serif; font-size: 15px; line-height: 23px; font-weight: bold; color: #333333;">
-                    {% trans %}user.email.created.user{% endtrans %}
-                </a>
+                {% trans %}user.email.created.user{% endtrans %}
             </div>
 
             {% include '@DarvinUser/user/_table.html.twig' %}

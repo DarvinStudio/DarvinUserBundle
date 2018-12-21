@@ -52,19 +52,25 @@ class PasswordResetTokenController extends Controller
                 ? new AjaxResponse($html, false, FlashNotifierInterface::MESSAGE_FORM_ERROR)
                 : new Response($html);
         }
+        if ($widget) {
+            $webmailLink   = null;
+            $webmailLinker = $this->getWebmailLinker();
 
-        return $widget
-            ? new AjaxResponse(
+            if (!empty($webmailLinker)) {
+                $webmailLink = $webmailLinker->getProviderByEmailAddress($passwordResetToken->getUser()->getEmail());
+            }
+
+            return new AjaxResponse(
                 $this->renderView('@DarvinUser/password_reset_token/_request_submitted.html.twig', [
                     'password_reset_token' => $passwordResetToken,
-                    'webmail_link'         => $this->getWebmailLinker()->getProviderByEmailAddress(
-                        $passwordResetToken->getUser()->getEmail()
-                    ),
+                    'webmail_link'         => $webmailLink,
                 ]),
                 true,
                 $successMessage
-            )
-            : $this->redirectToRoute('darvin_user_security_login');
+            );
+        }
+
+        return $this->redirectToRoute('darvin_user_security_login');
     }
 
     /**
@@ -92,10 +98,14 @@ class PasswordResetTokenController extends Controller
     }
 
     /**
-     * @return \WebmailLinker
+     * @return \WebmailLinker|null
      */
     private function getWebmailLinker()
     {
-        return $this->get('darvin_webmail_linker.linker');
+        if ($this->has('darvin_webmail_linker.linker')) {
+            return $this->get('darvin_webmail_linker.linker');
+        }
+
+        return null;
     }
 }
