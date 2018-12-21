@@ -21,7 +21,7 @@ use Symfony\Component\Templating\EngineInterface;
 class UserMailer
 {
     /**
-     * @var \Darvin\Utils\Mailer\MailerInterface
+     * @var \Darvin\Utils\Mailer\MailerInterface|null
      */
     private $mailer;
 
@@ -36,11 +36,11 @@ class UserMailer
     private $userConfiguration;
 
     /**
-     * @param \Darvin\Utils\Mailer\MailerInterface           $mailer            Mailer
+     * @param \Darvin\Utils\Mailer\MailerInterface|null      $mailer            Mailer
      * @param \Symfony\Component\Templating\EngineInterface  $templating        Templating
      * @param \Darvin\UserBundle\Configuration\Configuration $userConfiguration User configuration
      */
-    public function __construct(MailerInterface $mailer, EngineInterface $templating, Configuration $userConfiguration)
+    public function __construct(MailerInterface $mailer = null, EngineInterface $templating, Configuration $userConfiguration)
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
@@ -57,6 +57,10 @@ class UserMailer
         $subject = 'user.email.created.subject',
         $template = 'DarvinUserBundle:User/email/created:service.html.twig'
     ) {
+        if (empty($this->mailer)) {
+            return;
+        }
+
         $to = $this->userConfiguration->getNotificationEmails();
 
         if (empty($to)) {
@@ -83,6 +87,10 @@ class UserMailer
         $subject = 'security.email.confirmation.subject',
         $template = 'DarvinUserBundle:User/email/confirmation:code.html.twig'
     ) {
+        if (empty($this->mailer)) {
+            return;
+        }
+
         $to = $user->getEmail();
 
         if (!$to) {
