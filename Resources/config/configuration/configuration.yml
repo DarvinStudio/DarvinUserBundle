@@ -2,7 +2,10 @@ parameters:
     darvin_user.configuration.class: Darvin\UserBundle\Configuration\Configuration
 
 services:
+    _defaults:
+        public: true
+
     darvin_user.configuration:
-        class: "%darvin_user.configuration.class%"
+        class: '%darvin_user.configuration.class%'
         tags:
             - { name: darvin_config.configuration }
