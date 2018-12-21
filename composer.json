@@ -12,15 +12,14 @@
         }
     ],
     "require": {
-        "hwi/oauth-bundle":                          "^0.5",
-
-        "darvinstudio/darvin-webmail-linker-bundle": "*"
+        "hwi/oauth-bundle": "^0.5"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^2.3"
     },
     "suggest": {
-        "darvinstudio/darvin-admin-bundle": "Allows to manage users in admin panel"
+        "darvinstudio/darvin-admin-bundle":          "Allows to manage users in admin panel",
+        "darvinstudio/darvin-webmail-linker-bundle": "Allows to show webmail link after password reset token requested"
     },
     "autoload": {
         "psr-4": { "Darvin\\UserBundle\\": "" }
