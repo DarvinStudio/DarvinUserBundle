@@ -13,7 +13,7 @@
     ],
     "require": {
         "darvinstudio/darvin-utils-bundle": "*",
-        "hwi/oauth-bundle":                 "^0.5"
+        "hwi/oauth-bundle":                 "^0.6"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^2.3"
