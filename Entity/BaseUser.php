@@ -13,6 +13,8 @@ namespace Darvin\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints as Doctrine;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Security\Core\User\EquatableInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -23,7 +25,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="user")
  * @Doctrine\UniqueEntity(fields={"email"})
  */
-class BaseUser implements \Serializable, AdvancedUserInterface
+class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterface
 {
     const ROLE_USER = 'ROLE_USER';
 
@@ -120,6 +122,14 @@ class BaseUser implements \Serializable, AdvancedUserInterface
     public function __toString()
     {
         return $this->email;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isEqualTo(UserInterface $user)
+    {
+        return $this->email === $user->getUsername();
     }
 
     /**
