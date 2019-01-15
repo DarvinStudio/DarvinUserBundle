@@ -33,7 +33,7 @@ class SecurityController extends AbstractController
     public function loginAction(Request $request)
     {
         if ($this->isGranted(AuthenticatedVoter::IS_AUTHENTICATED_REMEMBERED)) {
-            return $this->redirectToRoute($this->getParameter('darvin_user.already_logged_in_redirect_route'));
+            return $this->redirectToRoute($this->container->getParameter('darvin_user.already_logged_in_redirect_route'));
         }
 
         return new Response($this->getSecurityFormRenderer()->renderLoginForm($request->isXmlHttpRequest()));
@@ -47,7 +47,7 @@ class SecurityController extends AbstractController
     public function registerAction(Request $request)
     {
         if ($this->isGranted(AuthenticatedVoter::IS_AUTHENTICATED_REMEMBERED)) {
-            return $this->redirectToRoute($this->getParameter('darvin_user.already_logged_in_redirect_route'));
+            return $this->redirectToRoute($this->container->getParameter('darvin_user.already_logged_in_redirect_route'));
         }
 
         $widget = $request->isXmlHttpRequest();
@@ -60,7 +60,7 @@ class SecurityController extends AbstractController
 
         $successMessage = 'security.action.register.success';
 
-        $needConfirm = $this->getParameter('darvin_user.confirm_registration');
+        $needConfirm = $this->container->getParameter('darvin_user.confirm_registration');
         if (!$this->getSecurityFormHandler()->handleRegistrationForm($form, !$widget, $successMessage, $needConfirm)) {
             $html = $this->getSecurityFormRenderer()->renderRegistrationForm($widget, $form);
 
@@ -71,7 +71,7 @@ class SecurityController extends AbstractController
 
         $url = $needConfirm ?
             $this->generateUrl('darvin_user_security_confirm_registration') :
-            $this->generateUrl($this->getParameter('darvin_user.already_logged_in_redirect_route'))
+            $this->generateUrl($this->container->getParameter('darvin_user.already_logged_in_redirect_route'))
         ;
 
         return $widget
@@ -87,7 +87,7 @@ class SecurityController extends AbstractController
     public function resetPasswordAction(Request $request)
     {
         if ($this->isGranted(AuthenticatedVoter::IS_AUTHENTICATED_REMEMBERED)) {
-            return $this->redirectToRoute($this->getParameter('darvin_user.already_logged_in_redirect_route'));
+            return $this->redirectToRoute($this->container->getParameter('darvin_user.already_logged_in_redirect_route'));
         }
 
         $widget = $request->isXmlHttpRequest();
@@ -110,7 +110,7 @@ class SecurityController extends AbstractController
                 : new Response($html);
         }
 
-        $url = $this->generateUrl($this->getParameter('darvin_user.already_logged_in_redirect_route'));
+        $url = $this->generateUrl($this->container->getParameter('darvin_user.already_logged_in_redirect_route'));
 
         return $widget
             ? new AjaxResponse('', true, $successMessage, [], $url)
