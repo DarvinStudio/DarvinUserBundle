@@ -13,14 +13,14 @@ namespace Darvin\UserBundle\Controller;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Darvin\Utils\HttpFoundation\AjaxResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * User controller
  */
-class UserController extends Controller
+class UserController extends AbstractController
 {
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request Request

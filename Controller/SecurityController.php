@@ -15,7 +15,7 @@ use Darvin\UserBundle\Event\SecurityEvents;
 use Darvin\UserBundle\Event\UserEvent;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Darvin\Utils\HttpFoundation\AjaxResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
@@ -23,7 +23,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 /**
  * Security controller
  */
-class SecurityController extends Controller
+class SecurityController extends AbstractController
 {
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request Request
