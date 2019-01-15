@@ -117,7 +117,7 @@ class SecurityController extends AbstractController
             : $this->redirect($url);
     }
 
-    public function confirmRegistrationAction(Request $request, $code = null)
+    public function confirmRegistrationAction($code = null)
     {
         if ($code == null) {
             return $this->render('@DarvinUser/user/confirmation/confirm_email_sent.html.twig');
