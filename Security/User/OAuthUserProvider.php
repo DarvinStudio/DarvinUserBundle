@@ -15,7 +15,6 @@ use Darvin\UserBundle\Repository\UserRepository;
 use Darvin\UserBundle\Security\OAuth\Exception\BadResponseException;
 use Darvin\UserBundle\Security\OAuth\Response\DarvinAuthResponse;
 use Darvin\UserBundle\User\UserFactory;
-use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManager;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
@@ -113,8 +112,8 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface, UserProvider
      */
     public function refreshUser(UserInterface $user)
     {
-        if (!$this->supportsClass(ClassUtils::getClass($user))) {
-            throw new UnsupportedUserException(sprintf('User class "%s" is not supported.', ClassUtils::getClass($user)));
+        if (!$this->supportsClass(get_class($user))) {
+            throw new UnsupportedUserException(sprintf('User class "%s" is not supported.', get_class($user)));
         }
 
         return $this->loadUserByUsername($user->getUsername());
