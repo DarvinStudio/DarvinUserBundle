@@ -17,7 +17,7 @@ use Darvin\Utils\Service\ServiceProviderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Security form renderer
@@ -45,7 +45,7 @@ class SecurityFormRenderer
     private $templatingProvider;
 
     /**
-     * @var \Symfony\Component\Translation\TranslatorInterface
+     * @var \Symfony\Contracts\Translation\TranslatorInterface
      */
     private $translator;
 
@@ -54,7 +54,7 @@ class SecurityFormRenderer
      * @param \Darvin\UserBundle\Form\Factory\Security\LoginFormFactoryInterface  $loginFormFactory    Login form factory
      * @param \Darvin\UserBundle\Form\Factory\Security\SecurityFormFactory        $securityFormFactory Security form factory
      * @param \Darvin\Utils\Service\ServiceProviderInterface                      $templatingProvider  Templating service provider
-     * @param \Symfony\Component\Translation\TranslatorInterface                  $translator          Translator
+     * @param \Symfony\Contracts\Translation\TranslatorInterface                  $translator          Translator
      */
     public function __construct(
         AuthenticationUtils $authenticationUtils,

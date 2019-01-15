@@ -14,7 +14,7 @@ use Darvin\AdminBundle\Security\Permissions\Permission;
 use Darvin\AdminBundle\View\Widget\Widget\AbstractWidget;
 use Darvin\UserBundle\Configuration\RoleConfiguration;
 use Darvin\UserBundle\Entity\BaseUser;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * User roles admin view widget
@@ -27,7 +27,7 @@ class UserRolesWidget extends AbstractWidget
     private $roleConfig;
 
     /**
-     * @var \Symfony\Component\Translation\TranslatorInterface
+     * @var \Symfony\Contracts\Translation\TranslatorInterface
      */
     private $translator;
 
@@ -40,7 +40,7 @@ class UserRolesWidget extends AbstractWidget
     }
 
     /**
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator Translator
+     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator Translator
      */
     public function setTranslator(TranslatorInterface $translator)
     {
