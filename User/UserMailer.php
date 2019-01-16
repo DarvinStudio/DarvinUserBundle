@@ -51,6 +51,8 @@ class UserMailer
      * @param \Darvin\UserBundle\Entity\BaseUser $user     User
      * @param string                             $subject  Subject
      * @param string                             $template Template
+     *
+     * @return int
      */
     public function sendCreatedServiceEmails(
         BaseUser $user,
@@ -58,13 +60,13 @@ class UserMailer
         $template = '@DarvinUser/email/service/user_created.html.twig'
     ) {
         if (empty($this->mailer) || empty($this->userConfiguration)) {
-            return;
+            return 0;
         }
 
         $to = $this->userConfiguration->getNotificationEmails();
 
         if (empty($to)) {
-            return;
+            return 0;
         }
 
         $body = $this->templating->render($template,
@@ -74,13 +76,15 @@ class UserMailer
             ]
         );
 
-        $this->mailer->send($subject, $body, $to);
+        return $this->mailer->send($subject, $body, $to);
     }
 
     /**
      * @param BaseUser $user
      * @param string   $subject
      * @param string   $template
+     *
+     * @return int
      */
     public function sendConfirmationCodeEmails(
         BaseUser $user,
@@ -88,17 +92,17 @@ class UserMailer
         $template = '@DarvinUser/email/user/confirmation_code.html.twig'
     ) {
         if (empty($this->mailer)) {
-            return;
+            return 0;
         }
 
         $to = $user->getEmail();
 
         if (!$to) {
-            return;
+            return 0;
         }
 
         $body = $this->templating->render($template, ['user' => $user]);
 
-        $this->mailer->send($subject, $body, $to);
+        return $this->mailer->send($subject, $body, $to);
     }
 }
