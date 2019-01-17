@@ -11,10 +11,9 @@
 namespace Darvin\UserBundle\DependencyInjection;
 
 use Darvin\Utils\DependencyInjection\ConfigInjector;
-use Symfony\Component\Config\FileLocator;
+use Darvin\Utils\DependencyInjection\ConfigLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -31,25 +30,16 @@ class DarvinUserExtension extends Extension implements PrependExtensionInterface
     {
         (new ConfigInjector())->inject($this->processConfiguration(new Configuration(), $configs), $container, $this->getAlias());
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-
-        foreach ([
+        (new ConfigLoader($container, __DIR__.'/../Resources/config'))->load([
             'configuration/roles',
             'password_reset_token',
             'security',
             'user',
-        ] as $resource) {
-            $loader->load($resource.'.yaml');
-        }
 
-        $bundles = $container->getParameter('kernel.bundles');
+            'admin'                       => ['bundle' => 'DarvinAdminBundle'],
 
-        if (isset($bundles['DarvinAdminBundle'])) {
-            $loader->load('admin.yaml');
-        }
-        if (isset($bundles['DarvinConfigBundle'])) {
-            $loader->load('configuration/configuration.yaml');
-        }
+            'configuration/configuration' => ['bundle' => 'DarvinConfigBundle'],
+        ]);
     }
 
     /**
