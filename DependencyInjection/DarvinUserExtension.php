@@ -57,9 +57,8 @@ class DarvinUserExtension extends Extension implements PrependExtensionInterface
 
             $container->prependExtensionConfig('darvin_admin', [
                 'sections' => [
-                    [
+                    $config['user_class'] => [
                         'alias'  => 'user',
-                        'entity' => $config['user_class'],
                         'config' => '@DarvinUserBundle/Resources/config/admin/user.yaml',
                     ],
                 ],
