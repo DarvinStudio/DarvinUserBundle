@@ -39,16 +39,16 @@ class DarvinUserExtension extends Extension implements PrependExtensionInterface
             'security',
             'user',
         ] as $resource) {
-            $loader->load($resource.'.yml');
+            $loader->load($resource.'.yaml');
         }
 
         $bundles = $container->getParameter('kernel.bundles');
 
         if (isset($bundles['DarvinAdminBundle'])) {
-            $loader->load('admin.yml');
+            $loader->load('admin.yaml');
         }
         if (isset($bundles['DarvinConfigBundle'])) {
-            $loader->load('configuration/configuration.yml');
+            $loader->load('configuration/configuration.yaml');
         }
     }
 
@@ -70,7 +70,7 @@ class DarvinUserExtension extends Extension implements PrependExtensionInterface
                     [
                         'alias'  => 'user',
                         'entity' => $config['user_class'],
-                        'config' => '@DarvinUserBundle/Resources/config/admin/user.yml',
+                        'config' => '@DarvinUserBundle/Resources/config/admin/user.yaml',
                     ],
                 ],
             ]);
