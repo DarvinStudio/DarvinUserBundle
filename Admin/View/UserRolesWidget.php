@@ -76,10 +76,8 @@ class UserRolesWidget extends AbstractWidget
     /**
      * {@inheritdoc}
      */
-    protected function getRequiredPermissions(): array
+    protected function getRequiredPermissions(): iterable
     {
-        return [
-            Permission::VIEW,
-        ];
+        yield Permission::VIEW;
     }
 }
