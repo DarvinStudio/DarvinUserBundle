@@ -21,14 +21,14 @@ use Symfony\Component\Templating\EngineInterface;
 class UserMailer
 {
     /**
-     * @var \Darvin\Utils\Mailer\MailerInterface|null
-     */
-    private $mailer;
-
-    /**
      * @var \Symfony\Component\Templating\EngineInterface
      */
     private $templating;
+
+    /**
+     * @var \Darvin\Utils\Mailer\MailerInterface|null
+     */
+    private $mailer;
 
     /**
      * @var \Darvin\UserBundle\Configuration\Configuration|null
@@ -36,14 +36,14 @@ class UserMailer
     private $userConfiguration;
 
     /**
-     * @param \Darvin\Utils\Mailer\MailerInterface|null           $mailer            Mailer
      * @param \Symfony\Component\Templating\EngineInterface       $templating        Templating
+     * @param \Darvin\Utils\Mailer\MailerInterface|null           $mailer            Mailer
      * @param \Darvin\UserBundle\Configuration\Configuration|null $userConfiguration User configuration
      */
-    public function __construct(MailerInterface $mailer = null, EngineInterface $templating, Configuration $userConfiguration = null)
+    public function __construct(EngineInterface $templating, MailerInterface $mailer = null, Configuration $userConfiguration = null)
     {
-        $this->mailer = $mailer;
         $this->templating = $templating;
+        $this->mailer = $mailer;
         $this->userConfiguration = $userConfiguration;
     }
 

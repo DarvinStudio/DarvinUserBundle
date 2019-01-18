@@ -20,23 +20,23 @@ use Symfony\Component\Templating\EngineInterface;
 class PasswordResetTokenMailer
 {
     /**
-     * @var \Darvin\Utils\Mailer\MailerInterface|null
-     */
-    private $mailer;
-
-    /**
      * @var \Symfony\Component\Templating\EngineInterface
      */
     private $templating;
 
     /**
-     * @param \Darvin\Utils\Mailer\MailerInterface|null     $mailer     Mailer
-     * @param \Symfony\Component\Templating\EngineInterface $templating Templating
+     * @var \Darvin\Utils\Mailer\MailerInterface|null
      */
-    public function __construct(MailerInterface $mailer = null, EngineInterface $templating)
+    private $mailer;
+
+    /**
+     * @param \Symfony\Component\Templating\EngineInterface $templating Templating
+     * @param \Darvin\Utils\Mailer\MailerInterface|null     $mailer     Mailer
+     */
+    public function __construct(EngineInterface $templating, MailerInterface $mailer = null)
     {
-        $this->mailer = $mailer;
         $this->templating = $templating;
+        $this->mailer = $mailer;
     }
 
     /**
