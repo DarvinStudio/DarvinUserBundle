@@ -22,13 +22,11 @@ view:
             delete_form: ~
         fields:
             email:
-                widget:
-                    alias: email_link
+                widget: email_link
             enabled: ~
             locked:  ~
             roles:
-                widget:
-                    alias: user_roles
+                widget: user_roles
     extend~index~show:
         override~action_widgets:
             switch_user: ~
