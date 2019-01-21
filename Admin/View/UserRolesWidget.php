@@ -33,17 +33,11 @@ class UserRolesWidget extends AbstractWidget
 
     /**
      * @param \Darvin\UserBundle\Configuration\RoleConfiguration $roleConfig Role configuration
-     */
-    public function setRoleConfig(RoleConfiguration $roleConfig)
-    {
-        $this->roleConfig = $roleConfig;
-    }
-
-    /**
      * @param \Symfony\Contracts\Translation\TranslatorInterface $translator Translator
      */
-    public function setTranslator(TranslatorInterface $translator)
+    public function __construct(RoleConfiguration $roleConfig, TranslatorInterface $translator)
     {
+        $this->roleConfig = $roleConfig;
         $this->translator = $translator;
     }
 

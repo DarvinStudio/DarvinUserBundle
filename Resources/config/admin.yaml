@@ -9,8 +9,8 @@ services:
         class:  '%darvin_user.admin.view_widget.user_roles.class%'
         parent: darvin_admin.view.widget.abstract
         public: false
-        calls:
-            - [ setRoleConfig, [ '@darvin_user.configuration.roles' ] ]
-            - [ setTranslator, [ '@translator' ] ]
+        arguments:
+            - '@darvin_user.configuration.roles'
+            - '@translator'
         tags:
             - { name: darvin_admin.view_widget }
