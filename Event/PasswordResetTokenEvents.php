@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
  * @copyright Copyright (c) 2016, Darvin Studio
@@ -15,5 +15,5 @@ namespace Darvin\UserBundle\Event;
  */
 final class PasswordResetTokenEvents
 {
-    const REQUESTED = 'darvin_user.password_reset_token.requested';
+    public const REQUESTED = 'darvin_user.password_reset_token.requested';
 }

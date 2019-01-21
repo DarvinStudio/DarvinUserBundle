@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
  * @copyright Copyright (c) 2015-2018, Darvin Studio
@@ -11,6 +11,7 @@
 namespace Darvin\UserBundle\Command;
 
 use Darvin\UserBundle\Configuration\RoleConfiguration;
+use Darvin\UserBundle\Entity\BaseUser;
 use Darvin\UserBundle\User\UserFactory;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Console\Command\Command;
@@ -25,7 +26,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class UserCreateCommand extends Command
 {
-    const NO_ROLE = '-';
+    private const NO_ROLE = '-';
 
     /**
      * @var \Doctrine\ORM\EntityManager
@@ -54,7 +55,7 @@ class UserCreateCommand extends Command
      * @param \Darvin\UserBundle\User\UserFactory                       $userFactory User factory
      * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator   Validator
      */
-    public function __construct($name, EntityManager $em, RoleConfiguration $roleConfig, UserFactory $userFactory, ValidatorInterface $validator)
+    public function __construct(string $name, EntityManager $em, RoleConfiguration $roleConfig, UserFactory $userFactory, ValidatorInterface $validator)
     {
         parent::__construct($name);
 
@@ -67,7 +68,7 @@ class UserCreateCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setDescription('Creates user.')
@@ -121,7 +122,7 @@ class UserCreateCommand extends Command
     /**
      * @return array
      */
-    protected function buildRoleChoices()
+    protected function buildRoleChoices(): array
     {
         $choices = [
             self::NO_ROLE,
@@ -139,7 +140,7 @@ class UserCreateCommand extends Command
      *
      * @return \Darvin\UserBundle\Entity\BaseUser
      */
-    protected function createUser(InputInterface $input)
+    protected function createUser(InputInterface $input): BaseUser
     {
         return $this->userFactory->createUser()
             ->setEmail($input->getArgument('email'))

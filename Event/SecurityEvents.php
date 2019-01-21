@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
  * @copyright Copyright (c) 2016, Darvin Studio
@@ -15,6 +15,6 @@ namespace Darvin\UserBundle\Event;
  */
 final class SecurityEvents
 {
-    const REGISTERED = 'darvin_user.security.registered';
-    const REGISTRATION_CONFIRMED = 'darvin_user.security.registration_confirmed';
+    public const REGISTERED             = 'darvin_user.security.registered';
+    public const REGISTRATION_CONFIRMED = 'darvin_user.security.registration_confirmed';
 }
