@@ -31,6 +31,7 @@ class DarvinUserExtension extends Extension implements PrependExtensionInterface
         (new ConfigInjector($container))->inject($this->processConfiguration(new Configuration(), $configs), $this->getAlias());
 
         (new ConfigLoader($container, __DIR__.'/../Resources/config'))->load([
+            'authentication',
             'configuration/roles',
             'password_reset_token',
             'security',

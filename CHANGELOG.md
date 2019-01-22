@@ -25,8 +25,10 @@ darvin_user:
 
 6.0.0:
 
-- use single quotes in yaml;
+- Use single quotes in yaml.
 
-- update templates path;
+- Update templates path.
 
-- reorganize templates.
+- Reorganize templates.
+
+- Implement custom authentication success handler.
