@@ -13,6 +13,8 @@ namespace Darvin\UserBundle\Configuration;
 use Darvin\ConfigBundle\Configuration\AbstractConfiguration;
 use Darvin\ConfigBundle\Parameter\ParameterModel;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * Configuration
@@ -24,19 +26,24 @@ class UserConfiguration extends AbstractConfiguration
     /**
      * {@inheritdoc}
      */
-    public function getModel(): array
+    public function getModel(): iterable
     {
-        return [
-            new ParameterModel('notification_emails', ParameterModel::TYPE_ARRAY, [], [
-                'form' => [
-                    'options' => [
-                        'entry_type'   => EmailType::class,
-                        'allow_add'    => true,
-                        'allow_delete' => true,
+        yield new ParameterModel('notification_emails', ParameterModel::TYPE_ARRAY, [], [
+            'form' => [
+                'options' => [
+                    'allow_add'     => true,
+                    'allow_delete'  => true,
+                    'delete_empty'  => true,
+                    'entry_type'    => EmailType::class,
+                    'entry_options' => [
+                        'constraints' => [
+                            new NotBlank(),
+                            new Email(),
+                        ],
                     ],
                 ],
-            ]),
-        ];
+            ],
+        ]);
     }
 
     /**
