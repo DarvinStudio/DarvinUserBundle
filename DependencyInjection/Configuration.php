@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
  * @copyright Copyright (c) 2015-2019, Darvin Studio
@@ -24,58 +24,42 @@ class Configuration implements ConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('darvin_user');
+        $builder = new TreeBuilder('darvin_user');
 
-        /** @var \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $rootNode */
-        $rootNode = $treeBuilder->getRootNode();
+        /** @var \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $root */
+        $root = $builder->getRootNode();
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
-        $rootNode
+        $root
             ->children()
-                ->scalarNode('already_logged_in_redirect_route')->defaultValue('darvin_page_homepage')->end()
+                ->scalarNode('already_logged_in_redirect_route')->defaultValue('darvin_page_homepage')->cannotBeEmpty()->end()
                 ->booleanNode('confirm_registration')->defaultFalse()->end()
-                ->integerNode('password_reset_token_lifetime')->defaultValue(3 * 60 * 60)->end()
-                ->scalarNode('public_firewall_name')->defaultValue('public_area')->end()
+                ->integerNode('password_reset_token_lifetime')->defaultValue(3 * 60 * 60)->min(0)->end()
+                ->scalarNode('public_firewall_name')->defaultValue('public_area')->cannotBeEmpty()->end()
                 ->arrayNode('roles')->useAttributeAsKey('role')
                     ->prototype('array')
                         ->children()
                             ->booleanNode('moderated')->defaultFalse()->end()
                         ->end()
                     ->end()
-                    ->beforeNormalization()->ifArray()->then(function (array $roles) {
-                        foreach ($roles as $role => $attr) {
-                            if (null !== $attr && !is_array($attr)) {
-                                unset($roles[$role]);
-
-                                $roles[$attr] = [];
-                            }
-                        }
-
-                        return $roles;
-                    })
-                    ->end()
                 ->end()
-                ->scalarNode('user_class')
-                    ->defaultValue(BaseUser::class)
+                ->scalarNode('user_class')->defaultValue(BaseUser::class)->cannotBeEmpty()
                     ->validate()
-                        ->ifTrue(function ($v) {
-                            return !class_exists($v);
+                        ->ifTrue(function (string $class) {
+                            return !class_exists($class);
                         })
                         ->thenInvalid('Class %s does not exist.')
                     ->end()
                     ->validate()
-                        ->ifTrue(function ($v) {
-                            return $v !== BaseUser::class && !is_subclass_of($v, BaseUser::class);
+                        ->ifTrue(function (string $class) {
+                            return $class !== BaseUser::class && !is_subclass_of($class, BaseUser::class);
                         })
-                        ->thenInvalid(sprintf('Class must be "%s" or subclass of it.', BaseUser::class))
-                    ->end()
-                ->end()
-            ->end();
+                        ->thenInvalid(sprintf('Class must be "%s" or subclass of it.', BaseUser::class));
 
-        return $treeBuilder;
+        return $builder;
     }
 }
