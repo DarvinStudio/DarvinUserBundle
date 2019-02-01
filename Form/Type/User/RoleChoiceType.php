@@ -10,7 +10,7 @@
 
 namespace Darvin\UserBundle\Form\Type\User;
 
-use Darvin\UserBundle\Configuration\RoleConfiguration;
+use Darvin\UserBundle\Configuration\RoleConfigurationInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,14 +21,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class RoleChoiceType extends AbstractType
 {
     /**
-     * @var \Darvin\UserBundle\Configuration\RoleConfiguration
+     * @var \Darvin\UserBundle\Configuration\RoleConfigurationInterface
      */
     private $roleConfig;
 
     /**
-     * @param \Darvin\UserBundle\Configuration\RoleConfiguration $roleConfig Role configuration
+     * @param \Darvin\UserBundle\Configuration\RoleConfigurationInterface $roleConfig Role configuration
      */
-    public function __construct(RoleConfiguration $roleConfig)
+    public function __construct(RoleConfigurationInterface $roleConfig)
     {
         $this->roleConfig = $roleConfig;
     }

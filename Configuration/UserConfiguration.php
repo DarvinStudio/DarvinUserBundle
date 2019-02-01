@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
- * @copyright Copyright (c) 2015, Darvin Studio
+ * @copyright Copyright (c) 2015-2019, Darvin Studio
  * @link      https://www.darvin-studio.ru
  *
  * For the full copyright and license information, please view the LICENSE
@@ -17,14 +17,14 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 /**
  * Configuration
  *
- * @method array getNotificationEmails()
+ * @method string[] getNotificationEmails()
  */
-class Configuration extends AbstractConfiguration
+class UserConfiguration extends AbstractConfiguration
 {
     /**
      * {@inheritdoc}
      */
-    public function getModel()
+    public function getModel(): array
     {
         return [
             new ParameterModel('notification_emails', ParameterModel::TYPE_ARRAY, [], [
@@ -42,7 +42,7 @@ class Configuration extends AbstractConfiguration
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return 'darvin_user';
     }

@@ -10,7 +10,7 @@
 
 namespace Darvin\UserBundle\User;
 
-use Darvin\UserBundle\Configuration\Configuration;
+use Darvin\UserBundle\Configuration\UserConfiguration;
 use Darvin\UserBundle\Entity\BaseUser;
 use Darvin\Utils\Mailer\MailerInterface;
 use Symfony\Component\Templating\EngineInterface;
@@ -31,16 +31,16 @@ class UserMailer
     private $mailer;
 
     /**
-     * @var \Darvin\UserBundle\Configuration\Configuration|null
+     * @var \Darvin\UserBundle\Configuration\UserConfiguration|null
      */
     private $userConfiguration;
 
     /**
-     * @param \Symfony\Component\Templating\EngineInterface       $templating        Templating
-     * @param \Darvin\Utils\Mailer\MailerInterface|null           $mailer            Mailer
-     * @param \Darvin\UserBundle\Configuration\Configuration|null $userConfiguration User configuration
+     * @param \Symfony\Component\Templating\EngineInterface           $templating        Templating
+     * @param \Darvin\Utils\Mailer\MailerInterface|null               $mailer            Mailer
+     * @param \Darvin\UserBundle\Configuration\UserConfiguration|null $userConfiguration User configuration
      */
-    public function __construct(EngineInterface $templating, MailerInterface $mailer = null, Configuration $userConfiguration = null)
+    public function __construct(EngineInterface $templating, MailerInterface $mailer = null, UserConfiguration $userConfiguration = null)
     {
         $this->templating = $templating;
         $this->mailer = $mailer;

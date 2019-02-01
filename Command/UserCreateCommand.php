@@ -10,7 +10,7 @@
 
 namespace Darvin\UserBundle\Command;
 
-use Darvin\UserBundle\Configuration\RoleConfiguration;
+use Darvin\UserBundle\Configuration\RoleConfigurationInterface;
 use Darvin\UserBundle\Entity\BaseUser;
 use Darvin\UserBundle\User\UserFactory;
 use Doctrine\ORM\EntityManager;
@@ -34,7 +34,7 @@ class UserCreateCommand extends Command
     protected $em;
 
     /**
-     * @var \Darvin\UserBundle\Configuration\RoleConfiguration
+     * @var \Darvin\UserBundle\Configuration\RoleConfigurationInterface
      */
     protected $roleConfig;
 
@@ -49,13 +49,13 @@ class UserCreateCommand extends Command
     protected $validator;
 
     /**
-     * @param string                                                    $name        Command name
-     * @param \Doctrine\ORM\EntityManager                               $em          Entity manager
-     * @param \Darvin\UserBundle\Configuration\RoleConfiguration        $roleConfig  Role configuration
-     * @param \Darvin\UserBundle\User\UserFactory                       $userFactory User factory
-     * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator   Validator
+     * @param string                                                      $name        Command name
+     * @param \Doctrine\ORM\EntityManager                                 $em          Entity manager
+     * @param \Darvin\UserBundle\Configuration\RoleConfigurationInterface $roleConfig  Role configuration
+     * @param \Darvin\UserBundle\User\UserFactory                         $userFactory User factory
+     * @param \Symfony\Component\Validator\Validator\ValidatorInterface   $validator   Validator
      */
-    public function __construct(string $name, EntityManager $em, RoleConfiguration $roleConfig, UserFactory $userFactory, ValidatorInterface $validator)
+    public function __construct(string $name, EntityManager $em, RoleConfigurationInterface $roleConfig, UserFactory $userFactory, ValidatorInterface $validator)
     {
         parent::__construct($name);
 

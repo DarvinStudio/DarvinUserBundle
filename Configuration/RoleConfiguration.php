@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
- * @copyright Copyright (c) 2016, Darvin Studio
+ * @copyright Copyright (c) 2016-2019, Darvin Studio
  * @link      https://www.darvin-studio.ru
  *
  * For the full copyright and license information, please view the LICENSE
@@ -13,7 +13,7 @@ namespace Darvin\UserBundle\Configuration;
 /**
  * Role configuration
  */
-class RoleConfiguration
+class RoleConfiguration implements RoleConfigurationInterface
 {
     /**
      * @var \Darvin\UserBundle\Configuration\Role[]
@@ -33,34 +33,29 @@ class RoleConfiguration
     }
 
     /**
-     * @param string $role Role
-     *
-     * @return \Darvin\UserBundle\Configuration\Role
-     * @throws \Darvin\UserBundle\Configuration\ConfigurationException
+     * {@inheritDoc}
      */
-    public function getRole($role)
+    public function getRole(string $role): Role
     {
         if (!$this->hasRole($role)) {
-            throw new ConfigurationException(sprintf('Role "%s" does not exist.', $role));
+            throw new \InvalidArgumentException(sprintf('Role "%s" does not exist.', $role));
         }
 
         return $this->roles[$role];
     }
 
     /**
-     * @param string $role Role
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function hasRole($role)
+    public function hasRole(string $role): bool
     {
         return isset($this->roles[$role]);
     }
 
     /**
-     * @return \Darvin\UserBundle\Configuration\Role[]
+     * {@inheritDoc}
      */
-    public function getRoles()
+    public function getRoles(): array
     {
         return $this->roles;
     }

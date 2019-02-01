@@ -1,5 +1,5 @@
 parameters:
-    darvin_user.configuration.class: Darvin\UserBundle\Configuration\Configuration
+    darvin_user.configuration.class: Darvin\UserBundle\Configuration\UserConfiguration
 
 services:
     _defaults:

@@ -10,7 +10,7 @@
 
 namespace Darvin\UserBundle\Form\Handler;
 
-use Darvin\UserBundle\Configuration\RoleConfiguration;
+use Darvin\UserBundle\Configuration\RoleConfigurationInterface;
 use Darvin\UserBundle\Entity\PasswordResetToken;
 use Darvin\UserBundle\Event\SecurityEvents;
 use Darvin\UserBundle\Event\UserEvent;
@@ -44,7 +44,7 @@ class SecurityFormHandler
     private $flashNotifier;
 
     /**
-     * @var \Darvin\UserBundle\Configuration\RoleConfiguration
+     * @var \Darvin\UserBundle\Configuration\RoleConfigurationInterface
      */
     private $roleConfig;
 
@@ -62,7 +62,7 @@ class SecurityFormHandler
      * @param \Doctrine\ORM\EntityManager                                 $em                 Entity manager
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher    Event dispatcher
      * @param \Darvin\Utils\Flash\FlashNotifierInterface                  $flashNotifier      Flash notifier
-     * @param \Darvin\UserBundle\Configuration\RoleConfiguration          $roleConfig         Role configuration
+     * @param \Darvin\UserBundle\Configuration\RoleConfigurationInterface $roleConfig         Role configuration
      * @param \Darvin\UserBundle\Security\UserAuthenticator               $userAuthenticator  User authenticator
      * @param string                                                      $publicFirewallName Public firewall name
      */
@@ -70,7 +70,7 @@ class SecurityFormHandler
         EntityManager $em,
         EventDispatcherInterface $eventDispatcher,
         FlashNotifierInterface $flashNotifier,
-        RoleConfiguration $roleConfig,
+        RoleConfigurationInterface $roleConfig,
         UserAuthenticator $userAuthenticator,
         $publicFirewallName
     ) {
