@@ -241,10 +241,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
      */
     public function getRoles()
     {
-        $roles = $this->roles;
-        $roles[] = self::ROLE_USER;
-
-        return $roles;
+        return array_unique(array_merge([self::ROLE_USER], $this->roles));
     }
 
     /**
@@ -386,18 +383,8 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
      */
     public function setPlainPassword($plainPassword)
     {
-        $this->refreshUpdatedAt();
-
         $this->plainPassword = $plainPassword;
 
-        return $this;
-    }
-
-    /**
-     * @return BaseUser
-     */
-    protected function refreshUpdatedAt()
-    {
         $this->updatedAt = new \DateTime();
 
         return $this;
