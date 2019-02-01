@@ -1,0 +1,8 @@
+parameters:
+    darvin_user.fixture.user.class: Darvin\UserBundle\DataFixtures\ORM\LoadUserData
+
+services:
+    darvin_user.fixture.user:
+        class: '%darvin_user.fixture.user.class%'
+        tags:
+            - { name: doctrine.fixture.orm, group: user }

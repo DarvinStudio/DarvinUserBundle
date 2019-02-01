@@ -40,6 +40,8 @@ class DarvinUserExtension extends Extension implements PrependExtensionInterface
             'admin'                       => ['bundle' => 'DarvinAdminBundle'],
 
             'configuration/configuration' => ['bundle' => 'DarvinConfigBundle'],
+
+            'dev/fixture'                 => ['env' => 'dev'],
         ]);
     }
 
