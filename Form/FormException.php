@@ -10,12 +10,10 @@
 
 namespace Darvin\UserBundle\Form;
 
-use Darvin\UserBundle\Exception\DarvinUserException;
-
 /**
  * Form exception
  */
-class FormException extends DarvinUserException
+class FormException extends \Exception
 {
 
 }

@@ -10,12 +10,10 @@
 
 namespace Darvin\UserBundle\Repository;
 
-use Darvin\UserBundle\Exception\DarvinUserException;
-
 /**
  * Repository exception
  */
-class RepositoryException extends DarvinUserException
+class RepositoryException extends \Exception
 {
 
 }

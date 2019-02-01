@@ -10,12 +10,10 @@
 
 namespace Darvin\UserBundle\PasswordResetToken;
 
-use Darvin\UserBundle\Exception\DarvinUserException;
-
 /**
  * Password reset token exception
  */
-class PasswordResetTokenException extends DarvinUserException
+class PasswordResetTokenException extends \Exception
 {
 
 }
