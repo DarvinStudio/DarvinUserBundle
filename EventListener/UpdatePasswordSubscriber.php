@@ -13,6 +13,7 @@ namespace Darvin\UserBundle\EventListener;
 use Darvin\UserBundle\Entity\BaseUser;
 use Darvin\UserBundle\User\UserManagerInterface;
 use Doctrine\Common\EventSubscriber;
+use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
@@ -67,7 +68,7 @@ class UpdatePasswordSubscriber implements EventSubscriber
     private function updatePassword(EntityManager $em, BaseUser $user)
     {
         if ($this->userManager->updatePassword($user)) {
-            $em->getUnitOfWork()->recomputeSingleEntityChangeSet($em->getClassMetadata(get_class($user)), $user);
+            $em->getUnitOfWork()->recomputeSingleEntityChangeSet($em->getClassMetadata(ClassUtils::getClass($user)), $user);
         }
     }
 }
