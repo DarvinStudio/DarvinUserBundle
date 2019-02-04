@@ -57,6 +57,6 @@ class PasswordResetTokenMailer
             'password_reset_token' => $passwordResetToken,
         ]);
 
-        $this->mailer->send($subject, $body, $passwordResetToken->getUser()->getEmail());
+        $this->mailer->send($passwordResetToken->getUser()->getEmail(), $subject, $body);
     }
 }

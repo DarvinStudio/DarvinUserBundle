@@ -76,7 +76,7 @@ class UserMailer
             ]
         );
 
-        return $this->mailer->send($subject, $body, $to);
+        return $this->mailer->send($to, $subject, $body);
     }
 
     /**
@@ -103,6 +103,6 @@ class UserMailer
 
         $body = $this->templating->render($template, ['user' => $user]);
 
-        return $this->mailer->send($subject, $body, $to);
+        return $this->mailer->send($to, $subject, $body);
     }
 }
