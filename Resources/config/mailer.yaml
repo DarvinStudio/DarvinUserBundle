@@ -1,0 +1,13 @@
+parameters:
+    darvin_user.mailer.user.class: Darvin\UserBundle\Mailer\UserMailer
+
+services:
+    _defaults:
+        public: true
+
+    darvin_user.mailer.user:
+        class:  '%darvin_user.mailer.user.class%'
+        public: false
+        arguments:
+            - '@?darvin_utils.mailer.template'
+            - '@?darvin_user.configuration'

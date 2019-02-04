@@ -33,6 +33,7 @@ class DarvinUserExtension extends Extension implements PrependExtensionInterface
         (new ConfigLoader($container, __DIR__.'/../Resources/config'))->load([
             'authentication',
             'configuration/roles',
+            'mailer',
             'password_reset_token',
             'security',
             'user',

@@ -12,8 +12,6 @@ parameters:
 
     darvin_user.user.form.type.role.class: Darvin\UserBundle\Form\Type\User\RoleChoiceType
 
-    darvin_user.user.mailer.class: Darvin\UserBundle\User\UserMailer
-
     darvin_user.user.manager.generic.class: Darvin\UserBundle\User\GenericUserManager
 
     darvin_user.user.repository.class: Darvin\UserBundle\Repository\UserRepository
@@ -66,13 +64,6 @@ services:
             - '@darvin_user.configuration.roles'
         tags:
             - { name: form.type }
-
-    darvin_user.user.mailer:
-        class: '%darvin_user.user.mailer.class%'
-        arguments:
-            - '@templating'
-            - '@?darvin_utils.mailer'
-            - '@?darvin_user.configuration'
 
     darvin_user.user.manager:
         alias: darvin_user.user.manager.generic
