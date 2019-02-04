@@ -12,7 +12,7 @@ parameters:
 
     darvin_user.user.form.type.role.class: Darvin\UserBundle\Form\Type\User\RoleChoiceType
 
-    darvin_user.user.manager.generic.class: Darvin\UserBundle\User\GenericUserManager
+    darvin_user.user.manager.class: Darvin\UserBundle\User\UserManager
 
     darvin_user.user.repository.class: Darvin\UserBundle\Repository\UserRepository
 
@@ -66,10 +66,7 @@ services:
             - { name: form.type }
 
     darvin_user.user.manager:
-        alias: darvin_user.user.manager.generic
-
-    darvin_user.user.manager.generic:
-        class: '%darvin_user.user.manager.generic.class%'
+        class: '%darvin_user.user.manager.class%'
         arguments:
             - '@security.token_storage'
             - '@security.password_encoder'

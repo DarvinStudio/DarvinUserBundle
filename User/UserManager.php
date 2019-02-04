@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
- * @copyright Copyright (c) 2015, Darvin Studio
+ * @copyright Copyright (c) 2015-2019, Darvin Studio
  * @link      https://www.darvin-studio.ru
  *
  * For the full copyright and license information, please view the LICENSE
@@ -15,9 +15,9 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * Generic user manager
+ * User manager
  */
-class GenericUserManager implements UserManagerInterface
+class UserManager implements UserManagerInterface
 {
     /**
      * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
@@ -42,7 +42,7 @@ class GenericUserManager implements UserManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getCurrentUser()
+    public function getCurrentUser(): ?BaseUser
     {
         $token = $this->authTokenStorage->getToken();
 
@@ -52,13 +52,17 @@ class GenericUserManager implements UserManagerInterface
 
         $user = $token->getUser();
 
-        return $user instanceof BaseUser ? $user : null;
+        if ($user instanceof BaseUser) {
+            return $user;
+        }
+
+        return null;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function updatePassword(BaseUser $user)
+    public function updatePassword(BaseUser $user): bool
     {
         $plainPassword = $user->getPlainPassword();
 
