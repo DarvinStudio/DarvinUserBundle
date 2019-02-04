@@ -14,7 +14,7 @@ use Darvin\UserBundle\Entity\BaseUser;
 use Darvin\UserBundle\Repository\UserRepository;
 use Darvin\UserBundle\Security\OAuth\Exception\BadResponseException;
 use Darvin\UserBundle\Security\OAuth\Response\DarvinAuthResponse;
-use Darvin\UserBundle\User\UserFactory;
+use Darvin\UserBundle\User\UserFactoryInterface;
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManager;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
@@ -41,7 +41,7 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface, UserProvider
     protected $tokenStorage;
 
     /**
-     * @var \Darvin\UserBundle\User\UserFactory
+     * @var \Darvin\UserBundle\User\UserFactoryInterface
      */
     protected $userFactory;
 
@@ -53,13 +53,13 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface, UserProvider
     /**
      * @param \Doctrine\ORM\EntityManager                                                         $em             Entity manager
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage   Authentication token storage
-     * @param \Darvin\UserBundle\User\UserFactory                                                 $userFactory    User factory
+     * @param \Darvin\UserBundle\User\UserFactoryInterface                                        $userFactory    User factory
      * @param \Darvin\UserBundle\Repository\UserRepository                                        $userRepository User entity repository
      */
     public function __construct(
         EntityManager $em,
         TokenStorageInterface $tokenStorage,
-        UserFactory $userFactory,
+        UserFactoryInterface $userFactory,
         UserRepository $userRepository
     ) {
         $this->em = $em;

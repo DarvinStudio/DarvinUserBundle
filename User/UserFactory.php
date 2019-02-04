@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
- * @copyright Copyright (c) 2015, Darvin Studio
+ * @copyright Copyright (c) 2015-2019, Darvin Studio
  * @link      https://www.darvin-studio.ru
  *
  * For the full copyright and license information, please view the LICENSE
@@ -10,10 +10,12 @@
 
 namespace Darvin\UserBundle\User;
 
+use Darvin\UserBundle\Entity\BaseUser;
+
 /**
  * User factory
  */
-class UserFactory
+class UserFactory implements UserFactoryInterface
 {
     /**
      * @var string
@@ -23,15 +25,15 @@ class UserFactory
     /**
      * @param string $userClass User entity class
      */
-    public function __construct($userClass)
+    public function __construct(string $userClass)
     {
         $this->userClass = $userClass;
     }
 
     /**
-     * @return \Darvin\UserBundle\Entity\BaseUser
+     * {@inheritDoc}
      */
-    public function createUser()
+    public function createUser(): BaseUser
     {
         $class = $this->userClass;
 

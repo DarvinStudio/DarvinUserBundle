@@ -11,7 +11,7 @@
 namespace Darvin\UserBundle\DataFixtures\ORM;
 
 use Darvin\UserBundle\Entity\BaseUser;
-use Darvin\UserBundle\User\UserFactory;
+use Darvin\UserBundle\User\UserFactoryInterface;
 use Darvin\Utils\DataFixtures\ORM\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -43,9 +43,9 @@ class LoadUserData extends AbstractFixture
     }
 
     /**
-     * @return \Darvin\UserBundle\User\UserFactory
+     * @return \Darvin\UserBundle\User\UserFactoryInterface
      */
-    private function getUserFactory(): UserFactory
+    private function getUserFactory(): UserFactoryInterface
     {
         return $this->container->get('darvin_user.user.factory');
     }

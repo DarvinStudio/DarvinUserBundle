@@ -14,7 +14,7 @@ use Darvin\UserBundle\Entity\BaseUser;
 use Darvin\UserBundle\Entity\PasswordResetToken;
 use Darvin\UserBundle\Form\Type\Security\PasswordResetType;
 use Darvin\UserBundle\Form\Type\Security\RegistrationType;
-use Darvin\UserBundle\User\UserFactory;
+use Darvin\UserBundle\User\UserFactoryInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -40,7 +40,7 @@ class SecurityFormFactory
     private $router;
 
     /**
-     * @var \Darvin\UserBundle\User\UserFactory
+     * @var \Darvin\UserBundle\User\UserFactoryInterface
      */
     private $userFactory;
 
@@ -53,14 +53,14 @@ class SecurityFormFactory
      * @param \Symfony\Component\Security\Http\Authentication\AuthenticationUtils $authenticationUtils Authentication utils
      * @param \Symfony\Component\Form\FormFactoryInterface                        $formFactory         Form factory
      * @param \Symfony\Component\Routing\RouterInterface                          $router              Router
-     * @param \Darvin\UserBundle\User\UserFactory                                 $userFactory         User factory
+     * @param \Darvin\UserBundle\User\UserFactoryInterface                        $userFactory         User factory
      * @param string                                                              $userClass           User entity class
      */
     public function __construct(
         AuthenticationUtils $authenticationUtils,
         FormFactoryInterface $formFactory,
         RouterInterface $router,
-        UserFactory $userFactory,
+        UserFactoryInterface $userFactory,
         $userClass
     ) {
         $this->authenticationUtils = $authenticationUtils;
