@@ -12,7 +12,7 @@ namespace Darvin\UserBundle\EventListener\Security;
 
 use Darvin\UserBundle\Event\UserEvent;
 use Darvin\UserBundle\Mailer\UserMailerInterface;
-use Darvin\UserBundle\Security\UserAuthenticator;
+use Darvin\UserBundle\Security\UserAuthenticatorInterface;
 
 /**
  * Registered security event listener
@@ -20,7 +20,7 @@ use Darvin\UserBundle\Security\UserAuthenticator;
 class RegisteredListener
 {
     /**
-     * @var \Darvin\UserBundle\Security\UserAuthenticator
+     * @var \Darvin\UserBundle\Security\UserAuthenticatorInterface
      */
     private $userAuthenticator;
 
@@ -35,11 +35,11 @@ class RegisteredListener
     private $publicFirewallName;
 
     /**
-     * @param \Darvin\UserBundle\Security\UserAuthenticator $userAuthenticator  User authenticator
-     * @param \Darvin\UserBundle\Mailer\UserMailerInterface $userMailer         User mailer
-     * @param string                                        $publicFirewallName Public firewall name
+     * @param \Darvin\UserBundle\Security\UserAuthenticatorInterface $userAuthenticator  User authenticator
+     * @param \Darvin\UserBundle\Mailer\UserMailerInterface          $userMailer         User mailer
+     * @param string                                                 $publicFirewallName Public firewall name
      */
-    public function __construct(UserAuthenticator $userAuthenticator, UserMailerInterface $userMailer, string $publicFirewallName)
+    public function __construct(UserAuthenticatorInterface $userAuthenticator, UserMailerInterface $userMailer, string $publicFirewallName)
     {
         $this->userAuthenticator = $userAuthenticator;
         $this->userMailer = $userMailer;

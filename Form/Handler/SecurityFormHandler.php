@@ -17,7 +17,7 @@ use Darvin\UserBundle\Event\UserEvent;
 use Darvin\UserBundle\Form\FormException;
 use Darvin\UserBundle\Form\Type\Security\PasswordResetType;
 use Darvin\UserBundle\Form\Type\Security\RegistrationType;
-use Darvin\UserBundle\Security\UserAuthenticator;
+use Darvin\UserBundle\Security\UserAuthenticatorInterface;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -49,7 +49,7 @@ class SecurityFormHandler
     private $roleConfig;
 
     /**
-     * @var \Darvin\UserBundle\Security\UserAuthenticator
+     * @var \Darvin\UserBundle\Security\UserAuthenticatorInterface
      */
     private $userAuthenticator;
 
@@ -63,7 +63,7 @@ class SecurityFormHandler
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher    Event dispatcher
      * @param \Darvin\Utils\Flash\FlashNotifierInterface                  $flashNotifier      Flash notifier
      * @param \Darvin\UserBundle\Configuration\RoleConfigurationInterface $roleConfig         Role configuration
-     * @param \Darvin\UserBundle\Security\UserAuthenticator               $userAuthenticator  User authenticator
+     * @param \Darvin\UserBundle\Security\UserAuthenticatorInterface      $userAuthenticator  User authenticator
      * @param string                                                      $publicFirewallName Public firewall name
      */
     public function __construct(
@@ -71,7 +71,7 @@ class SecurityFormHandler
         EventDispatcherInterface $eventDispatcher,
         FlashNotifierInterface $flashNotifier,
         RoleConfigurationInterface $roleConfig,
-        UserAuthenticator $userAuthenticator,
+        UserAuthenticatorInterface $userAuthenticator,
         $publicFirewallName
     ) {
         $this->em = $em;

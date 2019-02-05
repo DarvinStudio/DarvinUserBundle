@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 /**
  * User authenticator
  */
-class UserAuthenticator
+class UserAuthenticator implements UserAuthenticatorInterface
 {
     /**
      * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
@@ -33,8 +33,7 @@ class UserAuthenticator
     }
 
     /**
-     * @param \Darvin\UserBundle\Entity\BaseUser $user         User
-     * @param string                             $firewallName Firewall name
+     * {@inheritDoc}
      */
     public function authenticateUser(BaseUser $user, string $firewallName): void
     {
