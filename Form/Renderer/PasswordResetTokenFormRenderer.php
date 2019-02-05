@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
- * @copyright Copyright (c) 2015, Darvin Studio
+ * @copyright Copyright (c) 2015-2019, Darvin Studio
  * @link      https://www.darvin-studio.ru
  *
  * For the full copyright and license information, please view the LICENSE
@@ -40,22 +40,18 @@ class PasswordResetTokenFormRenderer
     }
 
     /**
-     * @param bool                                  $widget Whether to render widget
-     * @param \Symfony\Component\Form\FormInterface $form   Form
+     * @param bool                                       $partial Whether to render partial
+     * @param \Symfony\Component\Form\FormInterface|null $form    Form
      *
      * @return string
      */
-    public function renderRequestForm($widget = true, FormInterface $form = null)
+    public function renderRequestForm(bool $partial = true, ?FormInterface $form = null): string
     {
         if (empty($form)) {
             $form = $this->passwordResetTokenFormFactory->createRequestForm();
         }
 
-        $template = $widget
-            ? '@DarvinUser/password_reset_token/_request_form.html.twig'
-            : '@DarvinUser/password_reset_token/request.html.twig';
-
-        return $this->templating->render($template, [
+        return $this->templating->render(sprintf('@DarvinUser/password_reset_token/%srequest.html.twig', $partial ? '_' : ''), [
             'form' => $form->createView(),
         ]);
     }

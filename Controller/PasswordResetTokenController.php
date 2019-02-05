@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
  * @copyright Copyright (c) 2015-2019, Darvin Studio
@@ -10,6 +10,9 @@
 
 namespace Darvin\UserBundle\Controller;
 
+use Darvin\UserBundle\Form\Factory\PasswordResetTokenFormFactory;
+use Darvin\UserBundle\Form\Handler\PasswordResetTokenFormHandler;
+use Darvin\UserBundle\Form\Renderer\PasswordResetTokenFormRenderer;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Darvin\Utils\HttpFoundation\AjaxResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,7 +30,7 @@ class PasswordResetTokenController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function requestAction(Request $request)
+    public function requestAction(Request $request): Response
     {
         if ($this->isGranted(AuthenticatedVoter::IS_AUTHENTICATED_REMEMBERED)) {
             return $this->redirectToRoute($this->container->getParameter('darvin_user.already_logged_in_redirect_route'));
@@ -61,7 +64,7 @@ class PasswordResetTokenController extends AbstractController
             }
 
             return new AjaxResponse(
-                $this->renderView('@DarvinUser/password_reset_token/_request_submitted.html.twig', [
+                $this->renderView('@DarvinUser/password_reset_token/requested.html.twig', [
                     'password_reset_token' => $passwordResetToken,
                     'webmail_link'         => $webmailLink,
                 ]),
@@ -76,7 +79,7 @@ class PasswordResetTokenController extends AbstractController
     /**
      * @return \Darvin\UserBundle\Form\Factory\PasswordResetTokenFormFactory
      */
-    private function getPasswordResetTokenFormFactory()
+    private function getPasswordResetTokenFormFactory(): PasswordResetTokenFormFactory
     {
         return $this->get('darvin_user.password_reset_token.form.factory');
     }
@@ -84,7 +87,7 @@ class PasswordResetTokenController extends AbstractController
     /**
      * @return \Darvin\UserBundle\Form\Handler\PasswordResetTokenFormHandler
      */
-    private function getPasswordResetTokenFormHandler()
+    private function getPasswordResetTokenFormHandler(): PasswordResetTokenFormHandler
     {
         return $this->get('darvin_user.password_reset_token.form.handler');
     }
@@ -92,7 +95,7 @@ class PasswordResetTokenController extends AbstractController
     /**
      * @return \Darvin\UserBundle\Form\Renderer\PasswordResetTokenFormRenderer
      */
-    private function getPasswordResetTokenFormRenderer()
+    private function getPasswordResetTokenFormRenderer(): PasswordResetTokenFormRenderer
     {
         return $this->get('darvin_user.password_reset_token.form.renderer');
     }
@@ -100,7 +103,7 @@ class PasswordResetTokenController extends AbstractController
     /**
      * @return \WebmailLinker|null
      */
-    private function getWebmailLinker()
+    private function getWebmailLinker(): ?\WebmailLinker
     {
         if ($this->has('darvin_webmail_linker.linker')) {
             return $this->get('darvin_webmail_linker.linker');
