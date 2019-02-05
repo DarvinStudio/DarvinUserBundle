@@ -72,10 +72,16 @@ services:
             - '@security.password_encoder'
 
     darvin_user.user.repository:
-        class:   '%darvin_user.user.repository.class%'
-        factory: [ '@doctrine', getRepository ]
+        alias: '%darvin_user.user.repository.class%'
+
+    '%darvin_user.user.repository.class%':
+        class:  '%darvin_user.user.repository.class%'
+        public: false
         arguments:
+            - '@doctrine'
             - '%darvin_user.user_class%'
+        tags:
+            - { name: doctrine.repository_service }
 
     darvin_user.user.validator.user_exists_and_active:
         class: '%darvin_user.user.validator.user_exists_and_active.class%'

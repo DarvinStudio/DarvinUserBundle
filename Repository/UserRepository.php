@@ -11,13 +11,13 @@
 namespace Darvin\UserBundle\Repository;
 
 use Darvin\UserBundle\Entity\BaseUser;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
 /**
  * User repository
  */
-class UserRepository extends EntityRepository
+class UserRepository extends ServiceEntityRepository
 {
     /**
      * @return \Doctrine\ORM\QueryBuilder
