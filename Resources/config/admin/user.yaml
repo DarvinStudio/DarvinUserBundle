@@ -1,10 +1,12 @@
 searchable_fields:
+    - username
     - email
 sortable_fields:
-    email:   ~
-    enabled: ~
-    locked:  ~
-    roles:   ~
+    username: ~
+    email:    ~
+    enabled:  ~
+    locked:   ~
+    roles:    ~
 menu:
     position: 990
     colors:
@@ -21,6 +23,7 @@ view:
             edit_link:   ~
             delete_form: ~
         fields:
+            username: ~
             email:
                 widget: email_link
             enabled: ~
@@ -39,6 +42,8 @@ form:
             locked:  ~
     filter:
         fields:
+            username:
+                compare_strict: false
             email:
                 compare_strict: false
             enabled: ~
@@ -55,6 +60,9 @@ form:
                 options:
                     required: false
             email: ~
+            username:
+                options:
+                    required: false
             plainPassword:
                 type: password
             roles:
