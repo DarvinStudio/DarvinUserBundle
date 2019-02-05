@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
- * @copyright Copyright (c) 2015, Darvin Studio
+ * @copyright Copyright (c) 2015-2019, Darvin Studio
  * @link      https://www.darvin-studio.ru
  *
  * For the full copyright and license information, please view the LICENSE
@@ -36,9 +36,8 @@ class UserAuthenticator
      * @param \Darvin\UserBundle\Entity\BaseUser $user         User
      * @param string                             $firewallName Firewall name
      */
-    public function authenticateUser(BaseUser $user, $firewallName)
+    public function authenticateUser(BaseUser $user, string $firewallName): void
     {
-        $token = new UsernamePasswordToken($user, $user->getPassword(), $firewallName, $user->getRoles());
-        $this->authTokenStorage->setToken($token);
+        $this->authTokenStorage->setToken(new UsernamePasswordToken($user, $user->getPassword(), $firewallName, $user->getRoles()));
     }
 }
