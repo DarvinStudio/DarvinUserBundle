@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
- * @copyright Copyright (c) 2017, Darvin Studio
+ * @copyright Copyright (c) 2017-2019, Darvin Studio
  * @link      https://www.darvin-studio.ru
  *
  * For the full copyright and license information, please view the LICENSE
@@ -12,11 +12,13 @@ namespace Darvin\UserBundle\Twig\Extension;
 
 use Darvin\UserBundle\Form\Renderer\SecurityFormRenderer;
 use Darvin\UserBundle\Form\Type\Security\LoginType;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
 /**
  * Security Twig extension
  */
-class SecurityExtension extends \Twig_Extension
+class SecurityExtension extends AbstractExtension
 {
     /**
      * @var \Darvin\UserBundle\Form\Renderer\SecurityFormRenderer
@@ -34,32 +36,32 @@ class SecurityExtension extends \Twig_Extension
     /**
      * {@inheritdoc}
      */
-    public function getFunctions()
+    public function getFunctions(): iterable
     {
-        return [
-            new \Twig_SimpleFunction('security_login_form', [$this, 'renderLoginForm'], [
+        foreach ([
+            'security_login_form'        => 'renderLoginForm',
+            'security_registration_form' => 'renderRegistrationForm',
+        ] as $name => $method) {
+            yield new TwigFunction($name, [$this, $method], [
                 'is_safe' => ['html'],
-            ]),
-            new \Twig_SimpleFunction('security_registration_form', [$this, 'renderRegistrationForm'], [
-                'is_safe' => ['html'],
-            ]),
-        ];
+            ]);
+        }
     }
 
     /**
-     * @param string $template    Template
-     * @param string $actionRoute Action route
-     * @param string $type        Form type
-     * @param string $name        Form name
+     * @param string      $template    Template
+     * @param string      $actionRoute Action route
+     * @param string      $type        Form type
+     * @param string|null $name        Form name
      *
      * @return string
      */
     public function renderLoginForm(
-        $template = '@DarvinUser/security/_login.html.twig',
-        $actionRoute = 'darvin_user_security_login_check',
-        $type = LoginType::class,
-        $name = null
-    ) {
+        string $template    = '@DarvinUser/security/_login.html.twig',
+        string $actionRoute = 'darvin_user_security_login_check',
+        string $type        = LoginType::class,
+        ?string $name       = null
+    ): string {
         return $this->securityFormRenderer->renderLoginForm(true, $actionRoute, $type, $name, $template);
     }
 
@@ -68,7 +70,7 @@ class SecurityExtension extends \Twig_Extension
      *
      * @return string
      */
-    public function renderRegistrationForm($template = '@DarvinUser/security/_register.html.twig')
+    public function renderRegistrationForm(string $template = '@DarvinUser/security/_register.html.twig'): string
     {
         return $this->securityFormRenderer->renderRegistrationForm(true, null, $template);
     }
