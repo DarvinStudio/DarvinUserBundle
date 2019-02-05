@@ -42,11 +42,8 @@ class UserMailer implements UserMailerInterface
     /**
      * {@inheritDoc}
      */
-    public function sendConfirmationCodeEmails(
-        BaseUser $user,
-        string $subject = 'email.confirmation.subject',
-        string $template = '@DarvinUser/email/confirmation.html.twig'
-    ): int {
+    public function sendConfirmationEmails(BaseUser $user, string $subject = 'email.confirmation.subject', string $template = '@DarvinUser/email/confirmation.html.twig'): int
+    {
         if (empty($this->genericMailer)) {
             return 0;
         }
@@ -60,11 +57,8 @@ class UserMailer implements UserMailerInterface
     /**
      * {@inheritDoc}
      */
-    public function sendRegisteredEmails(
-        BaseUser $user,
-        string $subject = 'email.registered.subject',
-        string $template = '@DarvinUser/email/registered.html.twig'
-    ): int {
+    public function sendRegisteredEmails(BaseUser $user, string $subject = 'email.registered.subject', string $template = '@DarvinUser/email/registered.html.twig'): int
+    {
         if (empty($this->genericMailer) || empty($this->userConfig)) {
             return 0;
         }

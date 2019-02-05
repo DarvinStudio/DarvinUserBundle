@@ -24,7 +24,7 @@ interface UserMailerInterface
      *
      * @return int
      */
-    public function sendConfirmationCodeEmails(BaseUser $user, string $subject = 'email.confirmation.subject', string $template = '@DarvinUser/email/confirmation.html.twig'): int;
+    public function sendConfirmationEmails(BaseUser $user, string $subject = 'email.confirmation.subject', string $template = '@DarvinUser/email/confirmation.html.twig'): int;
 
     /**
      * @param \Darvin\UserBundle\Entity\BaseUser $user     User

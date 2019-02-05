@@ -61,7 +61,7 @@ class RegisteredListener
             return;
         }
         if (null !== $user->getRegistrationConfirmToken()->getId()) {
-            $this->userMailer->sendConfirmationCodeEmails($user);
+            $this->userMailer->sendConfirmationEmails($user);
         }
     }
 }
