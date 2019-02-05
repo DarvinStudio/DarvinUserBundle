@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
  * @copyright Copyright (c) 2015-2019, Darvin Studio
@@ -13,6 +13,10 @@ namespace Darvin\UserBundle\Controller;
 use Darvin\UserBundle\Entity\PasswordResetToken;
 use Darvin\UserBundle\Event\SecurityEvents;
 use Darvin\UserBundle\Event\UserEvent;
+use Darvin\UserBundle\Form\Factory\Security\SecurityFormFactory;
+use Darvin\UserBundle\Form\Handler\SecurityFormHandler;
+use Darvin\UserBundle\Form\Renderer\SecurityFormRenderer;
+use Darvin\UserBundle\Repository\PasswordResetTokenRepository;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Darvin\Utils\HttpFoundation\AjaxResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,11 +30,38 @@ use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 class SecurityController extends AbstractController
 {
     /**
+     * @param string|null $code Code
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function confirmRegistrationAction(?string $code = null): Response
+    {
+        if (null === $code) {
+            return $this->render('@DarvinUser/user/confirm_registration/sent.html.twig');
+        }
+
+        $user = $this->get('darvin_user.user.repository')->getByRegistrationToken($code);
+
+        if (empty($user)) {
+            throw $this->createNotFoundException('security.confirm_registration.invalid_code_error');
+        }
+
+        $user->getRegistrationConfirmToken()->setId(null);
+        $user->setEnabled(true);
+        $this->getDoctrine()->getManager()->flush();
+
+        $this->get('event_dispatcher')->dispatch(SecurityEvents::REGISTRATION_CONFIRMED, new UserEvent($user));
+
+        return $this->render('@DarvinUser/user/confirm_registration/success.html.twig');
+    }
+
+    /**
      * @param \Symfony\Component\HttpFoundation\Request $request Request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function loginAction(Request $request)
+    public function loginAction(Request $request): Response
     {
         if ($this->isGranted(AuthenticatedVoter::IS_AUTHENTICATED_REMEMBERED)) {
             return $this->redirectToRoute($this->container->getParameter('darvin_user.already_logged_in_redirect_route'));
@@ -44,7 +75,7 @@ class SecurityController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function registerAction(Request $request)
+    public function registerAction(Request $request): Response
     {
         if ($this->isGranted(AuthenticatedVoter::IS_AUTHENTICATED_REMEMBERED)) {
             return $this->redirectToRoute($this->container->getParameter('darvin_user.already_logged_in_redirect_route'));
@@ -84,7 +115,7 @@ class SecurityController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function resetPasswordAction(Request $request)
+    public function resetPasswordAction(Request $request): Response
     {
         if ($this->isGranted(AuthenticatedVoter::IS_AUTHENTICATED_REMEMBERED)) {
             return $this->redirectToRoute($this->container->getParameter('darvin_user.already_logged_in_redirect_route'));
@@ -92,7 +123,7 @@ class SecurityController extends AbstractController
 
         $widget = $request->isXmlHttpRequest();
 
-        $passwordResetToken = $this->getPasswordResetToken($request->query->get('token'));
+        $passwordResetToken = $this->getPasswordResetToken($request->query->get('token', ''));
 
         $form = $this->getSecurityFormFactory()->createPasswordResetForm($passwordResetToken)->handleRequest($request);
 
@@ -117,33 +148,13 @@ class SecurityController extends AbstractController
             : $this->redirect($url);
     }
 
-    public function confirmRegistrationAction($code = null)
-    {
-        if ($code == null) {
-            return $this->render('@DarvinUser/user/confirmation/confirm_email_sent.html.twig');
-        }
-
-        $user = $this->get('darvin_user.user.repository')->getByRegistrationToken($code);
-        if (!$user) {
-            throw $this->createNotFoundException('security.confirm_registration.invalid_code_error');
-        }
-
-        $user->getRegistrationConfirmToken()->setId(null);
-        $user->setEnabled(true);
-        $this->getDoctrine()->getManager()->flush();
-
-        $this->get('event_dispatcher')->dispatch(SecurityEvents::REGISTRATION_CONFIRMED, new UserEvent($user));
-
-        return $this->render('@DarvinUser/User/confirmation/confirmation_success.html.twig');
-    }
-
     /**
      * @param string $base64EncodedId Base64-encoded password reset token ID
      *
      * @return \Darvin\UserBundle\Entity\PasswordResetToken
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    private function getPasswordResetToken($base64EncodedId)
+    private function getPasswordResetToken(string $base64EncodedId): PasswordResetToken
     {
         $passwordResetToken = $this->getPasswordResetTokenRepository()->getOneNonExpiredByBase64EncodedId($base64EncodedId);
 
@@ -159,7 +170,7 @@ class SecurityController extends AbstractController
     /**
      * @return \Darvin\UserBundle\Repository\PasswordResetTokenRepository
      */
-    private function getPasswordResetTokenRepository()
+    private function getPasswordResetTokenRepository(): PasswordResetTokenRepository
     {
         return $this->getDoctrine()->getRepository(PasswordResetToken::class);
     }
@@ -167,7 +178,7 @@ class SecurityController extends AbstractController
     /**
      * @return \Darvin\UserBundle\Form\Factory\Security\SecurityFormFactory
      */
-    private function getSecurityFormFactory()
+    private function getSecurityFormFactory(): SecurityFormFactory
     {
         return $this->get('darvin_user.security.form.factory.common');
     }
@@ -175,7 +186,7 @@ class SecurityController extends AbstractController
     /**
      * @return \Darvin\UserBundle\Form\Handler\SecurityFormHandler
      */
-    private function getSecurityFormHandler()
+    private function getSecurityFormHandler(): SecurityFormHandler
     {
         return $this->get('darvin_user.security.form.handler');
     }
@@ -183,7 +194,7 @@ class SecurityController extends AbstractController
     /**
      * @return \Darvin\UserBundle\Form\Renderer\SecurityFormRenderer
      */
-    private function getSecurityFormRenderer()
+    private function getSecurityFormRenderer(): SecurityFormRenderer
     {
         return $this->get('darvin_user.security.form.renderer');
     }

@@ -10,10 +10,10 @@ password_reset_token:
         user_email: E-mail
 security:
     confirm_registration:
-        code_sent:
+        invalid_code_error: 'Non Valide Code De Confirmation'
+        sent:
             text: 'Le Message A Été Envoyé à Votre adresse Email. Suivez les Instructions pour Terminer l''Enregistrement.'
             title: 'Fin de l''Enregistrement'
-        invalid_code_error: 'Non Valide Code De Confirmation'
         success:
             text: 'Vous Compte A Été Confirmé. Je Vous remercie pour l''Enregistrement.'
             title: 'L''Enregistrement Est Terminé'
