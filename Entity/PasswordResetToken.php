@@ -23,7 +23,7 @@ class PasswordResetToken
     /**
      * @var string
      *
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\Column(unique=true)
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Id
      */

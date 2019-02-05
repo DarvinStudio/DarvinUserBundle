@@ -22,7 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
 class RegistrationConfirmToken
 {
     /**
-     * @ORM\Column(type="string", unique=true, nullable=true)
+     * @ORM\Column(unique=true, nullable=true)
      * @ORM\GeneratedValue(strategy="UUID")
      */
     protected $id;

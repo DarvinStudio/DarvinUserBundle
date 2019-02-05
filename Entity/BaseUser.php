@@ -62,21 +62,21 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column
      */
     protected $password;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column
      */
     protected $salt;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\Column(unique=true)
      *
      * @Assert\Email
      * @Assert\NotBlank
