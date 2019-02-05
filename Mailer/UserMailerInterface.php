@@ -24,11 +24,7 @@ interface UserMailerInterface
      *
      * @return int
      */
-    public function sendConfirmationCodeEmails(
-        BaseUser $user,
-        string $subject = 'email.confirmation.subject',
-        string $template = '@DarvinUser/email/user/confirmation_code.html.twig'
-    ): int;
+    public function sendConfirmationCodeEmails(BaseUser $user, string $subject = 'email.confirmation.subject', string $template = '@DarvinUser/email/confirmation.html.twig'): int;
 
     /**
      * @param \Darvin\UserBundle\Entity\BaseUser $user     User
@@ -37,9 +33,5 @@ interface UserMailerInterface
      *
      * @return int
      */
-    public function sendRegisteredEmails(
-        BaseUser $user,
-        string $subject = 'email.registered.subject',
-        string $template = '@DarvinUser/email/user/created.html.twig'
-    ): int;
+    public function sendRegisteredEmails(BaseUser $user, string $subject = 'email.registered.subject', string $template = '@DarvinUser/email/registered.html.twig'): int;
 }
