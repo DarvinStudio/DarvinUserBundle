@@ -81,7 +81,7 @@ class DarvinAuthUserProvider implements OAuthAwareUserProviderInterface, UserPro
             throw new UsernameNotFoundException($response->getError());
         }
 
-        $user = $this->getUser($response->getNickname());
+        $user = $this->getUser($response->getEmail());
 
         if (empty($user)) {
             $user = $this->createUser($response);
@@ -165,10 +165,6 @@ class DarvinAuthUserProvider implements OAuthAwareUserProviderInterface, UserPro
      */
     protected function getUser(?string $email): ?BaseUser
     {
-        if (empty($email)) {
-            return null;
-        }
-
-        return $this->userRepository->findOneBy(['email' => $email]);
+        return $this->userRepository->provideUser($email);
     }
 }
