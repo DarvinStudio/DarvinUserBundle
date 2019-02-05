@@ -78,6 +78,22 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param string $username Username
+     *
+     * @return string[]
+     */
+    public function getSimilarUsernames(string $username): array
+    {
+        $qb = $this->createDefaultQueryBuilder();
+        $qb
+            ->select('o.username')
+            ->andWhere($qb->expr()->like('o.username', ':username'))
+            ->setParameter('username', $username.'%');
+
+        return array_column($qb->getQuery()->getScalarResult(), 'username');
+    }
+
+    /**
      * @param string $email Email
      *
      * @return bool
