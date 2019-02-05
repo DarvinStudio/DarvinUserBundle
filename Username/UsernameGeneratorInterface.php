@@ -17,8 +17,9 @@ interface UsernameGeneratorInterface
 {
     /**
      * @param string|null $source Source
+     * @param mixed|null  $userId User ID
      *
      * @return string|null
      */
-    public function generateUsername(?string $source): ?string;
+    public function generateUsername(?string $source, $userId = null): ?string;
 }

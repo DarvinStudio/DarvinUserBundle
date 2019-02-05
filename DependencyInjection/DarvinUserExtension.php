@@ -37,6 +37,7 @@ class DarvinUserExtension extends Extension implements PrependExtensionInterface
             'password_reset_token',
             'security',
             'user',
+            'username',
 
             'admin'                       => ['bundle' => 'DarvinAdminBundle'],
 

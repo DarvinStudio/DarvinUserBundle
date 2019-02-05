@@ -1,0 +1,24 @@
+parameters:
+    darvin_user.username.generate_event_subscriber.class: Darvin\UserBundle\EventListener\GenerateUsernameSubscriber
+
+    darvin_user.username.generator.class: Darvin\UserBundle\Username\UsernameGenerator
+
+services:
+    _defaults:
+        public: true
+
+    darvin_user.username.generate_event_subscriber:
+        class:  '%darvin_user.username.generate_event_subscriber.class%'
+        public: false
+        arguments:
+            - '@darvin_user.username.generator.provider'
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    darvin_user.username.generator:
+        class: '%darvin_user.username.generator.class%'
+        arguments:
+            - '@darvin_utils.transliteratable.transliterator'
+            - '@darvin_user.user.repository'
+        tags:
+            - { name: darvin_utils.providable }

@@ -41,7 +41,7 @@ class UsernameGenerator implements UsernameGeneratorInterface
     /**
      * {@inheritDoc}
      */
-    public function generateUsername(?string $source): ?string
+    public function generateUsername(?string $source, $userId = null): ?string
     {
         if (empty($source)) {
             return null;
@@ -53,7 +53,7 @@ class UsernameGenerator implements UsernameGeneratorInterface
             return null;
         }
 
-        $similar = $this->userRepository->getSimilarUsernames($username);
+        $similar = $this->userRepository->getSimilarUsernames($username, $userId);
 
         if (empty($similar)) {
             return $username;

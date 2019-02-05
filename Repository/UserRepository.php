@@ -78,17 +78,22 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param string $username Username
+     * @param string     $username Username
+     * @param mixed|null $userId   User ID
      *
      * @return string[]
      */
-    public function getSimilarUsernames(string $username): array
+    public function getSimilarUsernames(string $username, $userId = null): array
     {
         $qb = $this->createDefaultQueryBuilder();
         $qb
             ->select('o.username')
             ->andWhere($qb->expr()->like('o.username', ':username'))
             ->setParameter('username', $username.'%');
+
+        if (!empty($userId)) {
+            $this->addNotIdFilter($qb, $userId);
+        }
 
         return array_column($qb->getQuery()->getScalarResult(), 'username');
     }
@@ -142,6 +147,19 @@ class UserRepository extends ServiceEntityRepository
     protected function addNonLockedFilter(QueryBuilder $qb)
     {
         $qb->andWhere('o.locked = :locked')->setParameter('locked', false);
+
+        return $this;
+    }
+
+    /**
+     * @param \Doctrine\ORM\QueryBuilder $qb Query builder
+     * @param mixed                      $id ID
+     *
+     * @return UserRepository
+     */
+    protected function addNotIdFilter(QueryBuilder $qb, $id): UserRepository
+    {
+        $qb->andWhere('o.id != :id')->setParameter('id', $id);
 
         return $this;
     }
