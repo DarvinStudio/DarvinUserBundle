@@ -28,7 +28,7 @@ class PasswordResetType extends AbstractType
     {
         $builder
             ->add('plainPassword', PasswordType::class, [
-                'label' => 'security.action.reset_password.plain_password',
+                'label' => 'security.reset_password.plain_password',
             ])
             ->add('title', AntiSpamType::class);
     }

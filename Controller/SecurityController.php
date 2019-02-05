@@ -58,7 +58,7 @@ class SecurityController extends AbstractController
             return new Response($this->getSecurityFormRenderer()->renderRegistrationForm($widget, $form));
         }
 
-        $successMessage = 'security.action.register.success';
+        $successMessage = 'security.register.success';
 
         $needConfirm = $this->container->getParameter('darvin_user.confirm_registration');
         if (!$this->getSecurityFormHandler()->handleRegistrationForm($form, !$widget, $successMessage, $needConfirm)) {
@@ -100,7 +100,7 @@ class SecurityController extends AbstractController
             return new Response($this->getSecurityFormRenderer()->renderPasswordResetForm($form, $widget));
         }
 
-        $successMessage = 'security.action.reset_password.success';
+        $successMessage = 'security.reset_password.success';
 
         if (!$this->getSecurityFormHandler()->handlePasswordResetForm($form, !$widget, $successMessage)) {
             $html = $this->getSecurityFormRenderer()->renderPasswordResetForm($form, $widget);
@@ -125,7 +125,7 @@ class SecurityController extends AbstractController
 
         $user = $this->get('darvin_user.user.repository')->getByRegistrationToken($code);
         if (!$user) {
-            throw $this->createNotFoundException('security.action.confirm_registration.invalid_code_error');
+            throw $this->createNotFoundException('security.confirm_registration.invalid_code_error');
         }
 
         $user->getRegistrationConfirmToken()->setId(null);
