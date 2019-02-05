@@ -1,64 +1,57 @@
 password_reset_token:
-    action:
-        request:
-            check_mail: 'التحقق من البريد:'
-            link: 'نسيت كلمة المرور ؟ '
-            submit: 'الحصول على رابط'
-            submitted: 'الرابط تم إرسالها إلى البريد الإلكتروني %email%.'
-            success: 'رابط إرسالها بنجاح'
-            title: 'الحصول على رابط إعادة تعيين كلمة المرور'
-            user_email: 'البريد الإلكتروني'
-    email:
-        requested:
-            subject: 'رابط إعادة تعيين كلمة المرور'
-            text: >
-                <p>من أجل إعادة تعيين كلمة المرور استخدام الرابط <a href="%url%">%url%</a>.</p>
-                <p>الرابط سوف تكون منتهية الصلاحية في %expire_at%.</p>'
+    request:
+        check_mail: 'التحقق من البريد:'
+        link: 'نسيت كلمة المرور ؟ '
+        submit: 'الحصول على رابط'
+        submitted: 'الرابط تم إرسالها إلى البريد الإلكتروني %email%.'
+        success: 'رابط إرسالها بنجاح'
+        title: 'الحصول على رابط إعادة تعيين كلمة المرور'
+        user_email: 'البريد الإلكتروني'
 security:
-    action:
-        login:
-            darvin_auth: 'تسجيل الدخول باستخدام مصادقة دارفين'
-            email: 'البريد الإلكتروني'
-            link: 'تسجيل الدخول'
-            password: 'كلمة المرور'
-            remember_me: 'تذكر لي'
-            submit: 'تسجيل الدخول'
-            title: 'تسجيل الدخول'
-        logout:
-            link: 'تسجيل الخروج'
-        register:
-            link: تسجيل
-            submit: تسجيل
-            success: 'الحساب بنجاح إنشاء'
-            title: التسجيل
-        reset_password:
-            plain_password: 'كلمة المرور الجديدة'
-            submit: 'تغيير كلمة المرور'
-            success: 'كلمة المرور بنجاح تغيرت'
-            title: 'إعادة تعيين كلمة المرور'
-        confirm_registration:
-            invalid_code_error: رمز التأكيد غير صالح
-            code_sent:
-                title: نهاية التسجيل
-                text: تم إرسال الرسالة إلى بريدك الإلكتروني. يرجى اتباع التعليمات لإكمال التسجيل.
-            success:
-                title: تم إنهاء التسجيل
-                text: تم تأكيد حسابك. شكرا للتسجيل.
-    email:
-        confirmation:
-            subject: تأكيد التسجيل
-            text: إكمال التسجيل، انقر على <"%a href="%url> هنا </a> أو انسخ ٪url٪ هذا إلى المتصفح.
+    confirm_registration:
+        code_sent:
+            text: 'الرسالة تم إرسالها إلى البريد الإلكتروني الخاص بك. يرجى اتباع التعليمات لإكمال التسجيل.'
+            title: 'نهاية التسجيل'
+        invalid_code_error: 'صالح رمز التأكيد'
+        success:
+            text: 'حسابك قد تم تأكيده. شكرا لك على التسجيل.'
+            title: 'التسجيل انتهى'
+    login:
+        darvin_auth: 'تسجيل الدخول باستخدام مصادقة دارفين'
+        link: 'تسجيل الدخول'
+        password: 'كلمة المرور'
+        remember_me: 'تذكر لي'
+        submit: 'تسجيل الدخول'
+        title: 'تسجيل الدخول'
+        username: 'اسم المستخدم أو البريد الإلكتروني'
+    logout:
+        link: 'تسجيل الخروج'
+    register:
+        link: تسجيل
+        submit: تسجيل
+        success: 'الحساب بنجاح إنشاء'
+        title: التسجيل
+    reset_password:
+        plain_password: 'كلمة المرور الجديدة'
+        submit: 'تغيير كلمة المرور'
+        success: 'كلمة المرور بنجاح تغيرت'
+        title: 'إعادة تعيين كلمة المرور'
 user:
-    action:
-        profile:
-            link: 'تعديل الملف الشخصي'
-            submit: 'حفظ الملف'
-            success: 'الملف الشخصي حفظها بنجاح'
-            title: 'التغيير الشخصي'
-    email:
-        created:
-            subject: 'مستخدم جديد'
-            user: المستخدم
     entity:
         email: 'البريد الإلكتروني'
         plain_password: 'كلمة المرور'
+    profile:
+        link: 'تعديل الملف الشخصي'
+        submit: 'حفظ الملف'
+        success: 'الملف الشخصي حفظها بنجاح'
+        title: 'التغيير الشخصي'
+email:
+    confirmation:
+        subject: 'تأكيد التسجيل'
+        text: 'لاستكمال التسجيل فقط اضغط %url%"&gt;هنا</a> أو نسخ هذا %url% إلى المتصفح.'
+    password_reset:
+        subject: 'رابط إعادة تعيين كلمة المرور'
+        text: "<p>من أجل إعادة تعيين كلمة المرور استخدام الرابط %url%\"&gt;%url%</a>.</p> <p>الرابط سوف تكون منتهية الصلاحية في %expire_at%.</p>\n"
+    registered:
+        subject: 'مستخدم جديد'
+        user: المستخدم

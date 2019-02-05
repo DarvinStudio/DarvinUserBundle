@@ -2,7 +2,7 @@ configuration:
     darvin_user:
         parameter:
             notification_emails: 电子邮件通知
-        title: '"用户"模块结构'
+        title: 用户
 entity_name:
     multiple:
         user: 用户
@@ -34,3 +34,4 @@ user:
         locked: 锁定
         plain_password: 密码
         roles: 角色
+        username: 用户名

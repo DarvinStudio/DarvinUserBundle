@@ -2,7 +2,7 @@ configuration:
     darvin_user:
         parameter:
             notification_emails: 'البريد الإلكتروني الإخطارات'
-        title: '"المستخدمين" وحدة التكوين'
+        title: المستخدمين
 entity_name:
     multiple:
         user: المستخدمين
@@ -34,3 +34,4 @@ user:
         locked: مؤمن
         plain_password: 'كلمة المرور'
         roles: أدوار
+        username: 'اسم المستخدم'

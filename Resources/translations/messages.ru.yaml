@@ -1,69 +1,64 @@
 User account is disabled.: Учетная запись не активна
 
 password_reset_token:
-    action:
-        request:
-            check_mail: Проверить почту:
-            link:       Забыли пароль?
-            submit:     Получить ссылку
-            submitted:  Ссылка отправлена на email %email%.
-            success:    Ссылка успешно отправлена
-            title:      Получить ссылку для сброса пароля
-            user_email: Email
-    email:
-        requested:
-            subject: Ссылка для сброса пароля
-            text: >
-                <p>Для сброса пароля перейдите по ссылке <a href="%url%">%url%</a>.</p>
-                <p>Время действия ссылки - до %expire_at%.</p>
+    request:
+        check_mail: 'Проверить почту:'
+        link:       Забыли пароль?
+        submit:     Получить ссылку
+        submitted:  Ссылка отправлена на email %email%.
+        success:    Ссылка успешно отправлена
+        title:      Получить ссылку для сброса пароля
+        user_email: Email
 
 security:
-    action:
-        login:
-            darvin_auth: Войти с помощью Darvin Auth
-            link:        Войти
-            password:    Пароль
-            remember_me: Запомнить браузер
-            submit:      Войти
-            title:       Вход
-            username:    Имя пользователя или email
-        logout:
-            link: Выйти
-        register:
-            link:    Регистрация
-            submit:  Зарегистрироваться
-            success: Вы были успешно зарегистрированы
-            title:   Регистрация
-        reset_password:
-            plain_password: Новый пароль
-            submit:         Сменить пароль
-            success:        Пароль успешно изменен
-            title:          Сброс пароля
-        confirm_registration:
-            invalid_code_error: Невалидный код подтверждения
-            code_sent:
-                title: Завершение регистрации
-                text: На Вашу электронную почту было отправлено письмо с дальнейшими шагами по регистрации.
-            success:
-                title: Регистрация завершена
-                text: Ваш аккаунт подтвержден. Спасибо за регистрацию.
-    email:
-        confirmation:
-            subject: Подтвреждение регистрации
-            text: Для того, чтобы завершить регистрацию просто пройдите по <a href="%url%">ссылке</a>. Либо скопируйте %url% к себе в браузер.
-
+    confirm_registration:
+        code_sent:
+            text:  На Вашу электронную почту было отправлено письмо с дальнейшими шагами по регистрации.
+            title: Завершение регистрации
+        invalid_code_error: Невалидный код подтверждения
+        success:
+            text:  Ваш аккаунт подтвержден. Спасибо за регистрацию.
+            title: Регистрация завершена
+    login:
+        darvin_auth: Войти с помощью Darvin Auth
+        link:        Войти
+        password:    Пароль
+        remember_me: Запомнить браузер
+        submit:      Войти
+        title:       Вход
+        username:    Имя пользователя или email
+    logout:
+        link: Выйти
+    register:
+        link:    Регистрация
+        submit:  Зарегистрироваться
+        success: Вы были успешно зарегистрированы
+        title:   Регистрация
+    reset_password:
+        plain_password: Новый пароль
+        submit:         Сменить пароль
+        success:        Пароль успешно изменен
+        title:          Сброс пароля
 
 user:
-    action:
-        profile:
-            link:    Редактировать профиль
-            submit:  Сохранить профиль
-            success: Профиль успешно сохранен
-            title:   Изменить профиль
-    email:
-        created:
-            subject: Новый пользователь
-            user:    Пользователь
     entity:
         email:          Email
         plain_password: Пароль
+    profile:
+        link:    Редактировать профиль
+        submit:  Сохранить профиль
+        success: Профиль успешно сохранен
+        title:   Изменить профиль
+
+email:
+    confirmation:
+        subject: Подтвреждение регистрации
+        text:    Для того, чтобы завершить регистрацию, просто пройдите по <a href="%url%">ссылке</a>. Либо скопируйте %url% к себе в браузер.
+    password_reset:
+        subject: Ссылка для сброса пароля
+        text: >
+            <p>Для сброса пароля перейдите по ссылке <a href="%url%">%url%</a>.</p>
+            <p>Время действия ссылки - до %expire_at%.</p>
+    registered:
+        subject: Новый пользователь
+        user:    Пользователь
