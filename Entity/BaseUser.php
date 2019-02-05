@@ -23,6 +23,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Darvin\UserBundle\Repository\UserRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\Table(name="user")
+ *
+ * @Doctrine\UniqueEntity(fields={"username"})
  * @Doctrine\UniqueEntity(fields={"email"})
  */
 class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterface
@@ -77,6 +79,13 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
      * @var string
      *
      * @ORM\Column(unique=true)
+     */
+    protected $username;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(unique=true)
      *
      * @Assert\Email
      * @Assert\NotBlank
@@ -121,7 +130,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
      */
     public function __toString()
     {
-        return $this->email;
+        return $this->username;
     }
 
     /**
@@ -129,7 +138,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
      */
     public function isEqualTo(UserInterface $user)
     {
-        return $this->email === $user->getUsername();
+        return $this->username === $user->getUsername();
     }
 
     /**
@@ -139,6 +148,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     {
         return serialize([
             $this->id,
+            $this->username,
             $this->email,
             $this->password,
             $this->salt,
@@ -153,6 +163,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     {
         list(
             $this->id,
+            $this->username,
             $this->email,
             $this->password,
             $this->salt,
@@ -285,11 +296,23 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     }
 
     /**
+     * @param string $username username
+     *
+     * @return BaseUser
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getUsername()
     {
-        return $this->email;
+        return $this->username;
     }
 
     /**
