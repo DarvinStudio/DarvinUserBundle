@@ -99,6 +99,28 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param string|null $credential Credential
+     *
+     * @return \Darvin\UserBundle\Entity\BaseUser|null
+     */
+    public function provideUser(?string $credential): ?BaseUser
+    {
+        if (empty($credential)) {
+            return null;
+        }
+
+        $qb = $this->createDefaultQueryBuilder();
+        $qb
+            ->andWhere($qb->expr()->orX(
+                'o.username = :credential',
+                'o.email    = :credential'
+            ))
+            ->setParameter('credential', $credential);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    /**
      * @param string $email Email
      *
      * @return bool

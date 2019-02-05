@@ -17,6 +17,8 @@ parameters:
 
     darvin_user.security.user_authenticator.class: Darvin\UserBundle\Security\UserAuthenticator
 
+    darvin_user.security.user_provider.class: Darvin\UserBundle\Security\UserProvider
+
 services:
     _defaults:
         public: true
@@ -97,3 +99,9 @@ services:
         class: '%darvin_user.security.user_authenticator.class%'
         arguments:
             - '@security.token_storage'
+
+    darvin_user.security.user_provider:
+        public: false
+        class:  '%darvin_user.security.user_provider.class%'
+        arguments:
+            - '@darvin_user.user.repository'
