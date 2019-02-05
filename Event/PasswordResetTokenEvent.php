@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
- * @copyright Copyright (c) 2015, Darvin Studio
+ * @copyright Copyright (c) 2015-2019, Darvin Studio
  * @link      https://www.darvin-studio.ru
  *
  * For the full copyright and license information, please view the LICENSE
@@ -34,7 +34,7 @@ class PasswordResetTokenEvent extends Event
     /**
      * @return \Darvin\UserBundle\Entity\PasswordResetToken
      */
-    public function getPasswordResetToken()
+    public function getPasswordResetToken(): PasswordResetToken
     {
         return $this->passwordResetToken;
     }
