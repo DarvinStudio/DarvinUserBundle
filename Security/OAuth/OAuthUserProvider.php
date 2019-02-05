@@ -138,6 +138,7 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface, UserProvider
     protected function createUser(DarvinAuthResponse $response): BaseUser
     {
         return $this->userFactory->createUser()
+            ->setUsername($response->getRealName())
             ->setEmail($response->getNickname())
             ->setEnabled(true)
             ->setLocked(false)
