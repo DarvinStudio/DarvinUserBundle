@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Lev Semin <lev@darvin-studio.ru>
- * @copyright Copyright (c) 2015, Darvin Studio
+ * @copyright Copyright (c) 2015-2019, Darvin Studio
  * @link      https://www.darvin-studio.ru
  *
  * For the full copyright and license information, please view the LICENSE
@@ -10,51 +10,21 @@
 
 namespace Darvin\UserBundle\Security\OAuth\Exception;
 
-use Darvin\UserBundle\Security\OAuth\Response\DarvinAuthResponse;
-
 /**
  * Bad response exception
  */
 class BadResponseException extends \LogicException
 {
-    private $needClass;
-    private $getClass;
-
     /**
-     * BadResponseException constructor.
-     *
-     * @param object $object    Object
-     * @param string $needClass Need class
+     * @param mixed  $response      Response
+     * @param string $requiredClass Required response class
      */
-    public function __construct($object, $needClass = null)
+    public function __construct($response, string $requiredClass)
     {
-        $this->needClass = $needClass;
-        $this->getClass = is_object($object) ? get_class($object) : 'not object';
-
-        if (empty($needClass)) {
-            $this->needClass = DarvinAuthResponse::class;
-        }
-
         parent::__construct(sprintf(
-            "OAuth response must be instance of %s, %s given",
-            $this->needClass,
-            $this->getClass
+            'OAuth response must be instance of %s, %s given.',
+            $requiredClass,
+            is_object($response) ? get_class($response) : 'not object'
         ));
-    }
-
-    /**
-     * @return string
-     */
-    public function getNeedClass()
-    {
-        return $this->needClass;
-    }
-
-    /**
-     * @return string
-     */
-    public function getGetClass()
-    {
-        return $this->getClass;
     }
 }

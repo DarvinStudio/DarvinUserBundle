@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
  * @copyright Copyright (c) 2015-2019, Darvin Studio
@@ -8,12 +8,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Darvin\UserBundle\Security\User;
+namespace Darvin\UserBundle\Security\OAuth;
 
 use Darvin\UserBundle\Entity\BaseUser;
 use Darvin\UserBundle\Repository\UserRepository;
 use Darvin\UserBundle\Security\OAuth\Exception\BadResponseException;
-use Darvin\UserBundle\Security\OAuth\Response\DarvinAuthResponse;
 use Darvin\UserBundle\User\UserFactoryInterface;
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManager;
@@ -74,9 +73,9 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface, UserProvider
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
         if (!$response instanceof DarvinAuthResponse) {
-            throw new BadResponseException($response);
+            throw new BadResponseException($response, DarvinAuthResponse::class);
         }
-        if ($response->getError()) {
+        if ($response->hasError()) {
             $this->tokenStorage->setToken(null);
 
             throw new UsernameNotFoundException($response->getError());

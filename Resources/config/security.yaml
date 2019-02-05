@@ -9,13 +9,13 @@ parameters:
 
     darvin_user.security.form.renderer.class: Darvin\UserBundle\Form\Renderer\SecurityFormRenderer
 
+    darvin_user.security.oauth.user_provider.class: Darvin\UserBundle\Security\OAuth\OAuthUserProvider
+
     darvin_user.security.twig_extension.class: Darvin\UserBundle\Twig\Extension\SecurityExtension
 
     darvin_user.security.update_password_event_subscriber.class: Darvin\UserBundle\EventListener\UpdatePasswordSubscriber
 
     darvin_user.security.user_authenticator.class: Darvin\UserBundle\Security\UserAuthenticator
-
-    darvin_user.security.user_provider.oauth.class: Darvin\UserBundle\Security\User\OAuthUserProvider
 
 services:
     _defaults:
@@ -69,6 +69,14 @@ services:
             - '@darvin_utils.templating.provider'
             - '@translator'
 
+    darvin_user.security.oauth.user_provider:
+        class: '%darvin_user.security.oauth.user_provider.class%'
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@security.token_storage'
+            - '@darvin_user.user.factory'
+            - '@darvin_user.user.repository'
+
     darvin_user.security.twig_extension:
         class:  '%darvin_user.security.twig_extension.class%'
         public: false
@@ -89,11 +97,3 @@ services:
         class: '%darvin_user.security.user_authenticator.class%'
         arguments:
             - '@security.token_storage'
-
-    darvin_user.security.user_provider.oauth:
-        class: '%darvin_user.security.user_provider.oauth.class%'
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@security.token_storage'
-            - '@darvin_user.user.factory'
-            - '@darvin_user.user.repository'
