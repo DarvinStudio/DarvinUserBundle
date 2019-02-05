@@ -70,7 +70,7 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface, UserProvider
     /**
      * {@inheritdoc}
      */
-    public function loadUserByOAuthUserResponse(UserResponseInterface $response)
+    public function loadUserByOAuthUserResponse(UserResponseInterface $response): BaseUser
     {
         if (!$response instanceof DarvinAuthResponse) {
             throw new BadResponseException($response, DarvinAuthResponse::class);
@@ -84,9 +84,12 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface, UserProvider
         $user = $this->getUser($response->getNickname());
 
         if (empty($user)) {
-            $user = $this->createUser($response->getNickname());
+            $user = $this->createUser($response);
 
             $this->em->persist($user);
+            $this->em->flush();
+        }
+        if ($this->updateUser($user, $response)) {
             $this->em->flush();
         }
 
@@ -96,7 +99,7 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface, UserProvider
     /**
      * {@inheritdoc}
      */
-    public function loadUserByUsername($username)
+    public function loadUserByUsername($username): BaseUser
     {
         $user = $this->getUser($username);
 
@@ -110,7 +113,7 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface, UserProvider
     /**
      * {@inheritdoc}
      */
-    public function refreshUser(UserInterface $user)
+    public function refreshUser(UserInterface $user): BaseUser
     {
         if (!$this->supportsClass(ClassUtils::getClass($user))) {
             throw new UnsupportedUserException(sprintf('User class "%s" is not supported.', ClassUtils::getClass($user)));
@@ -122,34 +125,47 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface, UserProvider
     /**
      * {@inheritdoc}
      */
-    public function supportsClass($class)
+    public function supportsClass($class): bool
     {
         return BaseUser::class === $class || is_subclass_of($class, BaseUser::class);
     }
 
     /**
-     * @param string $username Username
+     * @param \Darvin\UserBundle\Security\OAuth\DarvinAuthResponse $response Response
      *
      * @return \Darvin\UserBundle\Entity\BaseUser
      */
-    protected function createUser($username)
+    protected function createUser(DarvinAuthResponse $response): BaseUser
     {
         return $this->userFactory->createUser()
-            ->setEmail($username)
+            ->setEmail($response->getNickname())
             ->setEnabled(true)
             ->setLocked(false)
             ->generateRandomPlainPassword();
     }
 
     /**
-     * @param string $username Username
+     * @param \Darvin\UserBundle\Entity\BaseUser                   $user     User
+     * @param \Darvin\UserBundle\Security\OAuth\DarvinAuthResponse $response Response
      *
-     * @return \Darvin\UserBundle\Entity\BaseUser
+     * @return bool Was user updated
      */
-    protected function getUser($username)
+    protected function updateUser(BaseUser $user, DarvinAuthResponse $response): bool
     {
-        return $this->userRepository->findOneBy([
-            'email' => $username,
-        ]);
+        return false;
+    }
+
+    /**
+     * @param string|null $email Email
+     *
+     * @return \Darvin\UserBundle\Entity\BaseUser|null
+     */
+    protected function getUser(?string $email): ?BaseUser
+    {
+        if (empty($email)) {
+            return null;
+        }
+
+        return $this->userRepository->findOneBy(['email' => $email]);
     }
 }
