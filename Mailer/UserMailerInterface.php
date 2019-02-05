@@ -26,7 +26,7 @@ interface UserMailerInterface
      */
     public function sendConfirmationCodeEmails(
         BaseUser $user,
-        string $subject = 'security.email.confirmation.subject',
+        string $subject = 'email.confirmation.subject',
         string $template = '@DarvinUser/email/user/confirmation_code.html.twig'
     ): int;
 
@@ -39,7 +39,7 @@ interface UserMailerInterface
      */
     public function sendRegisteredEmails(
         BaseUser $user,
-        string $subject = 'user.email.created.subject',
+        string $subject = 'email.registered.subject',
         string $template = '@DarvinUser/email/user/created.html.twig'
     ): int;
 }

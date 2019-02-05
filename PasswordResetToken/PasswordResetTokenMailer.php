@@ -46,7 +46,7 @@ class PasswordResetTokenMailer
      */
     public function sendRequestedPublicEmail(
         PasswordResetToken $passwordResetToken,
-        $subject = 'password_reset_token.email.requested.subject',
+        $subject = 'email.password_reset.subject',
         $template = '@DarvinUser/email/password_reset_token/requested.html.twig'
     ) {
         if (empty($this->mailer)) {
