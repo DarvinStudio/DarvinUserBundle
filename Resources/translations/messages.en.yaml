@@ -1,66 +1,62 @@
 password_reset_token:
     action:
         request:
-            check_mail: Check mail:
-            link:       Forgot password?
-            submit:     Get link
-            submitted:  Link was sent to email %email%.
-            success:    Link successfully sent
-            title:      Get password reset link
+            check_mail: 'Check Mail:'
+            link: 'Forgot Password?'
+            submit: 'Get Link'
+            submitted: 'Link Was Sent to Email %email%.'
+            success: 'Link Successfully Sent'
+            title: 'Get Password Reset Link'
             user_email: Email
     email:
         requested:
-            subject: Password reset link
-            text: >
-                <p>In order to reset password use link <a href="%url%">%url%</a>.</p>
-                <p>Link will be expired at %expire_at%.</p>
-
+            subject: 'Password Reset Link'
+            text: "<p>in Order to Reset Password Use Link <a Href=\"%url%\">%url%</a>.</p> <p>Link Will Be Expired at %expire_at%.</p>\n"
 security:
     action:
         login:
-            darvin_auth: Sign in using Darvin Auth
-            link:        Sign in
-            password:    Password
-            remember_me: Remember me
-            submit:      Sign in
-            title:       Sign in
-            username:    Username or email
+            darvin_auth: 'Sign in Using Darvin Auth'
+            link: 'Sign in'
+            password: Password
+            remember_me: 'Remember Me'
+            submit: 'Sign in'
+            title: 'Sign in'
+            username: 'Username or Email'
         logout:
-            link: Log out
+            link: 'Log Out'
         register:
-            link:    Register
-            submit:  Register
-            success: Account successfully created
-            title:   Registration
+            link: Register
+            submit: Register
+            success: 'Account Successfully Created'
+            title: Registration
         reset_password:
-            plain_password: New password
-            submit:         Change password
-            success:        Password successfully changed
-            title:          Password reset
+            plain_password: 'New Password'
+            submit: 'Change Password'
+            success: 'Password Successfully Changed'
+            title: 'Password Reset'
         confirm_registration:
-            invalid_code_error: Invalid confirmation code
+            invalid_code_error: 'Invalid Confirmation Code'
             code_sent:
-                title: End of registration
-                text: The message has been sent to your email. Please follow instruction to complete registration.
+                title: 'End of Registration'
+                text: 'The Message Has Been Sent to Your Email. Please Follow Instruction to Complete Registration.'
             success:
-                title: Registration is ended
-                text: You account has been confirmed. Thank you for registration.
+                title: 'Registration Is Ended'
+                text: 'You Account Has Been Confirmed. Thank You for Registration.'
     email:
         confirmation:
-            subject: Registration confirmation
-            text: To complete registration just click <a href="%url%">here</a> or copy this %url% to the browser.
-
+            subject: 'Registration Confirmation'
+            text: 'To Complete Registration Just Click <a Href="%url%">here</a> or Copy This %url% to the Browser.'
 user:
     action:
         profile:
-            link:    Edit profile
-            submit:  Save profile
-            success: Profile successfully saved
-            title:   Change profile
+            link: 'Edit Profile'
+            submit: 'Save Profile'
+            success: 'Profile Successfully Saved'
+            title: 'Change Profile'
     email:
         created:
-            subject: New user
-            user:    User
+            subject: 'New User'
+            user: User
     entity:
-        email:          Email
+        email: Email
         plain_password: Password

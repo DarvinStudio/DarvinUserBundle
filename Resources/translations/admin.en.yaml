@@ -1,39 +1,37 @@
 configuration:
     darvin_user:
         parameter:
-            notification_emails: Email for notifications
+            notification_emails: 'Email for Notifications'
         title: Users
-
 entity_name:
     multiple:
         user: Users
     single:
         user: User
-
 user:
     action:
         delete:
-            confirm: Confirm user removal
-            submit:  Remove user
-            success: User successfully removed
+            confirm: 'Confirm User Removal'
+            submit: 'Remove User'
+            success: 'User Successfully Removed'
         edit:
-            link:    Edit user
-            success: User successfully updated
-            title:   Edit user "%entity%"
+            link: 'Edit User'
+            success: 'User Successfully Updated'
+            title: 'Edit User "%entity%"'
         index:
-            link:  Users
+            link: Users
             title: Users
         new:
-            link:    Create user
-            success: User successfully created
-            title:   New user
+            link: 'Create User'
+            success: 'User Successfully Created'
+            title: 'New User'
         show:
-            link:  View user
-            title: User "%entity%"
+            link: 'View User'
+            title: 'User "%entity%"'
     entity:
-        email:          Email
-        enabled:        Enabled
-        locked:         Locked
+        email: Email
+        enabled: Enabled
+        locked: Locked
         plain_password: Password
-        roles:          Roles
-        username:       Username
+        roles: Roles
+        username: Username
