@@ -5,8 +5,9 @@ password_reset_token:
         check_mail: 'Проверить почту:'
         link:       Забыли пароль?
         submit:     Получить ссылку
-        submitted:  Ссылка отправлена на email %email%.
-        success:    Ссылка успешно отправлена
+        success:
+            message: Ссылка успешно отправлена
+            text:    Ссылка отправлена на email %email%.
         title:      Получить ссылку для сброса пароля
         user_email: Email
 

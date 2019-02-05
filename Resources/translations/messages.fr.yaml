@@ -3,8 +3,9 @@ password_reset_token:
         check_mail: 'Vérifier Le Courrier:'
         link: 'Mot De Passe Oublié?'
         submit: 'Obtenir Le Lien'
-        submitted: 'Le lien a Été Envoyé à l''Email %email%.'
-        success: 'Lien Envoyé Avec Succès'
+        success:
+            message: 'Lien Envoyé Avec Succès'
+            text: 'Le lien a Été Envoyé à l''Email %email%.'
         title: 'Obtenir Lien De Réinitialisation De Mot De Passe'
         user_email: E-mail
 security:

@@ -51,7 +51,7 @@ class PasswordResetTokenFormRenderer
             $form = $this->passwordResetTokenFormFactory->createRequestForm();
         }
 
-        return $this->templating->render(sprintf('@DarvinUser/password_reset_token/%srequest.html.twig', $partial ? '_' : ''), [
+        return $this->templating->render(sprintf('@DarvinUser/password_reset_token/request/%srequest.html.twig', $partial ? '_' : ''), [
             'form' => $form->createView(),
         ]);
     }

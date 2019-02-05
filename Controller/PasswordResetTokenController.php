@@ -44,7 +44,7 @@ class PasswordResetTokenController extends AbstractController
             return new Response($this->getPasswordResetTokenFormRenderer()->renderRequestForm($widget, $form));
         }
 
-        $successMessage = 'password_reset_token.request.success';
+        $successMessage = 'password_reset_token.request.success.message';
 
         $passwordResetToken = $this->getPasswordResetTokenFormHandler()->handleRequestForm($form, !$widget, $successMessage);
 
@@ -64,7 +64,7 @@ class PasswordResetTokenController extends AbstractController
             }
 
             return new AjaxResponse(
-                $this->renderView('@DarvinUser/password_reset_token/requested.html.twig', [
+                $this->renderView('@DarvinUser/password_reset_token/request/success.html.twig', [
                     'password_reset_token' => $passwordResetToken,
                     'webmail_link'         => $webmailLink,
                 ]),

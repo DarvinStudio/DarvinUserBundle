@@ -3,8 +3,9 @@ password_reset_token:
         check_mail: '检查邮件:'
         link: '忘了密码?'
         submit: 获得的链接
-        submitted: '链接发送以电子邮件 %email%中。'
-        success: 链接发送成功
+        success:
+            message: 链接发送成功
+            text: '链接发送以电子邮件 %email%中。'
         title: 获得密码重置链接
         user_email: 电子邮件
 security:

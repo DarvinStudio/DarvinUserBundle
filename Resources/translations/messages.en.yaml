@@ -3,8 +3,9 @@ password_reset_token:
         check_mail: 'Check Mail:'
         link: 'Forgot Password?'
         submit: 'Get Link'
-        submitted: 'Link Was Sent to Email %email%.'
-        success: 'Link Successfully Sent'
+        success:
+            message: 'Link Successfully Sent'
+            text: 'Link Was Sent to Email %email%.'
         title: 'Get Password Reset Link'
         user_email: Email
 security:
