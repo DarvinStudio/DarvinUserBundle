@@ -33,7 +33,7 @@ class RequestType extends AbstractType
     {
         $builder
             ->add('user_email', EmailType::class, [
-                'label'       => 'password_reset_token.action.request.user_email',
+                'label'       => 'password_reset_token.request.user_email',
                 'constraints' => [
                     new NotBlank(),
                     new Email(),

@@ -41,7 +41,7 @@ class PasswordResetTokenController extends AbstractController
             return new Response($this->getPasswordResetTokenFormRenderer()->renderRequestForm($widget, $form));
         }
 
-        $successMessage = 'password_reset_token.action.request.success';
+        $successMessage = 'password_reset_token.request.success';
 
         $passwordResetToken = $this->getPasswordResetTokenFormHandler()->handleRequestForm($form, !$widget, $successMessage);
 
