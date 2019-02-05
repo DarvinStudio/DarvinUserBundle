@@ -21,12 +21,12 @@ security:
     action:
         login:
             darvin_auth: Войти с помощью Darvin Auth
-            email:       Email
             link:        Войти
             password:    Пароль
             remember_me: Запомнить браузер
             submit:      Войти
             title:       Вход
+            username:    Имя пользователя или email
         logout:
             link: Выйти
         register:

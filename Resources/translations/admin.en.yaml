@@ -2,7 +2,7 @@ configuration:
     darvin_user:
         parameter:
             notification_emails: Email for notifications
-        title: The "Users" module configuration
+        title: Users
 
 entity_name:
     multiple:
@@ -36,3 +36,4 @@ user:
         locked:         Locked
         plain_password: Password
         roles:          Roles
+        username:       Username

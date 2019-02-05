@@ -19,12 +19,12 @@ security:
     action:
         login:
             darvin_auth: Sign in using Darvin Auth
-            email:       Email
             link:        Sign in
             password:    Password
             remember_me: Remember me
             submit:      Sign in
             title:       Sign in
+            username:    Username or email
         logout:
             link: Log out
         register:

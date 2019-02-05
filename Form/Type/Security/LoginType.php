@@ -28,7 +28,7 @@ class LoginType extends AbstractType
     {
         $builder
             ->add('_username', null, [
-                'label' => 'security.action.login.email',
+                'label' => 'security.action.login.username',
             ])
             ->add('_password', PasswordType::class, [
                 'label' => 'security.action.login.password',

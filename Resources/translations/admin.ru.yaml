@@ -2,7 +2,7 @@ configuration:
     darvin_user:
         parameter:
             notification_emails: Email для уведомлений
-        title: Настройки модуля «Пользователи»
+        title: Пользователи
 
 entity_name:
     multiple:
@@ -36,3 +36,4 @@ user:
         locked:         Заблокирован
         plain_password: Пароль
         roles:          Роли
+        username:       Имя пользователя
