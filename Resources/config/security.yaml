@@ -9,7 +9,7 @@ parameters:
 
     darvin_user.security.form.renderer.class: Darvin\UserBundle\Form\Renderer\SecurityFormRenderer
 
-    darvin_user.security.oauth.user_provider.class: Darvin\UserBundle\Security\OAuth\OAuthUserProvider
+    darvin_user.security.oauth.darvin_auth_user_provider.class: Darvin\UserBundle\Security\OAuth\DarvinAuthUserProvider
 
     darvin_user.security.twig_extension.class: Darvin\UserBundle\Twig\Extension\SecurityExtension
 
@@ -71,8 +71,8 @@ services:
             - '@darvin_utils.templating.provider'
             - '@translator'
 
-    darvin_user.security.oauth.user_provider:
-        class: '%darvin_user.security.oauth.user_provider.class%'
+    darvin_user.security.oauth.darvin_auth_user_provider:
+        class: '%darvin_user.security.oauth.darvin_auth_user_provider.class%'
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@security.token_storage'

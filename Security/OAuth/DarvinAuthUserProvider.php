@@ -25,9 +25,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 /**
- * OAuth user provider
+ * Darvin Auth user provider
  */
-class OAuthUserProvider implements OAuthAwareUserProviderInterface, UserProviderInterface
+class DarvinAuthUserProvider implements OAuthAwareUserProviderInterface, UserProviderInterface
 {
     /**
      * @var \Doctrine\ORM\EntityManager
