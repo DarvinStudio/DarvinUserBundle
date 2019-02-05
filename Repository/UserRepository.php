@@ -52,12 +52,12 @@ class UserRepository extends ServiceEntityRepository
      * @param string   $exceptRole Except role
      *
      * @return \Doctrine\ORM\QueryBuilder
-     * @throws \Darvin\UserBundle\Repository\RepositoryException
+     * @throws \InvalidArgumentException
      */
     public function getByRolesBuilder(array $roles, $exceptRole = null)
     {
         if (empty($roles)) {
-            throw new RepositoryException('Roles array must not be empty.');
+            throw new \InvalidArgumentException('Array of roles is empty.');
         }
 
         $qb = $this->createDefaultQueryBuilder();
