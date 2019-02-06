@@ -17,7 +17,7 @@ use Symfony\Component\Templating\EngineInterface;
 /**
  * Password reset token form renderer
  */
-class PasswordResetTokenFormRenderer
+class PasswordResetTokenFormRenderer implements PasswordResetTokenFormRendererInterface
 {
     /**
      * @var \Darvin\UserBundle\Form\Factory\PasswordResetTokenFormFactoryInterface
@@ -40,18 +40,18 @@ class PasswordResetTokenFormRenderer
     }
 
     /**
-     * @param bool                                       $partial Whether to render partial
-     * @param \Symfony\Component\Form\FormInterface|null $form    Form
-     *
-     * @return string
+     * {@inheritDoc}
      */
-    public function renderRequestForm(bool $partial = true, ?FormInterface $form = null): string
+    public function renderRequestForm(?FormInterface $form = null, bool $partial = true, ?string $template = null): string
     {
         if (empty($form)) {
             $form = $this->passwordResetTokenFormFactory->createRequestForm();
         }
+        if (empty($template)) {
+            $template = sprintf('@DarvinUser/password_reset_token/request/%srequest.html.twig', $partial ? '_' : '');
+        }
 
-        return $this->templating->render(sprintf('@DarvinUser/password_reset_token/request/%srequest.html.twig', $partial ? '_' : ''), [
+        return $this->templating->render($template, [
             'form' => $form->createView(),
         ]);
     }

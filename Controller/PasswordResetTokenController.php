@@ -12,7 +12,7 @@ namespace Darvin\UserBundle\Controller;
 
 use Darvin\UserBundle\Form\Factory\PasswordResetTokenFormFactoryInterface;
 use Darvin\UserBundle\Form\Handler\PasswordResetTokenFormHandler;
-use Darvin\UserBundle\Form\Renderer\PasswordResetTokenFormRenderer;
+use Darvin\UserBundle\Form\Renderer\PasswordResetTokenFormRendererInterface;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Darvin\Utils\HttpFoundation\AjaxResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,7 +41,7 @@ class PasswordResetTokenController extends AbstractController
         $form = $this->getPasswordResetTokenFormFactory()->createRequestForm()->handleRequest($request);
 
         if (!$form->isSubmitted()) {
-            return new Response($this->getPasswordResetTokenFormRenderer()->renderRequestForm($widget, $form));
+            return new Response($this->getPasswordResetTokenFormRenderer()->renderRequestForm($form, $widget));
         }
 
         $successMessage = 'password_reset_token.request.success.message';
@@ -49,7 +49,7 @@ class PasswordResetTokenController extends AbstractController
         $passwordResetToken = $this->getPasswordResetTokenFormHandler()->handleRequestForm($form, !$widget, $successMessage);
 
         if (empty($passwordResetToken)) {
-            $html = $this->getPasswordResetTokenFormRenderer()->renderRequestForm($widget, $form);
+            $html = $this->getPasswordResetTokenFormRenderer()->renderRequestForm($form, $widget);
 
             return $widget
                 ? new AjaxResponse($html, false, FlashNotifierInterface::MESSAGE_FORM_ERROR)
@@ -93,9 +93,9 @@ class PasswordResetTokenController extends AbstractController
     }
 
     /**
-     * @return \Darvin\UserBundle\Form\Renderer\PasswordResetTokenFormRenderer
+     * @return \Darvin\UserBundle\Form\Renderer\PasswordResetTokenFormRendererInterface
      */
-    private function getPasswordResetTokenFormRenderer(): PasswordResetTokenFormRenderer
+    private function getPasswordResetTokenFormRenderer(): PasswordResetTokenFormRendererInterface
     {
         return $this->get('darvin_user.password_reset_token.form.renderer');
     }
