@@ -10,12 +10,12 @@
 
 namespace Darvin\UserBundle\Form\Renderer;
 
-use Darvin\UserBundle\Form\Factory\Security\LoginFormFactoryInterface;
-use Darvin\UserBundle\Form\Factory\Security\SecurityFormFactory;
+use Darvin\UserBundle\Form\Factory\SecurityFormFactoryInterface;
 use Darvin\UserBundle\Form\Type\Security\LoginType;
 use Darvin\Utils\Service\ServiceProviderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -30,12 +30,12 @@ class SecurityFormRenderer
     private $authenticationUtils;
 
     /**
-     * @var \Darvin\UserBundle\Form\Factory\Security\LoginFormFactoryInterface
+     * @var \Symfony\Component\Routing\RouterInterface
      */
-    private $loginFormFactory;
+    private $router;
 
     /**
-     * @var \Darvin\UserBundle\Form\Factory\Security\SecurityFormFactory
+     * @var \Darvin\UserBundle\Form\Factory\SecurityFormFactoryInterface
      */
     private $securityFormFactory;
 
@@ -51,20 +51,20 @@ class SecurityFormRenderer
 
     /**
      * @param \Symfony\Component\Security\Http\Authentication\AuthenticationUtils $authenticationUtils Authentication utilities
-     * @param \Darvin\UserBundle\Form\Factory\Security\LoginFormFactoryInterface  $loginFormFactory    Login form factory
-     * @param \Darvin\UserBundle\Form\Factory\Security\SecurityFormFactory        $securityFormFactory Security form factory
+     * @param \Symfony\Component\Routing\RouterInterface                          $router              Router
+     * @param \Darvin\UserBundle\Form\Factory\SecurityFormFactoryInterface        $securityFormFactory Security form factory
      * @param \Darvin\Utils\Service\ServiceProviderInterface                      $templatingProvider  Templating service provider
      * @param \Symfony\Contracts\Translation\TranslatorInterface                  $translator          Translator
      */
     public function __construct(
         AuthenticationUtils $authenticationUtils,
-        LoginFormFactoryInterface $loginFormFactory,
-        SecurityFormFactory $securityFormFactory,
+        RouterInterface $router,
+        SecurityFormFactoryInterface $securityFormFactory,
         ServiceProviderInterface $templatingProvider,
         TranslatorInterface $translator
     ) {
         $this->authenticationUtils = $authenticationUtils;
-        $this->loginFormFactory = $loginFormFactory;
+        $this->router = $router;
         $this->securityFormFactory = $securityFormFactory;
         $this->templatingProvider = $templatingProvider;
         $this->translator = $translator;
@@ -90,7 +90,9 @@ class SecurityFormRenderer
             $template = $widget ? '@DarvinUser/security/_login.html.twig' : '@DarvinUser/security/login.html.twig';
         }
 
-        $form = $this->loginFormFactory->createLoginForm($actionRoute, $type, $name);
+        $form = $this->securityFormFactory->createLoginForm([
+            'action' => $this->router->generate($actionRoute),
+        ], $type, $name);
 
         $exception = $this->authenticationUtils->getLastAuthenticationError();
 

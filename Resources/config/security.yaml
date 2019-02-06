@@ -1,9 +1,7 @@
 parameters:
     darvin_user.security.authenticate_user_event_subscriber.class: Darvin\UserBundle\EventListener\AuthenticateUserSubscriber
 
-    darvin_user.security.form.factory.common.class: Darvin\UserBundle\Form\Factory\Security\SecurityFormFactory
-
-    darvin_user.security.form.factory.login.generic.class: Darvin\UserBundle\Form\Factory\Security\GenericLoginFormFactory
+    darvin_user.security.form.factory.class: Darvin\UserBundle\Form\Factory\SecurityFormFactory
 
     darvin_user.security.form.handler.class: Darvin\UserBundle\Form\Handler\SecurityFormHandler
 
@@ -31,25 +29,15 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
-    darvin_user.security.form.factory.common:
-        class: '%darvin_user.security.form.factory.common.class%'
+    darvin_user.security.form.factory:
+        class: '%darvin_user.security.form.factory.class%'
         arguments:
             - '@security.authentication_utils'
             - '@form.factory'
             - '@router'
             - '@darvin_user.user.factory'
-            - '%darvin_user.user_class%'
-
-    darvin_user.security.form.factory.login:
-        alias: darvin_user.security.form.factory.login.generic
-
-    darvin_user.security.form.factory.login.generic:
-        class: '%darvin_user.security.form.factory.login.generic.class%'
-        arguments:
-            - '@security.authentication_utils'
-            - '@form.factory'
-            - '@router'
             - '%kernel.secret%'
+            - '%darvin_user.user_class%'
 
     darvin_user.security.form.handler:
         class: '%darvin_user.security.form.handler.class%'
@@ -65,8 +53,8 @@ services:
         class: '%darvin_user.security.form.renderer.class%'
         arguments:
             - '@security.authentication_utils'
-            - '@darvin_user.security.form.factory.login'
-            - '@darvin_user.security.form.factory.common'
+            - '@router'
+            - '@darvin_user.security.form.factory'
             - '@darvin_utils.templating.provider'
             - '@translator'
 
