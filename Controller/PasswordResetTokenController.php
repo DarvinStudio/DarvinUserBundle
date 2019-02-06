@@ -10,7 +10,7 @@
 
 namespace Darvin\UserBundle\Controller;
 
-use Darvin\UserBundle\Form\Factory\PasswordResetTokenFormFactory;
+use Darvin\UserBundle\Form\Factory\PasswordResetTokenFormFactoryInterface;
 use Darvin\UserBundle\Form\Handler\PasswordResetTokenFormHandler;
 use Darvin\UserBundle\Form\Renderer\PasswordResetTokenFormRenderer;
 use Darvin\Utils\Flash\FlashNotifierInterface;
@@ -77,9 +77,9 @@ class PasswordResetTokenController extends AbstractController
     }
 
     /**
-     * @return \Darvin\UserBundle\Form\Factory\PasswordResetTokenFormFactory
+     * @return \Darvin\UserBundle\Form\Factory\PasswordResetTokenFormFactoryInterface
      */
-    private function getPasswordResetTokenFormFactory(): PasswordResetTokenFormFactory
+    private function getPasswordResetTokenFormFactory(): PasswordResetTokenFormFactoryInterface
     {
         return $this->get('darvin_user.password_reset_token.form.factory');
     }

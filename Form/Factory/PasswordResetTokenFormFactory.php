@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
- * @copyright Copyright (c) 2015, Darvin Studio
+ * @copyright Copyright (c) 2015-2019, Darvin Studio
  * @link      https://www.darvin-studio.ru
  *
  * For the full copyright and license information, please view the LICENSE
@@ -12,13 +12,14 @@ namespace Darvin\UserBundle\Form\Factory;
 
 use Darvin\UserBundle\Form\Type\PasswordResetToken\RequestType;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
  * Password reset token form factory
  */
-class PasswordResetTokenFormFactory
+class PasswordResetTokenFormFactory implements PasswordResetTokenFormFactoryInterface
 {
     /**
      * @var \Symfony\Component\Security\Http\Authentication\AuthenticationUtils
@@ -28,7 +29,7 @@ class PasswordResetTokenFormFactory
     /**
      * @var \Symfony\Component\Form\FormFactoryInterface
      */
-    private $formFactory;
+    private $genericFormFactory;
 
     /**
      * @var \Symfony\Component\Routing\RouterInterface
@@ -37,32 +38,32 @@ class PasswordResetTokenFormFactory
 
     /**
      * @param \Symfony\Component\Security\Http\Authentication\AuthenticationUtils $authenticationUtils Authentication utils
-     * @param \Symfony\Component\Form\FormFactoryInterface                        $formFactory         Form factory
+     * @param \Symfony\Component\Form\FormFactoryInterface                        $genericFormFactory  Generic form factory
      * @param \Symfony\Component\Routing\RouterInterface                          $router              Router
      */
-    public function __construct(
-        AuthenticationUtils $authenticationUtils,
-        FormFactoryInterface $formFactory,
-        RouterInterface $router
-    ) {
+    public function __construct(AuthenticationUtils $authenticationUtils, FormFactoryInterface $genericFormFactory, RouterInterface $router)
+    {
         $this->authenticationUtils = $authenticationUtils;
-        $this->formFactory = $formFactory;
+        $this->genericFormFactory = $genericFormFactory;
         $this->router = $router;
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface
+     * {@inheritDoc}
      */
-    public function createRequestForm()
+    public function createRequestForm(array $options = [], string $type = RequestType::class, ?string $name = null): FormInterface
     {
-        return $this->formFactory->create(
-            RequestType::class,
-            [
-                'user_email' => $this->authenticationUtils->getLastUsername(),
-            ],
-            [
-                'action' => $this->router->generate('darvin_user_password_reset_token_request'),
-            ]
-        );
+        $data = [
+            'user_email' => $this->authenticationUtils->getLastUsername(),
+        ];
+
+        if (!isset($options['action'])) {
+            $options['action'] = $this->router->generate('darvin_user_password_reset_token_request');
+        }
+        if (null !== $name) {
+            return $this->genericFormFactory->createNamed($name, $type, $data, $options);
+        }
+
+        return $this->genericFormFactory->create($type, $data, $options);
     }
 }

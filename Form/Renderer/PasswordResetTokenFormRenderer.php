@@ -10,7 +10,7 @@
 
 namespace Darvin\UserBundle\Form\Renderer;
 
-use Darvin\UserBundle\Form\Factory\PasswordResetTokenFormFactory;
+use Darvin\UserBundle\Form\Factory\PasswordResetTokenFormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Templating\EngineInterface;
 
@@ -20,7 +20,7 @@ use Symfony\Component\Templating\EngineInterface;
 class PasswordResetTokenFormRenderer
 {
     /**
-     * @var \Darvin\UserBundle\Form\Factory\PasswordResetTokenFormFactory
+     * @var \Darvin\UserBundle\Form\Factory\PasswordResetTokenFormFactoryInterface
      */
     private $passwordResetTokenFormFactory;
 
@@ -30,10 +30,10 @@ class PasswordResetTokenFormRenderer
     private $templating;
 
     /**
-     * @param \Darvin\UserBundle\Form\Factory\PasswordResetTokenFormFactory $passwordResetTokenFormFactory Password reset token form factory
-     * @param \Symfony\Component\Templating\EngineInterface                 $templating                    Templating
+     * @param \Darvin\UserBundle\Form\Factory\PasswordResetTokenFormFactoryInterface $passwordResetTokenFormFactory Password reset token form factory
+     * @param \Symfony\Component\Templating\EngineInterface                          $templating                    Templating
      */
-    public function __construct(PasswordResetTokenFormFactory $passwordResetTokenFormFactory, EngineInterface $templating)
+    public function __construct(PasswordResetTokenFormFactoryInterface $passwordResetTokenFormFactory, EngineInterface $templating)
     {
         $this->passwordResetTokenFormFactory = $passwordResetTokenFormFactory;
         $this->templating = $templating;
