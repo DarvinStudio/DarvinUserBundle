@@ -57,6 +57,6 @@ class UserChoiceType extends AbstractType
      */
     public function getBlockPrefix(): string
     {
-        return 'darvin_user_user_choice';
+        return 'darvin_user_choice';
     }
 }

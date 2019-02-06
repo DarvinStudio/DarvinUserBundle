@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
  * @copyright Copyright (c) 2016-2019, Darvin Studio
@@ -36,25 +36,31 @@ class RoleChoiceType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-            'choices' => $this->buildChoices(),
-        ]);
+        $resolver->setDefault('choices', $this->buildChoices());
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getParent()
+    public function getParent(): string
     {
         return ChoiceType::class;
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function getBlockPrefix(): string
+    {
+        return 'darvin_user_role_choice';
+    }
+
+    /**
      * @return array
      */
-    private function buildChoices()
+    private function buildChoices(): array
     {
         $choices = [];
 
