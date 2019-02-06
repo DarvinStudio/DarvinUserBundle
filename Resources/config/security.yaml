@@ -1,6 +1,4 @@
 parameters:
-    darvin_user.security.event_listener.registered.class: Darvin\UserBundle\EventListener\Security\RegisteredListener
-
     darvin_user.security.form.factory.common.class: Darvin\UserBundle\Form\Factory\Security\SecurityFormFactory
 
     darvin_user.security.form.factory.login.generic.class: Darvin\UserBundle\Form\Factory\Security\GenericLoginFormFactory
@@ -10,6 +8,8 @@ parameters:
     darvin_user.security.form.renderer.class: Darvin\UserBundle\Form\Renderer\SecurityFormRenderer
 
     darvin_user.security.oauth.darvin_auth_user_provider.class: Darvin\UserBundle\Security\OAuth\DarvinAuthUserProvider
+
+    darvin_user.security.send_registered_emails_event_subscriber.class: Darvin\UserBundle\EventListener\SendRegisteredEmailsSubscriber
 
     darvin_user.security.twig_extension.class: Darvin\UserBundle\Twig\Extension\SecurityExtension
 
@@ -22,15 +22,6 @@ parameters:
 services:
     _defaults:
         public: true
-
-    darvin_user.security.event_listener.registered:
-        class: '%darvin_user.security.event_listener.registered.class%'
-        arguments:
-            - '@darvin_user.security.user_authenticator'
-            - '@darvin_user.mailer.user'
-            - '%darvin_user.public_firewall_name%'
-        tags:
-            - { name: kernel.event_listener, event: darvin_user.security.registered, method: onRegistered }
 
     darvin_user.security.form.factory.common:
         class: '%darvin_user.security.form.factory.common.class%'
@@ -78,6 +69,15 @@ services:
             - '@security.token_storage'
             - '@darvin_user.user.factory'
             - '@darvin_user.user.repository'
+
+    darvin_user.security.send_registered_emails_event_subscriber:
+        class: '%darvin_user.security.send_registered_emails_event_subscriber.class%'
+        arguments:
+            - '@darvin_user.security.user_authenticator'
+            - '@darvin_user.mailer.user'
+            - '%darvin_user.public_firewall_name%'
+        tags:
+            - { name: kernel.event_subscriber }
 
     darvin_user.security.twig_extension:
         class:  '%darvin_user.security.twig_extension.class%'

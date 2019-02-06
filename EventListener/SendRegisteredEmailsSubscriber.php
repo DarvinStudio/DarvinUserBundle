@@ -8,16 +8,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Darvin\UserBundle\EventListener\Security;
+namespace Darvin\UserBundle\EventListener;
 
+use Darvin\UserBundle\Event\SecurityEvents;
 use Darvin\UserBundle\Event\UserEvent;
 use Darvin\UserBundle\Mailer\UserMailerInterface;
 use Darvin\UserBundle\Security\UserAuthenticatorInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Registered security event listener
+ * Send user registered emails event subscriber
  */
-class RegisteredListener
+class SendRegisteredEmailsSubscriber implements EventSubscriberInterface
 {
     /**
      * @var \Darvin\UserBundle\Security\UserAuthenticatorInterface
@@ -47,9 +49,19 @@ class RegisteredListener
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            SecurityEvents::REGISTERED => 'sendEmails',
+        ];
+    }
+
+    /**
      * @param \Darvin\UserBundle\Event\UserEvent $event Event
      */
-    public function onRegistered(UserEvent $event): void
+    public function sendEmails(UserEvent $event): void
     {
         $user = $event->getUser();
 
