@@ -15,7 +15,7 @@ use Darvin\UserBundle\Event\SecurityEvents;
 use Darvin\UserBundle\Event\UserEvent;
 use Darvin\UserBundle\Form\Factory\SecurityFormFactoryInterface;
 use Darvin\UserBundle\Form\Handler\SecurityFormHandler;
-use Darvin\UserBundle\Form\Renderer\SecurityFormRenderer;
+use Darvin\UserBundle\Form\Renderer\SecurityFormRendererInterface;
 use Darvin\UserBundle\Repository\PasswordResetTokenRepository;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Darvin\Utils\HttpFoundation\AjaxResponse;
@@ -67,7 +67,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute($this->container->getParameter('darvin_user.already_logged_in_redirect_route'));
         }
 
-        return new Response($this->getSecurityFormRenderer()->renderLoginForm($request->isXmlHttpRequest()));
+        return new Response($this->getSecurityFormRenderer()->renderLoginForm(null, $request->isXmlHttpRequest()));
     }
 
     /**
@@ -86,14 +86,14 @@ class SecurityController extends AbstractController
         $form = $this->getSecurityFormFactory()->createRegistrationForm()->handleRequest($request);
 
         if (!$form->isSubmitted()) {
-            return new Response($this->getSecurityFormRenderer()->renderRegistrationForm($widget, $form));
+            return new Response($this->getSecurityFormRenderer()->renderRegistrationForm($form, $widget));
         }
 
         $successMessage = 'security.register.success';
 
         $needConfirm = $this->container->getParameter('darvin_user.confirm_registration');
         if (!$this->getSecurityFormHandler()->handleRegistrationForm($form, !$widget, $successMessage, $needConfirm)) {
-            $html = $this->getSecurityFormRenderer()->renderRegistrationForm($widget, $form);
+            $html = $this->getSecurityFormRenderer()->renderRegistrationForm($form, $widget);
 
             return $widget
                 ? new AjaxResponse($html, false, FlashNotifierInterface::MESSAGE_FORM_ERROR)
@@ -192,9 +192,9 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @return \Darvin\UserBundle\Form\Renderer\SecurityFormRenderer
+     * @return \Darvin\UserBundle\Form\Renderer\SecurityFormRendererInterface
      */
-    private function getSecurityFormRenderer(): SecurityFormRenderer
+    private function getSecurityFormRenderer(): SecurityFormRendererInterface
     {
         return $this->get('darvin_user.security.form.renderer');
     }

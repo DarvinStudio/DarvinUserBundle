@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
  * @copyright Copyright (c) 2015-2019, Darvin Studio
@@ -11,29 +11,14 @@
 namespace Darvin\UserBundle\Form\Renderer;
 
 use Darvin\UserBundle\Form\Factory\SecurityFormFactoryInterface;
-use Darvin\UserBundle\Form\Type\Security\LoginType;
 use Darvin\Utils\Service\ServiceProviderInterface;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Security form renderer
  */
-class SecurityFormRenderer
+class SecurityFormRenderer implements SecurityFormRendererInterface
 {
-    /**
-     * @var \Symfony\Component\Security\Http\Authentication\AuthenticationUtils
-     */
-    private $authenticationUtils;
-
-    /**
-     * @var \Symfony\Component\Routing\RouterInterface
-     */
-    private $router;
-
     /**
      * @var \Darvin\UserBundle\Form\Factory\SecurityFormFactoryInterface
      */
@@ -45,78 +30,26 @@ class SecurityFormRenderer
     private $templatingProvider;
 
     /**
-     * @var \Symfony\Contracts\Translation\TranslatorInterface
+     * @param \Darvin\UserBundle\Form\Factory\SecurityFormFactoryInterface $securityFormFactory Security form factory
+     * @param \Darvin\Utils\Service\ServiceProviderInterface               $templatingProvider  Templating service provider
      */
-    private $translator;
-
-    /**
-     * @param \Symfony\Component\Security\Http\Authentication\AuthenticationUtils $authenticationUtils Authentication utilities
-     * @param \Symfony\Component\Routing\RouterInterface                          $router              Router
-     * @param \Darvin\UserBundle\Form\Factory\SecurityFormFactoryInterface        $securityFormFactory Security form factory
-     * @param \Darvin\Utils\Service\ServiceProviderInterface                      $templatingProvider  Templating service provider
-     * @param \Symfony\Contracts\Translation\TranslatorInterface                  $translator          Translator
-     */
-    public function __construct(
-        AuthenticationUtils $authenticationUtils,
-        RouterInterface $router,
-        SecurityFormFactoryInterface $securityFormFactory,
-        ServiceProviderInterface $templatingProvider,
-        TranslatorInterface $translator
-    ) {
-        $this->authenticationUtils = $authenticationUtils;
-        $this->router = $router;
+    public function __construct(SecurityFormFactoryInterface $securityFormFactory, ServiceProviderInterface $templatingProvider)
+    {
         $this->securityFormFactory = $securityFormFactory;
         $this->templatingProvider = $templatingProvider;
-        $this->translator = $translator;
     }
 
     /**
-     * @param bool   $widget      Whether to render widget
-     * @param string $actionRoute Action route
-     * @param string $type        Form type
-     * @param string $name        Form name
-     * @param string $template    Template
-     *
-     * @return string
+     * {@inheritDoc}
      */
-    public function renderLoginForm(
-        $widget = true,
-        $actionRoute = 'darvin_user_security_login_check',
-        $type = LoginType::class,
-        $name = null,
-        $template = null
-    ) {
-        if (null === $template) {
-            $template = $widget ? '@DarvinUser/security/_login.html.twig' : '@DarvinUser/security/login.html.twig';
-        }
-
-        $form = $this->securityFormFactory->createLoginForm([
-            'action' => $this->router->generate($actionRoute),
-        ], $type, $name);
-
-        $exception = $this->authenticationUtils->getLastAuthenticationError();
-
-        if (!empty($exception)) {
-            $form->addError(new FormError($this->translator->trans($exception->getMessage(), [], 'security')));
-        }
-
-        return $this->getTemplating()->render($template, [
-            'error' => !empty($exception) ? $exception->getMessage() : null,
-            'form'  => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @param \Symfony\Component\Form\FormInterface $form   Form
-     * @param bool                                  $widget Whether to render widget
-     *
-     * @return string
-     */
-    public function renderPasswordResetForm(FormInterface $form, $widget = true)
+    public function renderLoginForm(?FormInterface $form = null, bool $partial = true, ?string $template = null): string
     {
-        $template = $widget
-            ? '@DarvinUser/security/_reset_password.html.twig'
-            : '@DarvinUser/security/reset_password.html.twig';
+        if (empty($form)) {
+            $form = $this->securityFormFactory->createLoginForm();
+        }
+        if (empty($template)) {
+            $template = sprintf('@DarvinUser/security/%slogin.html.twig', $partial ? '_' : '');
+        }
 
         return $this->getTemplating()->render($template, [
             'form' => $form->createView(),
@@ -124,21 +57,29 @@ class SecurityFormRenderer
     }
 
     /**
-     * @param bool                                  $widget   Whether to render widget
-     * @param \Symfony\Component\Form\FormInterface $form     Form
-     * @param string                                $template Template
-     *
-     * @return string
+     * {@inheritDoc}
      */
-    public function renderRegistrationForm($widget = true, FormInterface $form = null, $template = null)
+    public function renderPasswordResetForm(FormInterface $form, bool $partial = true, ?string $template = null): string
+    {
+        if (empty($template)) {
+            $template = sprintf('@DarvinUser/security/%sreset_password.html.twig', $partial ? '_' : '');
+        }
+
+        return $this->getTemplating()->render($template, [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function renderRegistrationForm(?FormInterface $form = null, bool $partial = true, ?string $template = null): string
     {
         if (empty($form)) {
             $form = $this->securityFormFactory->createRegistrationForm();
         }
-        if (null === $template) {
-            $template = $widget
-                ? '@DarvinUser/security/_register.html.twig'
-                : '@DarvinUser/security/register.html.twig';
+        if (empty($template)) {
+            $template = sprintf('@DarvinUser/security/%sregister.html.twig', $partial ? '_' : '');
         }
 
         return $this->getTemplating()->render($template, [

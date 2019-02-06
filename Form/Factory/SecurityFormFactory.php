@@ -16,10 +16,12 @@ use Darvin\UserBundle\Form\Type\Security\LoginType;
 use Darvin\UserBundle\Form\Type\Security\PasswordResetType;
 use Darvin\UserBundle\Form\Type\Security\RegistrationType;
 use Darvin\UserBundle\User\UserFactoryInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Security form factory
@@ -42,6 +44,11 @@ class SecurityFormFactory implements SecurityFormFactoryInterface
     private $router;
 
     /**
+     * @var \Symfony\Contracts\Translation\TranslatorInterface
+     */
+    private $translator;
+
+    /**
      * @var \Darvin\UserBundle\User\UserFactoryInterface
      */
     private $userFactory;
@@ -60,6 +67,7 @@ class SecurityFormFactory implements SecurityFormFactoryInterface
      * @param \Symfony\Component\Security\Http\Authentication\AuthenticationUtils $authenticationUtils Authentication utils
      * @param \Symfony\Component\Form\FormFactoryInterface                        $genericFormFactory  Generic form factory
      * @param \Symfony\Component\Routing\RouterInterface                          $router              Router
+     * @param \Symfony\Contracts\Translation\TranslatorInterface                  $translator          Translator
      * @param \Darvin\UserBundle\User\UserFactoryInterface                        $userFactory         User factory
      * @param string                                                              $csrfTokenId         CSRF token ID
      * @param string                                                              $userClass           User entity class
@@ -68,6 +76,7 @@ class SecurityFormFactory implements SecurityFormFactoryInterface
         AuthenticationUtils $authenticationUtils,
         FormFactoryInterface $genericFormFactory,
         RouterInterface $router,
+        TranslatorInterface $translator,
         UserFactoryInterface $userFactory,
         string $csrfTokenId,
         string $userClass
@@ -75,6 +84,7 @@ class SecurityFormFactory implements SecurityFormFactoryInterface
         $this->authenticationUtils = $authenticationUtils;
         $this->genericFormFactory = $genericFormFactory;
         $this->router = $router;
+        $this->translator = $translator;
         $this->userFactory = $userFactory;
         $this->csrfTokenId = $csrfTokenId;
         $this->userClass = $userClass;
@@ -97,11 +107,18 @@ class SecurityFormFactory implements SecurityFormFactoryInterface
         if (!isset($options['action'])) {
             $options['action'] = $this->router->generate('darvin_user_security_login_check');
         }
-        if (null !== $name) {
-            return $this->genericFormFactory->createNamed($name, $type, $data, $options);
+
+        $form = null !== $name
+            ? $this->genericFormFactory->createNamed($name, $type, $data, $options)
+            : $this->genericFormFactory->create($type, $data, $options);
+
+        $error = $this->authenticationUtils->getLastAuthenticationError();
+
+        if (!empty($error)) {
+            $form->addError(new FormError($this->translator->trans($error->getMessage(), [], 'security')));
         }
 
-        return $this->genericFormFactory->create($type, $data, $options);
+        return $form;
     }
 
     /**
