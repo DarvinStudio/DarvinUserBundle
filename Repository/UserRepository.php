@@ -20,26 +20,6 @@ use Doctrine\ORM\QueryBuilder;
 class UserRepository extends ServiceEntityRepository
 {
     /**
-     * Find user by registration confirmation code
-     *
-     * @param $code
-     * @return BaseUser|null
-     */
-    public function getByRegistrationToken($code)
-    {
-        $builder = $this->createQueryBuilder('u');
-
-        return $builder
-            ->where('u.registrationConfirmToken.id=:code')
-            ->andWhere($builder->expr()->isNotNull('u.registrationConfirmToken.id'))
-            ->setParameter('code', $code)
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-
-    /**
      * @param string|string[]      $roles     Roles
      * @param string|string[]|null $blacklist Role blacklist
      *
@@ -88,13 +68,37 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param string     $username Username
-     * @param mixed|null $userId   User ID
+     * @param string|null $code Code
+     *
+     * @return \Darvin\UserBundle\Entity\BaseUser|null
+     */
+    public function getOneByRegistrationToken(?string $code): ?BaseUser
+    {
+        if (empty($code)) {
+            return null;
+        }
+
+        return $this->createDefaultBuilder()
+            ->andWhere('o.registrationConfirmToken.id IS NOT NULL')
+            ->andWhere('o.registrationConfirmToken.id = :code')
+            ->setParameter('code', $code)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @param string|null $username Username
+     * @param mixed|null  $userId   User ID
      *
      * @return string[]
      */
-    public function getSimilarUsernames(string $username, $userId = null): array
+    public function getSimilarUsernames(?string $username, $userId = null): array
     {
+        if (null === $username) {
+            return [];
+        }
+
         $qb = $this->createDefaultBuilder();
         $qb
             ->select('o.username')
@@ -115,7 +119,7 @@ class UserRepository extends ServiceEntityRepository
      */
     public function provideUser(?string $credential): ?BaseUser
     {
-        if (empty($credential)) {
+        if (null === $credential) {
             return null;
         }
 
@@ -131,12 +135,16 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param string $email Email
+     * @param string|null $email Email
      *
      * @return bool
      */
-    public function userExistsAndActive($email)
+    public function userExistsAndActive(?string $email): bool
     {
+        if (null === $email) {
+            return false;
+        }
+
         $qb = $this->createDefaultBuilder()
             ->select('o.id')
             ->setMaxResults(1);
@@ -160,7 +168,7 @@ class UserRepository extends ServiceEntityRepository
      *
      * @return UserRepository
      */
-    protected function addActiveFilter(QueryBuilder $qb)
+    protected function addActiveFilter(QueryBuilder $qb): UserRepository
     {
         return $this
             ->addEnabledFilter($qb)
@@ -168,11 +176,24 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param \Doctrine\ORM\QueryBuilder $qb    Query builder
+     * @param string|null                $email Email
+     *
+     * @return UserRepository
+     */
+    protected function addEmailFilter(QueryBuilder $qb, ?string $email): UserRepository
+    {
+        $qb->andWhere('o.email = :email')->setParameter('email', $email);
+
+        return $this;
+    }
+
+    /**
      * @param \Doctrine\ORM\QueryBuilder $qb Query builder
      *
      * @return UserRepository
      */
-    protected function addEnabledFilter(QueryBuilder $qb)
+    protected function addEnabledFilter(QueryBuilder $qb): UserRepository
     {
         $qb->andWhere('o.enabled = :enabled')->setParameter('enabled', true);
 
@@ -184,7 +205,7 @@ class UserRepository extends ServiceEntityRepository
      *
      * @return UserRepository
      */
-    protected function addNonLockedFilter(QueryBuilder $qb)
+    protected function addNonLockedFilter(QueryBuilder $qb): UserRepository
     {
         $qb->andWhere('o.locked = :locked')->setParameter('locked', false);
 
@@ -200,19 +221,6 @@ class UserRepository extends ServiceEntityRepository
     protected function addNotIdFilter(QueryBuilder $qb, $id): UserRepository
     {
         $qb->andWhere('o.id != :id')->setParameter('id', $id);
-
-        return $this;
-    }
-
-    /**
-     * @param \Doctrine\ORM\QueryBuilder $qb    Query builder
-     * @param string                     $email Email
-     *
-     * @return UserRepository
-     */
-    protected function addEmailFilter(QueryBuilder $qb, $email)
-    {
-        $qb->andWhere('o.email = :email')->setParameter('email', $email);
 
         return $this;
     }

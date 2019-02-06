@@ -41,7 +41,7 @@ class SecurityController extends AbstractController
             return $this->render('@DarvinUser/user/confirm_registration/code_sent.html.twig');
         }
 
-        $user = $this->get('darvin_user.user.repository')->getByRegistrationToken($code);
+        $user = $this->get('darvin_user.user.repository')->getOneByRegistrationToken($code);
 
         if (empty($user)) {
             throw $this->createNotFoundException('security.confirm_registration.invalid_code_error');
