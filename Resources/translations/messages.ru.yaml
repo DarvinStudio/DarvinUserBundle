@@ -13,10 +13,10 @@ password_reset_token:
 
 security:
     confirm_registration:
-        invalid_code_error: Невалидный код подтверждения
-        sent:
+        code_sent:
             text:  На Вашу электронную почту было отправлено письмо с дальнейшими шагами по регистрации.
             title: Завершение регистрации
+        invalid_code_error: Невалидный код подтверждения
         success:
             text:  Ваш аккаунт подтвержден. Спасибо за регистрацию.
             title: Регистрация завершена
