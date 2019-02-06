@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Darvin\UserBundle\EventListener;
+namespace Darvin\UserBundle\EventListener\Mailer;
 
 use Darvin\UserBundle\Event\PasswordResetTokenEvent;
 use Darvin\UserBundle\Event\PasswordResetTokenEvents;

@@ -1,6 +1,10 @@
 parameters:
     darvin_user.mailer.password_reset_token.class: Darvin\UserBundle\Mailer\PasswordResetTokenMailer
 
+    darvin_user.mailer.send_password_reset_token_emails_event_subscriber.class: Darvin\UserBundle\EventListener\Mailer\SendPasswordResetTokenEmailsSubscriber
+
+    darvin_user.mailer.send_registered_emails_event_subscriber.class: Darvin\UserBundle\EventListener\Mailer\SendRegisteredEmailsSubscriber
+
     darvin_user.mailer.user.class: Darvin\UserBundle\Mailer\UserMailer
 
 services:
@@ -10,11 +14,25 @@ services:
     darvin_user.mailer.password_reset_token:
         class: '%darvin_user.mailer.password_reset_token.class%'
         arguments:
-            - '@?darvin_utils.mailer.template'
+            - '@darvin_utils.mailer.template'
+
+    darvin_user.mailer.send_password_reset_token_emails_event_subscriber:
+        class: '%darvin_user.mailer.send_password_reset_token_emails_event_subscriber.class%'
+        arguments:
+            - '@darvin_user.mailer.password_reset_token'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    darvin_user.mailer.send_registered_emails_event_subscriber:
+        class: '%darvin_user.mailer.send_registered_emails_event_subscriber.class%'
+        arguments:
+            - '@darvin_user.mailer.user'
+        tags:
+            - { name: kernel.event_subscriber }
 
     darvin_user.mailer.user:
         class:  '%darvin_user.mailer.user.class%'
         public: false
         arguments:
-            - '@?darvin_utils.mailer.template'
+            - '@darvin_utils.mailer.template'
             - '@?darvin_user.configuration'

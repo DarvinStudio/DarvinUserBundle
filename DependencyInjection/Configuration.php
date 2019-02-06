@@ -38,6 +38,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('already_logged_in_redirect_route')->defaultValue('darvin_page_homepage')->cannotBeEmpty()->end()
                 ->booleanNode('confirm_registration')->defaultFalse()->end()
+                ->arrayNode('mailer')->canBeDisabled()->end()
                 ->integerNode('password_reset_token_lifetime')->defaultValue(3 * 60 * 60)->min(0)->end()
                 ->scalarNode('public_firewall_name')->defaultValue('public_area')->cannotBeEmpty()->end()
                 ->arrayNode('roles')->useAttributeAsKey('role')

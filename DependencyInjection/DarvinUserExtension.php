@@ -28,12 +28,13 @@ class DarvinUserExtension extends Extension implements PrependExtensionInterface
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
-        (new ConfigInjector($container))->inject($this->processConfiguration(new Configuration(), $configs), $this->getAlias());
+        $config = $this->processConfiguration(new Configuration(), $configs);
+
+        (new ConfigInjector($container))->inject($config, $this->getAlias());
 
         (new ConfigLoader($container, __DIR__.'/../Resources/config'))->load([
             'authentication',
             'configuration/roles',
-            'mailer',
             'password_reset_token',
             'security',
             'user',
@@ -44,6 +45,10 @@ class DarvinUserExtension extends Extension implements PrependExtensionInterface
             'configuration/configuration' => ['bundle' => 'DarvinConfigBundle'],
 
             'dev/fixture'                 => ['env' => 'dev'],
+
+            'mailer'                      => ['callback' => function () use ($config) {
+                return $config['mailer']['enabled'];
+            }],
         ]);
     }
 
@@ -52,8 +57,19 @@ class DarvinUserExtension extends Extension implements PrependExtensionInterface
      */
     public function prepend(ContainerBuilder $container): void
     {
-        $bundles = $container->getParameter('kernel.bundles');
+        $bundles     = $container->getParameter('kernel.bundles');
+        $utilsConfig = $this->processConfiguration(
+            new \Darvin\UtilsBundle\DependencyInjection\Configuration(),
+            $container->getParameterBag()->resolveValue($container->getExtensionConfig('darvin_utils'))
+        );
 
+        if (!$utilsConfig['mailer']['enabled']) {
+            $container->prependExtensionConfig($this->getAlias(), [
+                'mailer' => [
+                    'enabled' => false,
+                ],
+            ]);
+        }
         if (isset($bundles['DarvinAdminBundle'])) {
             $config = $this->processConfiguration(
                 new Configuration(),

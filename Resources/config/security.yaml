@@ -11,8 +11,6 @@ parameters:
 
     darvin_user.security.oauth.darvin_auth_user_provider.class: Darvin\UserBundle\Security\OAuth\DarvinAuthUserProvider
 
-    darvin_user.security.send_registered_emails_event_subscriber.class: Darvin\UserBundle\EventListener\SendRegisteredEmailsSubscriber
-
     darvin_user.security.twig_extension.class: Darvin\UserBundle\Twig\Extension\SecurityExtension
 
     darvin_user.security.update_password_event_subscriber.class: Darvin\UserBundle\EventListener\UpdatePasswordSubscriber
@@ -79,13 +77,6 @@ services:
             - '@security.token_storage'
             - '@darvin_user.user.factory'
             - '@darvin_user.user.repository'
-
-    darvin_user.security.send_registered_emails_event_subscriber:
-        class: '%darvin_user.security.send_registered_emails_event_subscriber.class%'
-        arguments:
-            - '@darvin_user.mailer.user'
-        tags:
-            - { name: kernel.event_subscriber }
 
     darvin_user.security.twig_extension:
         class:  '%darvin_user.security.twig_extension.class%'

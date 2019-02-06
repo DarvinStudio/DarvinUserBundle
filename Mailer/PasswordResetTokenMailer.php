@@ -19,14 +19,14 @@ use Darvin\Utils\Mailer\TemplateMailerInterface;
 class PasswordResetTokenMailer implements PasswordResetTokenMailerInterface
 {
     /**
-     * @var \Darvin\Utils\Mailer\TemplateMailerInterface|null
+     * @var \Darvin\Utils\Mailer\TemplateMailerInterface
      */
     private $genericMailer;
 
     /**
-     * @param \Darvin\Utils\Mailer\TemplateMailerInterface|null $genericMailer Generic mailer
+     * @param \Darvin\Utils\Mailer\TemplateMailerInterface $genericMailer Generic mailer
      */
-    public function __construct(?TemplateMailerInterface $genericMailer = null)
+    public function __construct(TemplateMailerInterface $genericMailer)
     {
         $this->genericMailer = $genericMailer;
     }
@@ -39,10 +39,6 @@ class PasswordResetTokenMailer implements PasswordResetTokenMailerInterface
         string $subject = 'email.password_reset.subject',
         string $template = '@DarvinUser/email/password_reset.html.twig'
     ): int {
-        if (empty($this->genericMailer)) {
-            return 0;
-        }
-
         return $this->genericMailer->sendPublicEmail($passwordResetToken->getUser()->getEmail(), $subject, $template, [
             'password_reset_token' => $passwordResetToken,
         ]);

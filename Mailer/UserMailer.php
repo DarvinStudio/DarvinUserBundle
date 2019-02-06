@@ -20,7 +20,7 @@ use Darvin\Utils\Mailer\TemplateMailerInterface;
 class UserMailer implements UserMailerInterface
 {
     /**
-     * @var \Darvin\Utils\Mailer\TemplateMailerInterface|null
+     * @var \Darvin\Utils\Mailer\TemplateMailerInterface
      */
     private $genericMailer;
 
@@ -30,10 +30,10 @@ class UserMailer implements UserMailerInterface
     private $userConfig;
 
     /**
-     * @param \Darvin\Utils\Mailer\TemplateMailerInterface|null       $genericMailer Generic mailer
+     * @param \Darvin\Utils\Mailer\TemplateMailerInterface            $genericMailer Generic mailer
      * @param \Darvin\UserBundle\Configuration\UserConfiguration|null $userConfig    User configuration
      */
-    public function __construct(?TemplateMailerInterface $genericMailer = null, ?UserConfiguration $userConfig = null)
+    public function __construct(TemplateMailerInterface $genericMailer, ?UserConfiguration $userConfig = null)
     {
         $this->genericMailer = $genericMailer;
         $this->userConfig = $userConfig;
@@ -44,10 +44,6 @@ class UserMailer implements UserMailerInterface
      */
     public function sendConfirmationEmails(BaseUser $user, string $subject = 'email.confirmation.subject', string $template = '@DarvinUser/email/confirmation.html.twig'): int
     {
-        if (empty($this->genericMailer)) {
-            return 0;
-        }
-
         return $this->genericMailer->sendPublicEmail($user->getEmail(), $subject, $template, [
             'subject' => $subject,
             'user'    => $user,
@@ -59,7 +55,7 @@ class UserMailer implements UserMailerInterface
      */
     public function sendRegisteredEmails(BaseUser $user, string $subject = 'email.registered.subject', string $template = '@DarvinUser/email/registered.html.twig'): int
     {
-        if (empty($this->genericMailer) || empty($this->userConfig)) {
+        if (empty($this->userConfig)) {
             return 0;
         }
 
