@@ -38,7 +38,7 @@ class UserChoiceType extends AbstractType
                     /** @var \Darvin\UserBundle\Repository\UserRepository $repository */
                     $repository = $em->getRepository($options['class']);
 
-                    return !empty($roles) ? $repository->createBuildersByRoles($roles) : $repository->getAllBuilder();
+                    return !empty($roles) ? $repository->createBuilderByRoles($roles) : $repository->createDefaultBuilder();
                 },
             ])
             ->setAllowedTypes('roles', 'array');

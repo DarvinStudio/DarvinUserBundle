@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
- * @copyright Copyright (c) 2015, Darvin Studio
+ * @copyright Copyright (c) 2015-2019, Darvin Studio
  * @link      https://www.darvin-studio.ru
  *
  * For the full copyright and license information, please view the LICENSE
@@ -19,14 +19,6 @@ use Doctrine\ORM\QueryBuilder;
  */
 class UserRepository extends ServiceEntityRepository
 {
-    /**
-     * @return \Doctrine\ORM\QueryBuilder
-     */
-    public function getAllBuilder()
-    {
-        return $this->createDefaultQueryBuilder();
-    }
-
     /**
      * Find user by registration confirmation code
      *
@@ -48,19 +40,22 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param string[]             $roles     Roles
+     * @param string|string[]      $roles     Roles
      * @param string|string[]|null $blacklist Role blacklist
      *
      * @return \Doctrine\ORM\QueryBuilder
      * @throws \InvalidArgumentException
      */
-    public function createBuildersByRoles(array $roles, $blacklist = null): QueryBuilder
+    public function createBuilderByRoles($roles, $blacklist = null): QueryBuilder
     {
         if (empty($roles)) {
-            throw new \InvalidArgumentException('Array of roles is empty.');
+            throw new \InvalidArgumentException('No roles provided.');
+        }
+        if (!is_array($roles)) {
+            $roles = [$roles];
         }
 
-        $qb = $this->createDefaultQueryBuilder();
+        $qb = $this->createDefaultBuilder();
 
         $rolesExpr = $qb->expr()->orX();
 
@@ -69,14 +64,15 @@ class UserRepository extends ServiceEntityRepository
 
             $qb->setParameter($role, '%'.$role.'%');
         }
+
+        $qb->andWhere($rolesExpr);
+
         if (empty($blacklist)) {
             return $qb;
         }
         if (!is_array($blacklist)) {
             $blacklist = [$blacklist];
         }
-
-        $qb->andWhere($rolesExpr);
 
         $blacklistExpr = $qb->expr()->orX();
 
@@ -99,7 +95,7 @@ class UserRepository extends ServiceEntityRepository
      */
     public function getSimilarUsernames(string $username, $userId = null): array
     {
-        $qb = $this->createDefaultQueryBuilder();
+        $qb = $this->createDefaultBuilder();
         $qb
             ->select('o.username')
             ->andWhere($qb->expr()->like('o.username', ':username'))
@@ -123,7 +119,7 @@ class UserRepository extends ServiceEntityRepository
             return null;
         }
 
-        $qb = $this->createDefaultQueryBuilder();
+        $qb = $this->createDefaultBuilder();
         $qb
             ->andWhere($qb->expr()->orX(
                 'o.username = :credential',
@@ -141,7 +137,7 @@ class UserRepository extends ServiceEntityRepository
      */
     public function userExistsAndActive($email)
     {
-        $qb = $this->createDefaultQueryBuilder()
+        $qb = $this->createDefaultBuilder()
             ->select('o.id')
             ->setMaxResults(1);
         $this
@@ -149,6 +145,14 @@ class UserRepository extends ServiceEntityRepository
             ->addEmailFilter($qb, $email);
 
         return null !== $qb->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function createDefaultBuilder(): QueryBuilder
+    {
+        return $this->createQueryBuilder('o')->addOrderBy('o.email');
     }
 
     /**
@@ -211,13 +215,5 @@ class UserRepository extends ServiceEntityRepository
         $qb->andWhere('o.email = :email')->setParameter('email', $email);
 
         return $this;
-    }
-
-    /**
-     * @return \Doctrine\ORM\QueryBuilder
-     */
-    protected function createDefaultQueryBuilder()
-    {
-        return $this->createQueryBuilder('o')->addOrderBy('o.email');
     }
 }
