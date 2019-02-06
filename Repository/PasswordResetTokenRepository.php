@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
- * @copyright Copyright (c) 2015, Darvin Studio
+ * @copyright Copyright (c) 2015-2019, Darvin Studio
  * @link      https://www.darvin-studio.ru
  *
  * For the full copyright and license information, please view the LICENSE
@@ -10,6 +10,7 @@
 
 namespace Darvin\UserBundle\Repository;
 
+use Darvin\UserBundle\Entity\PasswordResetToken;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
@@ -19,13 +20,17 @@ use Doctrine\ORM\QueryBuilder;
 class PasswordResetTokenRepository extends EntityRepository
 {
     /**
-     * @param string $base64EncodedId Base64-encoded password reset token ID
+     * @param string|null $base64EncodedId Base64-encoded password reset token ID
      *
-     * @return \Darvin\UserBundle\Entity\PasswordResetToken
+     * @return \Darvin\UserBundle\Entity\PasswordResetToken|null
      */
-    public function getOneNonExpiredByBase64EncodedId($base64EncodedId)
+    public function getOneNonExpiredByBase64EncodedId(?string $base64EncodedId): ?PasswordResetToken
     {
-        $qb = $this->createDefaultQueryBuilder()
+        if (null === $base64EncodedId) {
+            return null;
+        }
+
+        $qb = $this->createDefaultBuilder()
             ->setMaxResults(1);
         $this
             ->addIdFilter($qb, base64_decode($base64EncodedId))
@@ -36,11 +41,11 @@ class PasswordResetTokenRepository extends EntityRepository
 
     /**
      * @param \Doctrine\ORM\QueryBuilder $qb Query builder
-     * @param int                        $id Password reset token ID
+     * @param mixed                      $id Password reset token ID
      *
      * @return PasswordResetTokenRepository
      */
-    private function addIdFilter(QueryBuilder $qb, $id)
+    private function addIdFilter(QueryBuilder $qb, $id): PasswordResetTokenRepository
     {
         $qb->andWhere('o.id = :id')->setParameter('id', $id);
 
@@ -52,7 +57,7 @@ class PasswordResetTokenRepository extends EntityRepository
      *
      * @return PasswordResetTokenRepository
      */
-    private function addNonExpiredFilter(QueryBuilder $qb)
+    private function addNonExpiredFilter(QueryBuilder $qb): PasswordResetTokenRepository
     {
         $qb->andWhere('o.expireAt >= :now')->setParameter('now', new \DateTime());
 
@@ -62,7 +67,7 @@ class PasswordResetTokenRepository extends EntityRepository
     /**
      * @return \Doctrine\ORM\QueryBuilder
      */
-    private function createDefaultQueryBuilder()
+    private function createDefaultBuilder(): QueryBuilder
     {
         return $this->createQueryBuilder('o');
     }
