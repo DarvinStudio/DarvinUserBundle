@@ -12,7 +12,7 @@ namespace Darvin\UserBundle\Controller;
 
 use Darvin\UserBundle\Form\Factory\UserFormFactoryInterface;
 use Darvin\UserBundle\Form\Handler\UserFormHandler;
-use Darvin\UserBundle\Form\Renderer\UserFormRenderer;
+use Darvin\UserBundle\Form\Renderer\UserFormRendererInterface;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Darvin\Utils\HttpFoundation\AjaxResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -74,9 +74,9 @@ class UserController extends AbstractController
     }
 
     /**
-     * @return \Darvin\UserBundle\Form\Renderer\UserFormRenderer
+     * @return \Darvin\UserBundle\Form\Renderer\UserFormRendererInterface
      */
-    private function getUserFormRenderer(): UserFormRenderer
+    private function getUserFormRenderer(): UserFormRendererInterface
     {
         return $this->get('darvin_user.user.form.renderer');
     }

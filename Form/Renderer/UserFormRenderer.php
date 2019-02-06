@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
- * @copyright Copyright (c) 2015, Darvin Studio
+ * @copyright Copyright (c) 2015-2019, Darvin Studio
  * @link      https://www.darvin-studio.ru
  *
  * For the full copyright and license information, please view the LICENSE
@@ -17,7 +17,7 @@ use Symfony\Component\Templating\EngineInterface;
 /**
  * User form renderer
  */
-class UserFormRenderer
+class UserFormRenderer implements UserFormRendererInterface
 {
     /**
      * @var \Symfony\Component\Templating\EngineInterface
@@ -40,20 +40,16 @@ class UserFormRenderer
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface $form   Form
-     * @param bool                                  $widget Whether to render widget
-     *
-     * @return string
+     * {@inheritDoc}
      */
-    public function renderProfileForm(FormInterface $form = null, $widget = true)
+    public function renderProfileForm(?FormInterface $form = null, bool $partial = true, ?string $template = null): string
     {
         if (empty($form)) {
             $form = $this->userFormFactory->createProfileForm();
         }
-
-        $template = $widget
-            ? '@DarvinUser/user/_profile.html.twig'
-            : '@DarvinUser/user/profile.html.twig';
+        if (empty($template)) {
+            $template = sprintf('@DarvinUser/user/%sprofile.html.twig', $partial ? '_' : '');
+        }
 
         return $this->templating->render($template, [
             'form' => $form->createView(),
