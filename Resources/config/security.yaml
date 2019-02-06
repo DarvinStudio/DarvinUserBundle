@@ -1,4 +1,6 @@
 parameters:
+    darvin_user.security.authenticate_user_event_subscriber.class: Darvin\UserBundle\EventListener\AuthenticateUserSubscriber
+
     darvin_user.security.form.factory.common.class: Darvin\UserBundle\Form\Factory\Security\SecurityFormFactory
 
     darvin_user.security.form.factory.login.generic.class: Darvin\UserBundle\Form\Factory\Security\GenericLoginFormFactory
@@ -22,6 +24,14 @@ parameters:
 services:
     _defaults:
         public: true
+
+    darvin_user.security.authenticate_user_event_subscriber:
+        class: '%darvin_user.security.authenticate_user_event_subscriber.class%'
+        arguments:
+            - '@darvin_user.security.user_authenticator'
+            - '%darvin_user.public_firewall_name%'
+        tags:
+            - { name: kernel.event_subscriber }
 
     darvin_user.security.form.factory.common:
         class: '%darvin_user.security.form.factory.common.class%'
@@ -73,9 +83,7 @@ services:
     darvin_user.security.send_registered_emails_event_subscriber:
         class: '%darvin_user.security.send_registered_emails_event_subscriber.class%'
         arguments:
-            - '@darvin_user.security.user_authenticator'
             - '@darvin_user.mailer.user'
-            - '%darvin_user.public_firewall_name%'
         tags:
             - { name: kernel.event_subscriber }
 

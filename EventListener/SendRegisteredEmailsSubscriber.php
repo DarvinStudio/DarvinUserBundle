@@ -13,7 +13,6 @@ namespace Darvin\UserBundle\EventListener;
 use Darvin\UserBundle\Event\SecurityEvents;
 use Darvin\UserBundle\Event\UserEvent;
 use Darvin\UserBundle\Mailer\UserMailerInterface;
-use Darvin\UserBundle\Security\UserAuthenticatorInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -22,30 +21,16 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class SendRegisteredEmailsSubscriber implements EventSubscriberInterface
 {
     /**
-     * @var \Darvin\UserBundle\Security\UserAuthenticatorInterface
-     */
-    private $userAuthenticator;
-
-    /**
      * @var \Darvin\UserBundle\Mailer\UserMailerInterface
      */
     private $userMailer;
 
     /**
-     * @var string
+     * @param \Darvin\UserBundle\Mailer\UserMailerInterface $userMailer User mailer
      */
-    private $publicFirewallName;
-
-    /**
-     * @param \Darvin\UserBundle\Security\UserAuthenticatorInterface $userAuthenticator  User authenticator
-     * @param \Darvin\UserBundle\Mailer\UserMailerInterface          $userMailer         User mailer
-     * @param string                                                 $publicFirewallName Public firewall name
-     */
-    public function __construct(UserAuthenticatorInterface $userAuthenticator, UserMailerInterface $userMailer, string $publicFirewallName)
+    public function __construct(UserMailerInterface $userMailer)
     {
-        $this->userAuthenticator = $userAuthenticator;
         $this->userMailer = $userMailer;
-        $this->publicFirewallName = $publicFirewallName;
     }
 
     /**
@@ -67,11 +52,6 @@ class SendRegisteredEmailsSubscriber implements EventSubscriberInterface
 
         $this->userMailer->sendRegisteredEmails($user);
 
-        if ($user->isEnabled()) {
-            $this->userAuthenticator->authenticateUser($user, $this->publicFirewallName);
-
-            return;
-        }
         if (null !== $user->getRegistrationConfirmToken()->getId()) {
             $this->userMailer->sendConfirmationEmails($user);
         }
