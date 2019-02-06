@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
- * @copyright Copyright (c) 2015, Darvin Studio
+ * @copyright Copyright (c) 2015-2019, Darvin Studio
  * @link      https://www.darvin-studio.ru
  *
  * For the full copyright and license information, please view the LICENSE
@@ -12,6 +12,7 @@ namespace Darvin\UserBundle\Form\Type\PasswordResetToken;
 
 use Darvin\UserBundle\Validator\Constraints\UserExistsAndActive;
 use Darvin\Utils\Form\Type\AntiSpamType;
+use Darvin\Utils\Strings\StringsUtil;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,11 +30,10 @@ class RequestType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('user_email', EmailType::class, [
-                'label'       => 'password_reset_token.request.user_email',
                 'constraints' => [
                     new NotBlank(),
                     new Email(),
@@ -46,27 +46,29 @@ class RequestType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function finishView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
-        foreach ($view->children as $field) {
+        foreach ($view->children as $name => $field) {
             $field->vars['attr']['autocomplete'] = 'off';
+
+            if (null === $field->vars['label']) {
+                $field->vars['label'] = sprintf('password_reset_token.request.%s', StringsUtil::toUnderscore($name));
+            }
         }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-            'csrf_token_id' => md5(__FILE__.$this->getBlockPrefix()),
-        ]);
+        $resolver->setDefault('csrf_token_id', md5(__FILE__.$this->getBlockPrefix()));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'darvin_user_password_reset_token_request';
     }
