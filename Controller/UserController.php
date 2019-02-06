@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
  * @copyright Copyright (c) 2015-2019, Darvin Studio
@@ -10,6 +10,9 @@
 
 namespace Darvin\UserBundle\Controller;
 
+use Darvin\UserBundle\Form\Factory\UserFormFactoryInterface;
+use Darvin\UserBundle\Form\Handler\UserFormHandler;
+use Darvin\UserBundle\Form\Renderer\UserFormRenderer;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Darvin\Utils\HttpFoundation\AjaxResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -29,7 +32,7 @@ class UserController extends AbstractController
      *
      * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
      */
-    public function profileAction(Request $request)
+    public function profileAction(Request $request): Response
     {
         $widget = $request->isXmlHttpRequest();
 
@@ -55,9 +58,9 @@ class UserController extends AbstractController
     }
 
     /**
-     * @return \Darvin\UserBundle\Form\Factory\UserFormFactory
+     * @return \Darvin\UserBundle\Form\Factory\UserFormFactoryInterface
      */
-    private function getUserFormFactory()
+    private function getUserFormFactory(): UserFormFactoryInterface
     {
         return $this->get('darvin_user.user.form.factory');
     }
@@ -65,7 +68,7 @@ class UserController extends AbstractController
     /**
      * @return \Darvin\UserBundle\Form\Handler\UserFormHandler
      */
-    private function getUserFormHandler()
+    private function getUserFormHandler(): UserFormHandler
     {
         return $this->get('darvin_user.user.form.handler');
     }
@@ -73,7 +76,7 @@ class UserController extends AbstractController
     /**
      * @return \Darvin\UserBundle\Form\Renderer\UserFormRenderer
      */
-    private function getUserFormRenderer()
+    private function getUserFormRenderer(): UserFormRenderer
     {
         return $this->get('darvin_user.user.form.renderer');
     }

@@ -10,7 +10,7 @@
 
 namespace Darvin\UserBundle\Form\Renderer;
 
-use Darvin\UserBundle\Form\Factory\UserFormFactory;
+use Darvin\UserBundle\Form\Factory\UserFormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Templating\EngineInterface;
 
@@ -25,15 +25,15 @@ class UserFormRenderer
     private $templating;
 
     /**
-     * @var \Darvin\UserBundle\Form\Factory\UserFormFactory
+     * @var \Darvin\UserBundle\Form\Factory\UserFormFactoryInterface
      */
     private $userFormFactory;
 
     /**
-     * @param \Symfony\Component\Templating\EngineInterface   $templating      Templating
-     * @param \Darvin\UserBundle\Form\Factory\UserFormFactory $userFormFactory User form factory
+     * @param \Symfony\Component\Templating\EngineInterface            $templating      Templating
+     * @param \Darvin\UserBundle\Form\Factory\UserFormFactoryInterface $userFormFactory User form factory
      */
-    public function __construct(EngineInterface $templating, UserFormFactory $userFormFactory)
+    public function __construct(EngineInterface $templating, UserFormFactoryInterface $userFormFactory)
     {
         $this->templating = $templating;
         $this->userFormFactory = $userFormFactory;
