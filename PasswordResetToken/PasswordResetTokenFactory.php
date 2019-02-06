@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
- * @copyright Copyright (c) 2015, Darvin Studio
+ * @copyright Copyright (c) 2015-2019, Darvin Studio
  * @link      https://www.darvin-studio.ru
  *
  * For the full copyright and license information, please view the LICENSE
@@ -16,7 +16,7 @@ use Darvin\UserBundle\Entity\PasswordResetToken;
 /**
  * Password reset token factory
  */
-class PasswordResetTokenFactory
+class PasswordResetTokenFactory implements PasswordResetTokenFactoryInterface
 {
     /**
      * @var int
@@ -24,26 +24,23 @@ class PasswordResetTokenFactory
     private $passwordResetTokenLifetime;
 
     /**
-     * @param int $passwordResetTokenLifetime Password reset token lifetime
+     * @param mixed $passwordResetTokenLifetime Password reset token lifetime
      */
     public function __construct($passwordResetTokenLifetime)
     {
-        $this->passwordResetTokenLifetime = $passwordResetTokenLifetime;
+        $this->passwordResetTokenLifetime = (int)$passwordResetTokenLifetime;
     }
 
     /**
-     * @param \Darvin\UserBundle\Entity\BaseUser $user User
-     *
-     * @return \Darvin\UserBundle\Entity\PasswordResetToken
-     * @throws \Darvin\UserBundle\PasswordResetToken\PasswordResetTokenException
+     * {@inheritDoc}
      */
-    public function createPasswordResetToken(BaseUser $user)
+    public function createPasswordResetToken(BaseUser $user): PasswordResetToken
     {
         if (!$user->isEnabled()) {
-            throw new PasswordResetTokenException(sprintf('User with email "%s" is not enabled.', $user->getEmail()));
+            throw new \InvalidArgumentException(sprintf('User with email "%s" is not enabled.', $user->getEmail()));
         }
         if ($user->isLocked()) {
-            throw new PasswordResetTokenException(sprintf('User with email "%s" is locked.', $user->getEmail()));
+            throw new \InvalidArgumentException(sprintf('User with email "%s" is locked.', $user->getEmail()));
         }
 
         $expireAt = new \DateTime();

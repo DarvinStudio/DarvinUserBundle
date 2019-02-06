@@ -15,7 +15,7 @@ use Darvin\UserBundle\Event\PasswordResetTokenEvent;
 use Darvin\UserBundle\Event\PasswordResetTokenEvents;
 use Darvin\UserBundle\Form\FormException;
 use Darvin\UserBundle\Form\Type\PasswordResetToken\RequestType;
-use Darvin\UserBundle\PasswordResetToken\PasswordResetTokenFactory;
+use Darvin\UserBundle\PasswordResetToken\PasswordResetTokenFactoryInterface;
 use Darvin\UserBundle\Repository\UserRepository;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Doctrine\ORM\EntityManager;
@@ -43,7 +43,7 @@ class PasswordResetTokenFormHandler
     private $flashNotifier;
 
     /**
-     * @var \Darvin\UserBundle\PasswordResetToken\PasswordResetTokenFactory
+     * @var \Darvin\UserBundle\PasswordResetToken\PasswordResetTokenFactoryInterface
      */
     private $passwordResetTokenFactory;
 
@@ -53,17 +53,17 @@ class PasswordResetTokenFormHandler
     private $userRepository;
 
     /**
-     * @param \Doctrine\ORM\EntityManager                                     $em                        Entity manager
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface     $eventDispatcher           Event dispatcher
-     * @param \Darvin\Utils\Flash\FlashNotifierInterface                      $flashNotifier             Flash notifier
-     * @param \Darvin\UserBundle\PasswordResetToken\PasswordResetTokenFactory $passwordResetTokenFactory Password reset token factory
-     * @param \Darvin\UserBundle\Repository\UserRepository                    $userRepository            User entity repository
+     * @param \Doctrine\ORM\EntityManager                                              $em                        Entity manager
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface              $eventDispatcher           Event dispatcher
+     * @param \Darvin\Utils\Flash\FlashNotifierInterface                               $flashNotifier             Flash notifier
+     * @param \Darvin\UserBundle\PasswordResetToken\PasswordResetTokenFactoryInterface $passwordResetTokenFactory Password reset token factory
+     * @param \Darvin\UserBundle\Repository\UserRepository                             $userRepository            User entity repository
      */
     public function __construct(
         EntityManager $em,
         EventDispatcherInterface $eventDispatcher,
         FlashNotifierInterface $flashNotifier,
-        PasswordResetTokenFactory $passwordResetTokenFactory,
+        PasswordResetTokenFactoryInterface $passwordResetTokenFactory,
         UserRepository $userRepository
     ) {
         $this->em = $em;
