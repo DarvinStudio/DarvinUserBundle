@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
- * @copyright Copyright (c) 2015, Darvin Studio
+ * @copyright Copyright (c) 2015-2019, Darvin Studio
  * @link      https://www.darvin-studio.ru
  *
  * For the full copyright and license information, please view the LICENSE
@@ -11,12 +11,14 @@
 namespace Darvin\UserBundle\EventListener;
 
 use Darvin\UserBundle\Event\PasswordResetTokenEvent;
+use Darvin\UserBundle\Event\PasswordResetTokenEvents;
 use Darvin\UserBundle\Mailer\PasswordResetTokenMailerInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Password reset token requested event listener
+ * Send password reset token emails event subscriber
  */
-class PasswordResetTokenRequestedListener
+class SendPasswordResetTokenEmailsSubscriber implements EventSubscriberInterface
 {
     /**
      * @var \Darvin\UserBundle\Mailer\PasswordResetTokenMailerInterface
@@ -32,9 +34,19 @@ class PasswordResetTokenRequestedListener
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            PasswordResetTokenEvents::REQUESTED => 'sendRequestedEmails',
+        ];
+    }
+
+    /**
      * @param \Darvin\UserBundle\Event\PasswordResetTokenEvent $event Event
      */
-    public function onPasswordResetTokenRequested(PasswordResetTokenEvent $event)
+    public function sendRequestedEmails(PasswordResetTokenEvent $event): void
     {
         $this->passwordResetTokenMailer->sendRequestedEmails($event->getPasswordResetToken());
     }
