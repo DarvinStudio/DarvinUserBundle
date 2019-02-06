@@ -48,13 +48,13 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param string[] $roles      Roles
-     * @param string   $exceptRole Except role
+     * @param string[]             $roles     Roles
+     * @param string|string[]|null $blacklist Role blacklist
      *
      * @return \Doctrine\ORM\QueryBuilder
      * @throws \InvalidArgumentException
      */
-    public function getByRolesBuilder(array $roles, $exceptRole = null)
+    public function createBuildersByRoles(array $roles, $blacklist = null): QueryBuilder
     {
         if (empty($roles)) {
             throw new \InvalidArgumentException('Array of roles is empty.');
@@ -62,17 +62,31 @@ class UserRepository extends ServiceEntityRepository
 
         $qb = $this->createDefaultQueryBuilder();
 
-        $rolesExpr = implode(' OR ', array_map(function ($role) {
-            return 'o.roles LIKE :role_'.$role;
-        }, $roles));
-        $qb->andWhere($rolesExpr);
+        $rolesExpr = $qb->expr()->orX();
 
         foreach ($roles as $role) {
-            $qb->setParameter('role_'.$role, '%'.$role.'%');
+            $rolesExpr->add($qb->expr()->like('o.roles', sprintf(':%s', $role)));
+
+            $qb->setParameter($role, '%'.$role.'%');
         }
-        if (!empty($exceptRole)) {
-            $qb->andWhere($qb->expr()->notLike('o.roles', ':except_role'))->setParameter('except_role', '%'.$exceptRole.'%');
+        if (empty($blacklist)) {
+            return $qb;
         }
+        if (!is_array($blacklist)) {
+            $blacklist = [$blacklist];
+        }
+
+        $qb->andWhere($rolesExpr);
+
+        $blacklistExpr = $qb->expr()->orX();
+
+        foreach ($blacklist as $role) {
+            $blacklistExpr->add($qb->expr()->notLike('o.roles', sprintf(':%s', $role)));
+
+            $qb->setParameter($role, '%'.$role.'%');
+        }
+
+        $qb->andWhere($blacklistExpr);
 
         return $qb;
     }

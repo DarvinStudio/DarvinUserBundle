@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
- * @copyright Copyright (c) 2016, Darvin Studio
+ * @copyright Copyright (c) 2016-2019, Darvin Studio
  * @link      https://www.darvin-studio.ru
  *
  * For the full copyright and license information, please view the LICENSE
@@ -17,14 +17,14 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * User entity form type
+ * User choice form type
  */
-class UserEntityType extends AbstractType
+class UserChoiceType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -32,12 +32,13 @@ class UserEntityType extends AbstractType
                 'roles'         => [],
                 'query_builder' => function (Options $options) {
                     /** @var \Doctrine\ORM\EntityManager $em */
-                    $em = $options['em'];
-                    /** @var \Darvin\UserBundle\Repository\UserRepository $repository */
-                    $repository = $em->getRepository($options['class']);
+                    $em    = $options['em'];
                     $roles = $options['roles'];
 
-                    return !empty($roles) ? $repository->getByRolesBuilder($roles) : $repository->getAllBuilder();
+                    /** @var \Darvin\UserBundle\Repository\UserRepository $repository */
+                    $repository = $em->getRepository($options['class']);
+
+                    return !empty($roles) ? $repository->createBuildersByRoles($roles) : $repository->getAllBuilder();
                 },
             ])
             ->setAllowedTypes('roles', 'array');
@@ -46,8 +47,16 @@ class UserEntityType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getParent()
+    public function getParent(): string
     {
         return EntityType::class;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getBlockPrefix(): string
+    {
+        return 'darvin_user_user_choice';
     }
 }
