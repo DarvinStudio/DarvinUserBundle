@@ -34,7 +34,7 @@ class SecurityFormFactory implements SecurityFormFactoryInterface
     /**
      * @var \Symfony\Component\Form\FormFactoryInterface
      */
-    private $formFactory;
+    private $genericFormFactory;
 
     /**
      * @var \Symfony\Component\Routing\RouterInterface
@@ -58,7 +58,7 @@ class SecurityFormFactory implements SecurityFormFactoryInterface
 
     /**
      * @param \Symfony\Component\Security\Http\Authentication\AuthenticationUtils $authenticationUtils Authentication utils
-     * @param \Symfony\Component\Form\FormFactoryInterface                        $formFactory         Form factory
+     * @param \Symfony\Component\Form\FormFactoryInterface                        $genericFormFactory  Generic form factory
      * @param \Symfony\Component\Routing\RouterInterface                          $router              Router
      * @param \Darvin\UserBundle\User\UserFactoryInterface                        $userFactory         User factory
      * @param string                                                              $csrfTokenId         CSRF token ID
@@ -66,14 +66,14 @@ class SecurityFormFactory implements SecurityFormFactoryInterface
      */
     public function __construct(
         AuthenticationUtils $authenticationUtils,
-        FormFactoryInterface $formFactory,
+        FormFactoryInterface $genericFormFactory,
         RouterInterface $router,
         UserFactoryInterface $userFactory,
         string $csrfTokenId,
         string $userClass
     ) {
         $this->authenticationUtils = $authenticationUtils;
-        $this->formFactory = $formFactory;
+        $this->genericFormFactory = $genericFormFactory;
         $this->router = $router;
         $this->userFactory = $userFactory;
         $this->csrfTokenId = $csrfTokenId;
@@ -83,8 +83,13 @@ class SecurityFormFactory implements SecurityFormFactoryInterface
     /**
      * {@inheritDoc}
      */
-    public function createLoginForm(array $options = [], string $type = LoginType::class, string $name = ''): FormInterface
+    public function createLoginForm(array $options = [], string $type = LoginType::class, ?string $name = null): FormInterface
     {
+        $data = [
+            '_remember_me' => true,
+            '_username'    => $this->authenticationUtils->getLastUsername(),
+        ];
+
         $options = array_merge([
             'csrf_token_id' => $this->csrfTokenId,
         ], $options);
@@ -92,16 +97,11 @@ class SecurityFormFactory implements SecurityFormFactoryInterface
         if (!isset($options['action'])) {
             $options['action'] = $this->router->generate('darvin_user_security_login_check');
         }
+        if (null !== $name) {
+            return $this->genericFormFactory->createNamed($name, $type, $data, $options);
+        }
 
-        return $this->formFactory->createNamed(
-            $name,
-            $type,
-            [
-                '_remember_me' => true,
-                '_username'    => $this->authenticationUtils->getLastUsername(),
-            ],
-            $options
-        );
+        return $this->genericFormFactory->create($type, $data, $options);
     }
 
     /**
@@ -120,10 +120,10 @@ class SecurityFormFactory implements SecurityFormFactoryInterface
             ]);
         }
         if (null !== $name) {
-            return $this->formFactory->createNamed($name, $type, $user, $options);
+            return $this->genericFormFactory->createNamed($name, $type, $user, $options);
         }
 
-        return $this->formFactory->create($type, $user, $options);
+        return $this->genericFormFactory->create($type, $user, $options);
     }
 
     /**
@@ -144,9 +144,9 @@ class SecurityFormFactory implements SecurityFormFactoryInterface
             $options['action'] = $this->router->generate('darvin_user_security_register');
         }
         if (null !== $name) {
-            return $this->formFactory->createNamed($name, $type, $user, $options);
+            return $this->genericFormFactory->createNamed($name, $type, $user, $options);
         }
 
-        return $this->formFactory->create($type, $user, $options);
+        return $this->genericFormFactory->create($type, $user, $options);
     }
 }

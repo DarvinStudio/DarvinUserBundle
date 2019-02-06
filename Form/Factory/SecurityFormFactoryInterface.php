@@ -23,13 +23,13 @@ use Symfony\Component\Form\FormInterface;
 interface SecurityFormFactoryInterface
 {
     /**
-     * @param array  $options Options
-     * @param string $type    Type
-     * @param string $name    Name
+     * @param array       $options Options
+     * @param string      $type    Type
+     * @param string|null $name    Name
      *
      * @return \Symfony\Component\Form\FormInterface
      */
-    public function createLoginForm(array $options = [], string $type = LoginType::class, string $name = ''): FormInterface;
+    public function createLoginForm(array $options = [], string $type = LoginType::class, ?string $name = null): FormInterface;
 
     /**
      * @param \Darvin\UserBundle\Entity\PasswordResetToken $passwordResetToken Password reset token
