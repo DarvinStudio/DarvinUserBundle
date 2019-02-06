@@ -1,9 +1,16 @@
 parameters:
+    darvin_user.mailer.password_reset_token.class: Darvin\UserBundle\Mailer\PasswordResetTokenMailer
+
     darvin_user.mailer.user.class: Darvin\UserBundle\Mailer\UserMailer
 
 services:
     _defaults:
         public: true
+
+    darvin_user.mailer.password_reset_token:
+        class: '%darvin_user.mailer.password_reset_token.class%'
+        arguments:
+            - '@?darvin_utils.mailer.template'
 
     darvin_user.mailer.user:
         class:  '%darvin_user.mailer.user.class%'

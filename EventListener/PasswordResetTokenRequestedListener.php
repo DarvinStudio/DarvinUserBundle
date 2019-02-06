@@ -11,7 +11,7 @@
 namespace Darvin\UserBundle\EventListener;
 
 use Darvin\UserBundle\Event\PasswordResetTokenEvent;
-use Darvin\UserBundle\PasswordResetToken\PasswordResetTokenMailer;
+use Darvin\UserBundle\Mailer\PasswordResetTokenMailerInterface;
 
 /**
  * Password reset token requested event listener
@@ -19,14 +19,14 @@ use Darvin\UserBundle\PasswordResetToken\PasswordResetTokenMailer;
 class PasswordResetTokenRequestedListener
 {
     /**
-     * @var \Darvin\UserBundle\PasswordResetToken\PasswordResetTokenMailer
+     * @var \Darvin\UserBundle\Mailer\PasswordResetTokenMailerInterface
      */
     private $passwordResetTokenMailer;
 
     /**
-     * @param \Darvin\UserBundle\PasswordResetToken\PasswordResetTokenMailer $passwordResetTokenMailer Password reset token mailer
+     * @param \Darvin\UserBundle\Mailer\PasswordResetTokenMailerInterface $passwordResetTokenMailer Password reset token mailer
      */
-    public function __construct(PasswordResetTokenMailer $passwordResetTokenMailer)
+    public function __construct(PasswordResetTokenMailerInterface $passwordResetTokenMailer)
     {
         $this->passwordResetTokenMailer = $passwordResetTokenMailer;
     }
@@ -36,6 +36,6 @@ class PasswordResetTokenRequestedListener
      */
     public function onPasswordResetTokenRequested(PasswordResetTokenEvent $event)
     {
-        $this->passwordResetTokenMailer->sendRequestedPublicEmail($event->getPasswordResetToken());
+        $this->passwordResetTokenMailer->sendRequestedEmails($event->getPasswordResetToken());
     }
 }
