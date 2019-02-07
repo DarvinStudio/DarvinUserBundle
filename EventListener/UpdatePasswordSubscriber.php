@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
  * @copyright Copyright (c) 2015-2019, Darvin Studio
@@ -39,7 +39,7 @@ class UpdatePasswordSubscriber implements EventSubscriber
     /**
      * {@inheritdoc}
      */
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             Events::onFlush,
@@ -49,9 +49,10 @@ class UpdatePasswordSubscriber implements EventSubscriber
     /**
      * {@inheritdoc}
      */
-    public function onFlush(OnFlushEventArgs $args)
+    public function onFlush(OnFlushEventArgs $args): void
     {
         $em = $args->getEntityManager();
+
         $uow = $em->getUnitOfWork();
 
         foreach (array_merge($uow->getScheduledEntityInsertions(), $uow->getScheduledEntityUpdates()) as $entity) {
@@ -65,7 +66,7 @@ class UpdatePasswordSubscriber implements EventSubscriber
      * @param \Doctrine\ORM\EntityManager        $em   Entity manager
      * @param \Darvin\UserBundle\Entity\BaseUser $user User
      */
-    private function updatePassword(EntityManager $em, BaseUser $user)
+    private function updatePassword(EntityManager $em, BaseUser $user): void
     {
         if ($this->userManager->updatePassword($user)) {
             $em->getUnitOfWork()->recomputeSingleEntityChangeSet($em->getClassMetadata(ClassUtils::getClass($user)), $user);
