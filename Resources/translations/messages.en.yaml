@@ -24,6 +24,9 @@ profile:
         submit: 'Save Profile'
         success: 'Profile Successfully Saved'
         title: 'Update Profile'
+    show:
+        edit: Edit
+        title: Profile
 security:
     confirm_registration:
         code_sent:
@@ -57,3 +60,4 @@ user:
     entity:
         email: Email
         plain_password: Password
+        username: Username

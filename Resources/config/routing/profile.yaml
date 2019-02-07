@@ -1,3 +1,7 @@
 darvin_user_profile_edit:
     path:     /edit
     defaults: { _controller: Darvin\UserBundle\Controller\ProfileController:editAction }
+
+darvin_user_profile_show:
+    path:     /
+    defaults: { _controller: Darvin\UserBundle\Controller\ProfileController:showAction }

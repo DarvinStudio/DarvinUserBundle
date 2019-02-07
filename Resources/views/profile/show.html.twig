@@ -1,0 +1,19 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{% trans %}profile.show.title{% endtrans %}{% endblock %}
+
+{% block heading %}{% trans %}profile.show.title{% endtrans %}{% endblock %}
+
+{% block content %}
+    <a href="{{ path('darvin_user_profile_edit') }}">{% trans %}profile.show.edit{% endtrans %}</a>
+    <table>
+        <tr>
+            <th>{% trans %}user.entity.username{% endtrans %}</th>
+            <td>{{ user.username }}</td>
+        </tr>
+        <tr>
+            <th>{% trans %}user.entity.email{% endtrans %}</th>
+            <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+        </tr>
+    </table>
+{% endblock %}

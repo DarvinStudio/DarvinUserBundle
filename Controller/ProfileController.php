@@ -22,6 +22,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Profile controller
+ *
+ * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
  */
 class ProfileController extends AbstractController
 {
@@ -29,8 +31,6 @@ class ProfileController extends AbstractController
      * @param \Symfony\Component\HttpFoundation\Request $request Request
      *
      * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
      */
     public function editAction(Request $request): Response
     {
@@ -55,6 +55,19 @@ class ProfileController extends AbstractController
         return $widget
             ? new AjaxResponse($this->getUserFormRenderer()->renderProfileForm($form), true, $successMessage)
             : $this->redirectToRoute('darvin_user_profile_edit');
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showAction(): Response
+    {
+        /** @var \Darvin\UserBundle\Entity\BaseUser $user */
+        $user = $this->getUser();
+
+        return $this->render('@DarvinUser/profile/show.html.twig', [
+            'user' => $user,
+        ]);
     }
 
     /**

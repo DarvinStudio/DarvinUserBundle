@@ -30,6 +30,9 @@ profile:
         submit:  Сохранить профиль
         success: Профиль успешно сохранен
         title:   Изменить профиль
+    show:
+        edit:  Изменить
+        title: Профиль
 
 security:
     confirm_registration:
@@ -65,3 +68,4 @@ user:
     entity:
         email:          Email
         plain_password: Пароль
+        username:       Имя пользователя
