@@ -1,5 +1,18 @@
 User account is disabled.: Учетная запись не активна
 
+email:
+    confirmation:
+        subject: Подтвреждение регистрации
+        text:    Для того, чтобы завершить регистрацию, просто пройдите по <a href="%url%">ссылке</a>. Либо скопируйте %url% к себе в браузер.
+    password_reset:
+        subject: Ссылка для сброса пароля
+        text: >
+            <p>Для сброса пароля перейдите по ссылке <a href="%url%">%url%</a>.</p>
+            <p>Время действия ссылки - до %expire_at%.</p>
+    registered:
+        subject: Новый пользователь
+        user:    Пользователь
+
 password_reset_token:
     request:
         check_mail: 'Проверить почту:'
@@ -10,6 +23,13 @@ password_reset_token:
             text:    Ссылка отправлена на email %email%.
         title:      Получить ссылку для сброса пароля
         user_email: Email
+
+profile:
+    edit:
+        link:    Редактировать профиль
+        submit:  Сохранить профиль
+        success: Профиль успешно сохранен
+        title:   Изменить профиль
 
 security:
     confirm_registration:
@@ -45,21 +65,3 @@ user:
     entity:
         email:          Email
         plain_password: Пароль
-    profile:
-        link:    Редактировать профиль
-        submit:  Сохранить профиль
-        success: Профиль успешно сохранен
-        title:   Изменить профиль
-
-email:
-    confirmation:
-        subject: Подтвреждение регистрации
-        text:    Для того, чтобы завершить регистрацию, просто пройдите по <a href="%url%">ссылке</a>. Либо скопируйте %url% к себе в браузер.
-    password_reset:
-        subject: Ссылка для сброса пароля
-        text: >
-            <p>Для сброса пароля перейдите по ссылке <a href="%url%">%url%</a>.</p>
-            <p>Время действия ссылки - до %expire_at%.</p>
-    registered:
-        subject: Новый пользователь
-        user:    Пользователь

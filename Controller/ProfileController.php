@@ -42,7 +42,7 @@ class ProfileController extends AbstractController
             return new Response($this->getUserFormRenderer()->renderProfileForm($form, $widget));
         }
 
-        $successMessage = 'user.profile.success';
+        $successMessage = 'profile.edit.success';
 
         if (!$this->getUserFormHandler()->handleProfileForm($form, !$widget, $successMessage)) {
             $html = $this->getUserFormRenderer()->renderProfileForm($form, $widget);

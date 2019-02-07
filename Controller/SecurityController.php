@@ -38,7 +38,7 @@ class SecurityController extends AbstractController
     public function confirmRegistrationAction(?string $code = null): Response
     {
         if (null === $code) {
-            return $this->render('@DarvinUser/user/confirm_registration/code_sent.html.twig');
+            return $this->render('@DarvinUser/security/confirm_registration/code_sent.html.twig');
         }
 
         $user = $this->get('darvin_user.user.repository')->getOneByRegistrationToken($code);
@@ -53,7 +53,7 @@ class SecurityController extends AbstractController
 
         $this->get('event_dispatcher')->dispatch(SecurityEvents::REGISTRATION_CONFIRMED, new UserEvent($user));
 
-        return $this->render('@DarvinUser/user/confirm_registration/success.html.twig');
+        return $this->render('@DarvinUser/security/confirm_registration/success.html.twig');
     }
 
     /**

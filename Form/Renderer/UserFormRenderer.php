@@ -48,7 +48,7 @@ class UserFormRenderer implements UserFormRendererInterface
             $form = $this->userFormFactory->createProfileForm();
         }
         if (empty($template)) {
-            $template = sprintf('@DarvinUser/user/%sprofile.html.twig', $partial ? '_' : '');
+            $template = sprintf('@DarvinUser/profile/%sedit.html.twig', $partial ? '_' : '');
         }
 
         return $this->templating->render($template, [
