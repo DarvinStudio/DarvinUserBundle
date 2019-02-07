@@ -1,2 +1,11 @@
-{% set url = url('darvin_user_security_confirm_registration', {'code': user.registrationConfirmToken.id}) %}
-{% trans with {'%url%': url} %}email.confirmation.text{% endtrans %}
+{% extends 'email.html.twig' %}
+
+{% block heading %}{{ subject|trans }}{% endblock %}
+
+{% block content %}
+    {% trans with {
+        '%url%': url('darvin_user_security_confirm_registration', {'code': user.registrationConfirmToken.id}),
+    } %}
+        email.confirmation.text
+    {% endtrans %}
+{% endblock %}
