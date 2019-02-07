@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
- * @copyright Copyright (c) 2015, Darvin Studio
+ * @copyright Copyright (c) 2015-2019, Darvin Studio
  * @link      https://www.darvin-studio.ru
  *
  * For the full copyright and license information, please view the LICENSE
@@ -10,12 +10,13 @@
 
 namespace Darvin\UserBundle\Form\Handler;
 
+use Darvin\UserBundle\Entity\BaseUser;
 use Darvin\UserBundle\Entity\PasswordResetToken;
 use Darvin\UserBundle\Event\PasswordResetTokenEvent;
 use Darvin\UserBundle\Event\PasswordResetTokenEvents;
-use Darvin\UserBundle\Form\FormException;
 use Darvin\UserBundle\Form\Type\PasswordResetToken\RequestType;
 use Darvin\UserBundle\PasswordResetToken\PasswordResetTokenFactoryInterface;
+use Darvin\UserBundle\Repository\PasswordResetTokenRepository;
 use Darvin\UserBundle\Repository\UserRepository;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Doctrine\ORM\EntityManager;
@@ -25,7 +26,7 @@ use Symfony\Component\Form\FormInterface;
 /**
  * Password reset token form handler
  */
-class PasswordResetTokenFormHandler
+class PasswordResetTokenFormHandler implements PasswordResetTokenFormHandlerInterface
 {
     /**
      * @var \Doctrine\ORM\EntityManager
@@ -74,23 +75,18 @@ class PasswordResetTokenFormHandler
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface $form             Form
-     * @param bool                                  $addFlashMessages Whether to add flash messages
-     * @param string                                $successMessage   Success message
-     *
-     * @return \Darvin\UserBundle\Entity\PasswordResetToken
-     * @throws \Darvin\UserBundle\Form\FormException
+     * {@inheritDoc}
      */
-    public function handleRequestForm(FormInterface $form, $addFlashMessages = false, $successMessage = null)
+    public function handleRequestForm(FormInterface $form, bool $addFlashes = false, ?string $successMessage = null): ?PasswordResetToken
     {
         if (!$form->getConfig()->getType()->getInnerType() instanceof RequestType) {
-            throw new FormException('Unable to handle form: provided form is not password reset token request form.');
+            throw new \InvalidArgumentException('Unable to handle form: provided form is not password reset token request form.');
         }
         if (!$form->isSubmitted()) {
-            throw new FormException('Unable to handle password reset token request form: it is not submitted.');
+            throw new \LogicException('Unable to handle password reset token request form: it is not submitted.');
         }
         if (!$form->isValid()) {
-            if ($addFlashMessages) {
+            if ($addFlashes) {
                 $this->flashNotifier->formError();
             }
 
@@ -111,12 +107,13 @@ class PasswordResetTokenFormHandler
         }
 
         $passwordResetToken = $this->passwordResetTokenFactory->createPasswordResetToken($user);
+
         $this->em->persist($passwordResetToken);
         $this->em->flush();
 
         $this->eventDispatcher->dispatch(PasswordResetTokenEvents::REQUESTED, new PasswordResetTokenEvent($passwordResetToken));
 
-        if ($addFlashMessages && !empty($successMessage)) {
+        if ($addFlashes && !empty($successMessage)) {
             $this->flashNotifier->success($successMessage);
         }
 
@@ -124,19 +121,19 @@ class PasswordResetTokenFormHandler
     }
 
     /**
-     * @param string $email User email
+     * @param string|null $email User email
      *
      * @return \Darvin\UserBundle\Entity\BaseUser
-     * @throws \Darvin\UserBundle\Form\FormException
+     * @throws \InvalidArgumentException
      */
-    private function getUser($email)
+    private function getUser(?string $email): BaseUser
     {
         $user = $this->userRepository->findOneBy([
             'email' => $email,
         ]);
 
         if (empty($user)) {
-            throw new FormException(sprintf('Unable to find user by email "%s".', $email));
+            throw new \InvalidArgumentException(sprintf('Unable to find user by email "%s".', $email));
         }
 
         return $user;
@@ -145,7 +142,7 @@ class PasswordResetTokenFormHandler
     /**
      * @return \Darvin\UserBundle\Repository\PasswordResetTokenRepository
      */
-    private function getPasswordResetTokenRepository()
+    private function getPasswordResetTokenRepository(): PasswordResetTokenRepository
     {
         return $this->em->getRepository(PasswordResetToken::class);
     }
