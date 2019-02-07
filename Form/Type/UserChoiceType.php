@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Darvin\UserBundle\Form\Type\User;
+namespace Darvin\UserBundle\Form\Type;
 
 use Darvin\UserBundle\Entity\BaseUser;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

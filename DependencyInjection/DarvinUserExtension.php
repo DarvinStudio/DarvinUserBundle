@@ -34,20 +34,20 @@ class DarvinUserExtension extends Extension implements PrependExtensionInterface
 
         (new ConfigLoader($container, __DIR__.'/../Resources/config'))->load([
             'authentication',
-            'configuration/roles',
             'password_reset_token',
             'profile',
+            'role',
             'security',
             'user',
             'username',
 
-            'admin'                       => ['bundle' => 'DarvinAdminBundle'],
+            'admin'         => ['bundle' => 'DarvinAdminBundle'],
 
-            'configuration/configuration' => ['bundle' => 'DarvinConfigBundle'],
+            'configuration' => ['bundle' => 'DarvinConfigBundle'],
 
-            'dev/fixture'                 => ['env' => 'dev'],
+            'dev/fixture'   => ['env' => 'dev'],
 
-            'mailer'                      => ['callback' => function () use ($config) {
+            'mailer'        => ['callback' => function () use ($config) {
                 return $config['mailer']['enabled'];
             }],
         ]);

@@ -10,7 +10,7 @@ services:
         parent: darvin_admin.view.widget.abstract
         public: false
         arguments:
-            - '@darvin_user.configuration.roles'
+            - '@darvin_user.role.configuration'
             - '@translator'
         tags:
             - { name: darvin_admin.view_widget }

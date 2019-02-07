@@ -1,0 +1,20 @@
+parameters:
+    darvin_user.role.choice_form_type.class: Darvin\UserBundle\Form\Type\RoleChoiceType
+
+    darvin_user.role.configuration.class: Darvin\UserBundle\Configuration\RoleConfiguration
+
+services:
+    _defaults:
+        public: true
+
+    darvin_user.role.choice_form_type:
+        class: '%darvin_user.role.choice_form_type.class%'
+        arguments:
+            - '@darvin_user.role.configuration'
+        tags:
+            - { name: form.type }
+
+    darvin_user.role.configuration:
+        class: '%darvin_user.role.configuration.class%'
+        arguments:
+            - '%darvin_user.roles%'

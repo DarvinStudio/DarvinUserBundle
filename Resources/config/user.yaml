@@ -4,8 +4,6 @@ parameters:
 
     darvin_user.user.factory.class: Darvin\UserBundle\User\UserFactory
 
-    darvin_user.user.form.type.role.class: Darvin\UserBundle\Form\Type\User\RoleChoiceType
-
     darvin_user.user.manager.class: Darvin\UserBundle\User\UserManager
 
     darvin_user.user.repository.class: Darvin\UserBundle\Repository\UserRepository
@@ -21,7 +19,7 @@ services:
         arguments:
             - '%darvin_user.user.create_command.name%'
             - '@doctrine.orm.entity_manager'
-            - '@darvin_user.configuration.roles'
+            - '@darvin_user.role.configuration'
             - '@darvin_user.user.factory'
             - '@validator'
         tags:
@@ -31,13 +29,6 @@ services:
         class: '%darvin_user.user.factory.class%'
         arguments:
             - '%darvin_user.user_class%'
-
-    darvin_user.user.form.type.role:
-        class: '%darvin_user.user.form.type.role.class%'
-        arguments:
-            - '@darvin_user.configuration.roles'
-        tags:
-            - { name: form.type }
 
     darvin_user.user.manager:
         class: '%darvin_user.user.manager.class%'

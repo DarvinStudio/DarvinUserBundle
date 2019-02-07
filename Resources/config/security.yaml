@@ -46,7 +46,7 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@event_dispatcher'
             - '@darvin_utils.flash.notifier'
-            - '@darvin_user.configuration.roles'
+            - '@darvin_user.role.configuration'
             - '@darvin_user.security.user_authenticator'
             - '%darvin_user.public_firewall_name%'
 

@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Darvin\UserBundle\Form\Type\User;
+namespace Darvin\UserBundle\Form\Type;
 
 use Darvin\UserBundle\Configuration\RoleConfigurationInterface;
 use Symfony\Component\Form\AbstractType;
@@ -16,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * User role choice form type
+ * Role choice form type
  */
 class RoleChoiceType extends AbstractType
 {
