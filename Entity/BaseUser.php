@@ -182,6 +182,14 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     }
 
     /**
+     * @return bool
+     */
+    public function isActive()
+    {
+        return $this->enabled && !$this->locked;
+    }
+
+    /**
      * @return BaseUser
      */
     public function updateSalt()

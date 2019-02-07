@@ -37,6 +37,8 @@ class UserAuthenticator implements UserAuthenticatorInterface
      */
     public function authenticateUser(BaseUser $user, string $firewallName): void
     {
-        $this->authTokenStorage->setToken(new UsernamePasswordToken($user, $user->getPassword(), $firewallName, $user->getRoles()));
+        if ($user->isActive()) {
+            $this->authTokenStorage->setToken(new UsernamePasswordToken($user, $user->getPassword(), $firewallName, $user->getRoles()));
+        }
     }
 }

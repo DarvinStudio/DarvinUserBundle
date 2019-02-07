@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
- * @copyright Copyright (c) 2015, Darvin Studio
+ * @copyright Copyright (c) 2015-2019, Darvin Studio
  * @link      https://www.darvin-studio.ru
  *
  * For the full copyright and license information, please view the LICENSE
@@ -14,9 +14,9 @@ use Darvin\UserBundle\Configuration\RoleConfigurationInterface;
 use Darvin\UserBundle\Entity\PasswordResetToken;
 use Darvin\UserBundle\Event\SecurityEvents;
 use Darvin\UserBundle\Event\UserEvent;
-use Darvin\UserBundle\Form\FormException;
 use Darvin\UserBundle\Form\Type\Security\PasswordResetType;
 use Darvin\UserBundle\Form\Type\Security\RegistrationType;
+use Darvin\UserBundle\Repository\PasswordResetTokenRepository;
 use Darvin\UserBundle\Security\UserAuthenticatorInterface;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Doctrine\ORM\EntityManager;
@@ -26,7 +26,7 @@ use Symfony\Component\Form\FormInterface;
 /**
  * Security form handler
  */
-class SecurityFormHandler
+class SecurityFormHandler implements SecurityFormHandlerInterface
 {
     /**
      * @var \Doctrine\ORM\EntityManager
@@ -72,7 +72,7 @@ class SecurityFormHandler
         FlashNotifierInterface $flashNotifier,
         RoleConfigurationInterface $roleConfig,
         UserAuthenticatorInterface $userAuthenticator,
-        $publicFirewallName
+        string $publicFirewallName
     ) {
         $this->em = $em;
         $this->eventDispatcher = $eventDispatcher;
@@ -83,23 +83,18 @@ class SecurityFormHandler
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface $form             Form
-     * @param bool                                  $addFlashMessages Whether to add flash messages
-     * @param string                                $successMessage   Success message
-     *
-     * @return bool
-     * @throws \Darvin\UserBundle\Form\FormException
+     * {@inheritDoc}
      */
-    public function handlePasswordResetForm(FormInterface $form, $addFlashMessages = false, $successMessage = null)
+    public function handlePasswordResetForm(FormInterface $form, bool $addFlashes = false, ?string $successMessage = null): bool
     {
         if (!$form->getConfig()->getType()->getInnerType() instanceof PasswordResetType) {
-            throw new FormException('Unable to handle form: provided form is not password reset form.');
+            throw new \InvalidArgumentException('Unable to handle form: provided form is not password reset form.');
         }
         if (!$form->isSubmitted()) {
-            throw new FormException('Unable to handle password reset form: it is not submitted.');
+            throw new \LogicException('Unable to handle password reset form: it is not submitted.');
         }
         if (!$form->isValid()) {
-            if ($addFlashMessages) {
+            if ($addFlashes) {
                 $this->flashNotifier->formError();
             }
 
@@ -120,7 +115,7 @@ class SecurityFormHandler
 
         $this->userAuthenticator->authenticateUser($user, $this->publicFirewallName);
 
-        if ($addFlashMessages && !empty($successMessage)) {
+        if ($addFlashes && !empty($successMessage)) {
             $this->flashNotifier->success($successMessage);
         }
 
@@ -128,28 +123,18 @@ class SecurityFormHandler
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface $form Form
-     * @param bool $addFlashMessages Whether to add flash messages
-     * @param string $successMessage Success message
-     * @param bool $registrationConfirmation Is reg confirm needed or not
-     *
-     * @return bool
-     * @throws FormException
+     * {@inheritDoc}
      */
-    public function handleRegistrationForm(
-        FormInterface $form,
-        $addFlashMessages = false,
-        $successMessage = null,
-        $registrationConfirmation = false
-    ) {
+    public function handleRegistrationForm(FormInterface $form, bool $addFlashes = false, ?string $successMessage = null, bool $confirmationRequired = false): bool
+    {
         if (!$form->getConfig()->getType()->getInnerType() instanceof RegistrationType) {
-            throw new FormException('Unable to handle form: provided form is not registration form.');
+            throw new \InvalidArgumentException('Unable to handle form: provided form is not registration form.');
         }
         if (!$form->isSubmitted()) {
-            throw new FormException('Unable to handle registration form: it is not submitted.');
+            throw new \LogicException('Unable to handle registration form: it is not submitted.');
         }
         if (!$form->isValid()) {
-            if ($addFlashMessages) {
+            if ($addFlashes) {
                 $this->flashNotifier->formError();
             }
 
@@ -166,7 +151,7 @@ class SecurityFormHandler
                 break;
             }
         }
-        if ($registrationConfirmation) {
+        if ($confirmationRequired) {
             $user->setEnabled(false);
             $user->getRegistrationConfirmToken()->setId(md5(uniqid()));
         }
@@ -176,7 +161,7 @@ class SecurityFormHandler
 
         $this->eventDispatcher->dispatch(SecurityEvents::REGISTERED, new UserEvent($user));
 
-        if ($addFlashMessages && !empty($successMessage)) {
+        if ($addFlashes && !empty($successMessage)) {
             $this->flashNotifier->success($successMessage);
         }
 
@@ -186,7 +171,7 @@ class SecurityFormHandler
     /**
      * @return \Darvin\UserBundle\Repository\PasswordResetTokenRepository
      */
-    private function getPasswordResetTokenRepository()
+    private function getPasswordResetTokenRepository(): PasswordResetTokenRepository
     {
         return $this->em->getRepository(PasswordResetToken::class);
     }

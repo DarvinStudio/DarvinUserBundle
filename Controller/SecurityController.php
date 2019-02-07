@@ -14,7 +14,7 @@ use Darvin\UserBundle\Entity\PasswordResetToken;
 use Darvin\UserBundle\Event\SecurityEvents;
 use Darvin\UserBundle\Event\UserEvent;
 use Darvin\UserBundle\Form\Factory\SecurityFormFactoryInterface;
-use Darvin\UserBundle\Form\Handler\SecurityFormHandler;
+use Darvin\UserBundle\Form\Handler\SecurityFormHandlerInterface;
 use Darvin\UserBundle\Form\Renderer\SecurityFormRendererInterface;
 use Darvin\UserBundle\Repository\PasswordResetTokenRepository;
 use Darvin\Utils\Flash\FlashNotifierInterface;
@@ -184,9 +184,9 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @return \Darvin\UserBundle\Form\Handler\SecurityFormHandler
+     * @return \Darvin\UserBundle\Form\Handler\SecurityFormHandlerInterface
      */
-    private function getSecurityFormHandler(): SecurityFormHandler
+    private function getSecurityFormHandler(): SecurityFormHandlerInterface
     {
         return $this->get('darvin_user.security.form.handler');
     }

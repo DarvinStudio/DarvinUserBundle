@@ -55,10 +55,6 @@ class AuthenticateUserSubscriber implements EventSubscriberInterface
      */
     public function authenticateUser(UserEvent $event): void
     {
-        $user = $event->getUser();
-
-        if ($user->isEnabled()) {
-            $this->userAuthenticator->authenticateUser($user, $this->publicFirewallName);
-        }
+        $this->userAuthenticator->authenticateUser($event->getUser(), $this->publicFirewallName);
     }
 }
