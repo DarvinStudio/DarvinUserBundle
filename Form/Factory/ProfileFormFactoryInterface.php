@@ -11,13 +11,13 @@
 namespace Darvin\UserBundle\Form\Factory;
 
 use Darvin\UserBundle\Entity\BaseUser;
-use Darvin\UserBundle\Form\Type\User\ProfileType;
+use Darvin\UserBundle\Form\Type\Profile\ProfileType;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * User form factory
+ * Profile form factory
  */
-interface UserFormFactoryInterface
+interface ProfileFormFactoryInterface
 {
     /**
      * @param \Darvin\UserBundle\Entity\BaseUser|null $user    User
@@ -27,5 +27,5 @@ interface UserFormFactoryInterface
      *
      * @return \Symfony\Component\Form\FormInterface
      */
-    public function createProfileForm(?BaseUser $user = null, array $options = [], string $type = ProfileType::class, ?string $name = null): FormInterface;
+    public function createEditForm(?BaseUser $user = null, array $options = [], string $type = ProfileType::class, ?string $name = null): FormInterface;
 }

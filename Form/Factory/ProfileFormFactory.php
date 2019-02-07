@@ -11,16 +11,16 @@
 namespace Darvin\UserBundle\Form\Factory;
 
 use Darvin\UserBundle\Entity\BaseUser;
-use Darvin\UserBundle\Form\Type\User\ProfileType;
+use Darvin\UserBundle\Form\Type\Profile\ProfileType;
 use Darvin\UserBundle\User\UserManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
- * User form factory
+ * Profile form factory
  */
-class UserFormFactory implements UserFormFactoryInterface
+class ProfileFormFactory implements ProfileFormFactoryInterface
 {
     /**
      * @var \Symfony\Component\Form\FormFactoryInterface
@@ -63,7 +63,7 @@ class UserFormFactory implements UserFormFactoryInterface
     /**
      * {@inheritDoc}
      */
-    public function createProfileForm(?BaseUser $user = null, array $options = [], string $type = ProfileType::class, ?string $name = null): FormInterface
+    public function createEditForm(?BaseUser $user = null, array $options = [], string $type = ProfileType::class, ?string $name = null): FormInterface
     {
         if (empty($user)) {
             $user = $this->userManager->getCurrentUser();

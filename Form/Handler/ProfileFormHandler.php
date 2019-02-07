@@ -10,15 +10,15 @@
 
 namespace Darvin\UserBundle\Form\Handler;
 
-use Darvin\UserBundle\Form\Type\User\ProfileType;
+use Darvin\UserBundle\Form\Type\Profile\ProfileType;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * User form handler
+ * Profile form handler
  */
-class UserFormHandler implements UserFormHandlerInterface
+class ProfileFormHandler implements ProfileFormHandlerInterface
 {
     /**
      * @var \Doctrine\ORM\EntityManager
@@ -43,13 +43,13 @@ class UserFormHandler implements UserFormHandlerInterface
     /**
      * {@inheritDoc}
      */
-    public function handleProfileForm(FormInterface $form, bool $addFlashes = false, ?string $successMessage = null): bool
+    public function handleEditForm(FormInterface $form, bool $addFlashes = false, ?string $successMessage = null): bool
     {
         if (!$form->getConfig()->getType()->getInnerType() instanceof ProfileType) {
-            throw new \InvalidArgumentException('Unable to handle form: provided form is not user profile form.');
+            throw new \InvalidArgumentException('Unable to handle form: provided form is not profile form.');
         }
         if (!$form->isSubmitted()) {
-            throw new \LogicException('Unable to handle user profile form: it is not submitted.');
+            throw new \LogicException('Unable to handle profile edit form: it is not submitted.');
         }
         if (!$form->isValid()) {
             if ($addFlashes) {

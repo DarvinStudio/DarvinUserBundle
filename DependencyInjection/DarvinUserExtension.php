@@ -36,6 +36,7 @@ class DarvinUserExtension extends Extension implements PrependExtensionInterface
             'authentication',
             'configuration/roles',
             'password_reset_token',
+            'profile',
             'security',
             'user',
             'username',

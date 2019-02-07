@@ -8,18 +8,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Darvin\UserBundle\Form\Type\User;
+namespace Darvin\UserBundle\Form\Type\Profile;
 
 use Darvin\Utils\Strings\StringsUtil;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * User profile form type
+ * Profile form type
  */
 class ProfileType extends AbstractType
 {
@@ -28,11 +27,7 @@ class ProfileType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-            ->add('email')
-            ->add('plainPassword', PasswordType::class, [
-                'required' => false,
-            ]);
+        $builder->add('email');
     }
 
     /**

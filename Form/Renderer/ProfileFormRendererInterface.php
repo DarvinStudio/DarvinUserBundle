@@ -13,9 +13,9 @@ namespace Darvin\UserBundle\Form\Renderer;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * User form renderer
+ * Profile form renderer
  */
-interface UserFormRendererInterface
+interface ProfileFormRendererInterface
 {
     /**
      * @param \Symfony\Component\Form\FormInterface|null $form     Form
@@ -24,5 +24,5 @@ interface UserFormRendererInterface
      *
      * @return string
      */
-    public function renderProfileForm(?FormInterface $form = null, bool $partial = true, ?string $template = null): string;
+    public function renderEditForm(?FormInterface $form = null, bool $partial = true, ?string $template = null): string;
 }

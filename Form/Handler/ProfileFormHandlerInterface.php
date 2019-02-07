@@ -13,9 +13,9 @@ namespace Darvin\UserBundle\Form\Handler;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * User form handler
+ * Profile form handler
  */
-interface UserFormHandlerInterface
+interface ProfileFormHandlerInterface
 {
     /**
      * @param \Symfony\Component\Form\FormInterface $form           Form
@@ -26,5 +26,5 @@ interface UserFormHandlerInterface
      * @throws \InvalidArgumentException
      * @throws \LogicException
      */
-    public function handleProfileForm(FormInterface $form, bool $addFlashes = false, ?string $successMessage = null): bool;
+    public function handleEditForm(FormInterface $form, bool $addFlashes = false, ?string $successMessage = null): bool;
 }

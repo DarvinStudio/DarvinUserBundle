@@ -1,0 +1,30 @@
+parameters:
+    darvin_user.profile.form_factory.class: Darvin\UserBundle\Form\Factory\ProfileFormFactory
+
+    darvin_user.profile.form_handler.class: Darvin\UserBundle\Form\Handler\ProfileFormHandler
+
+    darvin_user.profile.form_renderer.class: Darvin\UserBundle\Form\Renderer\ProfileFormRenderer
+
+services:
+    _defaults:
+        public: true
+
+    darvin_user.profile.form_factory:
+        class: '%darvin_user.profile.form_factory.class%'
+        arguments:
+            - '@form.factory'
+            - '@router'
+            - '@darvin_user.user.manager'
+            - '%darvin_user.user_class%'
+
+    darvin_user.profile.form_handler:
+        class: '%darvin_user.profile.form_handler.class%'
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@darvin_utils.flash.notifier'
+
+    darvin_user.profile.form_renderer:
+        class: '%darvin_user.profile.form_renderer.class%'
+        arguments:
+            - '@darvin_user.profile.form_factory'
+            - '@templating'

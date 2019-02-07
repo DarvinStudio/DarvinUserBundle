@@ -4,12 +4,6 @@ parameters:
 
     darvin_user.user.factory.class: Darvin\UserBundle\User\UserFactory
 
-    darvin_user.user.form.factory.class: Darvin\UserBundle\Form\Factory\UserFormFactory
-
-    darvin_user.user.form.handler.class: Darvin\UserBundle\Form\Handler\UserFormHandler
-
-    darvin_user.user.form.renderer.class: Darvin\UserBundle\Form\Renderer\UserFormRenderer
-
     darvin_user.user.form.type.role.class: Darvin\UserBundle\Form\Type\User\RoleChoiceType
 
     darvin_user.user.manager.class: Darvin\UserBundle\User\UserManager
@@ -37,26 +31,6 @@ services:
         class: '%darvin_user.user.factory.class%'
         arguments:
             - '%darvin_user.user_class%'
-
-    darvin_user.user.form.factory:
-        class: '%darvin_user.user.form.factory.class%'
-        arguments:
-            - '@form.factory'
-            - '@router'
-            - '@darvin_user.user.manager'
-            - '%darvin_user.user_class%'
-
-    darvin_user.user.form.handler:
-        class: '%darvin_user.user.form.handler.class%'
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@darvin_utils.flash.notifier'
-
-    darvin_user.user.form.renderer:
-        class: '%darvin_user.user.form.renderer.class%'
-        arguments:
-            - '@templating'
-            - '@darvin_user.user.form.factory'
 
     darvin_user.user.form.type.role:
         class: '%darvin_user.user.form.type.role.class%'

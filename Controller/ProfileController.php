@@ -10,9 +10,9 @@
 
 namespace Darvin\UserBundle\Controller;
 
-use Darvin\UserBundle\Form\Factory\UserFormFactoryInterface;
-use Darvin\UserBundle\Form\Handler\UserFormHandlerInterface;
-use Darvin\UserBundle\Form\Renderer\UserFormRendererInterface;
+use Darvin\UserBundle\Form\Factory\ProfileFormFactoryInterface;
+use Darvin\UserBundle\Form\Handler\ProfileFormHandlerInterface;
+use Darvin\UserBundle\Form\Renderer\ProfileFormRendererInterface;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Darvin\Utils\HttpFoundation\AjaxResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -46,16 +46,16 @@ class ProfileController extends AbstractController
     {
         $widget = $request->isXmlHttpRequest();
 
-        $form = $this->getUserFormFactory()->createProfileForm()->handleRequest($request);
+        $form = $this->getProfileFormFactory()->createEditForm()->handleRequest($request);
 
         if (!$form->isSubmitted()) {
-            return new Response($this->getUserFormRenderer()->renderProfileForm($form, $widget));
+            return new Response($this->getProfileFormRenderer()->renderEditForm($form, $widget));
         }
 
         $successMessage = 'profile.edit.success';
 
-        if (!$this->getUserFormHandler()->handleProfileForm($form, !$widget, $successMessage)) {
-            $html = $this->getUserFormRenderer()->renderProfileForm($form, $widget);
+        if (!$this->getProfileFormHandler()->handleEditForm($form, !$widget, $successMessage)) {
+            $html = $this->getProfileFormRenderer()->renderEditForm($form, $widget);
 
             return $widget
                 ? new AjaxResponse($html, false, FlashNotifierInterface::MESSAGE_FORM_ERROR)
@@ -63,7 +63,7 @@ class ProfileController extends AbstractController
         }
 
         return $widget
-            ? new AjaxResponse($this->getUserFormRenderer()->renderProfileForm($form), true, $successMessage)
+            ? new AjaxResponse($this->getProfileFormRenderer()->renderEditForm($form), true, $successMessage)
             : $this->redirectToRoute('darvin_user_profile_edit');
     }
 
@@ -81,26 +81,26 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @return \Darvin\UserBundle\Form\Factory\UserFormFactoryInterface
+     * @return \Darvin\UserBundle\Form\Factory\ProfileFormFactoryInterface
      */
-    private function getUserFormFactory(): UserFormFactoryInterface
+    private function getProfileFormFactory(): ProfileFormFactoryInterface
     {
-        return $this->get('darvin_user.user.form.factory');
+        return $this->get('darvin_user.profile.form_factory');
     }
 
     /**
-     * @return \Darvin\UserBundle\Form\Handler\UserFormHandlerInterface
+     * @return \Darvin\UserBundle\Form\Handler\ProfileFormHandlerInterface
      */
-    private function getUserFormHandler(): UserFormHandlerInterface
+    private function getProfileFormHandler(): ProfileFormHandlerInterface
     {
-        return $this->get('darvin_user.user.form.handler');
+        return $this->get('darvin_user.profile.form_handler');
     }
 
     /**
-     * @return \Darvin\UserBundle\Form\Renderer\UserFormRendererInterface
+     * @return \Darvin\UserBundle\Form\Renderer\ProfileFormRendererInterface
      */
-    private function getUserFormRenderer(): UserFormRendererInterface
+    private function getProfileFormRenderer(): ProfileFormRendererInterface
     {
-        return $this->get('darvin_user.user.form.renderer');
+        return $this->get('darvin_user.profile.form_renderer');
     }
 }
