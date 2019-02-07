@@ -1,5 +1,5 @@
 {{ form_start(form, {'attr': {'class': 'js-ajax'}}) }}
 {{ form_widget(form) }}
 <button type="submit">{% trans %}security.register.submit{% endtrans %}</button>
-<a href="{{ path('darvin_user_security_login') }}">{% trans %}security.login.link{% endtrans %}</a>
+<a href="{{ path('darvin_user_security_login') }}">{% trans %}security.register.login{% endtrans %}</a>
 {{ form_end(form) }}

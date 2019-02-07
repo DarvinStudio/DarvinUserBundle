@@ -16,7 +16,6 @@ email:
 password_reset_token:
     request:
         check_mail: 'Проверить почту:'
-        link:       Забыли пароль?
         submit:     Получить ссылку
         success:
             message: Ссылка отправлена
@@ -26,7 +25,6 @@ password_reset_token:
 
 profile:
     edit:
-        link:    Изменить профиль
         submit:  Сохранить профиль
         success: Профиль сохранен
         title:   Изменить профиль
@@ -44,17 +42,16 @@ security:
             text:  Ваш аккаунт подтвержден. Спасибо за регистрацию.
             title: Регистрация завершена
     login:
-        darvin_auth: Войти с помощью Darvin Auth
-        link:        Войти
-        password:    Пароль
-        remember_me: Запомнить браузер
-        submit:      Войти
-        title:       Вход
-        username:    Имя пользователя или email
-    logout:
-        link: Выйти
+        darvin_auth:     Войти с помощью Darvin Auth
+        forgot_password: Забыли пароль?
+        password:        Пароль
+        register:        Регистрация
+        remember_me:     Запомнить браузер
+        submit:          Войти
+        title:           Вход
+        username:        Имя пользователя или email
     register:
-        link:    Регистрация
+        login:   Войти
         submit:  Зарегистрироваться
         success: Вы были зарегистрированы
         title:   Регистрация

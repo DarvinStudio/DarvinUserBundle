@@ -11,7 +11,6 @@ email:
 password_reset_token:
     request:
         check_mail: 'Check Mail:'
-        link: 'Forgot Password?'
         submit: 'Get Link'
         success:
             message: 'Link Sent'
@@ -20,7 +19,6 @@ password_reset_token:
         user_email: Email
 profile:
     edit:
-        link: 'Edit Profile'
         submit: 'Update Profile'
         success: 'Profile Updated'
         title: 'Edit Profile'
@@ -38,16 +36,15 @@ security:
             title: 'Registration Is Ended'
     login:
         darvin_auth: 'Sign in Using Darvin Auth'
-        link: 'Sign in'
+        forgot_password: 'Forgot Password?'
         password: Password
+        register: Register
         remember_me: 'Remember Me'
         submit: 'Sign in'
         title: 'Sign in'
         username: 'Username or Email'
-    logout:
-        link: 'Log Out'
     register:
-        link: Register
+        login: 'Sign in'
         submit: Register
         success: 'Account Created'
         title: Registration
