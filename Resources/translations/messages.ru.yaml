@@ -2,7 +2,7 @@ User account is disabled.: Учетная запись не активна
 
 email:
     confirmation:
-        subject: Подтвреждение регистрации
+        subject: Подтверждение регистрации
         text:    Для того, чтобы завершить регистрацию, просто пройдите по <a href="%url%">ссылке</a>. Либо скопируйте %url% к себе в браузер.
     password_reset:
         subject: Ссылка для сброса пароля
@@ -19,7 +19,7 @@ password_reset_token:
         link:       Забыли пароль?
         submit:     Получить ссылку
         success:
-            message: Ссылка успешно отправлена
+            message: Ссылка отправлена
             text:    Ссылка отправлена на email %email%.
         title:      Получить ссылку для сброса пароля
         user_email: Email
@@ -28,7 +28,7 @@ profile:
     edit:
         link:    Изменить профиль
         submit:  Сохранить профиль
-        success: Профиль успешно сохранен
+        success: Профиль сохранен
         title:   Изменить профиль
     show:
         edit:  Изменить
@@ -56,12 +56,12 @@ security:
     register:
         link:    Регистрация
         submit:  Зарегистрироваться
-        success: Вы были успешно зарегистрированы
+        success: Вы были зарегистрированы
         title:   Регистрация
     reset_password:
         plain_password: Новый пароль
         submit:         Сменить пароль
-        success:        Пароль успешно изменен
+        success:        Пароль изменен
         title:          Сброс пароля
 
 user:

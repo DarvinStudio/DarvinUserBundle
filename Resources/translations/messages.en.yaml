@@ -14,7 +14,7 @@ password_reset_token:
         link: 'Forgot Password?'
         submit: 'Get Link'
         success:
-            message: 'Link Successfully Sent'
+            message: 'Link Sent'
             text: 'Link Was Sent to Email %email%.'
         title: 'Get Password Reset Link'
         user_email: Email
@@ -22,7 +22,7 @@ profile:
     edit:
         link: 'Edit Profile'
         submit: 'Update Profile'
-        success: 'Profile Successfully Updated'
+        success: 'Profile Updated'
         title: 'Edit Profile'
     show:
         edit: Edit
@@ -49,12 +49,12 @@ security:
     register:
         link: Register
         submit: Register
-        success: 'Account Successfully Created'
+        success: 'Account Created'
         title: Registration
     reset_password:
         plain_password: 'New Password'
         submit: 'Change Password'
-        success: 'Password Successfully Changed'
+        success: 'Password Changed'
         title: 'Password Reset'
 user:
     entity:
