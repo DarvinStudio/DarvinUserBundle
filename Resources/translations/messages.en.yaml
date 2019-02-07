@@ -18,6 +18,11 @@ password_reset_token:
         title: 'Get Password Reset Link'
         user_email: Email
 profile:
+    change_password:
+        plain_password: 'New Password'
+        submit: 'Update Password'
+        success: 'Password Updated'
+        title: 'Change Password'
     edit:
         submit: 'Update Profile'
         success: 'Profile Updated'

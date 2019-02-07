@@ -27,4 +27,15 @@ interface ProfileFormHandlerInterface
      * @throws \LogicException
      */
     public function handleEditForm(FormInterface $form, bool $addFlashes = false, ?string $successMessage = null): bool;
+
+    /**
+     * @param \Symfony\Component\Form\FormInterface $form           Form
+     * @param bool                                  $addFlashes     Whether to add flash messages
+     * @param string|null                           $successMessage Success message
+     *
+     * @return bool
+     * @throws \InvalidArgumentException
+     * @throws \LogicException
+     */
+    public function handlePasswordChangeForm(FormInterface $form, bool $addFlashes = false, ?string $successMessage = null): bool;
 }

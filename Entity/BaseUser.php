@@ -102,7 +102,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     /**
      * @var string
      *
-     * @Assert\NotBlank(groups={"AdminNew", "PasswordReset", "Register"})
+     * @Assert\NotBlank(groups={"AdminNew", "PasswordChange", "PasswordReset", "Register"})
      */
     protected $plainPassword;
 

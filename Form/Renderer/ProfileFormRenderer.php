@@ -55,4 +55,21 @@ class ProfileFormRenderer implements ProfileFormRendererInterface
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function renderPasswordChangeForm(?FormInterface $form = null, bool $partial = true, ?string $template = null): string
+    {
+        if (empty($form)) {
+            $form = $this->profileFormFactory->createPasswordChangeForm();
+        }
+        if (empty($template)) {
+            $template = sprintf('@DarvinUser/profile/%schange_password.html.twig', $partial ? '_' : '');
+        }
+
+        return $this->templating->render($template, [
+            'form' => $form->createView(),
+        ]);
+    }
 }

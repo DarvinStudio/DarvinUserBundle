@@ -34,7 +34,29 @@ class ProfileController extends AbstractController
      */
     public function changePasswordAction(Request $request): Response
     {
+        $form    = $this->getProfileFormFactory()->createPasswordChangeForm()->handleRequest($request);
+        $partial = $request->isXmlHttpRequest();
 
+        if (!$form->isSubmitted()) {
+            return new Response($this->getProfileFormRenderer()->renderPasswordChangeForm($form, $partial));
+        }
+
+        $successMessage = 'profile.change_password.success';
+
+        if (!$this->getProfileFormHandler()->handlePasswordChangeForm($form, !$partial, $successMessage)) {
+            $html = $this->getProfileFormRenderer()->renderPasswordChangeForm($form, $partial);
+
+            if ($partial) {
+                return new AjaxResponse($html, false, FlashNotifierInterface::MESSAGE_FORM_ERROR);
+            }
+
+            return new Response($html);
+        }
+        if ($partial) {
+            return new AjaxResponse($this->getProfileFormRenderer()->renderPasswordChangeForm($form), true, $successMessage);
+        }
+
+        return $this->redirectToRoute('darvin_user_profile_change_password');
     }
 
     /**
@@ -44,27 +66,29 @@ class ProfileController extends AbstractController
      */
     public function editAction(Request $request): Response
     {
-        $widget = $request->isXmlHttpRequest();
-
-        $form = $this->getProfileFormFactory()->createEditForm()->handleRequest($request);
+        $form    = $this->getProfileFormFactory()->createEditForm()->handleRequest($request);
+        $partial = $request->isXmlHttpRequest();
 
         if (!$form->isSubmitted()) {
-            return new Response($this->getProfileFormRenderer()->renderEditForm($form, $widget));
+            return new Response($this->getProfileFormRenderer()->renderEditForm($form, $partial));
         }
 
         $successMessage = 'profile.edit.success';
 
-        if (!$this->getProfileFormHandler()->handleEditForm($form, !$widget, $successMessage)) {
-            $html = $this->getProfileFormRenderer()->renderEditForm($form, $widget);
+        if (!$this->getProfileFormHandler()->handleEditForm($form, !$partial, $successMessage)) {
+            $html = $this->getProfileFormRenderer()->renderEditForm($form, $partial);
 
-            return $widget
-                ? new AjaxResponse($html, false, FlashNotifierInterface::MESSAGE_FORM_ERROR)
-                : new Response($html);
+            if ($partial) {
+                return new AjaxResponse($html, false, FlashNotifierInterface::MESSAGE_FORM_ERROR);
+            }
+
+            return new Response($html);
+        }
+        if ($partial) {
+            return new AjaxResponse($this->getProfileFormRenderer()->renderEditForm($form), true, $successMessage);
         }
 
-        return $widget
-            ? new AjaxResponse($this->getProfileFormRenderer()->renderEditForm($form), true, $successMessage)
-            : $this->redirectToRoute('darvin_user_profile_edit');
+        return $this->redirectToRoute('darvin_user_profile_edit');
     }
 
     /**

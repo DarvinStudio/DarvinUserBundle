@@ -18,6 +18,11 @@ password_reset_token:
         title: 'Obtenir Lien De Réinitialisation De Mot De Passe'
         user_email: E-mail
 profile:
+    change_password:
+        plain_password: 'Nouveau Mot De Passe'
+        submit: 'Mise À Jour De Mot De Passe'
+        success: 'Le Mot De Passe Mis À Jour'
+        title: 'Changer De Mot De Passe'
     edit:
         submit: 'Mettre À Jour Le Profil'
         success: 'Profil Mis À Jour'

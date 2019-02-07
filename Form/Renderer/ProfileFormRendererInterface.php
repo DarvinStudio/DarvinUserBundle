@@ -25,4 +25,13 @@ interface ProfileFormRendererInterface
      * @return string
      */
     public function renderEditForm(?FormInterface $form = null, bool $partial = true, ?string $template = null): string;
+
+    /**
+     * @param \Symfony\Component\Form\FormInterface|null $form     Form
+     * @param bool                                       $partial  Whether to render partial
+     * @param string|null                                $template Template
+     *
+     * @return string
+     */
+    public function renderPasswordChangeForm(?FormInterface $form = null, bool $partial = true, ?string $template = null): string;
 }

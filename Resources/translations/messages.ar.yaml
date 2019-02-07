@@ -18,6 +18,11 @@ password_reset_token:
         title: 'الحصول على رابط إعادة تعيين كلمة المرور'
         user_email: 'البريد الإلكتروني'
 profile:
+    change_password:
+        plain_password: 'كلمة المرور الجديدة'
+        submit: 'تحديث كلمة المرور'
+        success: 'تحديث كلمة المرور'
+        title: 'تغيير كلمة المرور'
     edit:
         submit: 'تحديث الملف الشخصي'
         success: 'تحديث ملف تعريف'

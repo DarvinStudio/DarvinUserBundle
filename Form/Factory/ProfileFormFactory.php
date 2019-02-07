@@ -11,6 +11,7 @@
 namespace Darvin\UserBundle\Form\Factory;
 
 use Darvin\UserBundle\Entity\BaseUser;
+use Darvin\UserBundle\Form\Type\Profile\PasswordChangeType;
 use Darvin\UserBundle\Form\Type\Profile\ProfileType;
 use Darvin\UserBundle\User\UserManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -75,6 +76,29 @@ class ProfileFormFactory implements ProfileFormFactoryInterface
 
         if (!isset($options['action'])) {
             $options['action'] = $this->router->generate('darvin_user_profile_edit');
+        }
+        if (null !== $name) {
+            return $this->genericFormFactory->createNamed($name, $type, $user, $options);
+        }
+
+        return $this->genericFormFactory->create($type, $user, $options);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function createPasswordChangeForm(?BaseUser $user = null, array $options = [], string $type = PasswordChangeType::class, ?string $name = null): FormInterface
+    {
+        if (empty($user)) {
+            $user = $this->userManager->getCurrentUser();
+        }
+
+        $options = array_merge([
+            'data_class' => $this->userClass,
+        ], $options);
+
+        if (!isset($options['action'])) {
+            $options['action'] = $this->router->generate('darvin_user_profile_change_password');
         }
         if (null !== $name) {
             return $this->genericFormFactory->createNamed($name, $type, $user, $options);

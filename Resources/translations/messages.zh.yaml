@@ -18,6 +18,11 @@ password_reset_token:
         title: 获得密码重置链接
         user_email: 电子邮件
 profile:
+    change_password:
+        plain_password: 新密码
+        submit: 更新的密码
+        success: 更新的密码
+        title: 改变密码
     edit:
         submit: 更新个人资料
         success: 配置文件的更新

@@ -10,6 +10,7 @@
 
 namespace Darvin\UserBundle\Form\Handler;
 
+use Darvin\UserBundle\Form\Type\Profile\PasswordChangeType;
 use Darvin\UserBundle\Form\Type\Profile\ProfileType;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Doctrine\ORM\EntityManager;
@@ -50,6 +51,34 @@ class ProfileFormHandler implements ProfileFormHandlerInterface
         }
         if (!$form->isSubmitted()) {
             throw new \LogicException('Unable to handle profile edit form: it is not submitted.');
+        }
+        if (!$form->isValid()) {
+            if ($addFlashes) {
+                $this->flashNotifier->formError();
+            }
+
+            return false;
+        }
+
+        $this->em->flush();
+
+        if ($addFlashes && !empty($successMessage)) {
+            $this->flashNotifier->success($successMessage);
+        }
+
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function handlePasswordChangeForm(FormInterface $form, bool $addFlashes = false, ?string $successMessage = null): bool
+    {
+        if (!$form->getConfig()->getType()->getInnerType() instanceof PasswordChangeType) {
+            throw new \InvalidArgumentException('Unable to handle form: provided form is not password change form.');
+        }
+        if (!$form->isSubmitted()) {
+            throw new \LogicException('Unable to handle password change form: it is not submitted.');
         }
         if (!$form->isValid()) {
             if ($addFlashes) {
