@@ -28,7 +28,6 @@ profile:
         success: 配置文件的更新
         title: 编辑档案
     show:
-        edit: 编辑
         title: 配置文件
 security:
     confirm_registration:
@@ -41,15 +40,16 @@ security:
             title: 注册结束
     login:
         darvin_auth: 标志在使用达文Auth
-        forgot_password: '忘了密码?'
         password: 密码
-        register: 注册
         remember_me: 还记得我
         submit: 登录在
         title: 登录在
         username: 用户名或电子邮件
-    register:
+    menu:
         login: 登录在
+        register: 注册
+        reset_password: '忘了密码?'
+    register:
         submit: 注册
         success: 创建的帐号
         title: 注册

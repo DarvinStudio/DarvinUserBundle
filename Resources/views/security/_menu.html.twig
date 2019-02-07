@@ -1,0 +1,9 @@
+{% set current_route = app.request.attributes.get('_route') %}
+
+{% for title, route in {
+    'login':          'darvin_user_security_login',
+    'register':       'darvin_user_security_register',
+    'reset_password': 'darvin_user_password_reset_token_request',
+} if route != current_route %}
+    <a href="{{ path(route) }}">{{ ('security.menu.' ~ title)|trans }}</a>
+{% endfor %}

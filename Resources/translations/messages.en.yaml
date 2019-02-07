@@ -28,7 +28,6 @@ profile:
         success: 'Profile Updated'
         title: 'Edit Profile'
     show:
-        edit: Edit
         title: Profile
 security:
     confirm_registration:
@@ -41,15 +40,16 @@ security:
             title: 'Registration Is Ended'
     login:
         darvin_auth: 'Sign in Using Darvin Auth'
-        forgot_password: 'Forgot Password?'
         password: Password
-        register: Register
         remember_me: 'Remember Me'
         submit: 'Sign in'
         title: 'Sign in'
         username: 'Username or Email'
-    register:
+    menu:
         login: 'Sign in'
+        register: Register
+        reset_password: 'Forgot Password?'
+    register:
         submit: Register
         success: 'Account Created'
         title: Registration

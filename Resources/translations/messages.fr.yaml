@@ -28,7 +28,6 @@ profile:
         success: 'Profil Mis À Jour'
         title: 'Modifier Le Profil'
     show:
-        edit: Modifier
         title: Profil
 security:
     confirm_registration:
@@ -41,15 +40,16 @@ security:
             title: 'L''Enregistrement Est Terminé'
     login:
         darvin_auth: 'Connectez-vous en Utilisant Darvin Auth'
-        forgot_password: 'Mot De Passe Oublié?'
         password: 'Mot de passe'
-        register: Registre
         remember_me: 'Se Souvenir De Moi'
         submit: 'Signe dans'
         title: 'Signe dans'
         username: 'Nom d''utilisateur ou e-Mail'
-    register:
+    menu:
         login: 'Signe dans'
+        register: Registre
+        reset_password: 'Mot De Passe Oublié?'
+    register:
         submit: Registre
         success: 'Compte Créé'
         title: Inscription

@@ -28,7 +28,6 @@ profile:
         success: 'تحديث ملف تعريف'
         title: 'تعديل الملف الشخصي'
     show:
-        edit: تحرير
         title: 'الملف الشخصي'
 security:
     confirm_registration:
@@ -41,15 +40,16 @@ security:
             title: 'التسجيل انتهى'
     login:
         darvin_auth: 'تسجيل الدخول باستخدام مصادقة دارفين'
-        forgot_password: 'نسيت كلمة المرور ؟ '
         password: 'كلمة المرور'
-        register: تسجيل
         remember_me: 'تذكر لي'
         submit: 'تسجيل الدخول'
         title: 'تسجيل الدخول'
         username: 'اسم المستخدم أو البريد الإلكتروني'
-    register:
+    menu:
         login: 'تسجيل الدخول'
+        register: تسجيل
+        reset_password: 'نسيت كلمة المرور ؟ '
+    register:
         submit: تسجيل
         success: 'إنشاء الحساب'
         title: التسجيل

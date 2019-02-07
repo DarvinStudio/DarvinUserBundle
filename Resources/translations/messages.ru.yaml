@@ -34,7 +34,6 @@ profile:
         success: Профиль сохранен
         title:   Изменить профиль
     show:
-        edit:  Изменить
         title: Профиль
 
 security:
@@ -47,16 +46,17 @@ security:
             text:  Ваш аккаунт подтвержден. Спасибо за регистрацию.
             title: Регистрация завершена
     login:
-        darvin_auth:     Войти с помощью Darvin Auth
-        forgot_password: Забыли пароль?
-        password:        Пароль
-        register:        Регистрация
-        remember_me:     Запомнить браузер
-        submit:          Войти
-        title:           Вход
-        username:        Имя пользователя или email
+        darvin_auth: Войти с помощью Darvin Auth
+        password:    Пароль
+        remember_me: Запомнить браузер
+        submit:      Войти
+        title:       Вход
+        username:    Имя пользователя или email
+    menu:
+        login:          Войти
+        register:       Регистрация
+        reset_password: Забыли пароль?
     register:
-        login:   Войти
         submit:  Зарегистрироваться
         success: Вы были зарегистрированы
         title:   Регистрация
