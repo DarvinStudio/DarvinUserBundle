@@ -21,9 +21,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * User controller
+ * Profile controller
  */
-class UserController extends AbstractController
+class ProfileController extends AbstractController
 {
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request Request
@@ -32,7 +32,7 @@ class UserController extends AbstractController
      *
      * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
      */
-    public function profileAction(Request $request): Response
+    public function editAction(Request $request): Response
     {
         $widget = $request->isXmlHttpRequest();
 
@@ -54,7 +54,7 @@ class UserController extends AbstractController
 
         return $widget
             ? new AjaxResponse($this->getUserFormRenderer()->renderProfileForm($form), true, $successMessage)
-            : $this->redirectToRoute('darvin_user_user_profile');
+            : $this->redirectToRoute('darvin_user_profile_edit');
     }
 
     /**

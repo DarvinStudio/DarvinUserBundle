@@ -74,7 +74,7 @@ class UserFormFactory implements UserFormFactoryInterface
         ], $options);
 
         if (!isset($options['action'])) {
-            $options['action'] = $this->router->generate('darvin_user_user_profile');
+            $options['action'] = $this->router->generate('darvin_user_profile_edit');
         }
         if (null !== $name) {
             return $this->genericFormFactory->createNamed($name, $type, $user, $options);
