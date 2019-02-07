@@ -26,7 +26,7 @@ password_reset_token:
 
 profile:
     edit:
-        link:    Редактировать профиль
+        link:    Изменить профиль
         submit:  Сохранить профиль
         success: Профиль успешно сохранен
         title:   Изменить профиль

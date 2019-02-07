@@ -21,9 +21,9 @@ password_reset_token:
 profile:
     edit:
         link: 'Edit Profile'
-        submit: 'Save Profile'
-        success: 'Profile Successfully Saved'
-        title: 'Update Profile'
+        submit: 'Update Profile'
+        success: 'Profile Successfully Updated'
+        title: 'Edit Profile'
     show:
         edit: Edit
         title: Profile
