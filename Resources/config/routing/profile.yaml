@@ -1,7 +1,14 @@
+darvin_user_profile_change_password:
+    path:     /change-password
+    defaults: { _controller: Darvin\UserBundle\Controller\ProfileController:changePasswordAction }
+    methods:  [ get, post ]
+
 darvin_user_profile_edit:
     path:     /edit
     defaults: { _controller: Darvin\UserBundle\Controller\ProfileController:editAction }
+    methods:  [ get, post ]
 
 darvin_user_profile_show:
     path:     /
     defaults: { _controller: Darvin\UserBundle\Controller\ProfileController:showAction }
+    methods:  [ get ]

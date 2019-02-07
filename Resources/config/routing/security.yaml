@@ -1,28 +1,36 @@
 darvin_user_security_darvin_auth_login_check:
-    path: /login/darvin-auth/check
+    path:    /login/darvin-auth/check
+    methods: [ get ]
 
 darvin_user_security_login_check:
-    path: /login/check
+    path:    /login/check
+    methods: [ post ]
 
 darvin_user_security_login:
     path:     /login
     defaults: { _controller: Darvin\UserBundle\Controller\SecurityController::loginAction }
+    methods:  [ get ]
 
 darvin_user_security_darvin_auth_login:
     path:     /login/{service}
     defaults: { _controller: HWI\Bundle\OAuthBundle\Controller\ConnectController::redirectToServiceAction }
+    methods:  [ get ]
 
 darvin_user_security_logout:
-    path: /logout
+    path:    /logout
+    methods: [ get ]
 
 darvin_user_security_register:
     path:     /register
     defaults: { _controller: Darvin\UserBundle\Controller\SecurityController::registerAction }
+    methods:  [ get, post ]
 
 darvin_user_security_reset_password:
     path:     /reset-password
     defaults: { _controller: Darvin\UserBundle\Controller\SecurityController::resetPasswordAction }
+    methods:  [ get, post ]
 
 darvin_user_security_confirm_registration:
     path:     /register/confirm/{code}
     defaults: { code: null, _controller: Darvin\UserBundle\Controller\SecurityController::confirmRegistrationAction }
+    methods:  [ get ]

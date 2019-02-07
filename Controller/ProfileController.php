@@ -32,6 +32,16 @@ class ProfileController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
+    public function changePasswordAction(Request $request): Response
+    {
+
+    }
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request Request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function editAction(Request $request): Response
     {
         $widget = $request->isXmlHttpRequest();
