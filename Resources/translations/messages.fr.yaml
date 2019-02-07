@@ -1,13 +1,30 @@
+email:
+    confirmation:
+        subject: 'Confirmation D''Inscription'
+        text: 'Pour Terminer L''Enregistrement, Cliquez Simplement %url%"&gt;ici</a> ou Copiez Ce %url% pour le Navigateur.'
+    password_reset:
+        subject: 'Lien De Réinitialisation De Mot De Passe'
+        text: "<p>Afin de Réinitialiser le Mot de passe Lien %url%\"&gt;%url%</a>.</p> <p>Lien Sera Expiré à %expire_at%.</p>\n"
+    registered:
+        subject: 'Nouvel Utilisateur'
+        user: 'L''utilisateur'
 password_reset_token:
     request:
         check_mail: 'Vérifier Le Courrier:'
-        link: 'Mot De Passe Oublié?'
         submit: 'Obtenir Le Lien'
         success:
-            message: 'Lien Envoyé Avec Succès'
+            message: 'Lien Envoyé'
             text: 'Le lien a Été Envoyé à l''Email %email%.'
         title: 'Obtenir Lien De Réinitialisation De Mot De Passe'
         user_email: E-mail
+profile:
+    edit:
+        submit: 'Mettre À Jour Le Profil'
+        success: 'Profil Mis À Jour'
+        title: 'Modifier Le Profil'
+    show:
+        edit: Modifier
+        title: Profil
 security:
     confirm_registration:
         code_sent:
@@ -19,40 +36,25 @@ security:
             title: 'L''Enregistrement Est Terminé'
     login:
         darvin_auth: 'Connectez-vous en Utilisant Darvin Auth'
-        link: 'Signe dans'
+        forgot_password: 'Mot De Passe Oublié?'
         password: 'Mot de passe'
+        register: Registre
         remember_me: 'Se Souvenir De Moi'
         submit: 'Signe dans'
         title: 'Signe dans'
         username: 'Nom d''utilisateur ou e-Mail'
-    logout:
-        link: Déconnecter
     register:
-        link: Registre
+        login: 'Signe dans'
         submit: Registre
-        success: 'Compte Créé Avec Succès'
+        success: 'Compte Créé'
         title: Inscription
     reset_password:
         plain_password: 'Nouveau Mot De Passe'
         submit: 'Changer De Mot De Passe'
-        success: 'Mot De Passe Changé Avec Succès'
+        success: 'Mot De Passe Changé'
         title: 'Réinitialisation De Mot De Passe'
 user:
     entity:
         email: E-mail
         plain_password: 'Mot de passe'
-    profile:
-        link: 'Modifier Le Profil'
-        submit: 'Enregistrer Le Profil'
-        success: 'Profil Enregistré Avec Succès'
-        title: 'Modifier Le Profil'
-email:
-    confirmation:
-        subject: 'Confirmation D''Inscription'
-        text: 'Pour Terminer L''Enregistrement, Cliquez Simplement %url%"&gt;ici</a> ou Copiez Ce %url% pour le Navigateur.'
-    password_reset:
-        subject: 'Lien De Réinitialisation De Mot De Passe'
-        text: "<p>Afin de Réinitialiser le Mot de passe Lien %url%\"&gt;%url%</a>.</p> <p>Lien Sera Expiré à %expire_at%.</p>\n"
-    registered:
-        subject: 'Nouvel Utilisateur'
-        user: 'L''utilisateur'
+        username: 'Nom d''utilisateur'

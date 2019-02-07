@@ -1,13 +1,30 @@
+email:
+    confirmation:
+        subject: 登记的确认
+        text: '完成登记注册只是点击 %url%"&gt;这里</a> 或复制这个 %url% 浏览器。'
+    password_reset:
+        subject: 密码重置链接
+        text: "<p>为了重置密码使用的链接 %url%\"&gt;%url%</a>中。</p> <p>链接将到期， %expire_at%中。</p>\n"
+    registered:
+        subject: 新的用户
+        user: 用户
 password_reset_token:
     request:
         check_mail: '检查邮件:'
-        link: '忘了密码?'
         submit: 获得的链接
         success:
-            message: 链接发送成功
+            message: 链接发送
             text: '链接发送以电子邮件 %email%中。'
         title: 获得密码重置链接
         user_email: 电子邮件
+profile:
+    edit:
+        submit: 更新个人资料
+        success: 配置文件的更新
+        title: 编辑档案
+    show:
+        edit: 编辑
+        title: 配置文件
 security:
     confirm_registration:
         code_sent:
@@ -19,40 +36,25 @@ security:
             title: 注册结束
     login:
         darvin_auth: 标志在使用达文Auth
-        link: 登录在
+        forgot_password: '忘了密码?'
         password: 密码
+        register: 注册
         remember_me: 还记得我
         submit: 登录在
         title: 登录在
         username: 用户名或电子邮件
-    logout:
-        link: 登出
     register:
-        link: 注册
+        login: 登录在
         submit: 注册
-        success: 成功创建的帐户
+        success: 创建的帐号
         title: 注册
     reset_password:
         plain_password: 新密码
         submit: 改变密码
-        success: 成功地改变了密码
+        success: 密码变了
         title: 密码重置
 user:
     entity:
         email: 电子邮件
         plain_password: 密码
-    profile:
-        link: 编辑档案
-        submit: 保存档案
-        success: 档案保存成功
-        title: 更改个人资料
-email:
-    confirmation:
-        subject: 登记的确认
-        text: '完成登记注册只是点击 %url%"&gt;这里</a> 或复制这个 %url% 浏览器。'
-    password_reset:
-        subject: 密码重置链接
-        text: "<p>为了重置密码使用的链接 %url%\"&gt;%url%</a>中。</p> <p>链接将到期， %expire_at%中。</p>\n"
-    registered:
-        subject: 新的用户
-        user: 用户
+        username: 用户名
