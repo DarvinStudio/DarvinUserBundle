@@ -35,7 +35,7 @@ class SecurityController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    public function confirmRegistrationAction(?string $code = null): Response
+    public function confirmRegistrationAction(?string $code): Response
     {
         if (null === $code) {
             return $this->render('@DarvinUser/security/confirm_registration/code_sent.html.twig');
