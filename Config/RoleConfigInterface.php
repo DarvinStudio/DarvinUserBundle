@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Darvin\UserBundle\Configuration;
+namespace Darvin\UserBundle\Config;
 
 /**
  * Role configuration
  */
-interface RoleConfigurationInterface
+interface RoleConfigInterface
 {
     /**
      * @param string $role Role
      *
-     * @return \Darvin\UserBundle\Configuration\Role
+     * @return \Darvin\UserBundle\Config\Role
      * @throws \InvalidArgumentException
      */
     public function getRole(string $role): Role;
@@ -31,7 +31,7 @@ interface RoleConfigurationInterface
     public function hasRole(string $role): bool;
 
     /**
-     * @return \Darvin\UserBundle\Configuration\Role[]
+     * @return \Darvin\UserBundle\Config\Role[]
      */
     public function getRoles(): array;
 }

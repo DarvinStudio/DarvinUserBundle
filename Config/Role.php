@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Darvin\UserBundle\Configuration;
+namespace Darvin\UserBundle\Config;
 
 /**
  * Role

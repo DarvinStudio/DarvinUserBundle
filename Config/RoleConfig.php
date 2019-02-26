@@ -8,15 +8,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Darvin\UserBundle\Configuration;
+namespace Darvin\UserBundle\Config;
 
 /**
  * Role configuration
  */
-class RoleConfiguration implements RoleConfigurationInterface
+class RoleConfig implements RoleConfigInterface
 {
     /**
-     * @var \Darvin\UserBundle\Configuration\Role[]
+     * @var \Darvin\UserBundle\Config\Role[]
      */
     private $roles;
 

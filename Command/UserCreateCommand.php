@@ -10,7 +10,7 @@
 
 namespace Darvin\UserBundle\Command;
 
-use Darvin\UserBundle\Configuration\RoleConfigurationInterface;
+use Darvin\UserBundle\Config\RoleConfigInterface;
 use Darvin\UserBundle\Entity\BaseUser;
 use Darvin\UserBundle\User\UserFactoryInterface;
 use Doctrine\ORM\EntityManager;
@@ -34,7 +34,7 @@ class UserCreateCommand extends Command
     protected $em;
 
     /**
-     * @var \Darvin\UserBundle\Configuration\RoleConfigurationInterface
+     * @var \Darvin\UserBundle\Config\RoleConfigInterface
      */
     protected $roleConfig;
 
@@ -49,13 +49,13 @@ class UserCreateCommand extends Command
     protected $validator;
 
     /**
-     * @param string                                                      $name        Command name
-     * @param \Doctrine\ORM\EntityManager                                 $em          Entity manager
-     * @param \Darvin\UserBundle\Configuration\RoleConfigurationInterface $roleConfig  Role configuration
-     * @param \Darvin\UserBundle\User\UserFactoryInterface                $userFactory User factory
-     * @param \Symfony\Component\Validator\Validator\ValidatorInterface   $validator   Validator
+     * @param string                                                    $name        Command name
+     * @param \Doctrine\ORM\EntityManager                               $em          Entity manager
+     * @param \Darvin\UserBundle\Config\RoleConfigInterface             $roleConfig  Role configuration
+     * @param \Darvin\UserBundle\User\UserFactoryInterface              $userFactory User factory
+     * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator   Validator
      */
-    public function __construct(string $name, EntityManager $em, RoleConfigurationInterface $roleConfig, UserFactoryInterface $userFactory, ValidatorInterface $validator)
+    public function __construct(string $name, EntityManager $em, RoleConfigInterface $roleConfig, UserFactoryInterface $userFactory, ValidatorInterface $validator)
     {
         parent::__construct($name);
 

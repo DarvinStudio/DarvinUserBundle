@@ -12,7 +12,7 @@ namespace Darvin\UserBundle\Admin\View;
 
 use Darvin\AdminBundle\Security\Permissions\Permission;
 use Darvin\AdminBundle\View\Widget\Widget\AbstractWidget;
-use Darvin\UserBundle\Configuration\RoleConfigurationInterface;
+use Darvin\UserBundle\Config\RoleConfigInterface;
 use Darvin\UserBundle\Entity\BaseUser;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -22,7 +22,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class UserRolesWidget extends AbstractWidget
 {
     /**
-     * @var \Darvin\UserBundle\Configuration\RoleConfigurationInterface
+     * @var \Darvin\UserBundle\Config\RoleConfigInterface
      */
     private $roleConfig;
 
@@ -32,10 +32,10 @@ class UserRolesWidget extends AbstractWidget
     private $translator;
 
     /**
-     * @param \Darvin\UserBundle\Configuration\RoleConfigurationInterface $roleConfig Role configuration
-     * @param \Symfony\Contracts\Translation\TranslatorInterface          $translator Translator
+     * @param \Darvin\UserBundle\Config\RoleConfigInterface      $roleConfig Role configuration
+     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator Translator
      */
-    public function __construct(RoleConfigurationInterface $roleConfig, TranslatorInterface $translator)
+    public function __construct(RoleConfigInterface $roleConfig, TranslatorInterface $translator)
     {
         $this->roleConfig = $roleConfig;
         $this->translator = $translator;

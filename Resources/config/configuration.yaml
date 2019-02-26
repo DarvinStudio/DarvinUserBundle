@@ -1,5 +1,5 @@
 parameters:
-    darvin_user.configuration.class: Darvin\UserBundle\Configuration\UserConfiguration
+    darvin_user.configuration.class: Darvin\UserBundle\Config\UserConfig
 
 services:
     _defaults:
@@ -7,5 +7,7 @@ services:
 
     darvin_user.configuration:
         class: '%darvin_user.configuration.class%'
+        arguments:
+            - '%darvin_user.mailer.enabled%'
         tags:
             - { name: darvin_config.configuration }

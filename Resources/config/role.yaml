@@ -1,7 +1,7 @@
 parameters:
     darvin_user.role.choice_form_type.class: Darvin\UserBundle\Form\Type\RoleChoiceType
 
-    darvin_user.role.configuration.class: Darvin\UserBundle\Configuration\RoleConfiguration
+    darvin_user.role.configuration.class: Darvin\UserBundle\Config\RoleConfig
 
 services:
     _defaults:
