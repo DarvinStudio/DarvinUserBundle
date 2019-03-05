@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
  * @copyright Copyright (c) 2015-2019, Darvin Studio
@@ -48,7 +48,7 @@ class PasswordResetToken
      * @param \Darvin\UserBundle\Entity\BaseUser $user     User
      * @param \DateTime                          $expireAt Expire at
      */
-    public function __construct(BaseUser $user = null, \DateTime $expireAt = null)
+    public function __construct(BaseUser $user, \DateTime $expireAt)
     {
         $this->user = $user;
         $this->expireAt = $expireAt;
@@ -57,7 +57,7 @@ class PasswordResetToken
     /**
      * @return string
      */
-    public function getBase64EncodedId()
+    public function getBase64EncodedId(): string
     {
         return base64_encode($this->id);
     }
@@ -65,7 +65,7 @@ class PasswordResetToken
     /**
      * @return string
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -73,7 +73,7 @@ class PasswordResetToken
     /**
      * @return \Darvin\UserBundle\Entity\BaseUser
      */
-    public function getUser()
+    public function getUser(): BaseUser
     {
         return $this->user;
     }
@@ -83,7 +83,7 @@ class PasswordResetToken
      *
      * @return PasswordResetToken
      */
-    public function setUser(BaseUser $user = null)
+    public function setUser(BaseUser $user): PasswordResetToken
     {
         $this->user = $user;
 
@@ -93,7 +93,7 @@ class PasswordResetToken
     /**
      * @return \DateTime
      */
-    public function getExpireAt()
+    public function getExpireAt(): \DateTime
     {
         return $this->expireAt;
     }
@@ -103,7 +103,7 @@ class PasswordResetToken
      *
      * @return PasswordResetToken
      */
-    public function setExpireAt(\DateTime $expireAt)
+    public function setExpireAt(\DateTime $expireAt): PasswordResetToken
     {
         $this->expireAt = $expireAt;
 

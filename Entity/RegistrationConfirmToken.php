@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Lev Semin <lev@darvin-studio.ru>
  * @copyright Copyright (c) 2017-2019, Darvin Studio
@@ -37,7 +37,7 @@ class RegistrationConfirmToken
     /**
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -45,7 +45,7 @@ class RegistrationConfirmToken
     /**
      * @param string|null $id
      */
-    public function setId($id)
+    public function setId(?string $id): void
     {
         $this->id = $id;
     }
@@ -53,7 +53,7 @@ class RegistrationConfirmToken
     /**
      * @param \DateTime $expireAt
      */
-    public function setExpireAt($expireAt)
+    public function setExpireAt(?\DateTime $expireAt): void
     {
         $this->expireAt = $expireAt;
     }
@@ -61,7 +61,7 @@ class RegistrationConfirmToken
     /**
      * @return \DateTime
      */
-    public function getExpireAt()
+    public function getExpireAt(): ?\DateTime
     {
         return $this->expireAt;
     }
