@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
  * @copyright Copyright (c) 2015-2019, Darvin Studio
@@ -118,17 +118,17 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
      */
     public function __construct()
     {
-        $this->locked = false;
-        $this->enabled = true;
-        $this->roles = [];
-        $this->updatedAt = new \DateTime();
+        $this->locked                   = false;
+        $this->enabled                  = true;
+        $this->roles                    = [];
+        $this->updatedAt                = new \DateTime();
         $this->registrationConfirmToken = new RegistrationConfirmToken();
     }
 
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->username;
     }
@@ -136,7 +136,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     /**
      * {@inheritdoc}
      */
-    public function isEqualTo(UserInterface $user)
+    public function isEqualTo(UserInterface $user): bool
     {
         return $this->username === $user->getUsername();
     }
@@ -144,7 +144,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     /**
      * {@inheritdoc}
      */
-    public function serialize()
+    public function serialize(): string
     {
         return serialize([
             $this->id,
@@ -159,7 +159,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     /**
      * {@inheritdoc}
      */
-    public function unserialize($serialized)
+    public function unserialize($serialized): void
     {
         list(
             $this->id,
@@ -174,7 +174,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     /**
      * @return BaseUser
      */
-    public function generateRandomPlainPassword()
+    public function generateRandomPlainPassword(): BaseUser
     {
         $this->plainPassword = hash('sha512', uniqid(mt_rand(), true));
 
@@ -184,7 +184,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     /**
      * @return bool
      */
-    public function isActive()
+    public function isActive(): bool
     {
         return $this->enabled && !$this->locked;
     }
@@ -192,7 +192,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     /**
      * @return BaseUser
      */
-    public function updateSalt()
+    public function updateSalt(): BaseUser
     {
         $this->salt = hash('sha512', uniqid(mt_rand(), true));
 
@@ -202,7 +202,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     /**
      * {@inheritdoc}
      */
-    public function isAccountNonExpired()
+    public function isAccountNonExpired(): bool
     {
         return true;
     }
@@ -210,7 +210,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     /**
      * {@inheritdoc}
      */
-    public function isAccountNonLocked()
+    public function isAccountNonLocked(): bool
     {
         return !$this->locked;
     }
@@ -218,9 +218,17 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     /**
      * {@inheritdoc}
      */
-    public function isCredentialsNonExpired()
+    public function isCredentialsNonExpired(): bool
     {
         return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isEnabled(): ?bool
+    {
+        return $this->enabled;
     }
 
     /**
@@ -228,7 +236,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
      *
      * @return BaseUser
      */
-    public function setEnabled($enabled)
+    public function setEnabled(?bool $enabled): BaseUser
     {
         $this->enabled = $enabled;
 
@@ -238,9 +246,9 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     /**
      * {@inheritdoc}
      */
-    public function isEnabled()
+    public function getRoles(): array
     {
-        return $this->enabled;
+        return array_unique(array_merge([self::ROLE_USER], $this->roles));
     }
 
     /**
@@ -248,7 +256,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
      *
      * @return BaseUser
      */
-    public function setRoles(array $roles)
+    public function setRoles(array $roles): BaseUser
     {
         $this->roles = $roles;
 
@@ -258,9 +266,9 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     /**
      * {@inheritdoc}
      */
-    public function getRoles()
+    public function getPassword(): ?string
     {
-        return array_unique(array_merge([self::ROLE_USER], $this->roles));
+        return $this->password;
     }
 
     /**
@@ -268,7 +276,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
      *
      * @return BaseUser
      */
-    public function setPassword($password)
+    public function setPassword(?string $password): BaseUser
     {
         $this->password = $password;
 
@@ -278,9 +286,9 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     /**
      * {@inheritdoc}
      */
-    public function getPassword()
+    public function getSalt(): ?string
     {
-        return $this->password;
+        return $this->salt;
     }
 
     /**
@@ -288,7 +296,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
      *
      * @return BaseUser
      */
-    public function setSalt($salt)
+    public function setSalt(?string $salt): BaseUser
     {
         $this->salt = $salt;
 
@@ -298,9 +306,9 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     /**
      * {@inheritdoc}
      */
-    public function getSalt()
+    public function getUsername(): ?string
     {
-        return $this->salt;
+        return $this->username;
     }
 
     /**
@@ -308,7 +316,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
      *
      * @return BaseUser
      */
-    public function setUsername($username)
+    public function setUsername(?string $username): BaseUser
     {
         $this->username = $username;
 
@@ -318,15 +326,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     /**
      * {@inheritdoc}
      */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         $this->plainPassword = null;
     }
@@ -334,25 +334,25 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function isLocked()
+    public function isLocked(): ?bool
     {
         return $this->locked;
     }
 
     /**
-     * @param boolean $locked locked
+     * @param bool $locked locked
      *
      * @return BaseUser
      */
-    public function setLocked($locked)
+    public function setLocked(?bool $locked): BaseUser
     {
         $this->locked = $locked;
 
@@ -362,7 +362,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     /**
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -372,7 +372,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
      *
      * @return BaseUser
      */
-    public function setEmail($email)
+    public function setEmail(?string $email): BaseUser
     {
         $this->email = $email;
 
@@ -382,7 +382,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     /**
      * @return \DateTime
      */
-    public function getUpdatedAt()
+    public function getUpdatedAt(): \DateTime
     {
         return $this->updatedAt;
     }
@@ -392,7 +392,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
      *
      * @return BaseUser
      */
-    public function setUpdatedAt(\DateTime $updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt): BaseUser
     {
         $this->updatedAt = $updatedAt;
 
@@ -402,7 +402,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     /**
      * @return string
      */
-    public function getPlainPassword()
+    public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
     }
@@ -412,7 +412,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
      *
      * @return BaseUser
      */
-    public function setPlainPassword($plainPassword)
+    public function setPlainPassword(?string $plainPassword): BaseUser
     {
         $this->plainPassword = $plainPassword;
 
@@ -424,7 +424,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     /**
      * @return RegistrationConfirmToken
      */
-    public function getRegistrationConfirmToken()
+    public function getRegistrationConfirmToken(): RegistrationConfirmToken
     {
         return $this->registrationConfirmToken;
     }
