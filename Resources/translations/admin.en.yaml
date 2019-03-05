@@ -1,7 +1,7 @@
 configuration:
     darvin_user:
         parameter:
-            notification_emails: 'Email for Notifications'
+            notification_emails: 'Notification Emails'
         title: Users
 entity_name:
     multiple:

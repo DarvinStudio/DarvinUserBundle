@@ -1,7 +1,7 @@
 configuration:
     darvin_user:
         parameter:
-            notification_emails: 'البريد الإلكتروني الإخطارات'
+            notification_emails: 'رسائل البريد الإلكتروني الإخطار'
         title: المستخدمين
 entity_name:
     multiple:
