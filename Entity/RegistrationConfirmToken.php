@@ -51,18 +51,18 @@ class RegistrationConfirmToken
     }
 
     /**
-     * @param \DateTime $expireAt
-     */
-    public function setExpireAt(?\DateTime $expireAt): void
-    {
-        $this->expireAt = $expireAt;
-    }
-
-    /**
      * @return \DateTime
      */
     public function getExpireAt(): ?\DateTime
     {
         return $this->expireAt;
+    }
+
+    /**
+     * @param \DateTime $expireAt
+     */
+    public function setExpireAt(?\DateTime $expireAt): void
+    {
+        $this->expireAt = $expireAt;
     }
 }
