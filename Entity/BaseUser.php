@@ -176,7 +176,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
      */
     public function generateRandomPlainPassword(): BaseUser
     {
-        $this->plainPassword = hash('sha512', uniqid(mt_rand(), true));
+        $this->plainPassword = hash('sha512', uniqid((string)mt_rand(), true));
 
         return $this;
     }
@@ -194,7 +194,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
      */
     public function updateSalt(): BaseUser
     {
-        $this->salt = hash('sha512', uniqid(mt_rand(), true));
+        $this->salt = hash('sha512', uniqid((string)mt_rand(), true));
 
         return $this;
     }
