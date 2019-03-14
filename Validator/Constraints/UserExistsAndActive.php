@@ -22,7 +22,7 @@ class UserExistsAndActive extends Constraint
     /**
      * @var string
      */
-    public $message = 'user.does_not_exist_or_not_active';
+    public $message = 'user.exists_and_active';
 
     /**
      * {@inheritdoc}

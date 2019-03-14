@@ -1,2 +1,2 @@
 user:
-    does_not_exist_or_not_active: 'لا يوجد حساب مقفل أو لم يتم تمكين.'
+    exists_and_active: 'لا يوجد حساب مقفل أو لم يتم تمكين.'

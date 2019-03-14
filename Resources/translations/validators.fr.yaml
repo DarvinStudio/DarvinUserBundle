@@ -1,2 +1,2 @@
 user:
-    does_not_exist_or_not_active: 'Compte N''Existe Pas, Verrouillées ou Non Activé.'
+    exists_and_active: 'Compte N''Existe Pas, Verrouillées ou Non Activé.'
