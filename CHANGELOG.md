@@ -22,3 +22,5 @@ darvin_user:
 5.5.0: Make admin and webmail linker bundles optional.
 
 5.5.1: Make config bundle optional.
+
+5.6.0: Allow password reset for signed in users.

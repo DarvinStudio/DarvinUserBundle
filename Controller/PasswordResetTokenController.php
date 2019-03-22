@@ -29,10 +29,6 @@ class PasswordResetTokenController extends Controller
      */
     public function requestAction(Request $request)
     {
-        if ($this->isGranted(AuthenticatedVoter::IS_AUTHENTICATED_REMEMBERED)) {
-            return $this->redirectToRoute($this->getParameter('darvin_user.already_logged_in_redirect_route'));
-        }
-
         $widget = $request->isXmlHttpRequest();
 
         $form = $this->getPasswordResetTokenFormFactory()->createRequestForm()->handleRequest($request);
