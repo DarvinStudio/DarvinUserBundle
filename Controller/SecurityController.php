@@ -117,10 +117,6 @@ class SecurityController extends AbstractController
      */
     public function resetPasswordAction(Request $request): Response
     {
-        if ($this->isGranted(AuthenticatedVoter::IS_AUTHENTICATED_REMEMBERED)) {
-            return $this->redirectToRoute($this->container->getParameter('darvin_user.already_logged_in_redirect_route'));
-        }
-
         $widget = $request->isXmlHttpRequest();
 
         $passwordResetToken = $this->getPasswordResetToken($request->query->get('token', ''));

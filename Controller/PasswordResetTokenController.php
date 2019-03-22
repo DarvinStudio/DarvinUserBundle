@@ -18,7 +18,6 @@ use Darvin\Utils\HttpFoundation\AjaxResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 
 /**
  * Password reset token controller
@@ -32,10 +31,6 @@ class PasswordResetTokenController extends AbstractController
      */
     public function requestAction(Request $request): Response
     {
-        if ($this->isGranted(AuthenticatedVoter::IS_AUTHENTICATED_REMEMBERED)) {
-            return $this->redirectToRoute($this->container->getParameter('darvin_user.already_logged_in_redirect_route'));
-        }
-
         $widget = $request->isXmlHttpRequest();
 
         $form = $this->getPasswordResetTokenFormFactory()->createRequestForm()->handleRequest($request);
