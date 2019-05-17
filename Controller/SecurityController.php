@@ -106,7 +106,7 @@ class SecurityController extends AbstractController
         ;
 
         return $widget
-            ? new AjaxResponse('', true, $successMessage, [], $url)
+            ? new AjaxResponse(null, true, $successMessage, [], $url)
             : $this->redirect($url);
     }
 
@@ -140,7 +140,7 @@ class SecurityController extends AbstractController
         $url = $this->generateUrl($this->container->getParameter('darvin_user.already_logged_in_redirect_route'));
 
         return $widget
-            ? new AjaxResponse('', true, $successMessage, [], $url)
+            ? new AjaxResponse(null, true, $successMessage, [], $url)
             : $this->redirect($url);
     }
 
