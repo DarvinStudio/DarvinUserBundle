@@ -45,16 +45,16 @@ class SecurityExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFunctions(): iterable
+    public function getFunctions(): array
     {
-        foreach ([
-            'security_login_form'        => 'renderLoginForm',
-            'security_registration_form' => 'renderRegistrationForm',
-        ] as $name => $method) {
-            yield new TwigFunction($name, [$this, $method], [
+        return [
+            new TwigFunction('security_login_form', [$this, 'renderLoginForm'], [
                 'is_safe' => ['html'],
-            ]);
-        }
+            ]),
+            new TwigFunction('security_registration_form', [$this, 'renderRegistrationForm'], [
+                'is_safe' => ['html'],
+            ]),
+        ];
     }
 
     /**
