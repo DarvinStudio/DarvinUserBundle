@@ -41,7 +41,6 @@ class PasswordResetTokenMailer implements PasswordResetTokenMailerInterface
     ): int {
         return $this->genericMailer->sendPublicEmail($passwordResetToken->getUser()->getEmail(), $subject, $template, [
             'password_reset_token' => $passwordResetToken,
-            'subject'              => $subject,
         ]);
     }
 }

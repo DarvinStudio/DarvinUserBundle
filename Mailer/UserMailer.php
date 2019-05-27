@@ -45,8 +45,7 @@ class UserMailer implements UserMailerInterface
     public function sendConfirmationEmails(BaseUser $user, string $subject = 'email.confirmation.subject', string $template = '@DarvinUser/email/confirmation.html.twig'): int
     {
         return $this->genericMailer->sendPublicEmail($user->getEmail(), $subject, $template, [
-            'subject' => $subject,
-            'user'    => $user,
+            'user' => $user,
         ]);
     }
 
@@ -60,8 +59,7 @@ class UserMailer implements UserMailerInterface
         }
 
         return $this->genericMailer->sendServiceEmail($this->userConfig->getNotificationEmails(), $subject, $template, [
-            'subject' => $subject,
-            'user'    => $user,
+            'user' => $user,
         ]);
     }
 }
