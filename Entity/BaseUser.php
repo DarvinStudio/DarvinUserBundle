@@ -172,6 +172,16 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     }
 
     /**
+     * @return array
+     */
+    public function getData(): array
+    {
+        return [
+            'email' => $this->email,
+        ];
+    }
+
+    /**
      * @return BaseUser
      */
     public function generateRandomPlainPassword(): BaseUser
