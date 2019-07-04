@@ -30,12 +30,13 @@ use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 class SecurityController extends AbstractController
 {
     /**
-     * @param string|null $code Code
+     * @param \Symfony\Component\HttpFoundation\Request $request Request
+     * @param string|null                               $code    Code
      *
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    public function confirmRegistrationAction(?string $code): Response
+    public function confirmRegistrationAction(Request $request, ?string $code): Response
     {
         if (null === $code) {
             return $this->render('@DarvinUser/security/confirm_registration/code_sent.html.twig');
@@ -51,7 +52,13 @@ class SecurityController extends AbstractController
         $user->setEnabled(true);
         $this->getDoctrine()->getManager()->flush();
 
-        $this->get('event_dispatcher')->dispatch(SecurityEvents::REGISTRATION_CONFIRMED, new UserEvent($user));
+        $event = new UserEvent($user, $request);
+
+        $this->get('event_dispatcher')->dispatch(SecurityEvents::REGISTRATION_CONFIRMED, $event);
+
+        if (null !== $event->getResponse()) {
+            return $event->getResponse();
+        }
 
         return $this->render('@DarvinUser/security/confirm_registration/success.html.twig');
     }
@@ -90,14 +97,19 @@ class SecurityController extends AbstractController
         }
 
         $successMessage = 'security.register.success';
+        $needConfirm    = $this->container->getParameter('darvin_user.confirm_registration');
 
-        $needConfirm = $this->container->getParameter('darvin_user.confirm_registration');
-        if (!$this->getSecurityFormHandler()->handleRegistrationForm($form, !$widget, $successMessage, $needConfirm)) {
+        $event = $this->getSecurityFormHandler()->handleRegistrationForm($form, $request, $successMessage, $needConfirm);
+
+        if (null === $event) {
             $html = $this->getSecurityFormRenderer()->renderRegistrationForm($form, $widget);
 
             return $widget
                 ? new AjaxResponse($html, false, FlashNotifierInterface::MESSAGE_FORM_ERROR)
                 : new Response($html);
+        }
+        if (null !== $event->getResponse()) {
+            return $event->getResponse();
         }
 
         $url = $needConfirm ?

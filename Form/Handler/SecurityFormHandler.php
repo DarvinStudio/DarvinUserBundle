@@ -22,6 +22,7 @@ use Darvin\Utils\Flash\FlashNotifierInterface;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Security form handler
@@ -125,7 +126,7 @@ class SecurityFormHandler implements SecurityFormHandlerInterface
     /**
      * {@inheritDoc}
      */
-    public function handleRegistrationForm(FormInterface $form, bool $addFlashes = false, ?string $successMessage = null, bool $confirmationRequired = false): bool
+    public function handleRegistrationForm(FormInterface $form, Request $request, ?string $successMessage = null, bool $confirmationRequired = false): ?UserEvent
     {
         if (!$form->getConfig()->getType()->getInnerType() instanceof RegistrationType) {
             throw new \InvalidArgumentException('Unable to handle form: provided form is not registration form.');
@@ -133,12 +134,15 @@ class SecurityFormHandler implements SecurityFormHandlerInterface
         if (!$form->isSubmitted()) {
             throw new \LogicException('Unable to handle registration form: it is not submitted.');
         }
+
+        $addFlashes = !$request->isXmlHttpRequest();
+
         if (!$form->isValid()) {
             if ($addFlashes) {
                 $this->flashNotifier->formError();
             }
 
-            return false;
+            return null;
         }
 
         /** @var \Darvin\UserBundle\Entity\BaseUser $user */
@@ -159,13 +163,15 @@ class SecurityFormHandler implements SecurityFormHandlerInterface
         $this->em->persist($user);
         $this->em->flush($user);
 
-        $this->eventDispatcher->dispatch(SecurityEvents::REGISTERED, new UserEvent($user));
+        $event = new UserEvent($user, $request);
+
+        $this->eventDispatcher->dispatch(SecurityEvents::REGISTERED, $event);
 
         if ($addFlashes && !empty($successMessage)) {
             $this->flashNotifier->success($successMessage);
         }
 
-        return true;
+        return $event;
     }
 
     /**

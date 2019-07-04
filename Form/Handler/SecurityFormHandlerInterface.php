@@ -10,7 +10,9 @@
 
 namespace Darvin\UserBundle\Form\Handler;
 
+use Darvin\UserBundle\Event\UserEvent;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Security form handler
@@ -29,14 +31,14 @@ interface SecurityFormHandlerInterface
     public function handlePasswordResetForm(FormInterface $form, bool $addFlashes = false, ?string $successMessage = null): bool;
 
     /**
-     * @param \Symfony\Component\Form\FormInterface $form                 Form
-     * @param bool                                  $addFlashes           Whether to add flash message
-     * @param string|null                           $successMessage       Success message
-     * @param bool                                  $confirmationRequired Is registration confirmation required
+     * @param \Symfony\Component\Form\FormInterface     $form                 Form
+     * @param \Symfony\Component\HttpFoundation\Request $request              Request
+     * @param string|null                               $successMessage       Success message
+     * @param bool                                      $confirmationRequired Is registration confirmation required
      *
-     * @return bool
+     * @return \Darvin\UserBundle\Event\UserEvent|null
      * @throws \InvalidArgumentException
      * @throws \LogicException
      */
-    public function handleRegistrationForm(FormInterface $form, bool $addFlashes = false, ?string $successMessage = null, bool $confirmationRequired = false): bool;
+    public function handleRegistrationForm(FormInterface $form, Request $request, ?string $successMessage = null, bool $confirmationRequired = false): ?UserEvent;
 }

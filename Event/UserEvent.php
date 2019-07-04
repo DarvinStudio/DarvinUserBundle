@@ -12,6 +12,8 @@ namespace Darvin\UserBundle\Event;
 
 use Darvin\UserBundle\Entity\BaseUser;
 use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * User event
@@ -24,11 +26,25 @@ class UserEvent extends Event
     private $user;
 
     /**
-     * @param \Darvin\UserBundle\Entity\BaseUser $user User
+     * @var \Symfony\Component\HttpFoundation\Request
      */
-    public function __construct(BaseUser $user)
+    private $request;
+
+    /**
+     * @var \Symfony\Component\HttpFoundation\Response|null
+     */
+    private $response;
+
+    /**
+     * @param \Darvin\UserBundle\Entity\BaseUser        $user    User
+     * @param \Symfony\Component\HttpFoundation\Request $request Request
+     */
+    public function __construct(BaseUser $user, Request $request)
     {
         $this->user = $user;
+        $this->request = $request;
+
+        $this->response = null;
     }
 
     /**
@@ -37,5 +53,33 @@ class UserEvent extends Event
     public function getUser(): BaseUser
     {
         return $this->user;
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Request
+     */
+    public function getRequest(): Request
+    {
+        return $this->request;
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response|null
+     */
+    public function getResponse(): ?Response
+    {
+        return $this->response;
+    }
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\Response|null $response response
+     *
+     * @return UserEvent
+     */
+    public function setResponse(?Response $response): UserEvent
+    {
+        $this->response = $response;
+
+        return $this;
     }
 }
