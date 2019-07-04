@@ -22,6 +22,7 @@ use Darvin\Utils\Flash\FlashNotifierInterface;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Security form handler
@@ -128,17 +129,17 @@ class SecurityFormHandler
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface $form Form
-     * @param bool $addFlashMessages Whether to add flash messages
-     * @param string $successMessage Success message
-     * @param bool $registrationConfirmation Is reg confirm needed or not
+     * @param \Symfony\Component\Form\FormInterface     $form                     Form
+     * @param \Symfony\Component\HttpFoundation\Request $request                  Request
+     * @param string                                    $successMessage           Success message
+     * @param bool                                      $registrationConfirmation Is reg confirm needed or not
      *
-     * @return bool
-     * @throws FormException
+     * @return \Darvin\UserBundle\Event\UserEvent|null
+     * @throws \Darvin\UserBundle\Form\FormException
      */
     public function handleRegistrationForm(
         FormInterface $form,
-        $addFlashMessages = false,
+        Request $request,
         $successMessage = null,
         $registrationConfirmation = false
     ) {
@@ -149,11 +150,11 @@ class SecurityFormHandler
             throw new FormException('Unable to handle registration form: it is not submitted.');
         }
         if (!$form->isValid()) {
-            if ($addFlashMessages) {
+            if (!$request->isXmlHttpRequest()) {
                 $this->flashNotifier->formError();
             }
 
-            return false;
+            return null;
         }
 
         /** @var \Darvin\UserBundle\Entity\BaseUser $user */
@@ -174,13 +175,15 @@ class SecurityFormHandler
         $this->em->persist($user);
         $this->em->flush($user);
 
-        $this->eventDispatcher->dispatch(SecurityEvents::REGISTERED, new UserEvent($user));
+        $event = new UserEvent($user, $request);
 
-        if ($addFlashMessages && !empty($successMessage)) {
+        $this->eventDispatcher->dispatch(SecurityEvents::REGISTERED, $event);
+
+        if (!$request->isXmlHttpRequest() && !empty($successMessage)) {
             $this->flashNotifier->success($successMessage);
         }
 
-        return true;
+        return $event;
     }
 
     /**

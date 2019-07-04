@@ -10,7 +10,6 @@
 
 namespace Darvin\UserBundle\Controller;
 
-use Darvin\UserBundle\Entity\BaseUser;
 use Darvin\UserBundle\Entity\PasswordResetToken;
 use Darvin\UserBundle\Event\SecurityEvents;
 use Darvin\UserBundle\Event\UserEvent;
@@ -60,14 +59,19 @@ class SecurityController extends Controller
         }
 
         $successMessage = 'security.action.register.success';
+        $needConfirm    = $this->getParameter('darvin_user.confirm_registration');
 
-        $needConfirm = $this->getParameter('darvin_user.confirm_registration');
-        if (!$this->getSecurityFormHandler()->handleRegistrationForm($form, !$widget, $successMessage, $needConfirm)) {
+        $event = $this->getSecurityFormHandler()->handleRegistrationForm($form, $request, $successMessage, $needConfirm);
+
+        if (null === $event) {
             $html = $this->getSecurityFormRenderer()->renderRegistrationForm($widget, $form);
 
             return $widget
                 ? new AjaxResponse($html, false, FlashNotifierInterface::MESSAGE_FORM_ERROR)
                 : new Response($html);
+        }
+        if (null !== $event->getResponse()) {
+            return $event->getResponse();
         }
 
         $url = $needConfirm ?
