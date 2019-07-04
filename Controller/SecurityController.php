@@ -133,7 +133,13 @@ class SecurityController extends Controller
         $user->setEnabled(true);
         $this->getDoctrine()->getManager()->flush();
 
-        $this->get('event_dispatcher')->dispatch(SecurityEvents::REGISTRATION_CONFIRMED, new UserEvent($user));
+        $event = new UserEvent($user, $request);
+
+        $this->get('event_dispatcher')->dispatch(SecurityEvents::REGISTRATION_CONFIRMED, $event);
+
+        if (null !== $event->getResponse()) {
+            return $event->getResponse();
+        }
 
         return $this->render('@DarvinUser/User/confirmation/confirmation_success.html.twig');
     }
