@@ -4,7 +4,7 @@ email:
         text: '完成登记注册只是点击 %url%"&gt;这里</a> 或复制这个 %url% 浏览器。'
     password_reset:
         subject: 密码重置链接
-        text: "<p>为了重置密码使用的链接 %url%\"&gt;%url%</a>中。</p> <p>链接将到期， %expire_at%中。</p>\n"
+        text: "<p>为了重置密码使用的链接 %url%\"&gt;%url%</a>.</p> <p>链接将到期， %expire_at%.</p>\n"
     registered:
         subject: 新的用户
         user: 用户
@@ -14,7 +14,7 @@ password_reset_token:
         submit: 获得的链接
         success:
             message: 链接发送
-            text: '链接发送以电子邮件 %email%中。'
+            text: '链接发送以电子邮件 %email%.'
         title: 获得密码重置链接
         user_email: 电子邮件
 profile:
