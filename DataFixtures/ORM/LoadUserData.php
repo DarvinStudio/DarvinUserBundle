@@ -38,7 +38,7 @@ class LoadUserData extends AbstractFixture
             ->setEmail('admin@example.com')
             ->setPlainPassword('admin')
             ->setRoles([
-                'ROLE_SUPERADMIN',
+                'ROLE_SUPER_ADMIN',
             ]);
     }
 

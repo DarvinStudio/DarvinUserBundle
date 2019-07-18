@@ -30,7 +30,7 @@ view:
             locked:  ~
             roles:
                 widget:    user_roles
-                condition: 'is_granted("ROLE_SUPERADMIN")'
+                condition: 'is_granted("ROLE_SUPER_ADMIN")'
     extend~index~show:
         override~action_widgets:
             switch_user: ~
@@ -51,7 +51,7 @@ form:
             locked:  ~
             roles:
                 type:           Darvin\UserBundle\Form\Type\RoleChoiceType
-                condition:      'is_granted("ROLE_SUPERADMIN")'
+                condition:      'is_granted("ROLE_SUPER_ADMIN")'
                 compare_strict: false
     new:
         fields:
@@ -69,7 +69,7 @@ form:
                 type: password
             roles:
                 type:      Darvin\UserBundle\Form\Type\RoleChoiceType
-                condition: 'is_granted("ROLE_SUPERADMIN")'
+                condition: 'is_granted("ROLE_SUPER_ADMIN")'
                 options:
                     multiple: true
                     required: false
