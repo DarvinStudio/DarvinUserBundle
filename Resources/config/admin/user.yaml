@@ -1,20 +1,17 @@
+menu:
+    position: 990
+
 searchable_fields:
     - username
     - email
+
 sortable_fields:
     username: ~
     email:    ~
     enabled:  ~
     locked:   ~
     roles:    ~
-menu:
-    position: 990
-    colors:
-        main:    '#2171ac'
-        sidebar: '#48aef9'
-    icons:
-        main:    bundles/darvinuser/images/admin/user_main.png
-        sidebar: bundles/darvinuser/images/admin/user_sidebar.png
+
 view:
     index:
         action_widgets:
@@ -36,6 +33,7 @@ view:
             switch_user: ~
             edit_link:   ~
             delete_form: ~
+
 form:
     index:
         fields:
