@@ -60,9 +60,6 @@ form:
                 options:
                     required: false
             email: ~
-            username:
-                options:
-                    required: false
             plainPassword:
                 type: password
             roles:
@@ -70,6 +67,10 @@ form:
                 condition: 'is_granted("ROLE_SUPER_ADMIN")'
                 options:
                     multiple: true
+                    required: false
+            username:
+                options:
+                    help:     user.help.username
                     required: false
     extend~new~edit:
         fields:

@@ -35,3 +35,5 @@ user:
         plain_password: 密码
         roles: 角色
         username: 用户名
+    help:
+        username: 如果没有指定，会自动生成。

@@ -35,3 +35,5 @@ user:
         plain_password: 'كلمة المرور'
         roles: أدوار
         username: 'اسم المستخدم'
+    help:
+        username: 'إذا لم يكن محددا ، سيتم إنشاؤها تلقائيا.'

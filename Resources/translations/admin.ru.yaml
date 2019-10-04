@@ -37,3 +37,5 @@ user:
         plain_password: Пароль
         roles:          Роли
         username:       Имя пользователя
+    help:
+        username: Если не указано, будет сгенерировано автоматически.

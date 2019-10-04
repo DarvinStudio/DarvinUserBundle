@@ -35,3 +35,5 @@ user:
         plain_password: Password
         roles: Roles
         username: Username
+    help:
+        username: 'If not Specified, Will be Generated Automatically.'
