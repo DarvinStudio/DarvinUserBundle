@@ -58,13 +58,9 @@ class DarvinUserExtension extends Extension implements PrependExtensionInterface
      */
     public function prepend(ContainerBuilder $container): void
     {
-        $bundles     = $container->getParameter('kernel.bundles');
-        $utilsConfig = $this->processConfiguration(
-            new \Darvin\UtilsBundle\DependencyInjection\Configuration(),
-            $container->getParameterBag()->resolveValue($container->getExtensionConfig('darvin_utils'))
-        );
+        $bundles = $container->getParameter('kernel.bundles');
 
-        if (!$utilsConfig['mailer']['enabled']) {
+        if (!isset($bundles['DarvinMailerBundle'])) {
             $container->prependExtensionConfig($this->getAlias(), [
                 'mailer' => [
                     'enabled' => false,

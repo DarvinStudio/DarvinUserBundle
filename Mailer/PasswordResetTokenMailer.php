@@ -10,8 +10,8 @@
 
 namespace Darvin\UserBundle\Mailer;
 
+use Darvin\MailerBundle\Mailer\TemplateMailerInterface;
 use Darvin\UserBundle\Entity\PasswordResetToken;
-use Darvin\Utils\Mailer\TemplateMailerInterface;
 
 /**
  * Password reset token mailer
@@ -19,12 +19,12 @@ use Darvin\Utils\Mailer\TemplateMailerInterface;
 class PasswordResetTokenMailer implements PasswordResetTokenMailerInterface
 {
     /**
-     * @var \Darvin\Utils\Mailer\TemplateMailerInterface
+     * @var \Darvin\MailerBundle\Mailer\TemplateMailerInterface
      */
     private $genericMailer;
 
     /**
-     * @param \Darvin\Utils\Mailer\TemplateMailerInterface $genericMailer Generic mailer
+     * @param \Darvin\MailerBundle\Mailer\TemplateMailerInterface $genericMailer Generic mailer
      */
     public function __construct(TemplateMailerInterface $genericMailer)
     {

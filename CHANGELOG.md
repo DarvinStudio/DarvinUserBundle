@@ -34,3 +34,5 @@ darvin_user:
 - Reorganize templates.
 
 - Implement custom authentication success handler.
+
+6.0.6: Use mailer from Mailer bundle.

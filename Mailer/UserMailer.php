@@ -10,9 +10,9 @@
 
 namespace Darvin\UserBundle\Mailer;
 
+use Darvin\MailerBundle\Mailer\TemplateMailerInterface;
 use Darvin\UserBundle\Config\UserConfigInterface;
 use Darvin\UserBundle\Entity\BaseUser;
-use Darvin\Utils\Mailer\TemplateMailerInterface;
 
 /**
  * User mailer
@@ -20,7 +20,7 @@ use Darvin\Utils\Mailer\TemplateMailerInterface;
 class UserMailer implements UserMailerInterface
 {
     /**
-     * @var \Darvin\Utils\Mailer\TemplateMailerInterface
+     * @var \Darvin\MailerBundle\Mailer\TemplateMailerInterface
      */
     private $genericMailer;
 
@@ -30,8 +30,8 @@ class UserMailer implements UserMailerInterface
     private $userConfig;
 
     /**
-     * @param \Darvin\Utils\Mailer\TemplateMailerInterface       $genericMailer Generic mailer
-     * @param \Darvin\UserBundle\Config\UserConfigInterface|null $userConfig    User configuration
+     * @param \Darvin\MailerBundle\Mailer\TemplateMailerInterface $genericMailer Generic mailer
+     * @param \Darvin\UserBundle\Config\UserConfigInterface|null  $userConfig    User configuration
      */
     public function __construct(TemplateMailerInterface $genericMailer, ?UserConfigInterface $userConfig = null)
     {
