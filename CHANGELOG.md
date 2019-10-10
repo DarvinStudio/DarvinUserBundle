@@ -36,3 +36,5 @@ darvin_user:
 - Implement custom authentication success handler.
 
 6.0.6: Use mailer from Mailer bundle.
+
+6.0.7: Do not render email subjects in headings (will be rendered in email layout).
