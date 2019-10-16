@@ -38,3 +38,5 @@ darvin_user:
 6.0.6: Use mailer from Mailer bundle.
 
 6.0.7: Do not render email subjects in headings (will be rendered in email layout).
+
+6.0.8: Replace removed "property()" macro.

@@ -1,5 +1,3 @@
 {% import '@DarvinUtils/macros.html.twig' as darvin_utils %}
 
-{% for name, value in user.data %}
-    {{ darvin_utils.property(name, 'user.entity.' ~ name, value) }}
-{% endfor %}
+{{ darvin_utils.div_data(user.data, 'user.entity.') }}
