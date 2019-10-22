@@ -55,7 +55,7 @@ class UsernameGenerator implements UsernameGeneratorInterface
 
         $similar = $this->userRepository->getSimilarUsernames($username, $userId);
 
-        if (empty($similar)) {
+        if (empty($similar) || !in_array($username, $similar)) {
             return $username;
         }
 
