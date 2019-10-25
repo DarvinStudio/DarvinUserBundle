@@ -28,11 +28,6 @@ view:
             roles:
                 widget:    user_roles
                 condition: 'is_granted("ROLE_SUPER_ADMIN")'
-    extend~index~show:
-        override~action_widgets:
-            switch_user: ~
-            edit_link:   ~
-            delete_form: ~
 
 form:
     index:
