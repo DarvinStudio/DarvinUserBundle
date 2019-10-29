@@ -42,3 +42,5 @@ darvin_user:
 6.0.8: Replace removed "property()" macro.
 
 6.0.9: Check username uniqueness checking in username generator.
+
+6.0.12: Allow to configure grantable roles.
