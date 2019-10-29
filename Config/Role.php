@@ -26,18 +26,25 @@ class Role
     private $moderated;
 
     /**
+     * @var string[]
+     */
+    private $grantableRoles;
+
+    /**
      * @var string
      */
     private $title;
 
     /**
-     * @param string $role      Role
-     * @param bool   $moderated Is moderated
+     * @param string   $role           Role
+     * @param bool     $moderated      Is moderated
+     * @param string[] $grantableRoles Grantable roles
      */
-    public function __construct(string $role, bool $moderated)
+    public function __construct(string $role, bool $moderated, array $grantableRoles)
     {
         $this->role = $role;
         $this->moderated = $moderated;
+        $this->grantableRoles = $grantableRoles;
 
         $this->title = sprintf('role.%s', preg_replace('/^role_/', '', strtolower($role)));
     }
@@ -64,6 +71,14 @@ class Role
     public function isModerated(): bool
     {
         return $this->moderated;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getGrantableRoles(): array
+    {
+        return $this->grantableRoles;
     }
 
     /**

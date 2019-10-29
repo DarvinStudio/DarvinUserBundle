@@ -28,7 +28,7 @@ class RoleConfig implements RoleConfigInterface
         $roles = [];
 
         foreach ($config as $role => $attr) {
-            $roles[$role] = new Role($role, $attr['moderated']);
+            $roles[$role] = new Role($role, $attr['moderated'], []);
         }
 
         $this->roles = $roles;
