@@ -65,7 +65,7 @@ class RoleChoiceType extends AbstractType
         $choices = [];
 
         foreach ($this->roleConfig->getRoles() as $role) {
-            $choices[$role->getTitle()] = $role->getRole();
+            $choices[$role->getTitle()] = $role->getName();
         }
 
         return $choices;

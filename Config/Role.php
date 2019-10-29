@@ -18,7 +18,7 @@ class Role
     /**
      * @var string
      */
-    private $role;
+    private $name;
 
     /**
      * @var bool
@@ -36,17 +36,17 @@ class Role
     private $title;
 
     /**
-     * @param string   $role           Role
+     * @param string   $name           Name
      * @param bool     $moderated      Is moderated
      * @param string[] $grantableRoles Grantable roles
      */
-    public function __construct(string $role, bool $moderated, array $grantableRoles)
+    public function __construct(string $name, bool $moderated, array $grantableRoles)
     {
-        $this->role = $role;
+        $this->name = $name;
         $this->moderated = $moderated;
         $this->grantableRoles = $grantableRoles;
 
-        $this->title = sprintf('role.%s', preg_replace('/^role_/', '', strtolower($role)));
+        $this->title = sprintf('role.%s', preg_replace('/^role_/', '', strtolower($name)));
     }
 
     /**
@@ -54,15 +54,15 @@ class Role
      */
     public function __toString(): string
     {
-        return $this->role;
+        return $this->name;
     }
 
     /**
      * @return string
      */
-    public function getRole(): string
+    public function getName(): string
     {
-        return $this->role;
+        return $this->name;
     }
 
     /**

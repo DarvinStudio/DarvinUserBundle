@@ -129,7 +129,7 @@ class UserCreateCommand extends Command
         ];
 
         foreach ($this->roleConfig->getRoles() as $role) {
-            $choices[] = $role->getRole();
+            $choices[] = $role->getName();
         }
 
         return $choices;
