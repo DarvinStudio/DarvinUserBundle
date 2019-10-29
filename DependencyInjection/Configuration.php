@@ -53,6 +53,18 @@ class Configuration implements ConfigurationInterface
                             ->end()
                         ->end()
                     ->end()
+                    ->validate()
+                        ->ifTrue(function (array $roles) {
+                            foreach ($roles as $role => $attr) {
+                                foreach (array_keys($attr['grantable_roles']['list']) as $grantableRole) {
+                                    if (!isset($roles[$grantableRole])) {
+                                        throw new \InvalidArgumentException(sprintf('Grantable role "%s" does not exist.', $grantableRole));
+                                    }
+                                }
+                            }
+                        })
+                        ->thenInvalid('')
+                    ->end()
                 ->end()
                 ->scalarNode('user_class')->defaultValue(BaseUser::class)->cannotBeEmpty()
                     ->validate()
