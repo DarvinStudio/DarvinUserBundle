@@ -55,8 +55,9 @@ form:
             roles:
                 type: Darvin\UserBundle\Form\Type\RoleChoiceType
                 options:
-                    multiple: true
-                    required: false
+                    only_grantable: true
+                    multiple:       true
+                    required:       false
             username:
                 options:
                     help:     user.help.username

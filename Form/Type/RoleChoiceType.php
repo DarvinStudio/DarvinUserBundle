@@ -13,7 +13,9 @@ namespace Darvin\UserBundle\Form\Type;
 use Darvin\UserBundle\Config\RoleConfigInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Role choice form type
@@ -21,15 +23,22 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class RoleChoiceType extends AbstractType
 {
     /**
+     * @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface
+     */
+    private $authorizationChecker;
+
+    /**
      * @var \Darvin\UserBundle\Config\RoleConfigInterface
      */
     private $roleConfig;
 
     /**
-     * @param \Darvin\UserBundle\Config\RoleConfigInterface $roleConfig Role configuration
+     * @param \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface $authorizationChecker Authorization checker
+     * @param \Darvin\UserBundle\Config\RoleConfigInterface                                $roleConfig           Role configuration
      */
-    public function __construct(RoleConfigInterface $roleConfig)
+    public function __construct(AuthorizationCheckerInterface $authorizationChecker, RoleConfigInterface $roleConfig)
     {
+        $this->authorizationChecker = $authorizationChecker;
         $this->roleConfig = $roleConfig;
     }
 
@@ -38,7 +47,16 @@ class RoleChoiceType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefault('choices', $this->buildChoices());
+        $buildChoices = [$this, 'buildChoices'];
+
+        $resolver
+            ->setDefaults([
+                'only_grantable' => false,
+                'choices'        => function (Options $options) use ($buildChoices) {
+                    return $buildChoices($options['only_grantable']);
+                },
+            ])
+            ->setAllowedTypes('only_grantable', 'boolean');
     }
 
     /**
@@ -58,16 +76,42 @@ class RoleChoiceType extends AbstractType
     }
 
     /**
+     * @param bool $onlyGrantable Whether to return only grantable role choices
+     *
      * @return array
      */
-    private function buildChoices(): array
+    protected function buildChoices(bool $onlyGrantable): array
     {
         $choices = [];
 
-        foreach ($this->roleConfig->getRoles() as $role) {
+        foreach ($this->getRoles($onlyGrantable) as $role) {
             $choices[$role->getTitle()] = $role->getName();
         }
 
         return $choices;
+    }
+
+    /**
+     * @param bool $onlyGrantable Whether to return only grantable roles
+     *
+     * @return \Darvin\UserBundle\Config\Role[]
+     */
+    private function getRoles(bool $onlyGrantable): array
+    {
+        if (!$onlyGrantable) {
+            return $this->roleConfig->getRoles();
+        }
+
+        $roles = [];
+
+        foreach ($this->roleConfig->getRoles() as $role) {
+            if ($this->authorizationChecker->isGranted($role->getName())) {
+                foreach ($role->getGrantableRoles() as $grantableRole) {
+                    $roles[$grantableRole->getName()] = $grantableRole;
+                }
+            }
+        }
+
+        return $roles;
     }
 }

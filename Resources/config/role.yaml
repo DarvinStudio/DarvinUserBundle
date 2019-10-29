@@ -10,6 +10,7 @@ services:
     darvin_user.role.choice_form_type:
         class: '%darvin_user.role.choice_form_type.class%'
         arguments:
+            - '@security.authorization_checker'
             - '@darvin_user.role.configuration'
         tags:
             - { name: form.type }
