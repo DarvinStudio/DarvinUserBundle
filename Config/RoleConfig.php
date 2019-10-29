@@ -21,35 +21,37 @@ class RoleConfig implements RoleConfigInterface
     private $roles;
 
     /**
-     * @param array $roles Roles
+     * @param array $config Role configuration
      */
-    public function __construct(array $roles)
+    public function __construct(array $config)
     {
-        $this->roles = [];
+        $roles = [];
 
-        foreach ($roles as $role => $attr) {
-            $this->roles[$role] = new Role($role, $attr['moderated']);
+        foreach ($config as $role => $attr) {
+            $roles[$role] = new Role($role, $attr['moderated']);
         }
+
+        $this->roles = $roles;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getRole(string $role): Role
+    public function getRole(string $name): Role
     {
-        if (!$this->hasRole($role)) {
-            throw new \InvalidArgumentException(sprintf('Role "%s" does not exist.', $role));
+        if (!$this->hasRole($name)) {
+            throw new \InvalidArgumentException(sprintf('Role "%s" does not exist.', $name));
         }
 
-        return $this->roles[$role];
+        return $this->roles[$name];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function hasRole(string $role): bool
+    public function hasRole(string $name): bool
     {
-        return isset($this->roles[$role]);
+        return isset($this->roles[$name]);
     }
 
     /**

@@ -16,19 +16,19 @@ namespace Darvin\UserBundle\Config;
 interface RoleConfigInterface
 {
     /**
-     * @param string $role Role
+     * @param string $name Role name
      *
      * @return \Darvin\UserBundle\Config\Role
      * @throws \InvalidArgumentException
      */
-    public function getRole(string $role): Role;
+    public function getRole(string $name): Role;
 
     /**
-     * @param string $role Role
+     * @param string $name Role name
      *
      * @return bool
      */
-    public function hasRole(string $role): bool;
+    public function hasRole(string $name): bool;
 
     /**
      * @return \Darvin\UserBundle\Config\Role[]
