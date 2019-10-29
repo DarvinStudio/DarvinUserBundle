@@ -25,10 +25,25 @@ class RoleConfig implements RoleConfigInterface
      */
     public function __construct(array $config)
     {
+        /** @var \Darvin\UserBundle\Config\Role[] $roles */
         $roles = [];
 
-        foreach ($config as $role => $attr) {
-            $roles[$role] = new Role($role, $attr['moderated'], []);
+        foreach ($config as $roleName => $attr) {
+            $roles[$roleName] = new Role($roleName, $attr['moderated']);
+        }
+        foreach ($config as $roleName => $attr) {
+            foreach ($roles as $grantableRole) {
+                if (isset($attr['grantable_roles']['list'][$grantableRole->getName()])) {
+                    if ($attr['grantable_roles']['list'][$grantableRole->getName()]) {
+                        $roles[$roleName]->addGrantableRole($grantableRole);
+                    }
+
+                    continue;
+                }
+                if ($attr['grantable_roles']['default']) {
+                    $roles[$roleName]->addGrantableRole($grantableRole);
+                }
+            }
         }
 
         $this->roles = $roles;
