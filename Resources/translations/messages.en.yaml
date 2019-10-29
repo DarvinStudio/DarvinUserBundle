@@ -1,10 +1,10 @@
 email:
     confirmation:
         subject: 'Registration Confirmation'
-        text: 'To Complete Registration Just Click <a Href="%url%">here</a> or Copy This %url% to the Browser.'
+        text: 'To complete registration just click <a href="%url%">here</a> or copy this %url% to the browser.'
     password_reset:
         subject: 'Password Reset Link'
-        text: "<p>in Order to Reset Password Use Link <a Href=\"%url%\">%url%</a>.</p> <p>Link Will Be Expired at %expire_at%.</p>\n"
+        text: "<p>In order to reset password use link <a href=\"%url%\">%url%</a>.</p> <p>Link will be expired at %expire_at%.</p>\n"
     registered:
         subject: 'New User'
         user: User
@@ -14,7 +14,7 @@ password_reset_token:
         submit: 'Get Link'
         success:
             message: 'Link Sent'
-            text: 'Link Was Sent to Email %email%.'
+            text: 'Link has been sent to %email%.'
         title: 'Get Password Reset Link'
         user_email: Email
 profile:
@@ -32,12 +32,12 @@ profile:
 security:
     confirm_registration:
         code_sent:
-            text: 'The Message Has Been Sent to Your Email. Please Follow Instruction to Complete Registration.'
+            text: 'The message has been sent to your email. Please follow instruction to complete registration.'
             title: 'End of Registration'
         invalid_code_error: 'Invalid Confirmation Code'
         success:
-            text: 'You Account Has Been Confirmed. Thank You for Registration.'
-            title: 'Registration Is Ended'
+            text: 'You account has been confirmed. Thank you for registration.'
+            title: 'Registration Finished'
     login:
         darvin_auth: 'Sign in Using Darvin Auth'
         password: Password

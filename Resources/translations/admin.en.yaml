@@ -36,4 +36,4 @@ user:
         roles: Roles
         username: Username
     help:
-        username: 'If not Specified, Will be Generated Automatically.'
+        username: 'If not specified, will be generated automatically.'
