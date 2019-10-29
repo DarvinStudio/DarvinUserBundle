@@ -1,2 +1,2 @@
 user:
-    exists_and_active: 'Account Does Not Exist, Locked or Not Enabled.'
+    exists_and_active: 'Account does not exist, locked or not enabled.'

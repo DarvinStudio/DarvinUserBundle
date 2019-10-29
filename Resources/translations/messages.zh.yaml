@@ -14,7 +14,7 @@ password_reset_token:
         submit: 获得的链接
         success:
             message: 链接发送
-            text: '链接发送以电子邮件 %email%.'
+            text: '链接已经发送到 %email%.'
         title: 获得密码重置链接
         user_email: 电子邮件
 profile:
@@ -37,7 +37,7 @@ security:
         invalid_code_error: 无效确认码
         success:
             text: '你的账户已被确认。 谢谢你的注册。'
-            title: 注册结束
+            title: 登记完成之后
     login:
         darvin_auth: 标志在使用达文Auth
         password: 密码

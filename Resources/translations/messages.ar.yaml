@@ -14,7 +14,7 @@ password_reset_token:
         submit: 'الحصول على رابط'
         success:
             message: 'أرسل الرابط'
-            text: 'الرابط تم إرسالها إلى البريد الإلكتروني %email%.'
+            text: 'الرابط تم إرسالها إلى %email%.'
         title: 'الحصول على رابط إعادة تعيين كلمة المرور'
         user_email: 'البريد الإلكتروني'
 profile:
