@@ -13,6 +13,9 @@ namespace Darvin\UserBundle\Form\Type;
 use Darvin\UserBundle\Config\RoleConfigInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -40,6 +43,44 @@ class RoleChoiceType extends AbstractType
     {
         $this->authorizationChecker = $authorizationChecker;
         $this->roleConfig = $roleConfig;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $roleConfig = $this->roleConfig;
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($builder, $roleConfig) {
+            if (null === $event->getForm()->getParent()) {
+                return;
+            }
+
+            $choices = $event->getForm()->getConfig()->getOption('choices');
+
+            if (empty($choices)) {
+                $event->getForm()->getParent()->remove($builder->getName());
+
+                return;
+            }
+
+            $roles = $event->getData();
+
+            if (!is_array($roles)) {
+                $roles = [$roles];
+            }
+
+            $roles = array_map('strval', $roles);
+
+            foreach ($roles as $role) {
+                if ($roleConfig->hasRole($role) && !in_array($role, $choices)) {
+                    $event->getForm()->getParent()->remove($builder->getName());
+
+                    return;
+                }
+            }
+        });
     }
 
     /**
