@@ -43,7 +43,7 @@ class RoleChoiceType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -60,7 +60,7 @@ class RoleChoiceType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getParent(): string
     {
