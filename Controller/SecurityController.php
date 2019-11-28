@@ -54,7 +54,7 @@ class SecurityController extends AbstractController
 
         $event = new UserEvent($user, $request);
 
-        $this->get('event_dispatcher')->dispatch(SecurityEvents::REGISTRATION_CONFIRMED, $event);
+        $this->get('event_dispatcher')->dispatch($event, SecurityEvents::REGISTRATION_CONFIRMED);
 
         if (null !== $event->getResponse()) {
             return $event->getResponse();

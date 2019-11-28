@@ -111,7 +111,7 @@ class PasswordResetTokenFormHandler implements PasswordResetTokenFormHandlerInte
         $this->em->persist($passwordResetToken);
         $this->em->flush();
 
-        $this->eventDispatcher->dispatch(PasswordResetTokenEvents::REQUESTED, new PasswordResetTokenEvent($passwordResetToken));
+        $this->eventDispatcher->dispatch(new PasswordResetTokenEvent($passwordResetToken), PasswordResetTokenEvents::REQUESTED);
 
         if ($addFlashes && !empty($successMessage)) {
             $this->flashNotifier->success($successMessage);

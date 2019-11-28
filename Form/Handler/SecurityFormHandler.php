@@ -165,7 +165,7 @@ class SecurityFormHandler implements SecurityFormHandlerInterface
 
         $event = new UserEvent($user, $request);
 
-        $this->eventDispatcher->dispatch(SecurityEvents::REGISTERED, $event);
+        $this->eventDispatcher->dispatch($event, SecurityEvents::REGISTERED);
 
         if ($addFlashes && !empty($successMessage)) {
             $this->flashNotifier->success($successMessage);
