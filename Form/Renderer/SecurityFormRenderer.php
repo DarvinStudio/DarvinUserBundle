@@ -13,6 +13,7 @@ namespace Darvin\UserBundle\Form\Renderer;
 use Darvin\UserBundle\Form\Factory\SecurityFormFactoryInterface;
 use Darvin\Utils\Service\ServiceProviderInterface;
 use Symfony\Component\Form\FormInterface;
+use Twig\Environment;
 
 /**
  * Security form renderer
@@ -27,16 +28,16 @@ class SecurityFormRenderer implements SecurityFormRendererInterface
     /**
      * @var \Darvin\Utils\Service\ServiceProviderInterface
      */
-    private $templatingProvider;
+    private $twigProvider;
 
     /**
      * @param \Darvin\UserBundle\Form\Factory\SecurityFormFactoryInterface $securityFormFactory Security form factory
-     * @param \Darvin\Utils\Service\ServiceProviderInterface               $templatingProvider  Templating service provider
+     * @param \Darvin\Utils\Service\ServiceProviderInterface               $twigProvider        Twig service provider
      */
-    public function __construct(SecurityFormFactoryInterface $securityFormFactory, ServiceProviderInterface $templatingProvider)
+    public function __construct(SecurityFormFactoryInterface $securityFormFactory, ServiceProviderInterface $twigProvider)
     {
         $this->securityFormFactory = $securityFormFactory;
-        $this->templatingProvider = $templatingProvider;
+        $this->twigProvider = $twigProvider;
     }
 
     /**
@@ -51,7 +52,7 @@ class SecurityFormRenderer implements SecurityFormRendererInterface
             $template = sprintf('@DarvinUser/security/%slogin.html.twig', $partial ? '_' : '');
         }
 
-        return $this->getTemplating()->render($template, [
+        return $this->getTwig()->render($template, [
             'form' => $form->createView(),
         ]);
     }
@@ -65,7 +66,7 @@ class SecurityFormRenderer implements SecurityFormRendererInterface
             $template = sprintf('@DarvinUser/security/%sreset_password.html.twig', $partial ? '_' : '');
         }
 
-        return $this->getTemplating()->render($template, [
+        return $this->getTwig()->render($template, [
             'form' => $form->createView(),
         ]);
     }
@@ -82,16 +83,16 @@ class SecurityFormRenderer implements SecurityFormRendererInterface
             $template = sprintf('@DarvinUser/security/%sregister.html.twig', $partial ? '_' : '');
         }
 
-        return $this->getTemplating()->render($template, [
+        return $this->getTwig()->render($template, [
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @return \Symfony\Component\Templating\EngineInterface
+     * @return \Twig\Environment
      */
-    private function getTemplating()
+    private function getTwig(): Environment
     {
-        return $this->templatingProvider->getService();
+        return $this->twigProvider->getService();
     }
 }

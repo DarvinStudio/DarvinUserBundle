@@ -54,7 +54,7 @@ services:
         class: '%darvin_user.security.form.renderer.class%'
         arguments:
             - '@darvin_user.security.form.factory'
-            - '@darvin_utils.templating.provider'
+            - '@darvin_utils.twig.provider'
 
     darvin_user.security.oauth.darvin_auth_user_provider:
         class: '%darvin_user.security.oauth.darvin_auth_user_provider.class%'

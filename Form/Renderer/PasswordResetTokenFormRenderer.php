@@ -12,7 +12,7 @@ namespace Darvin\UserBundle\Form\Renderer;
 
 use Darvin\UserBundle\Form\Factory\PasswordResetTokenFormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Templating\EngineInterface;
+use Twig\Environment;
 
 /**
  * Password reset token form renderer
@@ -25,18 +25,18 @@ class PasswordResetTokenFormRenderer implements PasswordResetTokenFormRendererIn
     private $passwordResetTokenFormFactory;
 
     /**
-     * @var \Symfony\Component\Templating\EngineInterface
+     * @var \Twig\Environment
      */
-    private $templating;
+    private $twig;
 
     /**
      * @param \Darvin\UserBundle\Form\Factory\PasswordResetTokenFormFactoryInterface $passwordResetTokenFormFactory Password reset token form factory
-     * @param \Symfony\Component\Templating\EngineInterface                          $templating                    Templating
+     * @param \Twig\Environment                                                      $twig                          Twig
      */
-    public function __construct(PasswordResetTokenFormFactoryInterface $passwordResetTokenFormFactory, EngineInterface $templating)
+    public function __construct(PasswordResetTokenFormFactoryInterface $passwordResetTokenFormFactory, Environment $twig)
     {
         $this->passwordResetTokenFormFactory = $passwordResetTokenFormFactory;
-        $this->templating = $templating;
+        $this->twig = $twig;
     }
 
     /**
@@ -51,7 +51,7 @@ class PasswordResetTokenFormRenderer implements PasswordResetTokenFormRendererIn
             $template = sprintf('@DarvinUser/password_reset_token/request/%srequest.html.twig', $partial ? '_' : '');
         }
 
-        return $this->templating->render($template, [
+        return $this->twig->render($template, [
             'form' => $form->createView(),
         ]);
     }

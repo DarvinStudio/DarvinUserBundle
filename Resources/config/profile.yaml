@@ -27,4 +27,4 @@ services:
         class: '%darvin_user.profile.form_renderer.class%'
         arguments:
             - '@darvin_user.profile.form_factory'
-            - '@templating'
+            - '@twig'

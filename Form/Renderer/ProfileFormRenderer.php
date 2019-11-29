@@ -12,7 +12,7 @@ namespace Darvin\UserBundle\Form\Renderer;
 
 use Darvin\UserBundle\Form\Factory\ProfileFormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Templating\EngineInterface;
+use Twig\Environment;
 
 /**
  * Profile form renderer
@@ -25,18 +25,18 @@ class ProfileFormRenderer implements ProfileFormRendererInterface
     private $profileFormFactory;
 
     /**
-     * @var \Symfony\Component\Templating\EngineInterface
+     * @var \Twig\Environment
      */
-    private $templating;
+    private $twig;
 
     /**
      * @param \Darvin\UserBundle\Form\Factory\ProfileFormFactoryInterface $profileFormFactory Profile form factory
-     * @param \Symfony\Component\Templating\EngineInterface               $templating         Templating
+     * @param \Twig\Environment                                           $twig               Twig
      */
-    public function __construct(ProfileFormFactoryInterface $profileFormFactory, EngineInterface $templating)
+    public function __construct(ProfileFormFactoryInterface $profileFormFactory, Environment $twig)
     {
         $this->profileFormFactory = $profileFormFactory;
-        $this->templating = $templating;
+        $this->twig = $twig;
     }
 
     /**
@@ -51,7 +51,7 @@ class ProfileFormRenderer implements ProfileFormRendererInterface
             $template = sprintf('@DarvinUser/profile/%sedit.html.twig', $partial ? '_' : '');
         }
 
-        return $this->templating->render($template, [
+        return $this->twig->render($template, [
             'form' => $form->createView(),
         ]);
     }
@@ -68,7 +68,7 @@ class ProfileFormRenderer implements ProfileFormRendererInterface
             $template = sprintf('@DarvinUser/profile/%schange_password.html.twig', $partial ? '_' : '');
         }
 
-        return $this->templating->render($template, [
+        return $this->twig->render($template, [
             'form' => $form->createView(),
         ]);
     }
