@@ -48,3 +48,5 @@ darvin_user:
 6.1.0:
  
 - Remove BaseUser::$locked.
+
+- Move service configs to "services" dir.
