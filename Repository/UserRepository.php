@@ -74,7 +74,7 @@ class UserRepository extends ServiceEntityRepository
      */
     public function getOneByRegistrationToken(?string $code): ?BaseUser
     {
-        if (empty($code)) {
+        if (null === $code) {
             return null;
         }
 
@@ -105,7 +105,7 @@ class UserRepository extends ServiceEntityRepository
             ->andWhere($qb->expr()->like('o.username', ':username'))
             ->setParameter('username', $username.'%');
 
-        if (!empty($userId)) {
+        if (null !== $userId) {
             $this->addNotIdFilter($qb, $userId);
         }
 

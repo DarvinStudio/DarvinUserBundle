@@ -62,7 +62,7 @@ class ProfileFormHandler implements ProfileFormHandlerInterface
 
         $this->em->flush();
 
-        if ($addFlashes && !empty($successMessage)) {
+        if ($addFlashes && null !== $successMessage) {
             $this->flashNotifier->success($successMessage);
         }
 
@@ -90,7 +90,7 @@ class ProfileFormHandler implements ProfileFormHandlerInterface
 
         $this->em->flush();
 
-        if ($addFlashes && !empty($successMessage)) {
+        if ($addFlashes && null !== $successMessage) {
             $this->flashNotifier->success($successMessage);
         }
 

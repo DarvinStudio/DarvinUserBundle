@@ -43,13 +43,15 @@ class UsernameGenerator implements UsernameGeneratorInterface
      */
     public function generateUsername(?string $source, $userId = null): ?string
     {
-        if (empty($source)) {
+        $source = (string)$source;
+
+        if ('' === $source) {
             return null;
         }
 
         $username = $this->transliterator->transliterate($source);
 
-        if (empty($username)) {
+        if ('' === $username) {
             return null;
         }
 

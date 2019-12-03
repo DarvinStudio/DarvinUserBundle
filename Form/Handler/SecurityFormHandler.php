@@ -109,14 +109,14 @@ class SecurityFormHandler implements SecurityFormHandlerInterface
             'user' => $user->getId(),
         ]);
 
-        if (!empty($passwordResetToken)) {
+        if (null !== $passwordResetToken) {
             $this->em->remove($passwordResetToken);
             $this->em->flush();
         }
 
         $this->userAuthenticator->authenticateUser($user, $this->publicFirewallName);
 
-        if ($addFlashes && !empty($successMessage)) {
+        if ($addFlashes && null !== $successMessage) {
             $this->flashNotifier->success($successMessage);
         }
 
@@ -167,7 +167,7 @@ class SecurityFormHandler implements SecurityFormHandlerInterface
 
         $this->eventDispatcher->dispatch($event, SecurityEvents::REGISTERED);
 
-        if ($addFlashes && !empty($successMessage)) {
+        if ($addFlashes && null !== $successMessage) {
             $this->flashNotifier->success($successMessage);
         }
 

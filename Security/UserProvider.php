@@ -43,7 +43,7 @@ class UserProvider implements UserProviderInterface
     {
         $user = $this->userRepository->provideUser($username);
 
-        if (empty($user)) {
+        if (null === $user) {
             throw new UsernameNotFoundException(sprintf('Unable to find user "%s".', $username));
         }
 

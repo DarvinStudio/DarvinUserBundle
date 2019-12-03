@@ -69,12 +69,12 @@ class GenerateUsernameSubscriber implements EventSubscriber
      */
     private function generateUsername(BaseUser $user, EntityManager $em): void
     {
-        $source = $user->getUsername();
+        $source = (string)$user->getUsername();
 
-        if (empty($source) && null !== $user->getEmail()) {
+        if ('' === $source && null !== $user->getEmail()) {
             $source = preg_replace('/@.*/', '', $user->getEmail());
         }
-        if (empty($source)) {
+        if ('' === $source) {
             return;
         }
 

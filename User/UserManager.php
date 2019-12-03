@@ -46,7 +46,7 @@ class UserManager implements UserManagerInterface
     {
         $token = $this->authTokenStorage->getToken();
 
-        if (empty($token)) {
+        if (null === $token) {
             return null;
         }
 
@@ -66,7 +66,7 @@ class UserManager implements UserManagerInterface
     {
         $plainPassword = $user->getPlainPassword();
 
-        if (empty($plainPassword)) {
+        if (null === $plainPassword) {
             return false;
         }
 

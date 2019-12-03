@@ -54,7 +54,7 @@ class UserMailer implements UserMailerInterface
      */
     public function sendRegisteredEmails(BaseUser $user, string $subject = 'email.registered.subject', string $template = '@DarvinUser/email/registered.html.twig'): int
     {
-        if (empty($this->userConfig)) {
+        if (null === $this->userConfig) {
             return 0;
         }
 

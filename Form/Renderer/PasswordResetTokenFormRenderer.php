@@ -44,10 +44,10 @@ class PasswordResetTokenFormRenderer implements PasswordResetTokenFormRendererIn
      */
     public function renderRequestForm(?FormInterface $form = null, bool $partial = true, ?string $template = null): string
     {
-        if (empty($form)) {
+        if (null === $form) {
             $form = $this->passwordResetTokenFormFactory->createRequestForm();
         }
-        if (empty($template)) {
+        if (null === $template) {
             $template = sprintf('@DarvinUser/password_reset_token/request/%srequest.html.twig', $partial ? '_' : '');
         }
 

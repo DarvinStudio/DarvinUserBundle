@@ -127,7 +127,7 @@ class ResetPasswordController
     {
         $passwordResetToken = $this->getPasswordResetTokenRepository()->getOneNonExpiredByBase64EncodedId($base64EncodedId);
 
-        if (empty($passwordResetToken)) {
+        if (null === $passwordResetToken) {
             throw new NotFoundHttpException(
                 sprintf('Unable to find non-expired password reset token by ID "%s".', base64_decode($base64EncodedId))
             );

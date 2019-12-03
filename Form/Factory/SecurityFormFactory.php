@@ -114,7 +114,7 @@ class SecurityFormFactory implements SecurityFormFactoryInterface
 
         $error = $this->authenticationUtils->getLastAuthenticationError();
 
-        if (!empty($error)) {
+        if (null !== $error) {
             $form->addError(new FormError($this->translator->trans($error->getMessage(), [], 'security')));
         }
 
@@ -148,7 +148,7 @@ class SecurityFormFactory implements SecurityFormFactoryInterface
      */
     public function createRegistrationForm(?BaseUser $user = null, array $options = [], string $type = RegistrationType::class, ?string $name = null): FormInterface
     {
-        if (empty($user)) {
+        if (null === $user) {
             $user = $this->userFactory->createUser();
             $user->setEmail($this->authenticationUtils->getLastUsername());
         }

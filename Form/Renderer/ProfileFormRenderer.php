@@ -44,10 +44,10 @@ class ProfileFormRenderer implements ProfileFormRendererInterface
      */
     public function renderEditForm(?FormInterface $form = null, bool $partial = true, ?string $template = null): string
     {
-        if (empty($form)) {
+        if (null === $form) {
             $form = $this->profileFormFactory->createEditForm();
         }
-        if (empty($template)) {
+        if (null === $template) {
             $template = sprintf('@DarvinUser/profile/%sedit.html.twig', $partial ? '_' : '');
         }
 
@@ -61,10 +61,10 @@ class ProfileFormRenderer implements ProfileFormRendererInterface
      */
     public function renderPasswordChangeForm(?FormInterface $form = null, bool $partial = true, ?string $template = null): string
     {
-        if (empty($form)) {
+        if (null === $form) {
             $form = $this->profileFormFactory->createPasswordChangeForm();
         }
-        if (empty($template)) {
+        if (null === $template) {
             $template = sprintf('@DarvinUser/profile/%schange_password.html.twig', $partial ? '_' : '');
         }
 

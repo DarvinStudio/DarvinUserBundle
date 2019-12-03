@@ -66,7 +66,7 @@ class ProfileFormFactory implements ProfileFormFactoryInterface
      */
     public function createEditForm(?BaseUser $user = null, array $options = [], string $type = ProfileType::class, ?string $name = null): FormInterface
     {
-        if (empty($user)) {
+        if (null === $user) {
             $user = $this->userManager->getCurrentUser();
         }
 
@@ -89,7 +89,7 @@ class ProfileFormFactory implements ProfileFormFactoryInterface
      */
     public function createPasswordChangeForm(?BaseUser $user = null, array $options = [], string $type = PasswordChangeType::class, ?string $name = null): FormInterface
     {
-        if (empty($user)) {
+        if (null === $user) {
             $user = $this->userManager->getCurrentUser();
         }
 

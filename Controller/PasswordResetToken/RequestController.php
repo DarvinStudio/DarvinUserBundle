@@ -104,7 +104,7 @@ class RequestController
 
         $passwordResetToken = $this->formHandler->handleRequestForm($form, !$widget, $successMessage);
 
-        if (empty($passwordResetToken)) {
+        if (null === $passwordResetToken) {
             $html = $this->formRenderer->renderRequestForm($form, $widget);
 
             return $widget

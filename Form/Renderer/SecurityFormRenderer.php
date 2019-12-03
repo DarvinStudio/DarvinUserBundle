@@ -45,10 +45,10 @@ class SecurityFormRenderer implements SecurityFormRendererInterface
      */
     public function renderLoginForm(?FormInterface $form = null, bool $partial = true, ?string $template = null): string
     {
-        if (empty($form)) {
+        if (null === $form) {
             $form = $this->securityFormFactory->createLoginForm();
         }
-        if (empty($template)) {
+        if (null === $template) {
             $template = sprintf('@DarvinUser/security/%slogin.html.twig', $partial ? '_' : '');
         }
 
@@ -62,7 +62,7 @@ class SecurityFormRenderer implements SecurityFormRendererInterface
      */
     public function renderPasswordResetForm(FormInterface $form, bool $partial = true, ?string $template = null): string
     {
-        if (empty($template)) {
+        if (null === $template) {
             $template = sprintf('@DarvinUser/security/%sreset_password.html.twig', $partial ? '_' : '');
         }
 
@@ -76,10 +76,10 @@ class SecurityFormRenderer implements SecurityFormRendererInterface
      */
     public function renderRegistrationForm(?FormInterface $form = null, bool $partial = true, ?string $template = null): string
     {
-        if (empty($form)) {
+        if (null === $form) {
             $form = $this->securityFormFactory->createRegistrationForm();
         }
-        if (empty($template)) {
+        if (null === $template) {
             $template = sprintf('@DarvinUser/security/%sregister.html.twig', $partial ? '_' : '');
         }
 

@@ -101,7 +101,7 @@ class PasswordResetTokenFormHandler implements PasswordResetTokenFormHandlerInte
             'user' => $user->getId(),
         ]);
 
-        if (!empty($existingPasswordResetToken)) {
+        if (null !== $existingPasswordResetToken) {
             $this->em->remove($existingPasswordResetToken);
             $this->em->flush();
         }
@@ -113,7 +113,7 @@ class PasswordResetTokenFormHandler implements PasswordResetTokenFormHandlerInte
 
         $this->eventDispatcher->dispatch(new PasswordResetTokenEvent($passwordResetToken), PasswordResetTokenEvents::REQUESTED);
 
-        if ($addFlashes && !empty($successMessage)) {
+        if ($addFlashes && null !== $successMessage) {
             $this->flashNotifier->success($successMessage);
         }
 
@@ -132,7 +132,7 @@ class PasswordResetTokenFormHandler implements PasswordResetTokenFormHandlerInte
             'email' => $email,
         ]);
 
-        if (empty($user)) {
+        if (null === $user) {
             throw new \InvalidArgumentException(sprintf('Unable to find user by email "%s".', $email));
         }
 

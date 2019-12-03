@@ -83,7 +83,7 @@ class DarvinAuthUserProvider implements OAuthAwareUserProviderInterface, UserPro
 
         $user = $this->getUser($response->getEmail());
 
-        if (empty($user)) {
+        if (null === $user) {
             $user = $this->createUser($response);
 
             $this->em->persist($user);
@@ -103,7 +103,7 @@ class DarvinAuthUserProvider implements OAuthAwareUserProviderInterface, UserPro
     {
         $user = $this->getUser($username);
 
-        if (empty($user)) {
+        if (null === $user) {
             throw new UsernameNotFoundException(sprintf('Unable to find user by username "%s".', $username));
         }
 
