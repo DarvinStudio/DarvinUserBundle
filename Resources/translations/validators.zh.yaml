@@ -1,2 +1,2 @@
 user:
-    exists_and_active: 账户是不存在的锁或没有启用。
+    exists_and_active: 账户并不存在或没有启用。
