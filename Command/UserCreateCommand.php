@@ -75,6 +75,7 @@ class UserCreateCommand extends Command
             ->setDefinition([
                 new InputArgument('email', InputArgument::REQUIRED, 'User email'),
                 new InputArgument('password', InputArgument::REQUIRED, 'User plain password'),
+                new InputArgument('role', InputArgument::OPTIONAL, 'User role'),
             ]);
     }
 
@@ -85,7 +86,7 @@ class UserCreateCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        list(, $email, $plainPassword) = array_values($input->getArguments());
+        list(, $email, $plainPassword, $role) = array_values($input->getArguments());
 
         $user = $this->createUser($input);
 
@@ -102,7 +103,9 @@ class UserCreateCommand extends Command
             return;
         }
 
-        $role = $io->choice('Please select role', $this->buildRoleChoices(), self::NO_ROLE);
+        if (empty($role) || !in_array($role, $this->buildRoleChoices())) {
+            $role = $io->choice('Please select role', $this->buildRoleChoices(), self::NO_ROLE);
+        }
 
         $user->setRoles(self::NO_ROLE !== $role ? [$role] : []);
 
