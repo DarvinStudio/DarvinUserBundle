@@ -10,6 +10,8 @@
 
 namespace Darvin\UserBundle;
 
+use Darvin\UserBundle\DependencyInjection\Compiler\SwitchOAuthUserCheckerPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
@@ -17,5 +19,13 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class DarvinUserBundle extends Bundle
 {
+    /**
+     * {@inheritDoc}
+     */
+    public function build(ContainerBuilder $container): void
+    {
+        parent::build($container);
 
+        $container->addCompilerPass(new SwitchOAuthUserCheckerPass());
+    }
 }
