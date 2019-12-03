@@ -50,3 +50,5 @@ darvin_user:
 - Remove BaseUser::$locked.
 
 - Move service configs to "services" dir.
+
+- Use UserInterface instead of AdvancedUserInterface.

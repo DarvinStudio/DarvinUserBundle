@@ -12,7 +12,6 @@ namespace Darvin\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints as Doctrine;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -27,7 +26,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @Doctrine\UniqueEntity(fields={"username"})
  * @Doctrine\UniqueEntity(fields={"email"})
  */
-class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterface
+class BaseUser implements \Serializable, UserInterface, EquatableInterface
 {
     public const ROLE_USER = 'ROLE_USER';
 
@@ -41,9 +40,16 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     protected $id;
 
     /**
+     * @var \Darvin\UserBundle\Entity\RegistrationConfirmToken
+     *
+     * @ORM\Embedded(class="Darvin\UserBundle\Entity\RegistrationConfirmToken")
+     */
+    protected $registrationConfirmToken;
+
+    /**
      * @var bool
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="bool")
      */
     protected $enabled;
 
@@ -100,21 +106,14 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     protected $plainPassword;
 
     /**
-     * @var RegistrationConfirmToken
-     *
-     * @ORM\Embedded(class="Darvin\UserBundle\Entity\RegistrationConfirmToken")
-     */
-    protected $registrationConfirmToken;
-
-    /**
-     * Constructor
+     * Base user constructor.
      */
     public function __construct()
     {
+        $this->registrationConfirmToken = new RegistrationConfirmToken();
         $this->enabled                  = true;
         $this->roles                    = [];
         $this->updatedAt                = new \DateTime();
-        $this->registrationConfirmToken = new RegistrationConfirmToken();
     }
 
     /**
@@ -123,6 +122,14 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     public function __toString(): string
     {
         return $this->username;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function eraseCredentials(): void
+    {
+        $this->plainPassword = null;
     }
 
     /**
@@ -194,43 +201,35 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     }
 
     /**
-     * {@inheritdoc}
+     * @return int
      */
-    public function isAccountNonExpired(): bool
+    public function getId(): ?int
     {
-        return true;
+        return $this->id;
     }
 
     /**
-     * {@inheritdoc}
+     * @return \Darvin\UserBundle\Entity\RegistrationConfirmToken
      */
-    public function isAccountNonLocked(): bool
+    public function getRegistrationConfirmToken(): RegistrationConfirmToken
     {
-        return true;
+        return $this->registrationConfirmToken;
     }
 
     /**
-     * {@inheritdoc}
+     * @return bool
      */
-    public function isCredentialsNonExpired(): bool
-    {
-        return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isEnabled(): ?bool
+    public function isEnabled(): bool
     {
         return $this->enabled;
     }
 
     /**
-     * @param boolean $enabled enabled
+     * @param bool $enabled enabled
      *
      * @return BaseUser
      */
-    public function setEnabled(?bool $enabled): BaseUser
+    public function setEnabled(bool $enabled): BaseUser
     {
         $this->enabled = $enabled;
 
@@ -318,22 +317,6 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function eraseCredentials(): void
-    {
-        $this->plainPassword = null;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    /**
      * @return string
      */
     public function getEmail(): ?string
@@ -393,13 +376,5 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
         $this->updatedAt = new \DateTime();
 
         return $this;
-    }
-
-    /**
-     * @return RegistrationConfirmToken
-     */
-    public function getRegistrationConfirmToken(): RegistrationConfirmToken
-    {
-        return $this->registrationConfirmToken;
     }
 }
