@@ -143,7 +143,6 @@ class DarvinAuthUserProvider implements OAuthAwareUserProviderInterface, UserPro
             ->setUsername($response->getRealName())
             ->setEmail($response->getEmail())
             ->setEnabled(true)
-            ->setLocked(false)
             ->generateRandomPlainPassword();
     }
 

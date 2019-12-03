@@ -149,8 +149,8 @@ class UserRepository extends ServiceEntityRepository
             ->select('o.id')
             ->setMaxResults(1);
         $this
-            ->addActiveFilter($qb)
-            ->addEmailFilter($qb, $email);
+            ->addEmailFilter($qb, $email)
+            ->addEnabledFilter($qb);
 
         return null !== $qb->getQuery()->getOneOrNullResult();
     }
@@ -161,18 +161,6 @@ class UserRepository extends ServiceEntityRepository
     public function createDefaultBuilder(): QueryBuilder
     {
         return $this->createQueryBuilder('o')->addOrderBy('o.email');
-    }
-
-    /**
-     * @param \Doctrine\ORM\QueryBuilder $qb Query builder
-     *
-     * @return UserRepository
-     */
-    protected function addActiveFilter(QueryBuilder $qb): UserRepository
-    {
-        return $this
-            ->addEnabledFilter($qb)
-            ->addNonLockedFilter($qb);
     }
 
     /**
@@ -196,18 +184,6 @@ class UserRepository extends ServiceEntityRepository
     protected function addEnabledFilter(QueryBuilder $qb): UserRepository
     {
         $qb->andWhere('o.enabled = :enabled')->setParameter('enabled', true);
-
-        return $this;
-    }
-
-    /**
-     * @param \Doctrine\ORM\QueryBuilder $qb Query builder
-     *
-     * @return UserRepository
-     */
-    protected function addNonLockedFilter(QueryBuilder $qb): UserRepository
-    {
-        $qb->andWhere('o.locked = :locked')->setParameter('locked', false);
 
         return $this;
     }

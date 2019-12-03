@@ -31,7 +31,6 @@ user:
     entity:
         email: 电子邮件
         enabled: 启用
-        locked: 锁定
         plain_password: 密码
         roles: 角色
         username: 用户名

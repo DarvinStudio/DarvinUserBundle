@@ -33,7 +33,6 @@ user:
     entity:
         email:          Email
         enabled:        Активен
-        locked:         Заблокирован
         plain_password: Пароль
         roles:          Роли
         username:       Имя пользователя

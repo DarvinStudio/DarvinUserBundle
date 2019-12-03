@@ -44,3 +44,7 @@ darvin_user:
 6.0.9: Check username uniqueness checking in username generator.
 
 6.0.12: Allow to configure grantable roles.
+
+6.1.0:
+ 
+- Remove BaseUser::$locked.

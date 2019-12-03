@@ -31,7 +31,6 @@ user:
     entity:
         email: 'البريد الإلكتروني'
         enabled: تمكين
-        locked: مؤمن
         plain_password: 'كلمة المرور'
         roles: أدوار
         username: 'اسم المستخدم'

@@ -45,13 +45,6 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
      *
      * @ORM\Column(type="boolean")
      */
-    protected $locked;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean")
-     */
     protected $enabled;
 
     /**
@@ -118,7 +111,6 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
      */
     public function __construct()
     {
-        $this->locked                   = false;
         $this->enabled                  = true;
         $this->roles                    = [];
         $this->updatedAt                = new \DateTime();
@@ -192,14 +184,6 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     }
 
     /**
-     * @return bool
-     */
-    public function isActive(): bool
-    {
-        return $this->enabled && !$this->locked;
-    }
-
-    /**
      * @return BaseUser
      */
     public function updateSalt(): BaseUser
@@ -222,7 +206,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
      */
     public function isAccountNonLocked(): bool
     {
-        return !$this->locked;
+        return true;
     }
 
     /**
@@ -347,26 +331,6 @@ class BaseUser implements \Serializable, AdvancedUserInterface, EquatableInterfa
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isLocked(): ?bool
-    {
-        return $this->locked;
-    }
-
-    /**
-     * @param bool $locked locked
-     *
-     * @return BaseUser
-     */
-    public function setLocked(?bool $locked): BaseUser
-    {
-        $this->locked = $locked;
-
-        return $this;
     }
 
     /**

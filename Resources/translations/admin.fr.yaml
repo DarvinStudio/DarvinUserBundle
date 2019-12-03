@@ -31,7 +31,6 @@ user:
     entity:
         email: E-mail
         enabled: Activé
-        locked: Verrouillé
         plain_password: 'Mot de passe'
         roles: 'Les rôles'
         username: 'Nom d''utilisateur'

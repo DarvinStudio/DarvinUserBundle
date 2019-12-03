@@ -39,9 +39,6 @@ class PasswordResetTokenFactory implements PasswordResetTokenFactoryInterface
         if (!$user->isEnabled()) {
             throw new \InvalidArgumentException(sprintf('User with email "%s" is not enabled.', $user->getEmail()));
         }
-        if ($user->isLocked()) {
-            throw new \InvalidArgumentException(sprintf('User with email "%s" is locked.', $user->getEmail()));
-        }
 
         $expireAt = new \DateTime();
         $expireAt->add(new \DateInterval(sprintf('PT%dS', $this->passwordResetTokenLifetime)));

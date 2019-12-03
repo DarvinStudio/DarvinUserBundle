@@ -9,7 +9,6 @@ sortable_fields:
     username: ~
     email:    ~
     enabled:  ~
-    locked:   ~
     roles:    ~
 
 view:
@@ -21,7 +20,6 @@ view:
             email:
                 widget: email_link
             enabled: ~
-            locked:  ~
             roles:
                 widget: user_roles
 
@@ -29,7 +27,6 @@ form:
     index:
         fields:
             enabled: ~
-            locked:  ~
     filter:
         fields:
             username:
@@ -37,16 +34,12 @@ form:
             email:
                 compare_strict: false
             enabled: ~
-            locked:  ~
             roles:
                 type:           Darvin\UserBundle\Form\Type\RoleChoiceType
                 compare_strict: false
     new:
         fields:
             enabled:
-                options:
-                    required: false
-            locked:
                 options:
                     required: false
             email: ~
