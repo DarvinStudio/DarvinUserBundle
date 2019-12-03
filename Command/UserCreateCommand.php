@@ -103,7 +103,7 @@ class UserCreateCommand extends Command
             return;
         }
 
-        if (empty($role) || !in_array($role, $this->buildRoleChoices())) {
+        if (!in_array($role, $this->buildRoleChoices())) {
             $role = $io->choice('Please select role', $this->buildRoleChoices(), self::NO_ROLE);
         }
 
