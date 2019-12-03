@@ -8,9 +8,6 @@ parameters:
     darvin_user.mailer.user.class: Darvin\UserBundle\Mailer\UserMailer
 
 services:
-    _defaults:
-        public: true
-
     darvin_user.mailer.password_reset_token:
         class: '%darvin_user.mailer.password_reset_token.class%'
         arguments:
@@ -31,8 +28,7 @@ services:
             - { name: kernel.event_subscriber }
 
     darvin_user.mailer.user:
-        class:  '%darvin_user.mailer.user.class%'
-        public: false
+        class: '%darvin_user.mailer.user.class%'
         arguments:
             - '@darvin_mailer.template_mailer'
             - '@?darvin_user.configuration'

@@ -12,9 +12,6 @@ parameters:
     darvin_user.profile.form_renderer.class: Darvin\UserBundle\Form\Renderer\ProfileFormRenderer
 
 services:
-    _defaults:
-        public: true
-
     darvin_user.profile.controller.change_password:
         class: '%darvin_user.profile.controller.change_password.class%'
         arguments:

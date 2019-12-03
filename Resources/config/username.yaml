@@ -4,12 +4,8 @@ parameters:
     darvin_user.username.generator.class: Darvin\UserBundle\Username\UsernameGenerator
 
 services:
-    _defaults:
-        public: true
-
     darvin_user.username.generate_event_subscriber:
-        class:  '%darvin_user.username.generate_event_subscriber.class%'
-        public: false
+        class: '%darvin_user.username.generate_event_subscriber.class%'
         arguments:
             - '@darvin_user.username.generator.provider'
         tags:

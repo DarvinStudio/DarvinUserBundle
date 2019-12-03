@@ -11,9 +11,6 @@ parameters:
     darvin_user.user.validator.user_exists_and_active.class: Darvin\UserBundle\Validator\UserExistsAndActiveValidator
 
 services:
-    _defaults:
-        public: true
-
     darvin_user.user.create_command:
         class: '%darvin_user.user.create_command.class%'
         arguments:
@@ -26,7 +23,8 @@ services:
             - { name: console.command }
 
     darvin_user.user.factory:
-        class: '%darvin_user.user.factory.class%'
+        class:  '%darvin_user.user.factory.class%'
+        public: true
         arguments:
             - '%darvin_user.user_class%'
 
@@ -40,8 +38,7 @@ services:
         alias: '%darvin_user.user.repository.class%'
 
     '%darvin_user.user.repository.class%':
-        class:  '%darvin_user.user.repository.class%'
-        public: false
+        class: '%darvin_user.user.repository.class%'
         arguments:
             - '@doctrine'
             - '%darvin_user.user_class%'

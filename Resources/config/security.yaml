@@ -26,9 +26,6 @@ parameters:
     darvin_user.security.user_provider.class: Darvin\UserBundle\Security\UserProvider
 
 services:
-    _defaults:
-        public: true
-
     darvin_user.security.authenticate_user_event_subscriber:
         class: '%darvin_user.security.authenticate_user_event_subscriber.class%'
         arguments:
@@ -117,8 +114,7 @@ services:
             - '@darvin_user.user.repository'
 
     darvin_user.security.twig_extension:
-        class:  '%darvin_user.security.twig_extension.class%'
-        public: false
+        class: '%darvin_user.security.twig_extension.class%'
         arguments:
             - '@darvin_user.security.form.factory'
             - '@darvin_user.security.form.renderer'
@@ -126,8 +122,7 @@ services:
             - { name: twig.extension }
 
     darvin_user.security.update_password_event_subscriber:
-        class:  '%darvin_user.security.update_password_event_subscriber.class%'
-        public: false
+        class: '%darvin_user.security.update_password_event_subscriber.class%'
         arguments:
             - '@darvin_user.user.manager'
         tags:
@@ -139,7 +134,6 @@ services:
             - '@security.token_storage'
 
     darvin_user.security.user_provider:
-        public: false
-        class:  '%darvin_user.security.user_provider.class%'
+        class: '%darvin_user.security.user_provider.class%'
         arguments:
             - '@darvin_user.user.repository'

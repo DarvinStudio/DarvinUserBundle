@@ -2,10 +2,6 @@ parameters:
     darvin_user.authentication.success_handler.class: Darvin\UserBundle\Authentication\SuccessHandler
 
 services:
-    _defaults:
-        public: true
-
     darvin_user.authentication.success_handler:
         class:  '%darvin_user.authentication.success_handler.class%'
         parent: security.authentication.success_handler
-        public: false
