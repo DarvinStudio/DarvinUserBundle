@@ -11,11 +11,14 @@
 namespace Darvin\UserBundle\Controller\Profile;
 
 use Darvin\UserBundle\User\UserManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
 /**
- * Profile show controller
+ * Show profile controller
+ *
+ * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
  */
 class ShowController
 {

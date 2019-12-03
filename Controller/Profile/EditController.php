@@ -15,13 +15,16 @@ use Darvin\UserBundle\Form\Handler\ProfileFormHandlerInterface;
 use Darvin\UserBundle\Form\Renderer\ProfileFormRendererInterface;
 use Darvin\Utils\Flash\FlashNotifierInterface;
 use Darvin\Utils\HttpFoundation\AjaxResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
- * Profile edit controller
+ * Edit profile controller
+ *
+ * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
  */
 class EditController
 {
