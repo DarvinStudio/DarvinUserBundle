@@ -1,4 +1,10 @@
 parameters:
+    darvin_user.profile.controller.change_password.class: Darvin\UserBundle\Controller\Profile\ChangePasswordController
+
+    darvin_user.profile.controller.edit.class: Darvin\UserBundle\Controller\Profile\EditController
+
+    darvin_user.profile.controller.show.class: Darvin\UserBundle\Controller\Profile\ShowController
+
     darvin_user.profile.form_factory.class: Darvin\UserBundle\Form\Factory\ProfileFormFactory
 
     darvin_user.profile.form_handler.class: Darvin\UserBundle\Form\Handler\ProfileFormHandler
@@ -8,6 +14,34 @@ parameters:
 services:
     _defaults:
         public: true
+
+    darvin_user.profile.controller.change_password:
+        class: '%darvin_user.profile.controller.change_password.class%'
+        arguments:
+            - '@darvin_user.profile.form_factory'
+            - '@darvin_user.profile.form_handler'
+            - '@darvin_user.profile.form_renderer'
+            - '@router'
+        tags:
+            - { name: controller.service_arguments }
+
+    darvin_user.profile.controller.edit:
+        class: '%darvin_user.profile.controller.edit.class%'
+        arguments:
+            - '@darvin_user.profile.form_factory'
+            - '@darvin_user.profile.form_handler'
+            - '@darvin_user.profile.form_renderer'
+            - '@router'
+        tags:
+            - { name: controller.service_arguments }
+
+    darvin_user.profile.controller.show:
+        class: '%darvin_user.profile.controller.show.class%'
+        arguments:
+            - '@twig'
+            - '@darvin_user.user.manager'
+        tags:
+            - { name: controller.service_arguments }
 
     darvin_user.profile.form_factory:
         class: '%darvin_user.profile.form_factory.class%'
