@@ -8,7 +8,7 @@ darvin_user_security_login_check:
 
 darvin_user_security_login:
     path:     /login
-    defaults: { _controller: Darvin\UserBundle\Controller\SecurityController::loginAction }
+    defaults: { _controller: darvin_user.security.controller.login }
     methods:  [ get ]
 
 darvin_user_security_darvin_auth_login:
@@ -22,15 +22,15 @@ darvin_user_security_logout:
 
 darvin_user_security_register:
     path:     /register
-    defaults: { _controller: Darvin\UserBundle\Controller\SecurityController::registerAction }
+    defaults: { _controller: darvin_user.security.controller.register }
     methods:  [ get, post ]
 
 darvin_user_security_reset_password:
     path:     /reset-password
-    defaults: { _controller: Darvin\UserBundle\Controller\SecurityController::resetPasswordAction }
+    defaults: { _controller: darvin_user.security.controller.reset_password }
     methods:  [ get, post ]
 
 darvin_user_security_confirm_registration:
     path:     /register/confirm/{code}
-    defaults: { code: null, _controller: Darvin\UserBundle\Controller\SecurityController::confirmRegistrationAction }
+    defaults: { _controller: darvin_user.security.controller.confirm_registration, code: null }
     methods:  [ get ]

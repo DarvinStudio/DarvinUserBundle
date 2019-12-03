@@ -1,6 +1,14 @@
 parameters:
     darvin_user.security.authenticate_user_event_subscriber.class: Darvin\UserBundle\EventListener\AuthenticateUserSubscriber
 
+    darvin_user.security.controller.confirm_registration.class: Darvin\UserBundle\Controller\Security\ConfirmRegistrationController
+
+    darvin_user.security.controller.login.class: Darvin\UserBundle\Controller\Security\LoginController
+
+    darvin_user.security.controller.register.class: Darvin\UserBundle\Controller\Security\RegisterController
+
+    darvin_user.security.controller.reset_password.class: Darvin\UserBundle\Controller\Security\ResetPasswordController
+
     darvin_user.security.form.factory.class: Darvin\UserBundle\Form\Factory\SecurityFormFactory
 
     darvin_user.security.form.handler.class: Darvin\UserBundle\Form\Handler\SecurityFormHandler
@@ -28,6 +36,50 @@ services:
             - '%darvin_user.public_firewall_name%'
         tags:
             - { name: kernel.event_subscriber }
+
+    darvin_user.security.controller.confirm_registration:
+        class: '%darvin_user.security.controller.confirm_registration.class%'
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@event_dispatcher'
+            - '@twig'
+        tags:
+            - { name: controller.service_arguments }
+
+    darvin_user.security.controller.login:
+        class: '%darvin_user.security.controller.login.class%'
+        arguments:
+            - '@security.authorization_checker'
+            - '@darvin_user.security.form.renderer'
+            - '@router'
+            - '%darvin_user.already_logged_in_redirect_route%'
+        tags:
+            - { name: controller.service_arguments }
+
+    darvin_user.security.controller.register:
+        class: '%darvin_user.security.controller.register.class%'
+        arguments:
+            - '@security.authorization_checker'
+            - '@darvin_user.security.form.factory'
+            - '@darvin_user.security.form.handler'
+            - '@darvin_user.security.form.renderer'
+            - '@router'
+            - '%darvin_user.confirm_registration%'
+            - '%darvin_user.already_logged_in_redirect_route%'
+        tags:
+            - { name: controller.service_arguments }
+
+    darvin_user.security.controller.reset_password:
+        class: '%darvin_user.security.controller.reset_password.class%'
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@darvin_user.security.form.factory'
+            - '@darvin_user.security.form.handler'
+            - '@darvin_user.security.form.renderer'
+            - '@router'
+            - '%darvin_user.already_logged_in_redirect_route%'
+        tags:
+            - { name: controller.service_arguments }
 
     darvin_user.security.form.factory:
         class: '%darvin_user.security.form.factory.class%'
