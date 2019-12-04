@@ -11,9 +11,9 @@
 namespace Darvin\UserBundle\Event;
 
 use Darvin\UserBundle\Entity\BaseUser;
-use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * User event

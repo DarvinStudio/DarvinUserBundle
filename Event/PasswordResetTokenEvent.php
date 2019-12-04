@@ -11,7 +11,7 @@
 namespace Darvin\UserBundle\Event;
 
 use Darvin\UserBundle\Entity\PasswordResetToken;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Password reset token event
