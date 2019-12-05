@@ -40,7 +40,7 @@ class UserManager implements UserManagerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getCurrentUser(): ?BaseUser
     {
@@ -60,7 +60,7 @@ class UserManager implements UserManagerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function updatePassword(BaseUser $user): bool
     {

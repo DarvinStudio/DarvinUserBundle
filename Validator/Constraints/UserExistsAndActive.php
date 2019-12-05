@@ -25,7 +25,7 @@ class UserExistsAndActive extends Constraint
     public $message = 'user.exists_and_active';
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function validatedBy(): string
     {

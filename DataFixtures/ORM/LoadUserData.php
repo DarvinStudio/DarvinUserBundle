@@ -21,7 +21,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 class LoadUserData extends AbstractFixture
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function load(ObjectManager $manager): void
     {

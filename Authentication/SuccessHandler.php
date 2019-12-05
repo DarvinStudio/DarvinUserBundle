@@ -23,7 +23,7 @@ use Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessH
 class SuccessHandler extends DefaultAuthenticationSuccessHandler
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token): Response
     {

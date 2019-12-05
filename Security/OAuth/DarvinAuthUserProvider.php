@@ -68,7 +68,7 @@ class DarvinAuthUserProvider implements OAuthAwareUserProviderInterface, UserPro
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function loadUserByOAuthUserResponse(UserResponseInterface $response): BaseUser
     {
@@ -97,7 +97,7 @@ class DarvinAuthUserProvider implements OAuthAwareUserProviderInterface, UserPro
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function loadUserByUsername($username): BaseUser
     {
@@ -111,7 +111,7 @@ class DarvinAuthUserProvider implements OAuthAwareUserProviderInterface, UserPro
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function refreshUser(UserInterface $user): BaseUser
     {
@@ -125,7 +125,7 @@ class DarvinAuthUserProvider implements OAuthAwareUserProviderInterface, UserPro
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function supportsClass($class): bool
     {

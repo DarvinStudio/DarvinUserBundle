@@ -35,7 +35,7 @@ class UserConfig extends AbstractConfiguration implements UserConfigInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getModel(): iterable
     {
@@ -68,7 +68,7 @@ class UserConfig extends AbstractConfiguration implements UserConfigInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getName(): string
     {

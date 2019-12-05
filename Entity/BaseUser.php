@@ -125,7 +125,7 @@ class BaseUser implements \Serializable, UserInterface, EquatableInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function eraseCredentials(): void
     {
@@ -133,7 +133,7 @@ class BaseUser implements \Serializable, UserInterface, EquatableInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function isEqualTo(UserInterface $user): bool
     {
@@ -141,7 +141,7 @@ class BaseUser implements \Serializable, UserInterface, EquatableInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function serialize(): string
     {
@@ -156,7 +156,7 @@ class BaseUser implements \Serializable, UserInterface, EquatableInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function unserialize($serialized): void
     {
@@ -237,7 +237,7 @@ class BaseUser implements \Serializable, UserInterface, EquatableInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getRoles(): array
     {
@@ -257,7 +257,7 @@ class BaseUser implements \Serializable, UserInterface, EquatableInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getPassword(): ?string
     {
@@ -277,7 +277,7 @@ class BaseUser implements \Serializable, UserInterface, EquatableInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getSalt(): ?string
     {
@@ -297,7 +297,7 @@ class BaseUser implements \Serializable, UserInterface, EquatableInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getUsername(): ?string
     {
