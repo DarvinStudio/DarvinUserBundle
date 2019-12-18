@@ -12,12 +12,12 @@ services:
         class: '%darvin_user.mailer.factory.password_reset.class%'
         arguments:
             - '@darvin_mailer.factory.template'
-            - '@?darvin_user.configuration'
 
     darvin_user.mailer.factory.user:
         class: '%darvin_user.mailer.factory.user.class%'
         arguments:
             - '@darvin_mailer.factory.template'
+            - '@?darvin_user.configuration'
 
     darvin_user.mailer.subscriber.send.password_reset:
         class: '%darvin_user.mailer.subscriber.send.password_reset.class%'
