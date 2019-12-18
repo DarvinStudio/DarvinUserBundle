@@ -1,15 +1,21 @@
 parameters:
     darvin_user.mailer.factory.password_reset.class: Darvin\UserBundle\Mailer\Factory\PasswordResetEmailFactory
 
+    darvin_user.mailer.factory.user.class: Darvin\UserBundle\Mailer\Factory\UserEmailFactory
+
     darvin_user.mailer.subscriber.send.password_reset.class: Darvin\UserBundle\EventListener\Mailer\SendPasswordResetEmailsSubscriber
 
-    darvin_user.mailer.send_registered_emails_event_subscriber.class: Darvin\UserBundle\EventListener\Mailer\SendRegisteredEmailsSubscriber
-
-    darvin_user.mailer.user.class: Darvin\UserBundle\Mailer\UserMailer
+    darvin_user.mailer.subscriber.send.registered.class: Darvin\UserBundle\EventListener\Mailer\SendRegisteredEmailsSubscriber
 
 services:
     darvin_user.mailer.factory.password_reset:
         class: '%darvin_user.mailer.factory.password_reset.class%'
+        arguments:
+            - '@darvin_mailer.factory.template'
+            - '@?darvin_user.configuration'
+
+    darvin_user.mailer.factory.user:
+        class: '%darvin_user.mailer.factory.user.class%'
         arguments:
             - '@darvin_mailer.factory.template'
 
@@ -21,15 +27,10 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
-    darvin_user.mailer.send_registered_emails_event_subscriber:
-        class: '%darvin_user.mailer.send_registered_emails_event_subscriber.class%'
+    darvin_user.mailer.subscriber.send.registered:
+        class: '%darvin_user.mailer.subscriber.send.registered.class%'
         arguments:
-            - '@darvin_user.mailer.user'
+            - '@darvin_user.mailer.factory.user'
+            - '@darvin_mailer.mailer'
         tags:
             - { name: kernel.event_subscriber }
-
-    darvin_user.mailer.user:
-        class: '%darvin_user.mailer.user.class%'
-        arguments:
-            - '@darvin_mailer.template_mailer'
-            - '@?darvin_user.configuration'

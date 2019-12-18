@@ -10,9 +10,10 @@
 
 namespace Darvin\UserBundle\EventListener\Mailer;
 
+use Darvin\MailerBundle\Mailer\MailerInterface;
 use Darvin\UserBundle\Event\SecurityEvents;
 use Darvin\UserBundle\Event\UserEvent;
-use Darvin\UserBundle\Mailer\UserMailerInterface;
+use Darvin\UserBundle\Mailer\Factory\UserEmailFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -21,16 +22,23 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class SendRegisteredEmailsSubscriber implements EventSubscriberInterface
 {
     /**
-     * @var \Darvin\UserBundle\Mailer\UserMailerInterface
+     * @var \Darvin\UserBundle\Mailer\Factory\UserEmailFactoryInterface
      */
-    private $userMailer;
+    private $emailFactory;
 
     /**
-     * @param \Darvin\UserBundle\Mailer\UserMailerInterface $userMailer User mailer
+     * @var \Darvin\MailerBundle\Mailer\MailerInterface
      */
-    public function __construct(UserMailerInterface $userMailer)
+    private $mailer;
+
+    /**
+     * @param \Darvin\UserBundle\Mailer\Factory\UserEmailFactoryInterface $emailFactory User email factory
+     * @param \Darvin\MailerBundle\Mailer\MailerInterface                 $mailer       Mailer
+     */
+    public function __construct(UserEmailFactoryInterface $emailFactory, MailerInterface $mailer)
     {
-        $this->userMailer = $userMailer;
+        $this->emailFactory = $emailFactory;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -50,10 +58,10 @@ class SendRegisteredEmailsSubscriber implements EventSubscriberInterface
     {
         $user = $event->getUser();
 
-        $this->userMailer->sendRegisteredEmails($user);
+        $this->mailer->send($this->emailFactory->createRegisteredEmail($user));
 
         if (null !== $user->getRegistrationConfirmToken()->getId()) {
-            $this->userMailer->sendConfirmationEmails($user);
+            $this->mailer->send($this->emailFactory->createConfirmationEmail($user));
         }
     }
 }
