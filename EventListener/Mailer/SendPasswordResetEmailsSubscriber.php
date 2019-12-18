@@ -10,27 +10,35 @@
 
 namespace Darvin\UserBundle\EventListener\Mailer;
 
+use Darvin\MailerBundle\Mailer\MailerInterface;
 use Darvin\UserBundle\Event\PasswordResetTokenEvent;
 use Darvin\UserBundle\Event\PasswordResetTokenEvents;
-use Darvin\UserBundle\Mailer\PasswordResetTokenMailerInterface;
+use Darvin\UserBundle\Mailer\Factory\PasswordResetEmailFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Send password reset token emails event subscriber
+ * Send password reset emails event subscriber
  */
-class SendPasswordResetTokenEmailsSubscriber implements EventSubscriberInterface
+class SendPasswordResetEmailsSubscriber implements EventSubscriberInterface
 {
     /**
-     * @var \Darvin\UserBundle\Mailer\PasswordResetTokenMailerInterface
+     * @var \Darvin\UserBundle\Mailer\Factory\PasswordResetEmailFactoryInterface
      */
-    private $passwordResetTokenMailer;
+    private $emailFactory;
 
     /**
-     * @param \Darvin\UserBundle\Mailer\PasswordResetTokenMailerInterface $passwordResetTokenMailer Password reset token mailer
+     * @var \Darvin\MailerBundle\Mailer\MailerInterface
      */
-    public function __construct(PasswordResetTokenMailerInterface $passwordResetTokenMailer)
+    private $mailer;
+
+    /**
+     * @param \Darvin\UserBundle\Mailer\Factory\PasswordResetEmailFactoryInterface $emailFactory Password reset email factory
+     * @param \Darvin\MailerBundle\Mailer\MailerInterface                          $mailer       Mailer
+     */
+    public function __construct(PasswordResetEmailFactoryInterface $emailFactory, MailerInterface $mailer)
     {
-        $this->passwordResetTokenMailer = $passwordResetTokenMailer;
+        $this->emailFactory = $emailFactory;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -48,6 +56,6 @@ class SendPasswordResetTokenEmailsSubscriber implements EventSubscriberInterface
      */
     public function sendRequestedEmails(PasswordResetTokenEvent $event): void
     {
-        $this->passwordResetTokenMailer->sendRequestedEmails($event->getPasswordResetToken());
+        $this->mailer->send($this->emailFactory->createRequestedEmail($event->getPasswordResetToken()));
     }
 }
