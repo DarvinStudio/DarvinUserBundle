@@ -52,3 +52,5 @@ darvin_user:
 - Move service configs to "services" dir.
 
 - Use UserInterface instead of AdvancedUserInterface.
+
+6.2.0: Reorganize email sending functionality.
