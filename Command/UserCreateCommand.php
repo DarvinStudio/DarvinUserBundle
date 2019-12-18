@@ -82,7 +82,7 @@ class UserCreateCommand extends Command
     /**
      * {@inheritDoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
@@ -100,7 +100,7 @@ class UserCreateCommand extends Command
                 );
             }
 
-            return;
+            return 0;
         }
 
         if (!in_array($role, $this->buildRoleChoices())) {
@@ -120,6 +120,8 @@ class UserCreateCommand extends Command
                 self::NO_ROLE !== $role ? sprintf('role "%s"', $role) : 'without any role'
             )
         );
+
+        return 0;
     }
 
     /**
