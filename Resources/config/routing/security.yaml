@@ -13,7 +13,7 @@ darvin_user_security_login:
 
 darvin_user_security_darvin_auth_login:
     path:     /login/{service}
-    defaults: { _controller: HWI\Bundle\OAuthBundle\Controller\ConnectController::redirectToServiceAction }
+    defaults: { _controller: HWI\Bundle\OAuthBundle\Controller\RedirectToServiceController::redirectToServiceAction }
     methods:  [ get ]
 
 darvin_user_security_logout:
