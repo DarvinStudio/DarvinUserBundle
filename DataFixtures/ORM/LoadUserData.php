@@ -13,7 +13,7 @@ namespace Darvin\UserBundle\DataFixtures\ORM;
 use Darvin\UserBundle\Entity\BaseUser;
 use Darvin\UserBundle\User\UserFactoryInterface;
 use Darvin\Utils\DataFixtures\ORM\AbstractFixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 /**
  * User data fixture
