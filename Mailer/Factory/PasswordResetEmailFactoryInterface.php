@@ -22,6 +22,7 @@ interface PasswordResetEmailFactoryInterface
      * @param \Darvin\UserBundle\Entity\PasswordResetToken $token Password reset token
      *
      * @return \Darvin\MailerBundle\Model\Email
+     * @throws \Darvin\MailerBundle\Factory\Exception\CantCreateEmailException
      */
     public function createRequestedEmail(PasswordResetToken $token): Email;
 }

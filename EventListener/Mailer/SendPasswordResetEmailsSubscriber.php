@@ -10,6 +10,7 @@
 
 namespace Darvin\UserBundle\EventListener\Mailer;
 
+use Darvin\MailerBundle\Factory\Exception\CantCreateEmailException;
 use Darvin\MailerBundle\Mailer\MailerInterface;
 use Darvin\UserBundle\Event\PasswordResetTokenEvent;
 use Darvin\UserBundle\Event\PasswordResetTokenEvents;
@@ -56,6 +57,13 @@ class SendPasswordResetEmailsSubscriber implements EventSubscriberInterface
      */
     public function sendRequestedEmails(PasswordResetTokenEvent $event): void
     {
-        $this->mailer->send($this->emailFactory->createRequestedEmail($event->getPasswordResetToken()));
+        try {
+            $email = $this->emailFactory->createRequestedEmail($event->getPasswordResetToken());
+        } catch (CantCreateEmailException $ex) {
+            $email = null;
+        }
+        if (null !== $email) {
+            $this->mailer->send($email);
+        }
     }
 }

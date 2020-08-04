@@ -10,6 +10,7 @@
 
 namespace Darvin\UserBundle\EventListener\Mailer;
 
+use Darvin\MailerBundle\Factory\Exception\CantCreateEmailException;
 use Darvin\MailerBundle\Mailer\MailerInterface;
 use Darvin\UserBundle\Event\SecurityEvents;
 use Darvin\UserBundle\Event\UserEvent;
@@ -58,10 +59,23 @@ class SendRegisteredEmailsSubscriber implements EventSubscriberInterface
     {
         $user = $event->getUser();
 
-        $this->mailer->send($this->emailFactory->createRegisteredEmail($user));
-
+        try {
+            $registeredEmail = $this->emailFactory->createRegisteredEmail($user);
+        } catch (CantCreateEmailException $ex) {
+            $registeredEmail = null;
+        }
+        if (null !== $registeredEmail) {
+            $this->mailer->send($registeredEmail);
+        }
         if (null !== $user->getRegistrationConfirmToken()->getId()) {
-            $this->mailer->send($this->emailFactory->createConfirmationEmail($user));
+            try {
+                $confirmationEmail = $this->emailFactory->createConfirmationEmail($user);
+            } catch (CantCreateEmailException $ex) {
+                $confirmationEmail = null;
+            }
+            if (null !== $confirmationEmail) {
+                $this->mailer->send($confirmationEmail);
+            }
         }
     }
 }

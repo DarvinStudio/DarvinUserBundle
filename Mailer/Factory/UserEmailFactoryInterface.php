@@ -22,6 +22,7 @@ interface UserEmailFactoryInterface
      * @param \Darvin\UserBundle\Entity\BaseUser $user User
      *
      * @return \Darvin\MailerBundle\Model\Email
+     * @throws \Darvin\MailerBundle\Factory\Exception\CantCreateEmailException
      */
     public function createConfirmationEmail(BaseUser $user): Email;
 
@@ -29,6 +30,7 @@ interface UserEmailFactoryInterface
      * @param \Darvin\UserBundle\Entity\BaseUser $user User
      *
      * @return \Darvin\MailerBundle\Model\Email
+     * @throws \Darvin\MailerBundle\Factory\Exception\CantCreateEmailException
      */
     public function createRegisteredEmail(BaseUser $user): Email;
 }
