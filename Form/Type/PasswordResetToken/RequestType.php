@@ -18,7 +18,6 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -55,14 +54,6 @@ class RequestType extends AbstractType
                 $field->vars['label'] = sprintf('password_reset_token.request.%s', StringsUtil::toUnderscore($name));
             }
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefault('csrf_token_id', md5(__FILE__.$this->getBlockPrefix()));
     }
 
     /**

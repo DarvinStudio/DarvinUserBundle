@@ -52,11 +52,8 @@ class PasswordResetType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
-            ->setDefaults([
-                'csrf_token_id'     => md5(__FILE__.$this->getBlockPrefix()),
-                'validation_groups' => [
-                    'PasswordReset',
-                ],
+            ->setDefault('validation_groups', [
+                'PasswordReset',
             ])
             ->remove('data_class')
             ->setRequired('data_class')

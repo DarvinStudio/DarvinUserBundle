@@ -53,12 +53,9 @@ class RegistrationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
-            ->setDefaults([
-                'csrf_token_id'     => md5(__FILE__.$this->getBlockPrefix()),
-                'validation_groups' => [
-                    'Default',
-                    'Register',
-                ],
+            ->setDefault('validation_groups', [
+                'Default',
+                'Register',
             ])
             ->remove('data_class')
             ->setRequired('data_class')

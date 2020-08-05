@@ -49,12 +49,9 @@ class PasswordChangeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
-            ->setDefaults([
-                'csrf_token_id'     => md5(__FILE__.$this->getBlockPrefix()),
-                'validation_groups' => [
-                    'Default',
-                    'PasswordChange',
-                ],
+            ->setDefault('validation_groups', [
+                'Default',
+                'PasswordChange',
             ])
             ->remove('data_class')
             ->setRequired('data_class')

@@ -54,3 +54,5 @@ darvin_user:
 - Use UserInterface instead of AdvancedUserInterface.
 
 6.2.0: Reorganize email sending functionality.
+
+6.2.11: Do not customize CSRF token ID.

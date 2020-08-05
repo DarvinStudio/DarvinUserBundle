@@ -48,12 +48,9 @@ class ProfileType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
-            ->setDefaults([
-                'csrf_token_id'     => md5(__FILE__.$this->getBlockPrefix()),
-                'validation_groups' => [
-                    'Default',
-                    'Profile',
-                ],
+            ->setDefault('validation_groups', [
+                'Default',
+                'Profile',
             ])
             ->remove('data_class')
             ->setRequired('data_class')
