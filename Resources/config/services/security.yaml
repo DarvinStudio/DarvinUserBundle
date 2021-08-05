@@ -28,6 +28,11 @@ parameters:
     darvin_user.security.user_provider.class: Darvin\UserBundle\Security\UserProvider
 
 services:
+    Darvin\UserBundle\Form\Factory\SecurityFormFactoryInterface:   '@darvin_user.security.form.factory'
+    Darvin\UserBundle\Form\Handler\SecurityFormHandlerInterface:   '@darvin_user.security.form.handler'
+    Darvin\UserBundle\Form\Renderer\SecurityFormRendererInterface: '@darvin_user.security.form.renderer'
+    Darvin\UserBundle\Security\UserAuthenticatorInterface:         '@darvin_user.security.user_authenticator'
+
     darvin_user.security.authenticate_user_event_subscriber:
         class: '%darvin_user.security.authenticate_user_event_subscriber.class%'
         arguments:

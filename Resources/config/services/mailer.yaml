@@ -8,6 +8,9 @@ parameters:
     darvin_user.mailer.subscriber.send.registered.class: Darvin\UserBundle\EventListener\Mailer\SendRegisteredEmailsSubscriber
 
 services:
+    Darvin\UserBundle\Mailer\Factory\PasswordResetEmailFactoryInterface: '@darvin_user.mailer.factory.password_reset'
+    Darvin\UserBundle\Mailer\Factory\UserEmailFactoryInterface:          '@darvin_user.mailer.factory.user'
+
     darvin_user.mailer.factory.password_reset:
         class: '%darvin_user.mailer.factory.password_reset.class%'
         arguments:

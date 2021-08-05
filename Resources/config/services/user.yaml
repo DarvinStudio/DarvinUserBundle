@@ -11,6 +11,9 @@ parameters:
     darvin_user.user.validator.user_exists_and_active.class: Darvin\UserBundle\Validator\UserExistsAndActiveValidator
 
 services:
+    Darvin\UserBundle\User\UserFactoryInterface: '@darvin_user.user.factory'
+    Darvin\UserBundle\User\UserManagerInterface: '@darvin_user.user.manager'
+
     darvin_user.user.create_command:
         class: '%darvin_user.user.create_command.class%'
         arguments:
@@ -35,9 +38,9 @@ services:
             - '@security.password_encoder'
 
     darvin_user.user.repository:
-        alias: '%darvin_user.user.repository.class%'
+        alias: Darvin\UserBundle\Repository\UserRepository
 
-    '%darvin_user.user.repository.class%':
+    Darvin\UserBundle\Repository\UserRepository:
         class: '%darvin_user.user.repository.class%'
         arguments:
             - '@doctrine'

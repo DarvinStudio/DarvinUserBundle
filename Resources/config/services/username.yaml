@@ -4,6 +4,8 @@ parameters:
     darvin_user.username.generator.class: Darvin\UserBundle\Username\UsernameGenerator
 
 services:
+    Darvin\UserBundle\Username\UsernameGeneratorInterface: '@darvin_user.username.generator'
+
     darvin_user.username.generate_event_subscriber:
         class: '%darvin_user.username.generate_event_subscriber.class%'
         arguments:

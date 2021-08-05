@@ -2,6 +2,8 @@ parameters:
     darvin_user.configuration.class: Darvin\UserBundle\Config\UserConfig
 
 services:
+    Darvin\UserBundle\Config\UserConfigInterface: '@darvin_user.configuration'
+
     darvin_user.configuration:
         class: '%darvin_user.configuration.class%'
         arguments:

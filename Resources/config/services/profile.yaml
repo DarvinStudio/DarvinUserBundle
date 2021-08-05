@@ -12,6 +12,10 @@ parameters:
     darvin_user.profile.form_renderer.class: Darvin\UserBundle\Form\Renderer\ProfileFormRenderer
 
 services:
+    Darvin\UserBundle\Form\Factory\ProfileFormFactoryInterface:   '@darvin_user.profile.form_factory'
+    Darvin\UserBundle\Form\Handler\ProfileFormHandlerInterface:   '@darvin_user.profile.form_handler'
+    Darvin\UserBundle\Form\Renderer\ProfileFormRendererInterface: '@darvin_user.profile.form_renderer'
+
     darvin_user.profile.controller.change_password:
         class: '%darvin_user.profile.controller.change_password.class%'
         arguments:

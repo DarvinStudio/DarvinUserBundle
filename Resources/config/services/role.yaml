@@ -4,6 +4,8 @@ parameters:
     darvin_user.role.configuration.class: Darvin\UserBundle\Config\RoleConfig
 
 services:
+    Darvin\UserBundle\Config\RoleConfigInterface: '@darvin_user.role.configuration'
+
     darvin_user.role.choice_form_type:
         class: '%darvin_user.role.choice_form_type.class%'
         arguments:
