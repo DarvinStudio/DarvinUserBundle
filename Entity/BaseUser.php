@@ -151,11 +151,32 @@ class BaseUser implements \Serializable, AdvancedUserInterface
     }
 
     /**
+     * Used by PHP >= 7.4 (ignored by older versions). Delegates to serialize() so that subclasses overriding
+     * serialize()/unserialize() keep working.
+     *
+     * @return array
+     */
+    public function __serialize(): array
+    {
+        return [$this->serialize()];
+    }
+
+    /**
+     * Used by PHP >= 7.4 (ignored by older versions). Delegates to unserialize().
+     *
+     * @param array $data Data
+     */
+    public function __unserialize(array $data): void
+    {
+        $this->unserialize($data[0]);
+    }
+
+    /**
      * @return BaseUser
      */
     public function generateRandomPlainPassword()
     {
-        $this->plainPassword = hash('sha512', uniqid(mt_rand(), true));
+        $this->plainPassword = hash('sha512', uniqid((string)mt_rand(), true));
 
         return $this;
     }
@@ -165,7 +186,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface
      */
     public function updateSalt()
     {
-        $this->salt = hash('sha512', uniqid(mt_rand(), true));
+        $this->salt = hash('sha512', uniqid((string)mt_rand(), true));
 
         return $this;
     }
