@@ -156,7 +156,7 @@ class BaseUser implements \Serializable, AdvancedUserInterface
      *
      * @return array
      */
-    public function __serialize(): array
+    public function __serialize()
     {
         return [$this->serialize()];
     }
@@ -165,8 +165,10 @@ class BaseUser implements \Serializable, AdvancedUserInterface
      * Used by PHP >= 7.4 (ignored by older versions). Delegates to unserialize().
      *
      * @param array $data Data
+     *
+     * @return void
      */
-    public function __unserialize(array $data): void
+    public function __unserialize(array $data)
     {
         $this->unserialize($data[0]);
     }
