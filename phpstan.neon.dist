@@ -35,9 +35,10 @@ parameters:
             identifier: argument.type
             reportUnmatched: false
             path: Repository/UserRepository.php
-        # Symfony 5.4 documents UsernamePasswordToken::__construct($user, $firewallName, $roles) and keeps the
-        # four-argument ($user, $credentials, $firewallName, $roles) form as deprecated; the four-argument form is the
-        # only one that exists on Symfony < 5.4, which this line supports.
+        # Symfony >= 6 residual, not a PHP 8 break: Symfony 5.4 documents UsernamePasswordToken::__construct($user,
+        # $firewallName, $roles) and still accepts the four-argument form ($user, $credentials, $firewallName, $roles)
+        # through its BC layer (deprecated). The four-argument form is the only one valid before 5.4, which this line
+        # supports, so it is kept; it would be a TypeError on Symfony 6, where the line cannot run anyway.
         -
             message: '#^Parameter \#3 \$roles of class Symfony\\Component\\Security\\Core\\Authentication\\Token\\UsernamePasswordToken constructor expects array<string>, string given\.$#'
             identifier: argument.type
