@@ -76,7 +76,7 @@ class UserEvent extends Event
      *
      * @return UserEvent
      */
-    public function setResponse(Response $response = null)
+    public function setResponse(?Response $response = null)
     {
         $this->response = $response;
 

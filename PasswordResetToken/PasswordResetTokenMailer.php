@@ -33,7 +33,7 @@ class PasswordResetTokenMailer
      * @param \Darvin\Utils\Mailer\MailerInterface|null     $mailer     Mailer
      * @param \Symfony\Component\Templating\EngineInterface $templating Templating
      */
-    public function __construct(MailerInterface $mailer = null, EngineInterface $templating)
+    public function __construct(?MailerInterface $mailer, EngineInterface $templating)
     {
         $this->mailer = $mailer;
         $this->templating = $templating;

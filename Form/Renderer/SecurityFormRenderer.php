@@ -128,7 +128,7 @@ class SecurityFormRenderer
      *
      * @return string
      */
-    public function renderRegistrationForm($widget = true, FormInterface $form = null, $template = null)
+    public function renderRegistrationForm($widget = true, ?FormInterface $form = null, $template = null)
     {
         if (empty($form)) {
             $form = $this->securityFormFactory->createRegistrationForm();
