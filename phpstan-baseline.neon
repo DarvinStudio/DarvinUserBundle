@@ -1,0 +1,8 @@
+parameters:
+    ignoreErrors:
+        # Doctrine-managed identifier (@ORM\GeneratedValue): written by the ORM via reflection, never by PHP code.
+        -
+            message: '#^Property Darvin\\UserBundle\\Entity\\PasswordResetToken\:\:\$id is never written, only read\.$#'
+            identifier: property.onlyRead
+            count: 1
+            path: Entity/PasswordResetToken.php

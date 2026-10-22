@@ -99,7 +99,7 @@ class BaseUser implements \Serializable, UserInterface, EquatableInterface
     protected $updatedAt;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @Assert\NotBlank(groups={"AdminNew", "PasswordChange", "PasswordReset", "Register"})
      */
@@ -168,6 +168,29 @@ class BaseUser implements \Serializable, UserInterface, EquatableInterface
             $this->salt,
             $this->roles
         ) = unserialize($serialized);
+    }
+
+    /**
+     * Used by PHP >= 7.4 (ignored by older versions). Delegates to serialize() so that subclasses overriding
+     * serialize()/unserialize() keep working.
+     *
+     * @return array
+     */
+    public function __serialize()
+    {
+        return [$this->serialize()];
+    }
+
+    /**
+     * Used by PHP >= 7.4 (ignored by older versions). Delegates to unserialize().
+     *
+     * @param array $data Data
+     *
+     * @return void
+     */
+    public function __unserialize(array $data)
+    {
+        $this->unserialize($data[0]);
     }
 
     /**

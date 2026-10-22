@@ -141,6 +141,9 @@ class ResetPasswordController
      */
     private function getPasswordResetTokenRepository(): PasswordResetTokenRepository
     {
-        return $this->em->getRepository(PasswordResetToken::class);
+        /** @var \Darvin\UserBundle\Repository\PasswordResetTokenRepository $repository */
+        $repository = $this->em->getRepository(PasswordResetToken::class);
+
+        return $repository;
     }
 }

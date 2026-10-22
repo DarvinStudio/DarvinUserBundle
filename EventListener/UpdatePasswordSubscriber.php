@@ -14,7 +14,7 @@ use Darvin\UserBundle\Entity\BaseUser;
 use Darvin\UserBundle\User\UserManagerInterface;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Util\ClassUtils;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
 
@@ -63,10 +63,10 @@ class UpdatePasswordSubscriber implements EventSubscriber
     }
 
     /**
-     * @param \Doctrine\ORM\EntityManager        $em   Entity manager
-     * @param \Darvin\UserBundle\Entity\BaseUser $user User
+     * @param \Doctrine\ORM\EntityManagerInterface $em   Entity manager
+     * @param \Darvin\UserBundle\Entity\BaseUser   $user User
      */
-    private function updatePassword(EntityManager $em, BaseUser $user): void
+    private function updatePassword(EntityManagerInterface $em, BaseUser $user): void
     {
         if ($this->userManager->updatePassword($user)) {
             $em->getUnitOfWork()->recomputeSingleEntityChangeSet($em->getClassMetadata(ClassUtils::getClass($user)), $user);
