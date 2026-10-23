@@ -92,6 +92,9 @@ class ConfirmRegistrationController
      */
     private function getUserRepository(): UserRepository
     {
-        return $this->em->getRepository(BaseUser::class);
+        /** @var \Darvin\UserBundle\Repository\UserRepository $repository */
+        $repository = $this->em->getRepository(BaseUser::class);
+
+        return $repository;
     }
 }

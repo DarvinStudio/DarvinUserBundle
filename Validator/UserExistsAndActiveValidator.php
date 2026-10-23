@@ -33,8 +33,8 @@ class UserExistsAndActiveValidator extends ConstraintValidator
     }
 
     /**
-     * @param string|null                                                                                          $email      Email
-     * @param \Darvin\UserBundle\Validator\Constraints\UserExistsAndActive|\Symfony\Component\Validator\Constraint $constraint Constraint
+     * @param string|null                                                  $email      Email
+     * @param \Darvin\UserBundle\Validator\Constraints\UserExistsAndActive $constraint Constraint
      */
     public function validate($email, Constraint $constraint): void
     {

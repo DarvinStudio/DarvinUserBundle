@@ -15,7 +15,7 @@ use Darvin\UserBundle\Username\UsernameGeneratorInterface;
 use Darvin\Utils\Service\ServiceProviderInterface;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Util\ClassUtils;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
 
@@ -64,10 +64,10 @@ class GenerateUsernameSubscriber implements EventSubscriber
     }
 
     /**
-     * @param \Darvin\UserBundle\Entity\BaseUser $user User
-     * @param \Doctrine\ORM\EntityManager        $em   Entity manager
+     * @param \Darvin\UserBundle\Entity\BaseUser   $user User
+     * @param \Doctrine\ORM\EntityManagerInterface $em   Entity manager
      */
-    private function generateUsername(BaseUser $user, EntityManager $em): void
+    private function generateUsername(BaseUser $user, EntityManagerInterface $em): void
     {
         $source = (string)$user->getUsername();
 

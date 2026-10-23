@@ -1,0 +1,46 @@
+includes:
+    - phpstan-baseline.neon
+parameters:
+    level: 5
+    phpVersion:
+        min: 70200
+        max: 80400
+    excludePaths:
+        - */Tests/*
+        - */vendor/*
+    treatPhpDocTypesAsCertain: false
+    ignoreErrors:
+        # Third-party docblock false positive: Symfony\Contracts\EventDispatcher\EventDispatcherInterface 1.x declares
+        # dispatch($event) and reads the event name through func_get_args(); the two-argument call is valid on
+        # symfony/event-dispatcher >= 4.3 and is the only form that works on Symfony 5.
+        -
+            message: '#^Method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface\:\:dispatch\(\) invoked with 2 parameters, 1 required\.$#'
+            identifier: arguments.count
+            reportUnmatched: false
+            paths:
+                - Controller/Security/ConfirmRegistrationController.php
+                - Form/Handler/PasswordResetTokenFormHandler.php
+                - Form/Handler/SecurityFormHandler.php
+        # Third-party docblock false positive: NodeParentInterface is the declared return type of ->end(); the node
+        # builder really returns the NodeBuilder here, which has booleanNode().
+        -
+            message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:booleanNode\(\)\.$#'
+            identifier: method.notFound
+            reportUnmatched: false
+            path: DependencyInjection/Configuration.php
+        # Third-party docblock false positive: Doctrine's Expr\Base::add() is documented as string|Stringable|null,
+        # Expr\Orx accepts Expr\Comparison parts (documented Doctrine usage).
+        -
+            message: '#^Parameter \#1 \$arg of method Doctrine\\ORM\\Query\\Expr\\Base\:\:add\(\) expects string\|Stringable\|null, Doctrine\\ORM\\Query\\Expr\\Comparison given\.$#'
+            identifier: argument.type
+            reportUnmatched: false
+            path: Repository/UserRepository.php
+        # Symfony >= 6 residual, not a PHP 8 break: Symfony 5.4 documents UsernamePasswordToken::__construct($user,
+        # $firewallName, $roles) and still accepts the four-argument form ($user, $credentials, $firewallName, $roles)
+        # through its BC layer (deprecated). The four-argument form is the only one valid before 5.4, which this line
+        # supports, so it is kept; it would be a TypeError on Symfony 6, where the line cannot run anyway.
+        -
+            message: '#^Parameter \#3 \$roles of class Symfony\\Component\\Security\\Core\\Authentication\\Token\\UsernamePasswordToken constructor expects array<string>, string given\.$#'
+            identifier: argument.type
+            reportUnmatched: false
+            path: Security/UserAuthenticator.php
