@@ -64,7 +64,7 @@ class UserFormFactory
      *
      * @return \Symfony\Component\Form\FormInterface
      */
-    public function createProfileForm(BaseUser $user = null)
+    public function createProfileForm(?BaseUser $user = null)
     {
         if (empty($user)) {
             $user = $this->userManager->getCurrentUser();

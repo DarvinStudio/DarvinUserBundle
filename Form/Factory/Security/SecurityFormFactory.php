@@ -94,7 +94,7 @@ class SecurityFormFactory
      *
      * @return \Symfony\Component\Form\FormInterface
      */
-    public function createRegistrationForm(BaseUser $user = null)
+    public function createRegistrationForm(?BaseUser $user = null)
     {
         if (empty($user)) {
             $user = $this->userFactory->createUser()

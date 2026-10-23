@@ -45,7 +45,7 @@ class UserFormRenderer
      *
      * @return string
      */
-    public function renderProfileForm(FormInterface $form = null, $widget = true)
+    public function renderProfileForm(?FormInterface $form = null, $widget = true)
     {
         if (empty($form)) {
             $form = $this->userFormFactory->createProfileForm();

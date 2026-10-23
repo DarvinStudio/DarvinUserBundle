@@ -48,7 +48,7 @@ class PasswordResetToken
      * @param \Darvin\UserBundle\Entity\BaseUser $user     User
      * @param \DateTime                          $expireAt Expire at
      */
-    public function __construct(BaseUser $user = null, \DateTime $expireAt = null)
+    public function __construct(?BaseUser $user = null, ?\DateTime $expireAt = null)
     {
         $this->user = $user;
         $this->expireAt = $expireAt;
@@ -83,7 +83,7 @@ class PasswordResetToken
      *
      * @return PasswordResetToken
      */
-    public function setUser(BaseUser $user = null)
+    public function setUser(?BaseUser $user = null)
     {
         $this->user = $user;
 

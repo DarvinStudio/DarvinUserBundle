@@ -45,7 +45,7 @@ class PasswordResetTokenFormRenderer
      *
      * @return string
      */
-    public function renderRequestForm($widget = true, FormInterface $form = null)
+    public function renderRequestForm($widget = true, ?FormInterface $form = null)
     {
         if (empty($form)) {
             $form = $this->passwordResetTokenFormFactory->createRequestForm();

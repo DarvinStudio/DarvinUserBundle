@@ -40,7 +40,7 @@ class UserMailer
      * @param \Symfony\Component\Templating\EngineInterface       $templating        Templating
      * @param \Darvin\UserBundle\Configuration\Configuration|null $userConfiguration User configuration
      */
-    public function __construct(MailerInterface $mailer = null, EngineInterface $templating, Configuration $userConfiguration = null)
+    public function __construct(?MailerInterface $mailer, EngineInterface $templating, ?Configuration $userConfiguration = null)
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
