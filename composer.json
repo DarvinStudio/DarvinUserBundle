@@ -14,7 +14,7 @@
     "require": {
         "darvinstudio/darvin-utils-bundle": "*",
         "hwi/oauth-bundle":                 "^1.0",
-        "php-http/guzzle6-adapter":         "^2.0",
+        "php-http/client-implementation":   "^1.0",
         "php-http/httplug-bundle":          "^1.17"
     },
     "require-dev": {
